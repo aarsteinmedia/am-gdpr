@@ -11,7 +11,7 @@ import PopUp from './PopUp'
 
 import defaultLabels from '../labels.json'
 
-import type { Consent, Labels } from '../../global.d'
+import type { Consent, Labels } from '../types.d'
 
 import styles from '../styles/CookieWarning.module.scss'
 
@@ -19,12 +19,18 @@ export default function CookieWarning({
   consent,
   setConsent,
   lang,
-  labels: labelsFromProps
+  labels: labelsFromProps,
+  style
 }: {
   consent: Consent
   setConsent: Dispatch<SetStateAction<Consent>>
   lang: string
   labels?: Labels
+  style: {
+    color: string
+    backgroundColor: string
+    accentColor: string
+  }
 }) {
 
   const labels = labelsFromProps || defaultLabels,
@@ -103,7 +109,10 @@ export default function CookieWarning({
       ((!consent.statistical && consent.statistical !== false) ||
       !!consent?.visible) ?
      
-    <div className={`accent-bg ${styles.cookieContainer}`}>
+    <div className={`${styles.cookieContainer}`} style={{
+      color: style.color,
+      
+    }}>
       <div className={styles.content}>
         <div
           aria-describedby="cookieWarningText"

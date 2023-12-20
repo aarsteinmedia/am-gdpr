@@ -19,29 +19,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
-    "paths": {
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@labels": [
-        "./src/labels.json"
-      ],
-      "@styles/*": [
-        "./src/styles/*"
-      ],
-      "@types": [
-        "./global.d"
-      ]
-    },
-    "plugins": [
-      {
-        "name": "typescript-plugin-css-modules"
-      }
-    ]
   },
   "include": [
-    "**/*.d.ts",
     "src/**/*"
   ]
 }

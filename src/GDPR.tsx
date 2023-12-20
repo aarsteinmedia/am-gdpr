@@ -1,14 +1,22 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import CookieWarning from './components/CookieWarning'
 
-import './styles/fonts.scss'
+import './styles/index.scss'
 
-import type { Consent } from '@types'
+import type { Consent } from './types.d'
 
-export default function GDPR({ tag }: {
+export default function GDPR({
+  tag,
+  color = '#000',
+  backgroundColor = '#FFF',
+  accentColor = '#FFF'
+}: {
   tag: string
-}){
+  color?: string
+  backgroundColor?: string
+  accentColor?: string
+}) {
 
   const [state, setState] = useState<Consent>({
     visible: false,
@@ -28,6 +36,11 @@ export default function GDPR({ tag }: {
         consent={state}
         lang={language.current}
         setConsent={setState}
+        style={{
+          color,
+          backgroundColor,
+          accentColor
+        }}
       />
 
       {/* {!!state.statistical &&
