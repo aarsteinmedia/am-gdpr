@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import '@/styles/fonts.scss'
+
 import type { Consent } from '@types'
 
 export default function GDPR({ tag }: {

@@ -26,7 +26,12 @@
       "@types": [
         "./global.d"
       ]
-    }
+    },
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules"
+      }
+    ]
   },
   "include": [
     "src"

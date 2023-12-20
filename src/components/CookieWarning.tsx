@@ -23,8 +23,8 @@ export default function CookieWarning({
 }: {
   consent: Consent
   setConsent: Dispatch<SetStateAction<Consent>>
-  lang: string
-  labels: Labels
+  lang?: string
+  labels?: Labels
 }) {
 
   const labels = labelsFromProps || defaultLabels,
