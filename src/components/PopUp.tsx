@@ -11,8 +11,6 @@ import {
 
 import UiButton from '@/components/UiButton'
 
-import type { Color } from '@types'
-
 import styles from '@/styles/PopUp.module.scss'
 
 interface PopUpChild {
@@ -26,7 +24,6 @@ export default function PopUp ({
   isOpen = false,
   label = '',
   close,
-  bg = 'light-color',
   setOpen,
   closeOnClickOutside = true,
   hasBackdrop = true,
@@ -38,7 +35,6 @@ export default function PopUp ({
   isOpen: boolean
   label?: string
   setOpen?: (val: boolean) => unknown
-  bg?: Color
   close?: string
   closeOnClickOutside?: boolean
   hasBackdrop?: boolean
@@ -138,7 +134,6 @@ export default function PopUp ({
         aria-label={label}
         aria-modal="true"
         className={`${styles.popUpElement} ${className}`}
-        data-bg={bg}
         ref={popUpElement}
         role="dialog"
         style={{
