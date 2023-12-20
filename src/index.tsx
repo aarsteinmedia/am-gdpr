@@ -1,8 +1,8 @@
 import r2wc from '@r2wc/react-to-web-component'
-import App from './App'
+import GDPR from './GDPR'
 
-const AMGdpr = r2wc(App, {
+const wcGDPR = r2wc(GDPR, {
   props: { tag: 'string' }
 })
 
-customElements.define('am-gdpr', AMGdpr)
+customElements.define('am-gdpr', wcGDPR)
