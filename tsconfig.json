@@ -19,9 +19,16 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@labels": [
+        "./src/labels.json"
+      ],
+      "@styles/*": [
+        "./src/styles/*"
       ],
       "@types": [
         "./global.d"

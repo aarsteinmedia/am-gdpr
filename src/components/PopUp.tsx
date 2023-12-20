@@ -9,9 +9,9 @@ import {
   type ReactNode,
 } from 'react'
 
-import UiButton from '@/components/UiButton'
+import UiButton from './UiButton'
 
-import styles from '@/styles/PopUp.module.scss'
+import styles from '../styles/PopUp.module.scss'
 
 interface PopUpChild {
   children?: ReactNode

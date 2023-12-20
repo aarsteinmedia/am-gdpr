@@ -6,24 +6,24 @@ import {
 } from 'react'
 import Cookies from 'js-cookie'
 
-import Switch from '@/components/Switch'
-import PopUp from '@/components/PopUp'
+import Switch from './Switch'
+import PopUp from './PopUp'
 
-import defaultLabels from '@/labels.json'
+import defaultLabels from '../labels.json'
 
-import type { Consent, Labels } from '@types'
+import type { Consent, Labels } from '../../global.d'
 
-import styles from '@/styles/CookieWarning.module.scss'
+import styles from '../styles/CookieWarning.module.scss'
 
 export default function CookieWarning({
   consent,
   setConsent,
-  lang = 'en',
+  lang,
   labels: labelsFromProps
 }: {
   consent: Consent
   setConsent: Dispatch<SetStateAction<Consent>>
-  lang?: string
+  lang: string
   labels?: Labels
 }) {
 

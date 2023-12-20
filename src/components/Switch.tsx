@@ -1,6 +1,6 @@
 import { useId } from 'react'
 
-import styles from '@styles/Switch.module.scss'
+import styles from '../styles/Switch.module.scss'
 
 export default function Switch({
   value,

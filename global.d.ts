@@ -6,4 +6,5 @@ export interface Consent {
   visible?: boolean
   customize?: boolean
   statistical?: boolean | null
+  retargeting?: boolean | null
 }
