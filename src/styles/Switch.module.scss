@@ -62,7 +62,7 @@
   }
 
   &:checked+.slider {
-    background-color: var(--accent-color);
+    // background-color: var(--accent-color);
     &:before {
       transform: translateX(1.4em);
     }

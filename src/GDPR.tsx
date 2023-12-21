@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
-
+import { useEffect, useState } from 'react'
+import TagManager from 'react-gtm-module'
 import CookieWarning from './components/CookieWarning'
 
 import './styles/index.scss'
@@ -7,7 +7,7 @@ import './styles/index.scss'
 import type { Consent } from './types.d'
 
 export default function GDPR({
-  tag,
+  tag: gtmId,
   color = '#000',
   backgroundColor = '#FFF',
   accentColor = '#FFF'
@@ -23,29 +23,24 @@ export default function GDPR({
     customize: false,
     statistical: null,
     retargeting: null
-  }),
-    language = useRef('en')
+  })
 
   useEffect(() => {
-    language.current = document?.documentElement.lang
-  }, [])
+    if ((state.retargeting || state.statistical) && !window.dataLayer) {
+      TagManager.initialize({ gtmId })
+    }
+  }, [gtmId, state.retargeting, state.statistical])
 
   return (
-    <>
-      <CookieWarning
-        consent={state}
-        lang={language.current}
-        setConsent={setState}
-        style={{
-          color,
-          backgroundColor,
-          accentColor
-        }}
-      />
-
-      {/* {!!state.statistical &&
-      
-      } */}
-    </>
+    <CookieWarning
+      consent={state}
+      lang={document?.documentElement.lang}
+      setConsent={setState}
+      style={{
+        color,
+        backgroundColor,
+        accentColor
+      }}
+    />
   )
 }

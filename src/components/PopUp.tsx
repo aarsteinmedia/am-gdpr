@@ -29,6 +29,7 @@ export default function PopUp ({
   hasBackdrop = true,
   width = 600,
   trigger,
+  style
 }: {
   children: ReactNode
   className?: string
@@ -40,6 +41,11 @@ export default function PopUp ({
   hasBackdrop?: boolean
   width?: number
   trigger?: unknown[]
+  style?: {
+    accentColor: string
+    color: string
+    backgroundColor: string
+  }
 }) {
 
   const [state, setState] = useState({
@@ -137,6 +143,8 @@ export default function PopUp ({
         ref={popUpElement}
         role="dialog"
         style={{
+          color: style?.color,
+          backgroundColor: style?.backgroundColor,
           width: `${width}px`,
           maxHeight: `${state.height}px`,
           minHeight: `${state.height}px`,
@@ -149,6 +157,10 @@ export default function PopUp ({
             className={styles.closeButton}
             isOpen={isOpen}
             onClickHandler={closePopup}
+            style={{
+              color: style?.color,
+              backgroundColor: style?.accentColor
+            }}
           />
         
         }

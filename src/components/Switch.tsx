@@ -6,12 +6,17 @@ export default function Switch({
   value,
   onChangeHandler,
   label,
-  name
+  name,
+  style
 }: {
   value: boolean
   onChangeHandler?: (target: HTMLInputElement) => unknown
   label?: string
   name?: string
+  style?: {
+    color: string
+    backgroundColor: string
+  }
 }) {
 
   const id = useId()
@@ -28,7 +33,9 @@ export default function Switch({
 
       }
 
-      <label className={styles.label}>
+      <label
+        className={styles.label}
+      >
         <input
           checked={value}
           className={styles.input}
@@ -40,7 +47,7 @@ export default function Switch({
           }}
           type="checkbox"
         />
-        <span className={`${styles.slider}`} />
+        <span className={`${styles.slider}`} style={style} />
       </label>
     </div>
   )

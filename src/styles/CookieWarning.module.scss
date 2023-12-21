@@ -22,7 +22,7 @@
   border: solid 2px currentColor;
   border-radius: .25em;
   animation: fadeInUp .3s ease-in-out;
-  color: var(--main-color);
+  // color: var(--main-color);
 
   .content {
     margin: 0;
@@ -69,7 +69,7 @@
   transform-origin: bottom left;
   transition: transform .2s ease-in-out;
   animation: popIn .3s ease-in-out;
-  color: var(--main-color)!important;
+  // color: var(--main-color)!important;
 
   &[data-hide="true"] {
     transform: translateY(100%) translateX(-100%);

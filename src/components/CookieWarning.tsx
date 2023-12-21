@@ -39,7 +39,6 @@ export default function CookieWarning({
       const cookie = Cookies.get('CookieConsent')
       if (cookie)
         return JSON.parse(decodeURIComponent(cookie))
-      return
     },
 
     save = useCallback(() => {
@@ -47,6 +46,7 @@ export default function CookieWarning({
           'CookieConsent',
           encodeURIComponent(JSON.stringify({
             statistical: consent.statistical,
+            retargeting: consent.retargeting
           })),
           {
             sameSite: 'lax',
@@ -54,12 +54,13 @@ export default function CookieWarning({
             secure: process.env.NODE_ENV !== 'development'
           }
         )
-      }, [consent.statistical]),
+      }, [consent.retargeting, consent.statistical]),
 
     acceptAll = () => {
       setConsent(prev => ({
         ...prev,
-        statistical: true
+        statistical: true,
+        retargeting: true
       }))
       setTimeout(() => {
         setConsent(prev => ({
@@ -67,23 +68,27 @@ export default function CookieWarning({
           visible: false,
           customize: false
         }))
-      }, consent.customize && !consent.statistical ? 800 : 0)
+      }, consent.customize && (!consent.statistical || !consent.retargeting) ? 800 : 0)
     },
 
     declineAll = () => {
       setConsent({
         visible: false,
         customize: false,
-        statistical: false
+        statistical: false,
+        retargeting: false
       })
+      if (!!window.dataLayer || !!window.google_tag_data) {
+        location.reload()
+      }
     },
 
     handleChange = (target: HTMLInputElement) => {
       const { checked, name } = target
-      setConsent({
-        ...consent,
+      setConsent(prev => ({
+        ...prev,
         [name]: checked
-      })
+      }))
     }
 
   useEffect(() => {
@@ -111,7 +116,7 @@ export default function CookieWarning({
      
     <div className={`${styles.cookieContainer}`} style={{
       color: style.color,
-      
+      backgroundColor: style.backgroundColor
     }}>
       <div className={styles.content}>
         <div
@@ -137,11 +142,17 @@ export default function CookieWarning({
                 statistical: !!prev.statistical
               }))
             }}
+            style={{
+              backgroundColor: style.accentColor
+            }}
           >{labels.customize.label}</button>
           <button
             aria-label={labels.accept}
             className={`${styles.button} dark-bg bg-hover gdpr`}
             onClick={acceptAll}
+            style={{
+              backgroundColor: style.accentColor
+            }}
           >{labels.accept}</button></div>
       </div>
     </div>
@@ -160,7 +171,10 @@ export default function CookieWarning({
           ...prev,
           statistical: null,
           visible: true
-        }))
+        }))     
+      }}
+      style={{
+        backgroundColor: style.accentColor
       }}
     ><span aria-label={labels.settings} className="icon-cookies" /></button>
 
@@ -175,10 +189,14 @@ export default function CookieWarning({
           customize: val
         }))
       }}
+      style={style}
     >
       <div>
         <h3><span aria-label="cookies" className='icon-cookies' role="img" /> {labels.customize.header}</h3>
         <p dangerouslySetInnerHTML={{ __html: labels.customize.text }} />
+        <p
+          dangerouslySetInnerHTML={{ __html: labels.customize.link.replace('%URL%', labels.policyUrl) }}
+        />
         <div className={styles.buttonWrapper}>
             <button aria-label={labels.decline}
               className={`${styles.button} bg-hover gdpr`}
@@ -188,17 +206,28 @@ export default function CookieWarning({
             aria-label={labels.accept}
             className={`${styles.button} dark-bg bg-hover gdpr`}
             onClick={acceptAll}
+            style={{
+              backgroundColor: style.accentColor
+            }}
           >{labels.acceptAll}</button>
         </div>
         <div className={styles.buttonWrapper}>
           <Switch
             label={labels.necessary.label}
+            style={{
+              color: style.color,
+              backgroundColor: style.accentColor
+            }}
             value={true}
           />
           <Switch
             label={labels.statistical.label}
             name="statistical"
             onChangeHandler={handleChange}
+            style={{
+              color: style.color,
+              backgroundColor: style.accentColor
+            }}
             value={!!consent.statistical}
           />
         </div>

@@ -14,4 +14,8 @@ declare global {
     const content: Record<string, string>
     export default content
   }
+  interface Window {
+    dataLayer?: unknown[]
+    google_tag_data?: unknown
+  }
 }

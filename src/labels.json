@@ -3,10 +3,10 @@
   "customize": {
     "header": "Dine data, ditt valg",
     "label": "Tilpass",
-    "text": "Vi bruker <strong>nødvendige cookies</strong> til navigering og språk. I tillegg bruker vi <strong>statistiske cookies</strong> til å se hvordan brukere interagerer med nettsiden."
+    "text": "Vi bruker <strong>nødvendige cookies</strong> til navigering og språk. I tillegg bruker vi <strong>statistiske cookies</strong> til å se hvordan brukere interagerer med nettsiden.",
+    "link": "Se vår <a href=\"/%URL%\">personvernserklæring</a>"
   },
   "header": "Denne nettsida bruker <span aria-label=\"cookies\" role=\"img\" style=\"margin-left: .2em\" class=\"icon-cookies\"></span>",
-  "text": "Vi bruker informsjons­kapsler for ytelsesformål, sosiale medier og annonsering. Se vår <a href=\"/personvern\">personvernserklæring</a>.",
   "accept": "Jeg forstår",
   "acceptAll": "Godta alle",
   "decline": "Ikke tillat",
@@ -23,5 +23,6 @@
   },
   "marketing": {
     "label": "Markedsføring"
-  }
+  },
+  "policyUrl": "personvern"
 }

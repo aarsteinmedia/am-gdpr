@@ -12,6 +12,7 @@
     font-family: inherit;
     font-weight: inherit;
     border: 0;
+    outline: 0;
     background-color: transparent;
   }
 
@@ -35,6 +36,9 @@
   body {
     font-family: sans-serif;
     line-height: 1.3em;
+    a {
+      color: var(--accent-color);
+    }
   }
 
   @font-face {
