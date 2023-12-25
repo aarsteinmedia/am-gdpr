@@ -92,11 +92,7 @@ export default function CookieWarning({
     }
 
   useEffect(() => {
-    if (consent.statistical === false) {
-      save()
-    }
-
-    if (consent.statistical) {
+    if (consent.statistical === false || consent.statistical) {
       save()
     }
   }, [save, consent.statistical])
