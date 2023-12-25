@@ -1,8 +1,13 @@
 {
   "name": "am-gdpr",
   "version": "0.1.0",
-  "private": true,
   "main": "./build/index.js",
+  "unpkg": "./dist/index.js",
+  "repository": {
+    "url": "https://github.com/aarsteinmedia/am-gdpr.git",
+    "type": "git"
+  },
+  "bugs": "https://github.com/aarsteinmedia/am-gdpr/issues",
   "dependencies": {
     "gtm-module": "^1.0.9",
     "js-cookie": "^3.0.5",
@@ -41,6 +46,10 @@
     "dev": "rollup -c -w --environment NODE_ENV:development",
     "lint": "eslint . --ext .ts,.js",
     "lint:fix": "eslint . --ext .ts,.js --fix"
+  },
+  "license": "GPL-2.0-or-later",
+  "publishConfig": {
+    "access": "public"
   },
   "browserslist": {
     "production": [

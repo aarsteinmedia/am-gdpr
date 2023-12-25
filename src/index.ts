@@ -117,6 +117,8 @@ export class AMGDPR extends LitElement {
       this._gtm?.initialize()
     }
 
+    this.save()
+
     // this.debug()
   }
 
@@ -131,6 +133,7 @@ export class AMGDPR extends LitElement {
     if (!!window.dataLayer || !!window.google_tag_data) {
       location.reload()
     }
+    this.save()
   }
 
   public esc({ key }: KeyboardEvent) {
@@ -217,6 +220,10 @@ export class AMGDPR extends LitElement {
     this._gtm = new GTM({
       gtmId: this.gtmId,
     })
+
+    if (this.statistical || this.retargeting) {
+      this._gtm.initialize()
+    }
 
     document.addEventListener('keydown', this.esc, { passive: true, capture: true })
 

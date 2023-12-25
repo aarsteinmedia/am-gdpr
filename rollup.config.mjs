@@ -48,6 +48,7 @@ export default [
       replace({
         preventAssignment: false,
         'Reflect.decorate': 'undefined',
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       }),
       json(),
       nodeResolve({

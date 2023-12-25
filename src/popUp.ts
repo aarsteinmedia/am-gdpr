@@ -57,7 +57,7 @@ export default function popUp(this: AMGDPR) {
                 class="button dark-bg bg-hover gdpr"
                 @click=${this.acceptAll}
                 style="background-color: ${this.accentColor};"
-              >${this.text?.acceptAll}</button>
+              >${(this.statistical || this.retargeting) ? this.text?.save : this.text?.acceptAll}</button>
             </div>
 
             <div class="buttonWrapper">
