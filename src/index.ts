@@ -63,10 +63,13 @@ export class AMGDPR extends LitElement {
   public retargeting: boolean | null = null
 
   @query('dialog')
-  protected dialog!: HTMLDialogElement
+  protected dialog: null | HTMLDialogElement = null
 
   @query('.dialog-inner-box')
-  protected dialogInner!: HTMLDivElement
+  protected dialogInner: null | HTMLDivElement = null
+
+  @query('.miniGDPR')
+  protected mini: null | HTMLDivElement = null
 
   // @state()
   // public dialogHeight = 80
@@ -145,14 +148,16 @@ export class AMGDPR extends LitElement {
     this.customize = !!value
     this._visible = !value
     this.statistical = !!this.statistical
+    this.retargeting = !!this.retargeting
 
     if (value) {
       setTimeout(() => {
         const height = `${(this.dialogInner?.offsetHeight ?? 0) + 80}px`
-        Object.assign(this.dialog.style, {
-          minHeight: height,
-          maxHeight: height
-        })
+        if (this.dialog)
+          Object.assign(this.dialog.style, {
+            minHeight: height,
+            maxHeight: height
+          })
       }, 10)
     }
 
@@ -176,6 +181,10 @@ export class AMGDPR extends LitElement {
     this._visible = !this._visible
 
     // this.debug()
+  }
+
+  public hideOnScroll() {
+    
   }
 
   private _popUp = popUp

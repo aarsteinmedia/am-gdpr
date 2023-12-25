@@ -10,7 +10,6 @@ export default function miniGDPR(this: AMGDPR) {
   return html`
     <button
       class="miniGDPR"
-      id="miniGDPR"
       @click=${this.setVisible}
       style="background-color: ${this.accentColor};"
     >
