@@ -6,29 +6,17 @@
   left: 0;
   overflow: hidden;
   z-index: 999999;
-  -webkit-animation-duration: .4s;
-          animation-duration: .4s;
-  .backDrop {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-  &[data-backdrop="true"] {
-    background-color: rgba(0,0,0,0.3);
-  }
-  &[data-disable="false"] {
-    pointer-events: none;
-    .popUpElement {
-      pointer-events: auto;
-    }
-  }
-  .popUpElement {
+  animation-duration: .4s;
+  animation-name: fadeIn;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  dialog {
     position: absolute;
     width: 600px;
     height: 90%;
     max-width: 90%;
+    min-height: 0;
+    max-height: 0;
     // max-height: 90%;
     border-radius: .25em;
     border: solid 2px;
@@ -40,18 +28,23 @@
     padding: 40px;
     overflow: hidden;
     transition: max-height .2s ease-in-out, min-height .2s ease-in-out;
+    width: 600px;
+
     .closeButton {
       top: 14px;
       right: 14px;
       width: 25px;
     }
+
     &[data-animate="up"] {
       animation: fadeUp .3s ease-in-out;
     }
+
     box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
   }
+
   &[data-gallery="true"] {
-    .popUpElement {
+    dialog {
       padding: 0;
     }
   }
@@ -81,16 +74,34 @@
   align-items: flex-start;
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 @keyframes fadeUp {
-  0% {opacity: 0;transform: translateY(0);}
-  100% {opacity: 1;transform: translateY(-50%);}
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(-50%);
+  }
 }
 
 @media only screen and (max-width: 760px) {
   .popUp {
     .popUpElement {
       padding: 25px;
-      .closeButton  {
+
+      .closeButton {
         width: 20px;
         top: 5px;
         right: 5px;
@@ -105,10 +116,11 @@
     scroll-snap-type: x mandatory;
     flex: 1 1;
     -webkit-overflow-scrolling: touch;
-    
+
     &::-webkit-scrollbar {
       display: none;
     }
+
     scrollbar-width: none;
   }
 

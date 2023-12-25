@@ -13,7 +13,7 @@
 .label {
   position: relative;
   display: inline-block;
-  width: 3em !important;
+  width: 3em; //!important;
   height: 1.5em;
   // &:not(:first-of-type) {
   //   margin-left: .5em;
@@ -62,11 +62,13 @@
   }
 
   &:checked+.slider {
+
     // background-color: var(--accent-color);
     &:before {
       transform: translateX(1.4em);
     }
   }
+
   &:disabled+.slider {
     opacity: .5;
   }

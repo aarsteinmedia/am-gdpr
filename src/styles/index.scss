@@ -1,114 +1,89 @@
-@layer globals {
+@layer GDPR {
 
-  * {
-    box-sizing: border-box;
-  }
-
-  input,
-  textarea,
-  button {
-    color: inherit;
-    font-size: inherit;
-    font-family: inherit;
-    font-weight: inherit;
-    border: 0;
-    outline: 0;
-    background-color: transparent;
-  }
-
-  button,
-  input[type="submit"],
-  input[type="button"],
-  input[type="reset"] {
-    &:not([disabled]) {
-      cursor: pointer;
-    }
-
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-
-    * {
-      pointer-events: none;
-    }
-  }
-
-  body {
+  :host {
     font-family: sans-serif;
     line-height: 1.3em;
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    @import './cookieWarning.scss';
+    @import './popUp.scss';
+    @import './switch.scss';
+    @import './uiButton.scss';
+
+    * {
+      box-sizing: border-box;
+    }
+
+    input,
+    textarea,
+    button {
+      color: inherit;
+      font-size: inherit;
+      font-family: inherit;
+      font-weight: inherit;
+      border: 0;
+      outline: 0;
+      background-color: transparent;
+    }
+  
+    button,
+    input[type="submit"],
+    input[type="button"],
+    input[type="reset"] {
+      &:not([disabled]) {
+        cursor: pointer;
+      }
+  
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+  
+      * {
+        pointer-events: none;
+      }
+    }
+
     a {
       color: var(--accent-color);
     }
+
+    svg {
+      width: auto;
+      height: auto;
+      display: inline-block;
+    }
+
+    h1,
+    .h1,
+    h2,
+    .h2,
+    h3,
+    .h3 {
+      font-weight: bold;
+      font-size: 2em;
+    }
+
+    h2,
+    .h2 {
+      font-size: 1.5em;
+    }
+
+    h3,
+    .h3 {
+      font-size: 1.2em;
+
+      svg {
+        height: 1.2em
+      }
+    }
+
+    .icon-cookies {
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+    }
   }
-
-  @font-face {
-    font-family: 'am-gdpr';
-    src:
-      url('fonts/am-gdpr.woff2?mw30zv') format('woff2'),
-      url('fonts/am-gdpr.woff?mw30zv') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: block;
-  }
-
-  [class^="icon-"],
-  [class*=" icon-"] {
-    /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: 'am-gdpr' !important;
-    // speak: never;
-    font-style: normal;
-    font-weight: normal;
-    font-variant: normal;
-    text-transform: none;
-    line-height: 1;
-
-    /* Better Font Rendering =========== */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  .icon-am:before {
-    content: "\e900";
-  }
-
-  .icon-chevron-down:before {
-    content: "\e901";
-  }
-
-  .icon-chevron-left:before {
-    content: "\e902";
-  }
-
-  .icon-chevron-right:before {
-    content: "\e903";
-  }
-
-  .icon-chevron-up:before {
-    content: "\e904";
-  }
-
-  .icon-cookies:before {
-    content: "\e905";
-  }
-
-  .icon-danger:before {
-    content: "\e906";
-  }
-
-  .icon-github:before {
-    content: "\e907";
-  }
-
-  .icon-info:before {
-    content: "\e908";
-  }
-
-  .icon-question:before {
-    content: "\e909";
-  }
-
-  .icon-settings:before {
-    content: "\e90a";
-  }
-
 }
+
