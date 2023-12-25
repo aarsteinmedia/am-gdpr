@@ -6,7 +6,8 @@ const wcGDPR = r2wc(GDPR, {
     tag: 'string',
     color: 'string',
     backgroundColor: 'string',
-    accentColor: 'string'
+    accentColor: 'string',
+    labels: 'json'
   }
 })
 

@@ -104,7 +104,8 @@ export default function CookieWarning({
   useEffect(() => {
     setConsent(prev => ({
       ...prev,
-      statistical: getConsent()?.statistical
+      statistical: getConsent()?.statistical,
+      retargeting: getConsent()?.retargeting
     }))
   }, [setConsent])
 
