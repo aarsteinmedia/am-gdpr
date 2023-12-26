@@ -19,7 +19,7 @@
   z-index: 999999; //!important;
   right: 30px;
   bottom: 30px;
-  border: solid 2px currentColor;
+  border: solid var(--border-width) currentColor;
   border-radius: .25em;
   animation: fadeInUp .3s ease-in-out;
 
@@ -30,7 +30,7 @@
 }
 
 .button {
-  border: solid 2px;
+  border: solid var(--border-width);
   font-size: .9em;
   font-weight: bold;
   padding: 5px 15px;

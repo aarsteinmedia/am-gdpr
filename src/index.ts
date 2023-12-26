@@ -51,6 +51,18 @@ export class AMGDPR extends LitElement {
   accentColor?: string = '#FFF'
 
   /**
+   * Font family
+   */
+  @property()
+  fontFamily?: string = '"Helvetica Neue", Helvetica, sans-serif'
+
+  /**
+   * Border width
+   */
+  @property({ type: Number })
+  borderWidth?: number = 2
+
+  /**
    * Replace default text
    */
   @property({ type: Object })
@@ -63,13 +75,13 @@ export class AMGDPR extends LitElement {
   public retargeting: boolean | null = null
 
   @query('dialog')
-  protected dialog: null | HTMLDialogElement = null
+  protected dialog!: null | HTMLDialogElement
 
   @query('.dialog-inner-box')
-  protected dialogInner: null | HTMLDivElement = null
+  protected dialogInner!: null | HTMLDivElement
 
   @query('.miniGDPR')
-  protected mini: null | HTMLDivElement = null
+  protected mini!: null | HTMLDivElement
 
   // @state()
   // public dialogHeight = 80
@@ -81,6 +93,8 @@ export class AMGDPR extends LitElement {
   public customize: boolean | null = null
 
   private _gtm?: GTM
+
+  private _scrollPos = 0
 
   private _getConsent(): Consent | undefined {
     const cookie = Cookies.get('CookieConsent')
@@ -184,7 +198,13 @@ export class AMGDPR extends LitElement {
   }
 
   public hideOnScroll() {
-    
+    const bcr = document.body.getBoundingClientRect()
+    if (this.mini) {
+      this.mini.dataset.hide =
+        (bcr.top < this._scrollPos && bcr.top < -20).toString()
+    }
+
+    this._scrollPos = bcr.top
   }
 
   private _popUp = popUp
@@ -213,6 +233,7 @@ export class AMGDPR extends LitElement {
   constructor() {
     super()
     this.esc = this.esc.bind(this)
+    this.hideOnScroll = this.hideOnScroll.bind(this)
 
     // this.debug = this.debug.bind(this)
   }
@@ -226,6 +247,25 @@ export class AMGDPR extends LitElement {
     this.statistical = this._getConsent()?.statistical ?? null
     this.retargeting = this._getConsent()?.retargeting ?? null
 
+    const sheet = this.shadowRoot?.adoptedStyleSheets[0]
+    if (sheet) {
+      sheet.insertRule(
+        `
+          :host {
+            --border-width: ${this.borderWidth}px;
+            h1,
+            .h1,
+            h2,
+            .h2,
+            h3,
+            .h3 {
+              font-family:${this.fontFamily};
+            }
+          }
+        `
+      )
+    }
+
     this._gtm = new GTM({
       gtmId: this.gtmId,
     })
@@ -235,6 +275,7 @@ export class AMGDPR extends LitElement {
     }
 
     document.addEventListener('keydown', this.esc, { passive: true, capture: true })
+    document.addEventListener('scroll', this.hideOnScroll, { passive: true, capture: true })
 
     // this.debug()
   }
@@ -243,6 +284,7 @@ export class AMGDPR extends LitElement {
     super.disconnectedCallback()
 
     document.removeEventListener('keydown', this.esc)
+    document.removeEventListener('scroll', this.hideOnScroll)
   }
 
   protected override render() {
