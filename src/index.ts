@@ -255,23 +255,9 @@ export class AMGDPR extends LitElement {
     this.text = getTranslation()
 
     const sheet = this.shadowRoot?.adoptedStyleSheets[0]
-    if (sheet) {
-      sheet.insertRule(
-        `
-          :host {
-            --border-width: ${this.borderWidth}px;
-            h1,
-            .h1,
-            h2,
-            .h2,
-            h3,
-            .h3 {
-              font-family:${this.fontFamily};
-            }
-          }
-        `
-      )
-    }
+    sheet?.insertRule(
+      `:host{--border-width:${this.borderWidth}px;h1,.h1,h2,.h2,h3,.h3{font-family:${this.fontFamily};}}`
+    )
 
     this._gtm = new GTM({
       gtmId: this.gtmId,
