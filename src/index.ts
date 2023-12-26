@@ -12,13 +12,13 @@ import Cookies from 'js-cookie'
 import GTM from 'gtm-module'
 
 import styles from './styles/index.scss'
-import text from './text.json'
+import getTranslation from './i18n'
 import miniGDPR from './miniGDPR'
 import popUp from './popUp'
 import cookieWarning from './cookieWarning'
 import switchButton from './switchButton'
 
-import type { Consent } from './types'
+import type { Consent, Text } from './types'
 
 /**
  * AM GDPR Web Component
@@ -62,11 +62,15 @@ export class AMGDPR extends LitElement {
   @property({ type: Number })
   borderWidth?: number = 2
 
+  /** Whether to include marketing/retargeting cookie */
+  @property({ type: Boolean })
+  hasRetargeting = false
+
   /**
    * Replace default text
    */
   @property({ type: Object })
-  text? = text
+  text?: Text
 
   @state()
   public statistical: boolean | null = null
@@ -192,6 +196,7 @@ export class AMGDPR extends LitElement {
   public setVisible() {
     Cookies.remove('CookieConsent')
     this.statistical = null
+    this.retargeting = null
     this._visible = !this._visible
 
     // this.debug()
@@ -246,6 +251,8 @@ export class AMGDPR extends LitElement {
 
     this.statistical = this._getConsent()?.statistical ?? null
     this.retargeting = this._getConsent()?.retargeting ?? null
+
+    this.text = getTranslation()
 
     const sheet = this.shadowRoot?.adoptedStyleSheets[0]
     if (sheet) {

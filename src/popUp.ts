@@ -1,4 +1,4 @@
-import { html } from 'lit'
+import { html, nothing } from 'lit'
 import { unsafeHTML } from 'lit/directives/unsafe-html.js'
 import { ifDefined } from 'lit/directives/if-defined.js'
 
@@ -62,7 +62,7 @@ export default function popUp(this: AMGDPR) {
 
             <div class="buttonWrapper">
               ${this.switchButton({
-                label: this.text?.necessary.label,
+                label: this.text?.functional.label,
                 value: true
               })}
               ${this.switchButton({
@@ -71,6 +71,19 @@ export default function popUp(this: AMGDPR) {
                 onChangeHandler: this.handleChange,
                 value: !!this.statistical
               })}
+              ${this.hasRetargeting ? 
+              
+                this.switchButton({
+                  label: this.text?.marketing.label,
+                  name: 'retargeting',
+                  onChangeHandler: this.handleChange,
+                  value: !!this.retargeting
+                })
+
+                :
+              
+                nothing
+              }
             </div>
           
           </div>

@@ -50,7 +50,9 @@ export default [
         'Reflect.decorate': 'undefined',
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       }),
-      json(),
+      json({
+        compact: true
+      }),
       nodeResolve({
         extensions: ['ts'],
         jsnext: true,
