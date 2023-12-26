@@ -11,7 +11,7 @@ Reactive GDPR Web Component that prompts visitors for consent, stores their pref
 
 ## Installation
 
-Download `build/index.js` to you local server (and rename it?), or use [CDN](https://cdn.jsdelivr.net/gh/aarsteinmedia/am-gdpr@latest/build/index.js).
+Download `build/index.js` to you local server (and rename it?), or use GitHub as CDN: https://cdn.jsdelivr.net/gh/aarsteinmedia/am-gdpr@latest/build/index.js.
 
 Add this script to all the pages of your website, either in `head` or right before the closing `body` tag. Then, add the web component itself, `am-gdpr` to the bottom of each page, and plot in your TagManager ID.
 
@@ -32,15 +32,15 @@ Example:
 The web component will promt new visitors for consent and offer customizations based on your settings.
 
 The component has the following properties:
-- `gtmId`: (string) TagManager ID *required*
-- `hasRetargeting`: (boolean) Whether you want to prompt for retargeting. Defaults to `false`
-- `text`: (object) Override the default text
+- `gtmId`!: `string` TagManager ID *required*
+- `hasRetargeting`?: `boolean` Whether you want to prompt for retargeting. Defaults to `false`
+- `text`?: `object` Override the default text
 
-- `fontFamily` = 'Helvetica Neue, Helvetica, sans-serif'
-- `color` = '#000'
-- `backgroundColor` = '#FFF'
-- `accentColor` = '#FFF'
-- `borderWidth` = 2
+- `fontFamily`?: `string` = 'Helvetica Neue, Helvetica, sans-serif'
+- `color`?: `string` = '#000'
+- `backgroundColor`?: `string` = '#FFF'
+- `accentColor`?: `string` = '#FFF'
+- `borderWidth`?: `number` = 2
 
 
 ## Support
