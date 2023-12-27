@@ -63,8 +63,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: solid 2px;
-  border-right: solid 2px;
+  border-top: solid var(--border-width);
+  border-right: solid var(--border-width);
   transform-origin: bottom left;
   transition: transform .2s ease-in-out;
   animation: popIn .3s ease-in-out;
