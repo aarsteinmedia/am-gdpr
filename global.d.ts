@@ -5,7 +5,7 @@ declare module '*.scss' {
 }
 
 interface Window {
-  dataLayer?: unknown[]
+  addGDPRConsent?: (func: () => void) => void
   google_tag_data?: unknown
 }
 

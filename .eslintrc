@@ -23,7 +23,7 @@
     "./test/**/*"
   ],
   "rules": {
-    "camelcase": "warn",
+    // "camelcase": "warn",
     "no-console": [
       "warn",
       {

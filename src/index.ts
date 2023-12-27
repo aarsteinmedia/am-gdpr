@@ -108,18 +108,28 @@ export class AMGDPR extends LitElement {
   }
 
   public save() {
+    const consent: Consent = {
+      functionality_storage: true,
+      analytics_storage: this.statistical,
+      ad_storage: this.retargeting,
+      personalization_storage: this.retargeting,
+      security_storage: true
+    }
+
     Cookies.set(
       'CookieConsent',
-      encodeURIComponent(JSON.stringify({
-        statistical: this.statistical,
-        retargeting: this.retargeting
-      })),
+      encodeURIComponent(JSON.stringify(consent)),
       {
         sameSite: 'lax',
         expires: 365,
         secure: process.env.NODE_ENV !== 'development'
       }
     )
+
+    for (const callback of this._consentListeners) {
+      callback(consent)
+    }
+
   }
 
   public acceptAll() {
@@ -212,6 +222,8 @@ export class AMGDPR extends LitElement {
     this._scrollPos = bcr.top
   }
 
+  private _consentListeners: ((val?: unknown) => void)[] = []
+
   private _popUp = popUp
   private _cookieWarning = cookieWarning
   private _miniGDPR = miniGDPR
@@ -249,8 +261,8 @@ export class AMGDPR extends LitElement {
   override connectedCallback() {
     super.connectedCallback()
 
-    this.statistical = this._getConsent()?.statistical ?? null
-    this.retargeting = this._getConsent()?.retargeting ?? null
+    this.statistical = this._getConsent()?.analytics_storage ?? null
+    this.retargeting = this._getConsent()?.ad_storage ?? null
 
     this.text = getTranslation()
 
@@ -265,6 +277,10 @@ export class AMGDPR extends LitElement {
 
     if (this.statistical || this.retargeting) {
       this._gtm.initialize()
+    }
+
+    window.addGDPRConsent = (callback: () => void) => {
+      this._consentListeners.push(callback)
     }
 
     document.addEventListener('keydown', this.esc, { passive: true, capture: true })
