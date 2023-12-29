@@ -2,7 +2,7 @@
   "name": "am-gdpr",
   "version": "0.2.0",
   "main": "./build/index.js",
-  "unpkg": "./dist/index.js",
+  "unpkg": "./build/index.js",
   "repository": {
     "url": "https://github.com/aarsteinmedia/am-gdpr.git",
     "type": "git"
