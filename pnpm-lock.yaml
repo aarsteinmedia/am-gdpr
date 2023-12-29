@@ -88,6 +88,9 @@ devDependencies:
   rollup-plugin-swc3:
     specifier: ^0.11.0
     version: 0.11.0(@swc/core@1.3.101)(rollup@3.29.4)
+  sass:
+    specifier: ^1.69.6
+    version: 1.69.6
   ts-lit-plugin:
     specifier: ^2.0.1
     version: 2.0.1
