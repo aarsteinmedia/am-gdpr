@@ -61,7 +61,9 @@ export default [
       }),
       commonjs(),
       swc(),
-      !isProd && serve(),
+      !isProd && serve({
+        open: true
+      }),
       !isProd && livereload(),
       isProd && minify(),
       isProd && summary(),
