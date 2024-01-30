@@ -1,6 +1,6 @@
 {
   "name": "am-gdpr",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "./build/index.js",
   "unpkg": "./build/index.js",
   "repository": {
@@ -11,7 +11,7 @@
   "dependencies": {
     "gtm-module": "^1.0.9",
     "js-cookie": "^3.0.5",
-    "lit": "^3.1.0"
+    "lit": "^3.1.1"
   },
   "devDependencies": {
     "@csstools/postcss-cascade-layers": "^4.0.2",
@@ -19,12 +19,12 @@
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-replace": "^5.0.5",
-    "@swc/core": "^1.3.101",
+    "@swc/core": "^1.3.107",
     "@types/js-cookie": "^3.0.6",
-    "@types/node": "^20.10.5",
-    "@typescript-eslint/eslint-plugin": "^6.16.0",
-    "@typescript-eslint/parser": "^6.16.0",
-    "autoprefixer": "^10.4.16",
+    "@types/node": "^20.11.10",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "@typescript-eslint/parser": "^6.20.0",
+    "autoprefixer": "^10.4.17",
     "esbuild-sass-plugin": "^2.16.1",
     "eslint": "^8.56.0",
     "eslint-plugin-lit": "^1.11.0",
@@ -38,8 +38,8 @@
     "rollup-plugin-serve": "^1.1.1",
     "rollup-plugin-summary": "^2.0.0",
     "rollup-plugin-swc3": "^0.11.0",
-    "sass": "^1.69.6",
-    "ts-lit-plugin": "^2.0.1",
+    "sass": "^1.70.0",
+    "ts-lit-plugin": "^2.0.2",
     "typescript": "^5.3.3"
   },
   "scripts": {
