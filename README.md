@@ -19,7 +19,7 @@ Example:
 ```xml
 <head>
   <!-- All content of Head -->
-  <script async src="https://cdn.jsdelivr.net/gh/aarsteinmedia/am-gdpr@latest/build/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/aarsteinmedia/am-gdpr/build/index.js"></script>
 </head>
 <body>
   <!-- All content of Body -->
