@@ -47,9 +47,12 @@
 }
 
 .buttonWrapper {
+  // display: grid;
+  // grid-template-columns: repeat(auto-fit, minmax(110px, .5fr));
   display: flex;
+  gap: .5em;
   // width: 100%;
-  justify-content: space-around;
+  // justify-content: space-around;
 }
 
 .miniGDPR {

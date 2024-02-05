@@ -11,7 +11,10 @@ export default function miniGDPR(this: AMGDPR) {
     <button
       class="miniGDPR"
       @click=${this.setVisible}
-      style="background-color: ${this.accentColor};"
+      style="
+        color: ${this.color};
+        background-color: ${this.accentColor};
+      "
       data-hide="false"
     >
       <figure aria-label=${ifDefined(this.text?.settings)} class="icon-cookies">

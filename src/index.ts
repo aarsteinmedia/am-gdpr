@@ -96,6 +96,9 @@ export class AMGDPR extends LitElement {
   @state()
   public customize: boolean | null = null
 
+  @state()
+  public saving = false
+
   private _gtm?: GTM
 
   private _scrollPos = 0
@@ -139,7 +142,9 @@ export class AMGDPR extends LitElement {
     }
     this.statistical = true
     this.retargeting = true
+    this.saving = true
     setTimeout(() => {
+      this.saving = false
       this._visible = false
       this.customize = false
     }, this.customize && (!prev.statistical || !prev.retargeting) ? 800 : 0)

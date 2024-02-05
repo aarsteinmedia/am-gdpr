@@ -50,7 +50,8 @@ export default function switchButton(this: AMGDPR, {
             class="slider"
             style="
               color: ${this.color};
-              background-color: ${this.accentColor};
+              background-color: ${value ? this.accentColor : 'transparent'};
+              transition: background-color .2s;
             "
           ></span>
         </label>

@@ -4,6 +4,7 @@ import { ifDefined } from 'lit/directives/if-defined.js'
 
 import uiButton from './uiButton'
 import icon from './icon'
+import loading from './loading'
 
 import type { AMGDPR } from '.'
 
@@ -57,7 +58,7 @@ export default function popUp(this: AMGDPR) {
                 class="button dark-bg bg-hover gdpr"
                 @click=${this.acceptAll}
                 style="background-color: ${this.accentColor};"
-              >${(this.statistical || this.retargeting) ? this.text?.save : this.text?.acceptAll}</button>
+              >${this.saving ? loading : (this.statistical || this.retargeting) ? this.text?.save : this.text?.acceptAll}</button>
             </div>
 
             <div class="buttonWrapper">
