@@ -55,6 +55,9 @@
       width: auto;
       height: auto;
       display: inline-block;
+      path {
+        fill: currentColor;
+      }
     }
 
     p {
