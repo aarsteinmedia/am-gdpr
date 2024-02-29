@@ -4,13 +4,16 @@ declare module '*.scss' {
   export default content
 }
 
-interface Window {
-  addGDPRConsent?: (func: () => void) => void
-  google_tag_data?: unknown
-}
-
 declare namespace NodeJS {
   interface ProcessEnv {
     NODE_ENV: 'production' | 'development' | 'debug'
   }
 }
+
+// type DataLayerObject = Record<string, unknown>[]
+
+// interface Window {
+//   addGDPRConsent?: (func: () => void) => void
+//   google_tag_data?: unknown
+//   dataLayer?: DataLayerObject
+// }

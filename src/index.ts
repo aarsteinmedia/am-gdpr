@@ -9,16 +9,16 @@ import {
   query
 } from 'lit/decorators.js'
 import Cookies from 'js-cookie'
-import GTM from 'gtm-module'
 
 import styles from './styles/index.scss'
 import getTranslation from './i18n'
+import GTM from './GTM'
 import miniGDPR from './miniGDPR'
 import popUp from './popUp'
 import cookieWarning from './cookieWarning'
 import switchButton from './switchButton'
 
-import type { Consent, Text } from './types'
+import type { Text } from './types'
 
 /**
  * AM GDPR Web Component
@@ -87,9 +87,6 @@ export class AMGDPR extends LitElement {
   @query('.miniGDPR')
   protected mini!: null | HTMLDivElement
 
-  // @state()
-  // public dialogHeight = 80
-
   @state()
   private _visible = false
 
@@ -103,27 +100,43 @@ export class AMGDPR extends LitElement {
 
   private _scrollPos = 0
 
-  private _getConsent(): Consent | undefined {
+  private _getConsent(): Gtag.ConsentParams | undefined {
     const cookie = Cookies.get('CookieConsent')
     if (cookie)
       return JSON.parse(decodeURIComponent(cookie))
     return
   }
 
+  private _boolToConsentParams(bool?: boolean | null) {
+    if (bool === undefined || bool === null) {
+      return undefined
+    }
+    return bool ? 'granted' : 'denied'
+  }
+
+  private _consentParamsToBool(param?: 'granted' | 'denied') {
+    if (param === undefined || param === null) {
+      return null
+    }
+    return param === 'granted'
+  }
+
   public save() {
-    const consent: Consent = {
-      functionality_storage: true,
-      analytics_storage: this.statistical,
-      ad_storage: this.retargeting,
-      personalization_storage: this.retargeting,
-      security_storage: true
+    const consent: Gtag.ConsentParams = {
+      functionality_storage: 'granted',
+      analytics_storage: this._boolToConsentParams(this.statistical),
+      ad_user_data: this._boolToConsentParams(this.statistical),
+      ad_storage: this._boolToConsentParams(this.retargeting),
+      ad_personalization: this._boolToConsentParams(this.retargeting),
+      personalization_storage: this._boolToConsentParams(this.retargeting),
+      security_storage: 'granted'
     }
 
     Cookies.set(
       'CookieConsent',
       encodeURIComponent(JSON.stringify(consent)),
       {
-        sameSite: 'lax',
+        sameSite: 'Lax',
         expires: 365,
         secure: process.env.NODE_ENV !== 'development'
       }
@@ -266,8 +279,8 @@ export class AMGDPR extends LitElement {
   override connectedCallback() {
     super.connectedCallback()
 
-    this.statistical = this._getConsent()?.analytics_storage ?? null
-    this.retargeting = this._getConsent()?.ad_storage ?? null
+    this.statistical = this._consentParamsToBool(this._getConsent()?.analytics_storage)
+    this.retargeting = this._consentParamsToBool(this._getConsent()?.ad_storage)
 
     this.text = getTranslation()
 
