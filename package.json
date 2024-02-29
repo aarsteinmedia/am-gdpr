@@ -1,6 +1,6 @@
 {
   "name": "am-gdpr",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "main": "./build/index.js",
   "unpkg": "./build/index.js",
   "repository": {
