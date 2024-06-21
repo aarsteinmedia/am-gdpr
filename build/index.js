@@ -1,38 +1,600 @@
-!function(t){"use strict";let e;/**
+
+(function(l, r) { if (!l || l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (self.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(self.document);
+(function (exports) {
+  'use strict';
+
+  /**
    * @license
    * Copyright 2019 Google LLC
    * SPDX-License-Identifier: BSD-3-Clause
-   */let i=globalThis,s=i.ShadowRoot&&(void 0===i.ShadyCSS||i.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,o=Symbol(),r=new WeakMap,n=class{constructor(t,e,i){if(this._$cssResult$=!0,i!==o)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=e}get styleSheet(){let t=this.o,e=this.t;if(s&&void 0===t){let i=void 0!==e&&1===e.length;i&&(t=r.get(e)),void 0===t&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),i&&r.set(e,t))}return t}toString(){return this.cssText}},a=t=>new n("string"==typeof t?t:t+"",void 0,o),l=(t,e)=>{if(s)t.adoptedStyleSheets=e.map(t=>t instanceof CSSStyleSheet?t:t.styleSheet);else for(let s of e){let e=document.createElement("style"),o=i.litNonce;void 0!==o&&e.setAttribute("nonce",o),e.textContent=s.cssText,t.appendChild(e)}},h=s?t=>t:t=>t instanceof CSSStyleSheet?(t=>{let e="";for(let i of t.cssRules)e+=i.cssText;return a(e)})(t):t,{is:c,defineProperty:d,getOwnPropertyDescriptor:p,getOwnPropertyNames:u,getOwnPropertySymbols:g,getPrototypeOf:m}=Object,f=globalThis,b=f.trustedTypes,y=b?b.emptyScript:"",$=f.reactiveElementPolyfillSupport,v=(t,e)=>t,_={toAttribute(t,e){switch(e){case Boolean:t=t?y:null;break;case Object:case Array:t=null==t?t:JSON.stringify(t)}return t},fromAttribute(t,e){let i=t;switch(e){case Boolean:i=null!==t;break;case Number:i=null===t?null:Number(t);break;case Object:case Array:try{i=JSON.parse(t)}catch(t){i=null}}return i}},w=(t,e)=>!c(t,e),x={attribute:!0,type:String,converter:_,reflect:!1,hasChanged:w};Symbol.metadata??=Symbol("metadata"),f.litPropertyMetadata??=new WeakMap;class A extends HTMLElement{static addInitializer(t){this._$Ei(),(this.l??=[]).push(t)}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(t,e=x){if(e.state&&(e.attribute=!1),this._$Ei(),this.elementProperties.set(t,e),!e.noAccessor){let i=Symbol(),s=this.getPropertyDescriptor(t,i,e);void 0!==s&&d(this.prototype,t,s)}}static getPropertyDescriptor(t,e,i){let{get:s,set:o}=p(this.prototype,t)??{get(){return this[e]},set(t){this[e]=t}};return{get(){return s?.call(this)},set(e){let r=s?.call(this);o.call(this,e),this.requestUpdate(t,r,i)},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)??x}static _$Ei(){if(this.hasOwnProperty(v("elementProperties")))return;let t=m(this);t.finalize(),void 0!==t.l&&(this.l=[...t.l]),this.elementProperties=new Map(t.elementProperties)}static finalize(){if(this.hasOwnProperty(v("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(v("properties"))){let t=this.properties;for(let e of[...u(t),...g(t)])this.createProperty(e,t[e])}let t=this[Symbol.metadata];if(null!==t){let e=litPropertyMetadata.get(t);if(void 0!==e)for(let[t,i]of e)this.elementProperties.set(t,i)}for(let[t,e]of(this._$Eh=new Map,this.elementProperties)){let i=this._$Eu(t,e);void 0!==i&&this._$Eh.set(i,t)}this.elementStyles=this.finalizeStyles(this.styles)}static finalizeStyles(t){let e=[];if(Array.isArray(t))for(let i of new Set(t.flat(1/0).reverse()))e.unshift(h(i));else void 0!==t&&e.push(h(t));return e}static _$Eu(t,e){let i=e.attribute;return!1===i?void 0:"string"==typeof i?i:"string"==typeof t?t.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev()}_$Ev(){this._$ES=new Promise(t=>this.enableUpdating=t),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach(t=>t(this))}addController(t){(this._$EO??=new Set).add(t),void 0!==this.renderRoot&&this.isConnected&&t.hostConnected?.()}removeController(t){this._$EO?.delete(t)}_$E_(){let t=new Map;for(let e of this.constructor.elementProperties.keys())this.hasOwnProperty(e)&&(t.set(e,this[e]),delete this[e]);t.size>0&&(this._$Ep=t)}createRenderRoot(){let t=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return l(t,this.constructor.elementStyles),t}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$EO?.forEach(t=>t.hostConnected?.())}enableUpdating(t){}disconnectedCallback(){this._$EO?.forEach(t=>t.hostDisconnected?.())}attributeChangedCallback(t,e,i){this._$AK(t,i)}_$EC(t,e){let i=this.constructor.elementProperties.get(t),s=this.constructor._$Eu(t,i);if(void 0!==s&&!0===i.reflect){let o=(void 0!==i.converter?.toAttribute?i.converter:_).toAttribute(e,i.type);this._$Em=t,null==o?this.removeAttribute(s):this.setAttribute(s,o),this._$Em=null}}_$AK(t,e){let i=this.constructor,s=i._$Eh.get(t);if(void 0!==s&&this._$Em!==s){let t=i.getPropertyOptions(s),o="function"==typeof t.converter?{fromAttribute:t.converter}:void 0!==t.converter?.fromAttribute?t.converter:_;this._$Em=s,this[s]=o.fromAttribute(e,t.type),this._$Em=null}}requestUpdate(t,e,i){if(void 0!==t){if(!((i??=this.constructor.getPropertyOptions(t)).hasChanged??w)(this[t],e))return;this.P(t,e,i)}!1===this.isUpdatePending&&(this._$ES=this._$ET())}P(t,e,i){this._$AL.has(t)||this._$AL.set(t,e),!0===i.reflect&&this._$Em!==t&&(this._$Ej??=new Set).add(t)}async _$ET(){this.isUpdatePending=!0;try{await this._$ES}catch(t){Promise.reject(t)}let t=this.scheduleUpdate();return null!=t&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(let[t,e]of this._$Ep)this[t]=e;this._$Ep=void 0}let t=this.constructor.elementProperties;if(t.size>0)for(let[e,i]of t)!0!==i.wrapped||this._$AL.has(e)||void 0===this[e]||this.P(e,this[e],i)}let t=!1,e=this._$AL;try{(t=this.shouldUpdate(e))?(this.willUpdate(e),this._$EO?.forEach(t=>t.hostUpdate?.()),this.update(e)):this._$EU()}catch(e){throw t=!1,this._$EU(),e}t&&this._$AE(e)}willUpdate(t){}_$AE(t){this._$EO?.forEach(t=>t.hostUpdated?.()),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t)}_$EU(){this._$AL=new Map,this.isUpdatePending=!1}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(t){return!0}update(t){this._$Ej&&=this._$Ej.forEach(t=>this._$EC(t,this[t])),this._$EU()}updated(t){}firstUpdated(t){}}A.elementStyles=[],A.shadowRootOptions={mode:"open"},A[v("elementProperties")]=new Map,A[v("finalized")]=new Map,$?.({ReactiveElement:A}),(f.reactiveElementVersions??=[]).push("2.0.4");/**
+   */
+  const t$3=globalThis,e$6=t$3.ShadowRoot&&(void 0===t$3.ShadyCSS||t$3.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,s$2=Symbol(),o$5=new WeakMap;let n$3 = class n{constructor(t,e,o){if(this._$cssResult$=!0,o!==s$2)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=e;}get styleSheet(){let t=this.o;const s=this.t;if(e$6&&void 0===t){const e=void 0!==s&&1===s.length;e&&(t=o$5.get(s)),void 0===t&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),e&&o$5.set(s,t));}return t}toString(){return this.cssText}};const r$5=t=>new n$3("string"==typeof t?t:t+"",void 0,s$2),i$3=(t,...e)=>{const o=1===t.length?t[0]:e.reduce(((e,s,o)=>e+(t=>{if(!0===t._$cssResult$)return t.cssText;if("number"==typeof t)return t;throw Error("Value passed to 'css' function must be a 'css' function result: "+t+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(s)+t[o+1]),t[0]);return new n$3(o,t,s$2)},S$1=(s,o)=>{if(e$6)s.adoptedStyleSheets=o.map((t=>t instanceof CSSStyleSheet?t:t.styleSheet));else for(const e of o){const o=document.createElement("style"),n=t$3.litNonce;void 0!==n&&o.setAttribute("nonce",n),o.textContent=e.cssText,s.appendChild(o);}},c$2=e$6?t=>t:t=>t instanceof CSSStyleSheet?(t=>{let e="";for(const s of t.cssRules)e+=s.cssText;return r$5(e)})(t):t;
+
+  /**
    * @license
    * Copyright 2017 Google LLC
    * SPDX-License-Identifier: BSD-3-Clause
-   */let k=globalThis,C=k.trustedTypes,S=C?C.createPolicy("lit-html",{createHTML:t=>t}):void 0,E="$lit$",U=`lit$${(Math.random()+"").slice(9)}$`,P="?"+U,z=`<${P}>`,T=document,R=()=>T.createComment(""),O=t=>null===t||"object"!=typeof t&&"function"!=typeof t,L=Array.isArray,N=t=>L(t)||"function"==typeof t?.[Symbol.iterator],D="[ 	\n\f\r]",H=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,B=/-->/g,I=/>/g,M=RegExp(`>|${D}(?:([^\\s"'>=/]+)(${D}*=${D}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`,"g"),j=/'/g,W=/"/g,F=/^(?:script|style|textarea|title)$/i,G=(t,...e)=>({_$litType$:1,strings:t,values:e}),Y=Symbol.for("lit-noChange"),V=Symbol.for("lit-nothing"),q=new WeakMap,J=T.createTreeWalker(T,129);function K(t,e){if(!Array.isArray(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==S?S.createHTML(e):e}let Z=(t,e)=>{let i=t.length-1,s=[],o,r=2===e?"<svg>":"",n=H;for(let e=0;e<i;e++){let i=t[e],a,l,h=-1,c=0;for(;c<i.length&&(n.lastIndex=c,null!==(l=n.exec(i)));)c=n.lastIndex,n===H?"!--"===l[1]?n=B:void 0!==l[1]?n=I:void 0!==l[2]?(F.test(l[2])&&(o=RegExp("</"+l[2],"g")),n=M):void 0!==l[3]&&(n=M):n===M?">"===l[0]?(n=o??H,h=-1):void 0===l[1]?h=-2:(h=n.lastIndex-l[2].length,a=l[1],n=void 0===l[3]?M:'"'===l[3]?W:j):n===W||n===j?n=M:n===B||n===I?n=H:(n=M,o=void 0);let d=n===M&&t[e+1].startsWith("/>")?" ":"";r+=n===H?i+z:h>=0?(s.push(a),i.slice(0,h)+E+i.slice(h)+U+d):i+U+(-2===h?e:d)}return[K(t,r+(t[i]||"<?>")+(2===e?"</svg>":"")),s]};class X{constructor({strings:t,_$litType$:e},i){let s;this.parts=[];let o=0,r=0,n=t.length-1,a=this.parts,[l,h]=Z(t,e);if(this.el=X.createElement(l,i),J.currentNode=this.el.content,2===e){let t=this.el.content.firstChild;t.replaceWith(...t.childNodes)}for(;null!==(s=J.nextNode())&&a.length<n;){if(1===s.nodeType){if(s.hasAttributes())for(let t of s.getAttributeNames())if(t.endsWith(E)){let e=h[r++],i=s.getAttribute(t).split(U),n=/([.?@])?(.*)/.exec(e);a.push({type:1,index:o,name:n[2],strings:i,ctor:"."===n[1]?ts:"?"===n[1]?to:"@"===n[1]?tr:ti}),s.removeAttribute(t)}else t.startsWith(U)&&(a.push({type:6,index:o}),s.removeAttribute(t));if(F.test(s.tagName)){let t=s.textContent.split(U),e=t.length-1;if(e>0){s.textContent=C?C.emptyScript:"";for(let i=0;i<e;i++)s.append(t[i],R()),J.nextNode(),a.push({type:2,index:++o});s.append(t[e],R())}}}else if(8===s.nodeType){if(s.data===P)a.push({type:2,index:o});else{let t=-1;for(;-1!==(t=s.data.indexOf(U,t+1));)a.push({type:7,index:o}),t+=U.length-1}}o++}}static createElement(t,e){let i=T.createElement("template");return i.innerHTML=t,i}}function Q(t,e,i=t,s){if(e===Y)return e;let o=void 0!==s?i._$Co?.[s]:i._$Cl,r=O(e)?void 0:e._$litDirective$;return o?.constructor!==r&&(o?._$AO?.(!1),void 0===r?o=void 0:(o=new r(t))._$AT(t,i,s),void 0!==s?(i._$Co??=[])[s]=o:i._$Cl=o),void 0!==o&&(e=Q(t,o._$AS(t,e.values),o,s)),e}class tt{constructor(t,e){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=e}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){let{el:{content:e},parts:i}=this._$AD,s=(t?.creationScope??T).importNode(e,!0);J.currentNode=s;let o=J.nextNode(),r=0,n=0,a=i[0];for(;void 0!==a;){if(r===a.index){let e;2===a.type?e=new te(o,o.nextSibling,this,t):1===a.type?e=new a.ctor(o,a.name,a.strings,this,t):6===a.type&&(e=new tn(o,this,t)),this._$AV.push(e),a=i[++n]}r!==a?.index&&(o=J.nextNode(),r++)}return J.currentNode=T,s}p(t){let e=0;for(let i of this._$AV)void 0!==i&&(void 0!==i.strings?(i._$AI(t,i,e),e+=i.strings.length-2):i._$AI(t[e])),e++}}class te{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(t,e,i,s){this.type=2,this._$AH=V,this._$AN=void 0,this._$AA=t,this._$AB=e,this._$AM=i,this.options=s,this._$Cv=s?.isConnected??!0}get parentNode(){let t=this._$AA.parentNode,e=this._$AM;return void 0!==e&&11===t?.nodeType&&(t=e.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,e=this){O(t=Q(this,t,e))?t===V||null==t||""===t?(this._$AH!==V&&this._$AR(),this._$AH=V):t!==this._$AH&&t!==Y&&this._(t):void 0!==t._$litType$?this.$(t):void 0!==t.nodeType?this.T(t):N(t)?this.k(t):this._(t)}S(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.S(t))}_(t){this._$AH!==V&&O(this._$AH)?this._$AA.nextSibling.data=t:this.T(T.createTextNode(t)),this._$AH=t}$(t){let{values:e,_$litType$:i}=t,s="number"==typeof i?this._$AC(t):(void 0===i.el&&(i.el=X.createElement(K(i.h,i.h[0]),this.options)),i);if(this._$AH?._$AD===s)this._$AH.p(e);else{let t=new tt(s,this),i=t.u(this.options);t.p(e),this.T(i),this._$AH=t}}_$AC(t){let e=q.get(t.strings);return void 0===e&&q.set(t.strings,e=new X(t)),e}k(t){L(this._$AH)||(this._$AH=[],this._$AR());let e=this._$AH,i,s=0;for(let o of t)s===e.length?e.push(i=new te(this.S(R()),this.S(R()),this,this.options)):i=e[s],i._$AI(o),s++;s<e.length&&(this._$AR(i&&i._$AB.nextSibling,s),e.length=s)}_$AR(t=this._$AA.nextSibling,e){for(this._$AP?.(!1,!0,e);t&&t!==this._$AB;){let e=t.nextSibling;t.remove(),t=e}}setConnected(t){void 0===this._$AM&&(this._$Cv=t,this._$AP?.(t))}}class ti{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,e,i,s,o){this.type=1,this._$AH=V,this._$AN=void 0,this.element=t,this.name=e,this._$AM=s,this.options=o,i.length>2||""!==i[0]||""!==i[1]?(this._$AH=Array(i.length-1).fill(new String),this.strings=i):this._$AH=V}_$AI(t,e=this,i,s){let o=this.strings,r=!1;if(void 0===o)(r=!O(t=Q(this,t,e,0))||t!==this._$AH&&t!==Y)&&(this._$AH=t);else{let s,n;let a=t;for(t=o[0],s=0;s<o.length-1;s++)(n=Q(this,a[i+s],e,s))===Y&&(n=this._$AH[s]),r||=!O(n)||n!==this._$AH[s],n===V?t=V:t!==V&&(t+=(n??"")+o[s+1]),this._$AH[s]=n}r&&!s&&this.j(t)}j(t){t===V?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"")}}class ts extends ti{constructor(){super(...arguments),this.type=3}j(t){this.element[this.name]=t===V?void 0:t}}class to extends ti{constructor(){super(...arguments),this.type=4}j(t){this.element.toggleAttribute(this.name,!!t&&t!==V)}}class tr extends ti{constructor(t,e,i,s,o){super(t,e,i,s,o),this.type=5}_$AI(t,e=this){if((t=Q(this,t,e,0)??V)===Y)return;let i=this._$AH,s=t===V&&i!==V||t.capture!==i.capture||t.once!==i.once||t.passive!==i.passive,o=t!==V&&(i===V||s);s&&this.element.removeEventListener(this.name,this,i),o&&this.element.addEventListener(this.name,this,t),this._$AH=t}handleEvent(t){"function"==typeof this._$AH?this._$AH.call(this.options?.host??this.element,t):this._$AH.handleEvent(t)}}class tn{constructor(t,e,i){this.element=t,this.type=6,this._$AN=void 0,this._$AM=e,this.options=i}get _$AU(){return this._$AM._$AU}_$AI(t){Q(this,t)}}let ta=k.litHtmlPolyfillSupport;ta?.(X,te),(k.litHtmlVersions??=[]).push("3.1.2");let tl=(t,e,i)=>{let s=i?.renderBefore??e,o=s._$litPart$;if(void 0===o){let t=i?.renderBefore??null;s._$litPart$=o=new te(e.insertBefore(R(),t),t,void 0,i??{})}return o._$AI(t),o};/**
+   */const{is:i$2,defineProperty:e$5,getOwnPropertyDescriptor:r$4,getOwnPropertyNames:h$1,getOwnPropertySymbols:o$4,getPrototypeOf:n$2}=Object,a$1=globalThis,c$1=a$1.trustedTypes,l$1=c$1?c$1.emptyScript:"",p$1=a$1.reactiveElementPolyfillSupport,d$1=(t,s)=>t,u$1={toAttribute(t,s){switch(s){case Boolean:t=t?l$1:null;break;case Object:case Array:t=null==t?t:JSON.stringify(t);}return t},fromAttribute(t,s){let i=t;switch(s){case Boolean:i=null!==t;break;case Number:i=null===t?null:Number(t);break;case Object:case Array:try{i=JSON.parse(t);}catch(t){i=null;}}return i}},f$1=(t,s)=>!i$2(t,s),y$1={attribute:!0,type:String,converter:u$1,reflect:!1,hasChanged:f$1};Symbol.metadata??=Symbol("metadata"),a$1.litPropertyMetadata??=new WeakMap;class b extends HTMLElement{static addInitializer(t){this._$Ei(),(this.l??=[]).push(t);}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(t,s=y$1){if(s.state&&(s.attribute=!1),this._$Ei(),this.elementProperties.set(t,s),!s.noAccessor){const i=Symbol(),r=this.getPropertyDescriptor(t,i,s);void 0!==r&&e$5(this.prototype,t,r);}}static getPropertyDescriptor(t,s,i){const{get:e,set:h}=r$4(this.prototype,t)??{get(){return this[s]},set(t){this[s]=t;}};return {get(){return e?.call(this)},set(s){const r=e?.call(this);h.call(this,s),this.requestUpdate(t,r,i);},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)??y$1}static _$Ei(){if(this.hasOwnProperty(d$1("elementProperties")))return;const t=n$2(this);t.finalize(),void 0!==t.l&&(this.l=[...t.l]),this.elementProperties=new Map(t.elementProperties);}static finalize(){if(this.hasOwnProperty(d$1("finalized")))return;if(this.finalized=!0,this._$Ei(),this.hasOwnProperty(d$1("properties"))){const t=this.properties,s=[...h$1(t),...o$4(t)];for(const i of s)this.createProperty(i,t[i]);}const t=this[Symbol.metadata];if(null!==t){const s=litPropertyMetadata.get(t);if(void 0!==s)for(const[t,i]of s)this.elementProperties.set(t,i);}this._$Eh=new Map;for(const[t,s]of this.elementProperties){const i=this._$Eu(t,s);void 0!==i&&this._$Eh.set(i,t);}this.elementStyles=this.finalizeStyles(this.styles);}static finalizeStyles(s){const i=[];if(Array.isArray(s)){const e=new Set(s.flat(1/0).reverse());for(const s of e)i.unshift(c$2(s));}else void 0!==s&&i.push(c$2(s));return i}static _$Eu(t,s){const i=s.attribute;return !1===i?void 0:"string"==typeof i?i:"string"==typeof t?t.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Em=null,this._$Ev();}_$Ev(){this._$ES=new Promise((t=>this.enableUpdating=t)),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach((t=>t(this)));}addController(t){(this._$EO??=new Set).add(t),void 0!==this.renderRoot&&this.isConnected&&t.hostConnected?.();}removeController(t){this._$EO?.delete(t);}_$E_(){const t=new Map,s=this.constructor.elementProperties;for(const i of s.keys())this.hasOwnProperty(i)&&(t.set(i,this[i]),delete this[i]);t.size>0&&(this._$Ep=t);}createRenderRoot(){const t=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return S$1(t,this.constructor.elementStyles),t}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(!0),this._$EO?.forEach((t=>t.hostConnected?.()));}enableUpdating(t){}disconnectedCallback(){this._$EO?.forEach((t=>t.hostDisconnected?.()));}attributeChangedCallback(t,s,i){this._$AK(t,i);}_$EC(t,s){const i=this.constructor.elementProperties.get(t),e=this.constructor._$Eu(t,i);if(void 0!==e&&!0===i.reflect){const r=(void 0!==i.converter?.toAttribute?i.converter:u$1).toAttribute(s,i.type);this._$Em=t,null==r?this.removeAttribute(e):this.setAttribute(e,r),this._$Em=null;}}_$AK(t,s){const i=this.constructor,e=i._$Eh.get(t);if(void 0!==e&&this._$Em!==e){const t=i.getPropertyOptions(e),r="function"==typeof t.converter?{fromAttribute:t.converter}:void 0!==t.converter?.fromAttribute?t.converter:u$1;this._$Em=e,this[e]=r.fromAttribute(s,t.type),this._$Em=null;}}requestUpdate(t,s,i){if(void 0!==t){if(i??=this.constructor.getPropertyOptions(t),!(i.hasChanged??f$1)(this[t],s))return;this.P(t,s,i);}!1===this.isUpdatePending&&(this._$ES=this._$ET());}P(t,s,i){this._$AL.has(t)||this._$AL.set(t,s),!0===i.reflect&&this._$Em!==t&&(this._$Ej??=new Set).add(t);}async _$ET(){this.isUpdatePending=!0;try{await this._$ES;}catch(t){Promise.reject(t);}const t=this.scheduleUpdate();return null!=t&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(const[t,s]of this._$Ep)this[t]=s;this._$Ep=void 0;}const t=this.constructor.elementProperties;if(t.size>0)for(const[s,i]of t)!0!==i.wrapped||this._$AL.has(s)||void 0===this[s]||this.P(s,this[s],i);}let t=!1;const s=this._$AL;try{t=this.shouldUpdate(s),t?(this.willUpdate(s),this._$EO?.forEach((t=>t.hostUpdate?.())),this.update(s)):this._$EU();}catch(s){throw t=!1,this._$EU(),s}t&&this._$AE(s);}willUpdate(t){}_$AE(t){this._$EO?.forEach((t=>t.hostUpdated?.())),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t);}_$EU(){this._$AL=new Map,this.isUpdatePending=!1;}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(t){return !0}update(t){this._$Ej&&=this._$Ej.forEach((t=>this._$EC(t,this[t]))),this._$EU();}updated(t){}firstUpdated(t){}}b.elementStyles=[],b.shadowRootOptions={mode:"open"},b[d$1("elementProperties")]=new Map,b[d$1("finalized")]=new Map,p$1?.({ReactiveElement:b}),(a$1.reactiveElementVersions??=[]).push("2.0.4");
+
+  /**
    * @license
    * Copyright 2017 Google LLC
    * SPDX-License-Identifier: BSD-3-Clause
-   */class th extends A{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0}createRenderRoot(){let t=super.createRenderRoot();return this.renderOptions.renderBefore??=t.firstChild,t}update(t){let e=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=tl(e,this.renderRoot,this.renderOptions)}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0)}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1)}render(){return Y}}th._$litElement$=!0,th.finalized=!0,globalThis.litElementHydrateSupport?.({LitElement:th});let tc=globalThis.litElementPolyfillSupport;tc?.({LitElement:th}),(globalThis.litElementVersions??=[]).push("4.0.4");/**
+   */
+  const t$2=globalThis,i$1=t$2.trustedTypes,s$1=i$1?i$1.createPolicy("lit-html",{createHTML:t=>t}):void 0,e$4="$lit$",h=`lit$${(Math.random()+"").slice(9)}$`,o$3="?"+h,n$1=`<${o$3}>`,r$3=document,l=()=>r$3.createComment(""),c=t=>null===t||"object"!=typeof t&&"function"!=typeof t,a=Array.isArray,u=t=>a(t)||"function"==typeof t?.[Symbol.iterator],d="[ \t\n\f\r]",f=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,v=/-->/g,_=/>/g,m=RegExp(`>|${d}(?:([^\\s"'>=/]+)(${d}*=${d}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),p=/'/g,g=/"/g,$=/^(?:script|style|textarea|title)$/i,y=t=>(i,...s)=>({_$litType$:t,strings:i,values:s}),x=y(1),w=Symbol.for("lit-noChange"),T=Symbol.for("lit-nothing"),A=new WeakMap,E=r$3.createTreeWalker(r$3,129);function C(t,i){if(!Array.isArray(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==s$1?s$1.createHTML(i):i}const P=(t,i)=>{const s=t.length-1,o=[];let r,l=2===i?"<svg>":"",c=f;for(let i=0;i<s;i++){const s=t[i];let a,u,d=-1,y=0;for(;y<s.length&&(c.lastIndex=y,u=c.exec(s),null!==u);)y=c.lastIndex,c===f?"!--"===u[1]?c=v:void 0!==u[1]?c=_:void 0!==u[2]?($.test(u[2])&&(r=RegExp("</"+u[2],"g")),c=m):void 0!==u[3]&&(c=m):c===m?">"===u[0]?(c=r??f,d=-1):void 0===u[1]?d=-2:(d=c.lastIndex-u[2].length,a=u[1],c=void 0===u[3]?m:'"'===u[3]?g:p):c===g||c===p?c=m:c===v||c===_?c=f:(c=m,r=void 0);const x=c===m&&t[i+1].startsWith("/>")?" ":"";l+=c===f?s+n$1:d>=0?(o.push(a),s.slice(0,d)+e$4+s.slice(d)+h+x):s+h+(-2===d?i:x);}return [C(t,l+(t[s]||"<?>")+(2===i?"</svg>":"")),o]};class V{constructor({strings:t,_$litType$:s},n){let r;this.parts=[];let c=0,a=0;const u=t.length-1,d=this.parts,[f,v]=P(t,s);if(this.el=V.createElement(f,n),E.currentNode=this.el.content,2===s){const t=this.el.content.firstChild;t.replaceWith(...t.childNodes);}for(;null!==(r=E.nextNode())&&d.length<u;){if(1===r.nodeType){if(r.hasAttributes())for(const t of r.getAttributeNames())if(t.endsWith(e$4)){const i=v[a++],s=r.getAttribute(t).split(h),e=/([.?@])?(.*)/.exec(i);d.push({type:1,index:c,name:e[2],strings:s,ctor:"."===e[1]?k:"?"===e[1]?H:"@"===e[1]?I:R}),r.removeAttribute(t);}else t.startsWith(h)&&(d.push({type:6,index:c}),r.removeAttribute(t));if($.test(r.tagName)){const t=r.textContent.split(h),s=t.length-1;if(s>0){r.textContent=i$1?i$1.emptyScript:"";for(let i=0;i<s;i++)r.append(t[i],l()),E.nextNode(),d.push({type:2,index:++c});r.append(t[s],l());}}}else if(8===r.nodeType)if(r.data===o$3)d.push({type:2,index:c});else {let t=-1;for(;-1!==(t=r.data.indexOf(h,t+1));)d.push({type:7,index:c}),t+=h.length-1;}c++;}}static createElement(t,i){const s=r$3.createElement("template");return s.innerHTML=t,s}}function N(t,i,s=t,e){if(i===w)return i;let h=void 0!==e?s._$Co?.[e]:s._$Cl;const o=c(i)?void 0:i._$litDirective$;return h?.constructor!==o&&(h?._$AO?.(!1),void 0===o?h=void 0:(h=new o(t),h._$AT(t,s,e)),void 0!==e?(s._$Co??=[])[e]=h:s._$Cl=h),void 0!==h&&(i=N(t,h._$AS(t,i.values),h,e)),i}class S{constructor(t,i){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=i;}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){const{el:{content:i},parts:s}=this._$AD,e=(t?.creationScope??r$3).importNode(i,!0);E.currentNode=e;let h=E.nextNode(),o=0,n=0,l=s[0];for(;void 0!==l;){if(o===l.index){let i;2===l.type?i=new M(h,h.nextSibling,this,t):1===l.type?i=new l.ctor(h,l.name,l.strings,this,t):6===l.type&&(i=new L(h,this,t)),this._$AV.push(i),l=s[++n];}o!==l?.index&&(h=E.nextNode(),o++);}return E.currentNode=r$3,e}p(t){let i=0;for(const s of this._$AV)void 0!==s&&(void 0!==s.strings?(s._$AI(t,s,i),i+=s.strings.length-2):s._$AI(t[i])),i++;}}class M{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(t,i,s,e){this.type=2,this._$AH=T,this._$AN=void 0,this._$AA=t,this._$AB=i,this._$AM=s,this.options=e,this._$Cv=e?.isConnected??!0;}get parentNode(){let t=this._$AA.parentNode;const i=this._$AM;return void 0!==i&&11===t?.nodeType&&(t=i.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,i=this){t=N(this,t,i),c(t)?t===T||null==t||""===t?(this._$AH!==T&&this._$AR(),this._$AH=T):t!==this._$AH&&t!==w&&this._(t):void 0!==t._$litType$?this.$(t):void 0!==t.nodeType?this.T(t):u(t)?this.k(t):this._(t);}S(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.S(t));}_(t){this._$AH!==T&&c(this._$AH)?this._$AA.nextSibling.data=t:this.T(r$3.createTextNode(t)),this._$AH=t;}$(t){const{values:i,_$litType$:s}=t,e="number"==typeof s?this._$AC(t):(void 0===s.el&&(s.el=V.createElement(C(s.h,s.h[0]),this.options)),s);if(this._$AH?._$AD===e)this._$AH.p(i);else {const t=new S(e,this),s=t.u(this.options);t.p(i),this.T(s),this._$AH=t;}}_$AC(t){let i=A.get(t.strings);return void 0===i&&A.set(t.strings,i=new V(t)),i}k(t){a(this._$AH)||(this._$AH=[],this._$AR());const i=this._$AH;let s,e=0;for(const h of t)e===i.length?i.push(s=new M(this.S(l()),this.S(l()),this,this.options)):s=i[e],s._$AI(h),e++;e<i.length&&(this._$AR(s&&s._$AB.nextSibling,e),i.length=e);}_$AR(t=this._$AA.nextSibling,i){for(this._$AP?.(!1,!0,i);t&&t!==this._$AB;){const i=t.nextSibling;t.remove(),t=i;}}setConnected(t){void 0===this._$AM&&(this._$Cv=t,this._$AP?.(t));}}class R{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,i,s,e,h){this.type=1,this._$AH=T,this._$AN=void 0,this.element=t,this.name=i,this._$AM=e,this.options=h,s.length>2||""!==s[0]||""!==s[1]?(this._$AH=Array(s.length-1).fill(new String),this.strings=s):this._$AH=T;}_$AI(t,i=this,s,e){const h=this.strings;let o=!1;if(void 0===h)t=N(this,t,i,0),o=!c(t)||t!==this._$AH&&t!==w,o&&(this._$AH=t);else {const e=t;let n,r;for(t=h[0],n=0;n<h.length-1;n++)r=N(this,e[s+n],i,n),r===w&&(r=this._$AH[n]),o||=!c(r)||r!==this._$AH[n],r===T?t=T:t!==T&&(t+=(r??"")+h[n+1]),this._$AH[n]=r;}o&&!e&&this.j(t);}j(t){t===T?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"");}}class k extends R{constructor(){super(...arguments),this.type=3;}j(t){this.element[this.name]=t===T?void 0:t;}}class H extends R{constructor(){super(...arguments),this.type=4;}j(t){this.element.toggleAttribute(this.name,!!t&&t!==T);}}class I extends R{constructor(t,i,s,e,h){super(t,i,s,e,h),this.type=5;}_$AI(t,i=this){if((t=N(this,t,i,0)??T)===w)return;const s=this._$AH,e=t===T&&s!==T||t.capture!==s.capture||t.once!==s.once||t.passive!==s.passive,h=t!==T&&(s===T||e);e&&this.element.removeEventListener(this.name,this,s),h&&this.element.addEventListener(this.name,this,t),this._$AH=t;}handleEvent(t){"function"==typeof this._$AH?this._$AH.call(this.options?.host??this.element,t):this._$AH.handleEvent(t);}}class L{constructor(t,i,s){this.element=t,this.type=6,this._$AN=void 0,this._$AM=i,this.options=s;}get _$AU(){return this._$AM._$AU}_$AI(t){N(this,t);}}const Z=t$2.litHtmlPolyfillSupport;Z?.(V,M),(t$2.litHtmlVersions??=[]).push("3.1.2");const j=(t,i,s)=>{const e=s?.renderBefore??i;let h=e._$litPart$;if(void 0===h){const t=s?.renderBefore??null;e._$litPart$=h=new M(i.insertBefore(l(),t),t,void 0,s??{});}return h._$AI(t),h};
+
+  /**
    * @license
    * Copyright 2017 Google LLC
    * SPDX-License-Identifier: BSD-3-Clause
-   */let td={attribute:!0,type:String,converter:_,reflect:!1,hasChanged:w},tp=(t=td,e,i)=>{let{kind:s,metadata:o}=i,r=globalThis.litPropertyMetadata.get(o);if(void 0===r&&globalThis.litPropertyMetadata.set(o,r=new Map),r.set(i.name,t),"accessor"===s){let{name:s}=i;return{set(i){let o=e.get.call(this);e.set.call(this,i),this.requestUpdate(s,o,t)},init(e){return void 0!==e&&this.P(s,void 0,t),e}}}if("setter"===s){let{name:s}=i;return function(i){let o=this[s];e.call(this,i),this.requestUpdate(s,o,t)}}throw Error("Unsupported decorator location: "+s)};function tu(t){return(e,i)=>"object"==typeof i?tp(t,e,i):((t,e,i)=>{let s=e.hasOwnProperty(i);return e.constructor.createProperty(i,s?{...t,wrapped:!0}:t),s?Object.getOwnPropertyDescriptor(e,i):void 0})(t,e,i)}/**
+   */class s extends b{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0;}createRenderRoot(){const t=super.createRenderRoot();return this.renderOptions.renderBefore??=t.firstChild,t}update(t){const i=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=j(i,this.renderRoot,this.renderOptions);}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(!0);}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(!1);}render(){return w}}s._$litElement$=!0,s[("finalized")]=!0,globalThis.litElementHydrateSupport?.({LitElement:s});const r$2=globalThis.litElementPolyfillSupport;r$2?.({LitElement:s});(globalThis.litElementVersions??=[]).push("4.0.4");
+
+  /**
    * @license
    * Copyright 2017 Google LLC
    * SPDX-License-Identifier: BSD-3-Clause
-   */function tg(t){return tu({...t,state:!0,attribute:!1})}/**
+   */
+  const t$1=t=>(e,o)=>{void 0!==o?o.addInitializer((()=>{customElements.define(t,e);})):customElements.define(t,e);};
+
+  /**
    * @license
    * Copyright 2017 Google LLC
    * SPDX-License-Identifier: BSD-3-Clause
-   */let tm=(t,e,i)=>(i.configurable=!0,i.enumerable=!0,i);/**
+   */const o$2={attribute:!0,type:String,converter:u$1,reflect:!1,hasChanged:f$1},r$1=(t=o$2,e,r)=>{const{kind:n,metadata:i}=r;let s=globalThis.litPropertyMetadata.get(i);if(void 0===s&&globalThis.litPropertyMetadata.set(i,s=new Map),s.set(r.name,t),"accessor"===n){const{name:o}=r;return {set(r){const n=e.get.call(this);e.set.call(this,r),this.requestUpdate(o,n,t);},init(e){return void 0!==e&&this.P(o,void 0,t),e}}}if("setter"===n){const{name:o}=r;return function(r){const n=this[o];e.call(this,r),this.requestUpdate(o,n,t);}}throw Error("Unsupported decorator location: "+n)};function n(t){return (e,o)=>"object"==typeof o?r$1(t,e,o):((t,e,o)=>{const r=e.hasOwnProperty(o);return e.constructor.createProperty(o,r?{...t,wrapped:!0}:t),r?Object.getOwnPropertyDescriptor(e,o):void 0})(t,e,o)}
+
+  /**
    * @license
    * Copyright 2017 Google LLC
    * SPDX-License-Identifier: BSD-3-Clause
-   */function tf(t,e){return(i,s,o)=>{let r=e=>e.renderRoot?.querySelector(t)??null;if(e){let{get:t,set:e}="object"==typeof s?i:o??(()=>{let t=Symbol();return{get(){return this[t]},set(e){this[t]=e}}})();return tm(i,s,{get(){let i=t.call(this);return void 0===i&&(null!==(i=r(this))||this.hasUpdated)&&e.call(this,i),i}})}return tm(i,s,{get(){return r(this)}})}}/*! js-cookie v3.0.5 | MIT */function tb(t){for(var e=1;e<arguments.length;e++){var i=arguments[e];for(var s in i)t[s]=i[s]}return t}var ty=function t(e,i){function s(t,s,o){if("undefined"!=typeof document){"number"==typeof(o=tb({},i,o)).expires&&(o.expires=new Date(Date.now()+864e5*o.expires)),o.expires&&(o.expires=o.expires.toUTCString()),t=encodeURIComponent(t).replace(/%(2[346B]|5E|60|7C)/g,decodeURIComponent).replace(/[()]/g,escape);var r="";for(var n in o)o[n]&&(r+="; "+n,!0!==o[n]&&(r+="="+o[n].split(";")[0]));return document.cookie=t+"="+e.write(s,t)+r}}return Object.create({set:s,get:function(t){if("undefined"!=typeof document&&(!arguments.length||t)){for(var i=document.cookie?document.cookie.split("; "):[],s={},o=0;o<i.length;o++){var r=i[o].split("="),n=r.slice(1).join("=");try{var a=decodeURIComponent(r[0]);if(s[a]=e.read(n,a),t===a)break}catch(t){}}return t?s[t]:s}},remove:function(t,e){s(t,"",tb({},e,{expires:-1}))},withAttributes:function(e){return t(this.converter,tb({},this.attributes,e))},withConverter:function(e){return t(tb({},this.converter,e),this.attributes)}},{attributes:{value:Object.freeze(i)},converter:{value:Object.freeze(e)}})}({read:function(t){return'"'===t[0]&&(t=t.slice(1,-1)),t.replace(/(%[\dA-F]{2})+/gi,decodeURIComponent)},write:function(t){return encodeURIComponent(t).replace(/%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g,decodeURIComponent)}},{path:"/"}),t$=((t,...e)=>new n(1===t.length?t[0]:e.reduce((e,i,s)=>e+(t=>{if(!0===t._$cssResult$)return t.cssText;if("number"==typeof t)return t;throw Error("Value passed to 'css' function must be a 'css' function result: "+t+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(i)+t[s+1],t[0]),t,o))`@keyframes fadeInUp{0%{transform:translateY(1em);opacity:0}100%{transform:translateY(0);opacity:1}}@keyframes popIn{0%{transform:translateY(100%) translateX(-100%)}100%{transform:translate(0)}}@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}@keyframes fadeUp{0%{opacity:0;transform:translateY(0)}100%{opacity:1;transform:translateY(-50%)}}:host{font-family:"Helvetica Neue",Helvetica,sans-serif;line-height:1.3em;display:block;width:100%;height:100%}:host .cookieOverlay{position:fixed;left:0;top:0;width:100%;height:100%;z-index:99999;background-color:rgba(0,0,0,.3);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}:host .cookieContainer{padding:20px 30px;transform-origin:bottom;align-items:center;display:flex;flex-direction:column;position:fixed;z-index:999999;right:30px;bottom:30px;border:solid var(--border-width) currentColor;border-radius:.25em;animation:fadeInUp .3s ease-in-out}:host .cookieContainer .content{margin:0;font-size:.9em}:host .button{border:solid var(--border-width);font-size:.9em;font-weight:700;padding:5px 15px;margin:15px;margin-left:0;border-radius:1.5em;border-color:currentColor;display:inline-flex;align-items:baseline}:host .button:last-of-type{margin-right:0}:host .buttonWrapper{display:flex;gap:.5em}:host .miniGDPR{position:fixed;width:40px;height:40px;border-radius:0 66% 0 0;z-index:99999;bottom:0;left:0;display:flex;justify-content:center;align-items:center;border-top:solid var(--border-width);border-right:solid var(--border-width);transform-origin:bottom left;transition:transform .2s ease-in-out;animation:popIn .3s ease-in-out}:host .miniGDPR svg{height:1em}:host .miniGDPR[data-hide=true]{transform:translateY(100%) translateX(-100%)}:host .miniGDPR:active,:host .miniGDPR:hover{transform:scale(1.1)}@media only screen and (max-width:760px){:host .cookieContainer{left:30px;display:block}}:host .popUp{position:fixed;width:100vw;height:100vh;top:0;left:0;overflow:hidden;z-index:999999;animation-duration:.4s;animation-name:fadeIn;background-color:rgba(0,0,0,.3)}:host .popUp dialog{position:absolute;width:600px;height:90%;max-width:90%;min-height:0;max-height:0;border-radius:.25em;border:solid var(--border-width);left:0;right:0;margin:auto;top:50%;transform:translateY(-50%);padding:40px;overflow:hidden;transition:max-height .2s ease-in-out,min-height .2s ease-in-out;width:600px;box-shadow:0 10px 20px rgba(0,0,0,.2)}:host .popUp dialog .closeButton{top:14px;right:14px;width:25px}:host .popUp dialog[data-animate=up]{animation:fadeUp .3s ease-in-out}:host .popUp[data-gallery=true] dialog{padding:0}:host .innerWrapper{width:100%;float:left;position:relative;display:flex;align-items:center;overflow:hidden}:host .row{display:flex;flex-direction:row;gap:1em;align-items:flex-start;margin:0}:host .column{display:flex;flex:1 1;flex-direction:column;align-items:flex-start}@media only screen and (max-width:760px){:host .popUp .popUpElement{padding:25px}:host .popUp .popUpElement .closeButton{width:20px;top:5px;right:5px}:host .row{overflow-x:auto;overflow-y:hidden;scroll-snap-points-x:repeat(100%);scroll-snap-type:x mandatory;flex:1 1;-webkit-overflow-scrolling:touch;scrollbar-width:none}:host .row::-webkit-scrollbar{display:none}:host .column{width:100%;height:100%;position:relative;flex:0 0 100%;scroll-snap-align:start}}:host .container{display:inline-flex;flex-direction:column;margin-right:.5em;margin-top:.5em;font-size:.9em}:host .textLabel{margin-bottom:.5em}:host .label{position:relative;display:inline-block;width:3em;height:1.5em}:host .label .input{opacity:0;width:0;height:0;margin:0;padding:0}:host .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;transition:.4s;border-radius:1em;border:solid var(--border-width);appearance:none}:host .slider::before{position:absolute;border-radius:50%;content:"";height:1em;width:1em;left:.2em;bottom:0;top:0;margin:auto;background-color:currentColor;transition:.4s}:host .input:focus+.slider{box-shadow:0 0 1px}:host .input:checked+.slider:before{transform:translateX(1.4em)}:host .input:disabled+.slider{opacity:.5}:host .menuButton{position:absolute;width:40px;max-width:100%;padding:0;margin:0;line-height:0;z-index:999;cursor:pointer;transition:transform .2s ease-in-out,color .2s ease-in-out;background-color:transparent;display:block;border-color:unset;outline-color:unset}:host .menuButton .hamburger{width:100%;display:inline-block;vertical-align:middle}:host .menuButton .hamburger::after,:host .menuButton .hamburger::before,:host .menuButton .hamburger>span{background-color:currentColor;border-color:currentColor;outline-color:currentColor;display:block;height:2px;margin:10px 0;transition:transform .3s cubic-bezier(.175,.885,.32,1.275),opacity .2s ease-in-out}:host .menuButton .hamburger::after,:host .menuButton .hamburger::before{content:""}:host .menuButton .hamburger::before{margin-top:0}:host .menuButton .hamburger::after{margin-bottom:0}:host .menuButton[data-open=true] .hamburger::before{transform:translateY(12px) rotate(135deg)}:host .menuButton[data-open=true] .hamburger>span{transform:translateY(0) rotate(-135deg);opacity:0}:host .menuButton[data-open=true] .hamburger::after{transform:translateY(-12px) rotate(-135deg)}:host *{box-sizing:border-box}:host button,:host input,:host textarea{color:inherit;font-size:inherit;font-family:inherit;font-weight:inherit;border:0;outline:0;background-color:transparent}:host button,:host input[type=button],:host input[type=reset],:host input[type=submit]{appearance:none}:host button:not([disabled]),:host input[type=button]:not([disabled]),:host input[type=reset]:not([disabled]),:host input[type=submit]:not([disabled]){cursor:pointer}:host button *,:host input[type=button] *,:host input[type=reset] *,:host input[type=submit] *{pointer-events:none}:host a{color:var(--accent-color)}:host svg{width:auto;height:auto;display:inline-block}:host svg path{fill:currentColor}:host p{margin:0;padding:.5em 0 .7em}:host .h1,:host .h2,:host .h3,:host h1,:host h2,:host h3{font-weight:700;font-size:2.2em;padding:0;margin:0;margin-top:.5em}:host .h2,:host h2{font-size:1.7em}:host .h3,:host h3{font-size:1.5em}:host .h3 svg,:host h3 svg{height:1.2em;display:inline-block;vertical-align:bottom}:host .icon-cookies{display:inline-block;margin:0;padding:0}`,tv={settings:"Cookie Settings",customize:{header:"Your data, your choice",label:"Customize",text:"We use <strong>functional cookies</strong> for navigation, etc. In addition, we use <strong>statistical cookies</strong> to see how users interact with the website.",retargetingText:"We also use cookies for marketing.",link:'See our <a href="/%URL%">privacy policy</a>'},header:"This website uses",accept:"I understand",acceptAll:"Accept all",decline:"Only functional",close:"Close",save:"Save preferences",functional:{label:"Functional"},statistical:{label:"Statistical"},marketing:{label:"Marketing"},policyUrl:"privacy"},t_={settings:"Param\xe8tres des cookies",customize:{header:"Vos donn\xe9es, votre choix",label:"Personnaliser",text:"Nous utilisons des <strong>cookies fonctionnels</strong> pour la navigation, etc. De plus, nous utilisons des <strong>cookies statistiques</strong> pour voir comment les utilisateurs interagissent avec le site Web.",retargetingText:"Nous utilisons \xe9galement des cookies \xe0 des fins de marketing.",link:'Consultez notre <a href="/%URL%">politique de confidentialit\xe9</a>'},header:"Ce site Web est utilis\xe9",accept:"Je comprends",acceptAll:"Accepter tout",decline:"Uniquement fonctionnel",close:"Fermer",save:"Enregistrer les pr\xe9f\xe9rences",functional:{label:"Fonctionnel"},statistical:{label:"Calcul statistique"},marketing:{label:"Commercialisation"},policyUrl:"confidentialite"},tw={settings:"Cookieinnstillinger",customize:{header:"Dine data, ditt valg",label:"Tilpass",text:"Vi bruker <strong>funksjonelle cookies</strong> til navigering og lignende. I tillegg bruker vi <strong>statistiske cookies</strong> til \xe5 se hvordan brukere interagerer med nettsiden.",retargetingText:"Vi bruker ogs\xe5 cookies til markedsf\xf8ring.",link:'Les mer p\xe5 v\xe5r <a href="/%URL%">personvernserkl\xe6ring</a>'},header:"Denne nettsida bruker",accept:"Jeg forst\xe5r",acceptAll:"Godta alle",decline:"Bare funksjonelle",close:"Lukk",save:"Lagre innstillinger",functional:{label:"Funksjonell"},statistical:{label:"Statistisk"},marketing:{label:"Markedsf\xf8ring"},policyUrl:"personvern"};let tx=document.documentElement.lang.toLowerCase()||"en",tA=["en","fr","nb","no"].find(t=>tx.includes(t))||"en",tk=(t,e,i)=>`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.id='gtm-snippet';j.${e?"defer":"async"}=true;j.src=
-'https://${i}/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${t}');`,tC=(t,e)=>e in t,tS=t=>{try{if(!(t instanceof Object))return!1;for(let e of Object.keys(t)){if(t[e]instanceof Object){tS(t[e]);continue}t[e]=null}return!0}catch(t){return console.warn("Could not reset dataLayer"),!1}},tE=t=>t.normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim().replace(/\s/g,"-").replace(/\n/gm,"-").toLowerCase(),tU=t=>{try{for(let e of Object.keys(t))if(tC(t,e)){if("string"==typeof t[e]){t[e]=tE(t[e]);continue}tU(t[e])}}catch(t){console.error("Could not sanitize dataLayer properties")}},tP=t=>{let e=()=>((1+Math.random())*65536|0).toString(16).substring(1);return`${t??`:${e()}`}-${e()}`},tz=class{initialize(){if(this._initialized){console.warn("Google Tag Manager is already loaded");return}if(!this.gtmId){console.error("No Google Tag Manager ID was assigned");return}let t=document.getElementById("gtm-snippet");if(!(t&&"src"in t&&"string"==typeof t.src&&t.src.includes(`id=${this.gtmId}`))){let t=document.createElement("script"),e=tk(this.gtmId,this.defer,this.serverSideDomain?this.serverSideDomain.replace(/http(|s):\/\/|\/$/g,""):"www.googletagmanager.com");t.innerHTML=e,document.head.appendChild(t),this._initialized=!0}}dataLayerPush(t,e=!1){window.dataLayer=window.dataLayer||[],this.sanitizeDataLayer&&tU(t),window.dataLayer.push(t),(e||this.resetDataLayer)&&this._reset(JSON.parse(JSON.stringify(t)))}_reset(t){window.dataLayer=window.dataLayer||[],tS(t)&&window.dataLayer.push(t)}constructor({gtmId:t=null,resetDataLayer:e=!1,sanitizeDataLayer:i=!1,serverSideDomain:s=null,defer:o=!1}){this._initialized=!1,this.gtmId=null,this.resetDataLayer=!1,this.sanitizeDataLayer=!1,this.serverSideDomain=null,this.defer=!1,this.gtmId=t?t.trim():null,this.resetDataLayer=!!e,this.sanitizeDataLayer=!!i,this.serverSideDomain=s?s.trim():null,this.defer=!!o}},tT=t=>t??V;var tR=G`<svg xmlns="http://www.w3.org/2000/svg" width="992" height="1024" viewBox="0 0 992 1024"><path d="M810.112 4.992c-27.232 0-49.28 22.112-49.344 49.344 0 27.232 22.112 49.344 49.344 49.344s49.344-22.112 49.344-49.344c0-27.232-22.112-49.344-49.344-49.344zm13.184 429.728c-167.424 54.048-292.352-63.52-236.384-243.232-61.728-22.944-82.24-90.368-58.016-166.24C255.36 11.456 14.336 224.416.672 498.048c-13.792 273.536 196.896 506.432 470.368 520.32 273.6 13.792 506.528-196.896 520.32-470.464 1.248-24.736.672-49.184-1.664-73.088-69.952 43.008-123.84 23.52-166.432-40.032zm-575.52-35.392c40.992 0 74.176 33.248 74.176 74.176s-33.248 74.176-74.176 74.176c-40.992 0-74.176-33.248-74.176-74.176s33.248-74.176 74.176-74.176zm233.696 94.56c23.616 0 42.752 19.136 42.752 42.752s-19.136 42.752-42.752 42.752c-23.616 0-42.752-19.136-42.752-42.752-.096-23.616 19.072-42.752 42.752-42.752zM295.968 669.952c28.8 0 52.16 23.36 52.16 52.16s-23.36 52.16-52.16 52.16c-28.8 0-52.16-23.36-52.16-52.16 0-28.864 23.36-52.16 52.16-52.16zm112.384-399.008c22.624 0 40.832 18.304 40.832 40.832 0 22.624-18.304 40.832-40.832 40.832-22.624 0-40.832-18.304-40.832-40.832s18.304-40.832 40.832-40.832zm221.952 417.28c37.856 0 68.48 30.688 68.48 68.48 0 37.856-30.688 68.48-68.48 68.48-37.856 0-68.48-30.688-68.48-68.48s30.688-68.48 68.48-68.48zm144.224-492.608c25.408 0 46.048 20.64 46.048 46.048s-20.64 46.048-46.048 46.048-46.048-20.64-46.048-46.048 20.64-46.048 46.048-46.048z"/></svg>`;function tO(){return G`<button class="miniGDPR" @click="${this.setVisible}" style="color:${this.color};background-color:${this.accentColor}" data-hide="false"><figure aria-label="${tT(this.text?.settings)}" class="icon-cookies">${tR}</figure></button>`}class tL{constructor(t){}get _$AU(){return this._$AM._$AU}_$AT(t,e,i){this._$Ct=t,this._$AM=e,this._$Ci=i}_$AS(t,e){return this.update(t,e)}update(t,e){return this.render(...e)}}/**
+   */function r(r){return n({...r,state:!0,attribute:!1})}
+
+  /**
    * @license
    * Copyright 2017 Google LLC
    * SPDX-License-Identifier: BSD-3-Clause
-   */class tN extends tL{constructor(t){if(super(t),this.it=V,2!==t.type)throw Error(this.constructor.directiveName+"() can only be used in child bindings")}render(t){if(t===V||null==t)return this._t=void 0,this.it=t;if(t===Y)return t;if("string"!=typeof t)throw Error(this.constructor.directiveName+"() called with a non-string value");if(t===this.it)return this._t;this.it=t;let e=[t];return e.raw=e,this._t={_$litType$:this.constructor.resultType,strings:e,values:[]}}}tN.directiveName="unsafeHTML",tN.resultType=1;let tD=(...t)=>({_$litDirective$:tN,values:t});var tH=G`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke="currentColor"><style>@keyframes spinner_zKoa{to{transform:rotate(360deg)}}@keyframes spinner_YpZS{0%{stroke-dasharray:0 150;stroke-dashoffset:0}47.5%{stroke-dasharray:42 150;stroke-dashoffset:-16}95%,to{stroke-dasharray:42 150;stroke-dashoffset:-59}}</style><g style="transform-origin:center;animation:spinner_zKoa 2s linear infinite"><circle cx="12" cy="12" r="9.5" fill="none" stroke-width="3" style="stroke-linecap:round;animation:spinner_YpZS 1.5s ease-in-out infinite"/></g></svg>`;function tB(){let t=!!this.customize;return G`<div class="popUp fadeIn"><dialog ?open="${t}" style="color:${this.color};background-color:${this.backgroundColor}">${function({className:t,onClick:e,isOpen:i}){return G`<button @click="${e}" class="menuButton ${t??V}" data-open="${i}"><span class="hamburger"><span></span></span></button>`}({className:"closeButton",isOpen:t,onClick:()=>this.setCustomize(!t)})}<div class="dialog-inner-box" style="display:flex;flex-direction:column"><h3><figure aria-label="cookies" class="icon-cookies">${tR}</figure>${" "}${this.text?.customize.header}</h3><p>${tD(this.text?.customize.text)}</p><p>${tD(this.text?.customize.link.replace("%URL%",this.text?.policyUrl))}</p><div class="buttonWrapper"><button aria-label="${tT(this.text?.decline)}" class="button bg-hover gdpr" @click="${this.declineAll}">${this.text?.decline}</button> <button aria-label="${tT(this.text?.accept)}" class="button dark-bg bg-hover gdpr" @click="${this.acceptAll}" style="background-color:${this.accentColor}">${this.saving?tH:this.statistical||this.retargeting?this.text?.save:this.text?.acceptAll}</button></div><div class="buttonWrapper">${this.switchButton({label:this.text?.functional.label,value:!0})} ${this.switchButton({label:this.text?.statistical.label,name:"statistical",onChangeHandler:this.handleChange,value:!!this.statistical})} ${this.hasRetargeting?this.switchButton({label:this.text?.marketing.label,name:"retargeting",onChangeHandler:this.handleChange,value:!!this.retargeting}):V}</div></div></dialog></div>`}function tI(){return G`<div class="cookieContainer" style="color:${this.color};background-color:${this.backgroundColor}"><div class="content"><div aria-describedby="cookieWarningText" aria-labelledby="cookieWarningText" aria-modal="false" role="dialog"><p class="h3" id="cookieWarningText" lang="${document.documentElement.lang}">${this.text?.header}${" "}${tR}</p></div><div class="buttonWrapper"><button aria-label="${tT(this.text?.customize.label)}" class="button gdpr" @click="${this.setCustomize}" style="background-color:${this.accentColor}">${this.text?.customize.label}</button> <button aria-label="${tT(this.text?.accept)}" class="button gdpr" @click="${this.acceptAll}" style="backgroundColor:${this.accentColor}">${this.text?.accept}</button></div></div></div>`}function tM({name:t,label:e,onChangeHandler:i,value:s}){let o=tP();return G`<div class="container">${e?G`<label class="textLabel" for="${o}">${e}</label>`:V} <label class="label"><input ?checked="${s}" class="input" ?disabled="${!i}" id="${o}" name="${tT(t)}" type="checkbox" @change="${i}" value="${s}"> <span class="slider" style="color:${this.color};background-color:${s?this.accentColor:"transparent"};transition:background-color .2s"></span></label></div>`}function tj(t,e,i,s){for(var o,r=arguments.length,n=r<3?e:null===s?s=Object.getOwnPropertyDescriptor(e,i):s,a=t.length-1;a>=0;a--)(o=t[a])&&(n=(r<3?o(n):r>3?o(e,i,n):o(e,i))||n);return r>3&&n&&Object.defineProperty(e,i,n),n}class tW extends th{_getConsent(){let t=ty.get("CookieConsent");if(t)return JSON.parse(decodeURIComponent(t))}_boolToConsentParams(t){if(null!=t)return t?"granted":"denied"}_consentParamsToBool(t){return null==t?null:"granted"===t}save(){let t={functionality_storage:"granted",analytics_storage:this._boolToConsentParams(this.statistical),ad_user_data:this._boolToConsentParams(this.statistical),ad_storage:this._boolToConsentParams(this.retargeting),ad_personalization:this._boolToConsentParams(this.retargeting),personalization_storage:this._boolToConsentParams(this.retargeting),security_storage:"granted"};for(let e of(ty.set("CookieConsent",encodeURIComponent(JSON.stringify(t)),{sameSite:"Lax",expires:365,secure:!0}),this._consentListeners))e(t)}acceptAll(){let t={statistical:this.statistical,retargeting:this.retargeting};this.statistical=!0,this.retargeting=!0,this.saving=!0,setTimeout(()=>{this.saving=!1,this._visible=!1,this.customize=!1},!this.customize||t.statistical&&t.retargeting?0:800),window.dataLayer&&window.google_tag_data||this._gtm?.initialize(),this.save()}declineAll(){this._visible=!1,this.customize=!1,this.statistical=!1,this.retargeting=!1,(window.dataLayer||window.google_tag_data)&&location.reload(),this.save()}esc({key:t}){this.customize&&"Escape"===t&&this.setCustomize(!1)}setCustomize(t){this.customize=!!t,this._visible=!t,this.statistical=!!this.statistical,this.retargeting=!!this.retargeting,t&&setTimeout(()=>{let t=`${(this.dialogInner?.offsetHeight??0)+80}px`;this.dialog&&Object.assign(this.dialog.style,{minHeight:t,maxHeight:t})},10)}handleChange({target:t}){if(t instanceof HTMLInputElement){let{checked:e,name:i}=t;i in this&&(this[i]=e)}}setVisible(){ty.remove("CookieConsent"),this.statistical=null,this.retargeting=null,this._visible=!this._visible}hideOnScroll(){let t=document.body.getBoundingClientRect();this.mini&&(this.mini.dataset.hide=(t.top<this._scrollPos&&t.top<-20).toString()),this._scrollPos=t.top}static get styles(){return t$}connectedCallback(){super.connectedCallback(),this.statistical=this._consentParamsToBool(this._getConsent()?.analytics_storage),this.retargeting=this._consentParamsToBool(this._getConsent()?.ad_storage),this.text=function(){switch(tA){case"fr":return t_;case"no":case"nb":return tw;default:return tv}}();let t=this.shadowRoot?.adoptedStyleSheets[0];t?.insertRule(`:host{--border-width:${this.borderWidth}px;h1,.h1,h2,.h2,h3,.h3{font-family:${this.fontFamily};}}`),this._gtm=new tz({gtmId:this.gtmId}),(this.statistical||this.retargeting)&&this._gtm.initialize(),window.addGDPRConsent=t=>{this._consentListeners.push(t)},document.addEventListener("keydown",this.esc,{passive:!0,capture:!0}),document.addEventListener("scroll",this.hideOnScroll,{passive:!0,capture:!0})}disconnectedCallback(){super.disconnectedCallback(),document.removeEventListener("keydown",this.esc),document.removeEventListener("scroll",this.hideOnScroll)}render(){return(this.customize||this.statistical||!1===this.statistical)&&!this._visible?this.customize?this._popUp():this._miniGDPR():this._cookieWarning()}constructor(){super(),this.color="#000",this.backgroundColor="#FFF",this.accentColor="#FFF",this.fontFamily='"Helvetica Neue", Helvetica, sans-serif',this.borderWidth=2,this.hasRetargeting=!1,this.statistical=null,this.retargeting=null,this._visible=!1,this.customize=null,this.saving=!1,this._scrollPos=0,this._consentListeners=[],this._popUp=tB,this._cookieWarning=tI,this._miniGDPR=tO,this.switchButton=tM,this.esc=this.esc.bind(this),this.hideOnScroll=this.hideOnScroll.bind(this)}}tj([tu()],tW.prototype,"gtmId",void 0),tj([tu()],tW.prototype,"color",void 0),tj([tu()],tW.prototype,"backgroundColor",void 0),tj([tu()],tW.prototype,"accentColor",void 0),tj([tu()],tW.prototype,"fontFamily",void 0),tj([tu({type:Number})],tW.prototype,"borderWidth",void 0),tj([tu({type:Boolean})],tW.prototype,"hasRetargeting",void 0),tj([tu({type:Object})],tW.prototype,"text",void 0),tj([tg()],tW.prototype,"statistical",void 0),tj([tg()],tW.prototype,"retargeting",void 0),tj([tf("dialog")],tW.prototype,"dialog",void 0),tj([tf(".dialog-inner-box")],tW.prototype,"dialogInner",void 0),tj([tf(".miniGDPR")],tW.prototype,"mini",void 0),tj([tg()],tW.prototype,"_visible",void 0),tj([tg()],tW.prototype,"customize",void 0),tj([tg()],tW.prototype,"saving",void 0),tW=tj([(e="am-gdpr",(t,i)=>{void 0!==i?i.addInitializer(()=>{customElements.define(e,t)}):customElements.define(e,t)})],tW),t.AMGDPR=tW}(this["am-gdpr"]=this["am-gdpr"]||{});
+   */
+  const e$3=(e,t,c)=>(c.configurable=!0,c.enumerable=!0,c);
+
+  /**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   */function e$2(e,r){return (n,s,i)=>{const o=t=>t.renderRoot?.querySelector(e)??null;if(r){const{get:e,set:r}="object"==typeof s?n:i??(()=>{const t=Symbol();return {get(){return this[t]},set(e){this[t]=e;}}})();return e$3(n,s,{get(){let t=e.call(this);return void 0===t&&(t=o(this),(null!==t||this.hasUpdated)&&r.call(this,t)),t}})}return e$3(n,s,{get(){return o(this)}})}}
+
+  /*! js-cookie v3.0.5 | MIT */
+  /* eslint-disable no-var */
+  function assign (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        target[key] = source[key];
+      }
+    }
+    return target
+  }
+  /* eslint-enable no-var */
+
+  /* eslint-disable no-var */
+  var defaultConverter = {
+    read: function (value) {
+      if (value[0] === '"') {
+        value = value.slice(1, -1);
+      }
+      return value.replace(/(%[\dA-F]{2})+/gi, decodeURIComponent)
+    },
+    write: function (value) {
+      return encodeURIComponent(value).replace(
+        /%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g,
+        decodeURIComponent
+      )
+    }
+  };
+  /* eslint-enable no-var */
+
+  /* eslint-disable no-var */
+
+  function init (converter, defaultAttributes) {
+    function set (name, value, attributes) {
+      if (typeof document === 'undefined') {
+        return
+      }
+
+      attributes = assign({}, defaultAttributes, attributes);
+
+      if (typeof attributes.expires === 'number') {
+        attributes.expires = new Date(Date.now() + attributes.expires * 864e5);
+      }
+      if (attributes.expires) {
+        attributes.expires = attributes.expires.toUTCString();
+      }
+
+      name = encodeURIComponent(name)
+        .replace(/%(2[346B]|5E|60|7C)/g, decodeURIComponent)
+        .replace(/[()]/g, escape);
+
+      var stringifiedAttributes = '';
+      for (var attributeName in attributes) {
+        if (!attributes[attributeName]) {
+          continue
+        }
+
+        stringifiedAttributes += '; ' + attributeName;
+
+        if (attributes[attributeName] === true) {
+          continue
+        }
+
+        // Considers RFC 6265 section 5.2:
+        // ...
+        // 3.  If the remaining unparsed-attributes contains a %x3B (";")
+        //     character:
+        // Consume the characters of the unparsed-attributes up to,
+        // not including, the first %x3B (";") character.
+        // ...
+        stringifiedAttributes += '=' + attributes[attributeName].split(';')[0];
+      }
+
+      return (document.cookie =
+        name + '=' + converter.write(value, name) + stringifiedAttributes)
+    }
+
+    function get (name) {
+      if (typeof document === 'undefined' || (arguments.length && !name)) {
+        return
+      }
+
+      // To prevent the for loop in the first place assign an empty array
+      // in case there are no cookies at all.
+      var cookies = document.cookie ? document.cookie.split('; ') : [];
+      var jar = {};
+      for (var i = 0; i < cookies.length; i++) {
+        var parts = cookies[i].split('=');
+        var value = parts.slice(1).join('=');
+
+        try {
+          var found = decodeURIComponent(parts[0]);
+          jar[found] = converter.read(value, found);
+
+          if (name === found) {
+            break
+          }
+        } catch (e) {}
+      }
+
+      return name ? jar[name] : jar
+    }
+
+    return Object.create(
+      {
+        set,
+        get,
+        remove: function (name, attributes) {
+          set(
+            name,
+            '',
+            assign({}, attributes, {
+              expires: -1
+            })
+          );
+        },
+        withAttributes: function (attributes) {
+          return init(this.converter, assign({}, this.attributes, attributes))
+        },
+        withConverter: function (converter) {
+          return init(assign({}, this.converter, converter), this.attributes)
+        }
+      },
+      {
+        attributes: { value: Object.freeze(defaultAttributes) },
+        converter: { value: Object.freeze(converter) }
+      }
+    )
+  }
+
+  var api = init(defaultConverter, { path: '/' });
+
+  var css_248z = i$3`@keyframes fadeInUp{0%{transform:translateY(1em);opacity:0}100%{transform:translateY(0);opacity:1}}@keyframes popIn{0%{transform:translateY(100%) translateX(-100%)}100%{transform:translate(0)}}@keyframes fadeIn{0%{opacity:0}100%{opacity:1}}@keyframes fadeUp{0%{opacity:0;transform:translateY(0)}100%{opacity:1;transform:translateY(-50%)}}:host{font-family:"Helvetica Neue",Helvetica,sans-serif;line-height:1.3em;display:block;width:100%;height:100%}:host .cookieOverlay{position:fixed;left:0;top:0;width:100%;height:100%;z-index:99999;background-color:rgba(0,0,0,.3);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}:host .cookieContainer{padding:20px 30px;transform-origin:bottom;align-items:center;display:flex;flex-direction:column;position:fixed;z-index:999999;right:30px;bottom:30px;border:solid var(--border-width) currentColor;border-radius:.25em;animation:fadeInUp .3s ease-in-out}:host .cookieContainer .content{margin:0;font-size:.9em}:host .button{border:solid var(--border-width);font-size:.9em;font-weight:700;padding:5px 15px;margin:15px;margin-left:0;border-radius:1.5em;border-color:currentColor;display:inline-flex;align-items:baseline}:host .button:last-of-type{margin-right:0}:host .buttonWrapper{display:flex;gap:.5em}:host .miniGDPR{position:fixed;width:40px;height:40px;border-radius:0 66% 0 0;z-index:99999;bottom:0;left:0;display:flex;justify-content:center;align-items:center;border-top:solid var(--border-width);border-right:solid var(--border-width);transform-origin:bottom left;transition:transform .2s ease-in-out;animation:popIn .3s ease-in-out}:host .miniGDPR svg{height:1em}:host .miniGDPR[data-hide=true]{transform:translateY(100%) translateX(-100%)}:host .miniGDPR:active,:host .miniGDPR:hover{transform:scale(1.1)}@media only screen and (max-width:760px){:host .cookieContainer{left:30px;display:block}}:host .popUp{position:fixed;width:100vw;height:100vh;top:0;left:0;overflow:hidden;z-index:999999;animation-duration:.4s;animation-name:fadeIn;background-color:rgba(0,0,0,.3)}:host .popUp dialog{position:absolute;width:600px;height:90%;max-width:90%;min-height:0;max-height:0;border-radius:.25em;border:solid var(--border-width);left:0;right:0;margin:auto;top:50%;transform:translateY(-50%);padding:40px;overflow:hidden;transition:max-height .2s ease-in-out,min-height .2s ease-in-out;width:600px;box-shadow:0 10px 20px rgba(0,0,0,.2)}:host .popUp dialog .closeButton{top:14px;right:14px;width:25px}:host .popUp dialog[data-animate=up]{animation:fadeUp .3s ease-in-out}:host .popUp[data-gallery=true] dialog{padding:0}:host .innerWrapper{width:100%;float:left;position:relative;display:flex;align-items:center;overflow:hidden}:host .row{display:flex;flex-direction:row;gap:1em;align-items:flex-start;margin:0}:host .column{display:flex;flex:1 1;flex-direction:column;align-items:flex-start}@media only screen and (max-width:760px){:host .popUp .popUpElement{padding:25px}:host .popUp .popUpElement .closeButton{width:20px;top:5px;right:5px}:host .row{overflow-x:auto;overflow-y:hidden;scroll-snap-points-x:repeat(100%);scroll-snap-type:x mandatory;flex:1 1;-webkit-overflow-scrolling:touch;scrollbar-width:none}:host .row::-webkit-scrollbar{display:none}:host .column{width:100%;height:100%;position:relative;flex:0 0 100%;scroll-snap-align:start}}:host .container{display:inline-flex;flex-direction:column;margin-right:.5em;margin-top:.5em;font-size:.9em}:host .textLabel{margin-bottom:.5em}:host .label{position:relative;display:inline-block;width:3em;height:1.5em}:host .label .input{opacity:0;width:0;height:0;margin:0;padding:0}:host .slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;transition:.4s;border-radius:1em;border:solid var(--border-width);appearance:none}:host .slider::before{position:absolute;border-radius:50%;content:"";height:1em;width:1em;left:.2em;bottom:0;top:0;margin:auto;background-color:currentColor;transition:.4s}:host .input:focus+.slider{box-shadow:0 0 1px}:host .input:checked+.slider:before{transform:translateX(1.4em)}:host .input:disabled+.slider{opacity:.5}:host .menuButton{position:absolute;width:40px;max-width:100%;padding:0;margin:0;line-height:0;z-index:999;cursor:pointer;transition:transform .2s ease-in-out,color .2s ease-in-out;background-color:transparent;display:block;border-color:unset;outline-color:unset}:host .menuButton .hamburger{width:100%;display:inline-block;vertical-align:middle}:host .menuButton .hamburger::after,:host .menuButton .hamburger::before,:host .menuButton .hamburger>span{background-color:currentColor;border-color:currentColor;outline-color:currentColor;display:block;height:2px;margin:10px 0;transition:transform .3s cubic-bezier(.175,.885,.32,1.275),opacity .2s ease-in-out}:host .menuButton .hamburger::after,:host .menuButton .hamburger::before{content:""}:host .menuButton .hamburger::before{margin-top:0}:host .menuButton .hamburger::after{margin-bottom:0}:host .menuButton[data-open=true] .hamburger::before{transform:translateY(12px) rotate(135deg)}:host .menuButton[data-open=true] .hamburger>span{transform:translateY(0) rotate(-135deg);opacity:0}:host .menuButton[data-open=true] .hamburger::after{transform:translateY(-12px) rotate(-135deg)}:host *{box-sizing:border-box}:host button,:host input,:host textarea{color:inherit;font-size:inherit;font-family:inherit;font-weight:inherit;border:0;outline:0;background-color:transparent}:host button,:host input[type=button],:host input[type=reset],:host input[type=submit]{appearance:none}:host button:not([disabled]),:host input[type=button]:not([disabled]),:host input[type=reset]:not([disabled]),:host input[type=submit]:not([disabled]){cursor:pointer}:host button *,:host input[type=button] *,:host input[type=reset] *,:host input[type=submit] *{pointer-events:none}:host a{color:var(--accent-color)}:host svg{width:auto;height:auto;display:inline-block}:host svg path{fill:currentColor}:host p{margin:0;padding:.5em 0 .7em}:host .h1,:host .h2,:host .h3,:host h1,:host h2,:host h3{font-weight:700;font-size:2.2em;padding:0;margin:0;margin-top:.5em}:host .h2,:host h2{font-size:1.7em}:host .h3,:host h3{font-size:1.5em}:host .h3 svg,:host h3 svg{height:1.2em;display:inline-block;vertical-align:bottom}:host .icon-cookies{display:inline-block;margin:0;padding:0}`;
+
+  var settings$2="Cookie Settings";var customize$2={header:"Your data, your choice",label:"Customize",text:"We use <strong>functional cookies</strong> for navigation, etc. In addition, we use <strong>statistical cookies</strong> to see how users interact with the website.",retargetingText:"We also use cookies for marketing.",link:"See our <a href=\"/%URL%\">privacy policy</a>"};var header$2="This website uses";var accept$2="I understand";var acceptAll$2="Accept all";var decline$2="Only functional";var close$2="Close";var save$2="Save preferences";var functional$2={label:"Functional"};var statistical$2={label:"Statistical"};var marketing$2={label:"Marketing"};var policyUrl$2="privacy";var en = {settings:settings$2,customize:customize$2,header:header$2,accept:accept$2,acceptAll:acceptAll$2,decline:decline$2,close:close$2,save:save$2,functional:functional$2,statistical:statistical$2,marketing:marketing$2,policyUrl:policyUrl$2};
+
+  var settings$1="Paramètres des cookies";var customize$1={header:"Vos données, votre choix",label:"Personnaliser",text:"Nous utilisons des <strong>cookies fonctionnels</strong> pour la navigation, etc. De plus, nous utilisons des <strong>cookies statistiques</strong> pour voir comment les utilisateurs interagissent avec le site Web.",retargetingText:"Nous utilisons également des cookies à des fins de marketing.",link:"Consultez notre <a href=\"/%URL%\">politique de confidentialité</a>"};var header$1="Ce site Web est utilisé";var accept$1="Je comprends";var acceptAll$1="Accepter tout";var decline$1="Uniquement fonctionnel";var close$1="Fermer";var save$1="Enregistrer les préférences";var functional$1={label:"Fonctionnel"};var statistical$1={label:"Calcul statistique"};var marketing$1={label:"Commercialisation"};var policyUrl$1="confidentialite";var fr = {settings:settings$1,customize:customize$1,header:header$1,accept:accept$1,acceptAll:acceptAll$1,decline:decline$1,close:close$1,save:save$1,functional:functional$1,statistical:statistical$1,marketing:marketing$1,policyUrl:policyUrl$1};
+
+  var settings="Cookieinnstillinger";var customize={header:"Dine data, ditt valg",label:"Tilpass",text:"Vi bruker <strong>funksjonelle cookies</strong> til navigering og lignende. I tillegg bruker vi <strong>statistiske cookies</strong> til å se hvordan brukere interagerer med nettsiden.",retargetingText:"Vi bruker også cookies til markedsføring.",link:"Les mer på vår <a href=\"/%URL%\">personvernserklæring</a>"};var header="Denne nettsida bruker";var accept="Jeg forstår";var acceptAll="Godta alle";var decline="Bare funksjonelle";var close="Lukk";var save="Lagre innstillinger";var functional={label:"Funksjonell"};var statistical={label:"Statistisk"};var marketing={label:"Markedsføring"};var policyUrl="personvern";var no = {settings:settings,customize:customize,header:header,accept:accept,acceptAll:acceptAll,decline:decline,close:close,save:save,functional:functional,statistical:statistical,marketing:marketing,policyUrl:policyUrl};
+
+  const languages = [
+      'en',
+      'fr',
+      'nb',
+      'no'
+  ], fallbackLanguage = 'en', browserLanguage = document.documentElement.lang.toLowerCase() || fallbackLanguage, translation = languages.find((lang)=>browserLanguage.includes(lang)) || fallbackLanguage;
+  function getTranslation() {
+      switch(translation){
+          case 'fr':
+              return fr;
+          case 'no':
+          case 'nb':
+              return no;
+          default:
+              return en;
+      }
+  }
+
+  const gtmCode = (gtmId, defer, domain)=>`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\nnew Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\nj=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.id='gtm-snippet';j.${defer ? 'defer' : 'async'}=true;j.src=\n'https://${domain}/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n})(window,document,'script','dataLayer','${gtmId}');`, hasKey = (obj, key)=>{
+      return key in obj;
+  }, resetDataLayer = (obj)=>{
+      try {
+          if (!(obj instanceof Object)) {
+              return false;
+          }
+          for (const key of Object.keys(obj)){
+              if (obj[key] instanceof Object) {
+                  resetDataLayer(obj[key]);
+                  continue;
+              }
+              obj[key] = null;
+          }
+          return true;
+      } catch (err) {
+          console.warn('Could not reset dataLayer');
+          return false;
+      }
+  }, sanitize = (str)=>str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().replace(/\s/g, '-').replace(/\n/gm, '-').toLowerCase(), sanitizeObject = (obj)=>{
+      try {
+          for (const key of Object.keys(obj)){
+              if (hasKey(obj, key)) {
+                  if (typeof obj[key] === 'string') {
+                      obj[key] = sanitize(obj[key]);
+                      continue;
+                  }
+                  sanitizeObject(obj[key]);
+              }
+          }
+      } catch (err) {
+          console.error('Could not sanitize dataLayer properties');
+      }
+  }, useId = (prefix)=>{
+      const s4 = ()=>{
+          return ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
+      };
+      return `${prefix ?? `:${s4()}`}-${s4()}`;
+  };
+
+  let GTM = class GTM {
+      initialize() {
+          if (this._initialized) {
+              console.warn('Google Tag Manager is already loaded');
+              return;
+          }
+          if (!this.gtmId) {
+              console.error('No Google Tag Manager ID was assigned');
+              return;
+          }
+          const isAlreadyLoaded = document.getElementById('gtm-snippet');
+          if (!(isAlreadyLoaded && 'src' in isAlreadyLoaded && typeof isAlreadyLoaded.src === 'string' && isAlreadyLoaded.src.includes(`id=${this.gtmId}`))) {
+              const script = document.createElement('script'), innerHTML = gtmCode(this.gtmId, this.defer, this.serverSideDomain ? this.serverSideDomain.replace(/http(|s):\/\/|\/$/g, '') : 'www.googletagmanager.com');
+              script.innerHTML = innerHTML;
+              document.head.appendChild(script);
+              this._initialized = true;
+          }
+      }
+      dataLayerPush(obj, reset = false) {
+          window.dataLayer = window.dataLayer || [];
+          if (this.sanitizeDataLayer) {
+              sanitizeObject(obj);
+          }
+          window.dataLayer.push(obj);
+          if (reset || this.resetDataLayer) {
+              this._reset(JSON.parse(JSON.stringify(obj)));
+          }
+      }
+      _reset(obj) {
+          window.dataLayer = window.dataLayer || [];
+          if (resetDataLayer(obj)) {
+              window.dataLayer.push(obj);
+          }
+      }
+      constructor({ gtmId = null, resetDataLayer = false, sanitizeDataLayer = false, serverSideDomain = null, defer = false }){
+          this._initialized = false;
+          this.gtmId = null;
+          this.resetDataLayer = false;
+          this.sanitizeDataLayer = false;
+          this.serverSideDomain = null;
+          this.defer = false;
+          this.gtmId = gtmId ? gtmId.trim() : null;
+          this.resetDataLayer = !!resetDataLayer;
+          this.sanitizeDataLayer = !!sanitizeDataLayer;
+          this.serverSideDomain = serverSideDomain ? serverSideDomain.trim() : null;
+          this.defer = !!defer;
+      }
+  };
+
+  /**
+   * @license
+   * Copyright 2018 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   */const o$1=o=>o??T;
+
+  var icon = x`<svg xmlns="http://www.w3.org/2000/svg" width="992" height="1024" viewBox="0 0 992 1024"><path d="M810.112 4.992c-27.232 0-49.28 22.112-49.344 49.344 0 27.232 22.112 49.344 49.344 49.344s49.344-22.112 49.344-49.344c0-27.232-22.112-49.344-49.344-49.344zm13.184 429.728c-167.424 54.048-292.352-63.52-236.384-243.232-61.728-22.944-82.24-90.368-58.016-166.24C255.36 11.456 14.336 224.416.672 498.048c-13.792 273.536 196.896 506.432 470.368 520.32 273.6 13.792 506.528-196.896 520.32-470.464 1.248-24.736.672-49.184-1.664-73.088-69.952 43.008-123.84 23.52-166.432-40.032zm-575.52-35.392c40.992 0 74.176 33.248 74.176 74.176s-33.248 74.176-74.176 74.176c-40.992 0-74.176-33.248-74.176-74.176s33.248-74.176 74.176-74.176zm233.696 94.56c23.616 0 42.752 19.136 42.752 42.752s-19.136 42.752-42.752 42.752c-23.616 0-42.752-19.136-42.752-42.752-.096-23.616 19.072-42.752 42.752-42.752zM295.968 669.952c28.8 0 52.16 23.36 52.16 52.16s-23.36 52.16-52.16 52.16c-28.8 0-52.16-23.36-52.16-52.16 0-28.864 23.36-52.16 52.16-52.16zm112.384-399.008c22.624 0 40.832 18.304 40.832 40.832 0 22.624-18.304 40.832-40.832 40.832-22.624 0-40.832-18.304-40.832-40.832s18.304-40.832 40.832-40.832zm221.952 417.28c37.856 0 68.48 30.688 68.48 68.48 0 37.856-30.688 68.48-68.48 68.48-37.856 0-68.48-30.688-68.48-68.48s30.688-68.48 68.48-68.48zm144.224-492.608c25.408 0 46.048 20.64 46.048 46.048s-20.64 46.048-46.048 46.048-46.048-20.64-46.048-46.048 20.64-46.048 46.048-46.048z"/></svg>`;
+
+  function miniGDPR() {
+      return x`<button class="miniGDPR" @click="${this.setVisible}" style="color:${this.color};background-color:${this.accentColor}" data-hide="false"><figure aria-label="${o$1(this.text?.settings)}" class="icon-cookies">${icon}</figure></button>`;
+  }
+
+  /**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   */
+  const t={ATTRIBUTE:1,CHILD:2,PROPERTY:3,BOOLEAN_ATTRIBUTE:4,EVENT:5,ELEMENT:6},e$1=t=>(...e)=>({_$litDirective$:t,values:e});class i{constructor(t){}get _$AU(){return this._$AM._$AU}_$AT(t,e,i){this._$Ct=t,this._$AM=e,this._$Ci=i;}_$AS(t,e){return this.update(t,e)}update(t,e){return this.render(...e)}}
+
+  /**
+   * @license
+   * Copyright 2017 Google LLC
+   * SPDX-License-Identifier: BSD-3-Clause
+   */class e extends i{constructor(i){if(super(i),this.it=T,i.type!==t.CHILD)throw Error(this.constructor.directiveName+"() can only be used in child bindings")}render(r){if(r===T||null==r)return this._t=void 0,this.it=r;if(r===w)return r;if("string"!=typeof r)throw Error(this.constructor.directiveName+"() called with a non-string value");if(r===this.it)return this._t;this.it=r;const s=[r];return s.raw=s,this._t={_$litType$:this.constructor.resultType,strings:s,values:[]}}}e.directiveName="unsafeHTML",e.resultType=1;const o=e$1(e);
+
+  function uiButton({ className, onClick, isOpen }) {
+      return x`<button @click="${onClick}" class="menuButton ${className ?? T}" data-open="${isOpen}"><span class="hamburger"><span></span></span></button>`;
+  }
+
+  var loading = x`<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" stroke="currentColor"><style>@keyframes spinner_zKoa{to{transform:rotate(360deg)}}@keyframes spinner_YpZS{0%{stroke-dasharray:0 150;stroke-dashoffset:0}47.5%{stroke-dasharray:42 150;stroke-dashoffset:-16}95%,to{stroke-dasharray:42 150;stroke-dashoffset:-59}}</style><g style="transform-origin:center;animation:spinner_zKoa 2s linear infinite"><circle cx="12" cy="12" r="9.5" fill="none" stroke-width="3" style="stroke-linecap:round;animation:spinner_YpZS 1.5s ease-in-out infinite"/></g></svg>`;
+
+  function popUp() {
+      const isOpen = !!this.customize;
+      return x`<div class="popUp fadeIn"><dialog ?open="${isOpen}" style="color:${this.color};background-color:${this.backgroundColor}">${uiButton({
+        className: 'closeButton',
+        isOpen,
+        onClick: ()=>this.setCustomize(!isOpen)
+    })}<div class="dialog-inner-box" style="display:flex;flex-direction:column"><h3><figure aria-label="cookies" class="icon-cookies">${icon}</figure>${' '}${this.text?.customize.header}</h3><p>${o(this.text?.customize.text)}</p><p>${o(this.text?.customize.link.replace('%URL%', this.text?.policyUrl))}</p><div class="buttonWrapper"><button aria-label="${o$1(this.text?.decline)}" class="button bg-hover gdpr" @click="${this.declineAll}">${this.text?.decline}</button> <button aria-label="${o$1(this.text?.accept)}" class="button dark-bg bg-hover gdpr" @click="${this.acceptAll}" style="background-color:${this.accentColor}">${this.saving ? loading : this.statistical || this.retargeting ? this.text?.save : this.text?.acceptAll}</button></div><div class="buttonWrapper">${this.switchButton({
+        label: this.text?.functional.label,
+        value: true
+    })} ${this.switchButton({
+        label: this.text?.statistical.label,
+        name: 'statistical',
+        onChangeHandler: this.handleChange,
+        value: !!this.statistical
+    })} ${this.hasRetargeting ? this.switchButton({
+        label: this.text?.marketing.label,
+        name: 'retargeting',
+        onChangeHandler: this.handleChange,
+        value: !!this.retargeting
+    }) : T}</div></div></dialog></div>`;
+  }
+
+  function cookieWarning() {
+      return x`<div class="cookieContainer" style="color:${this.color};background-color:${this.backgroundColor}"><div class="content"><div aria-describedby="cookieWarningText" aria-labelledby="cookieWarningText" aria-modal="false" role="dialog"><p class="h3" id="cookieWarningText" lang="${document.documentElement.lang}">${this.text?.header}${' '}${icon}</p></div><div class="buttonWrapper"><button aria-label="${o$1(this.text?.customize.label)}" class="button gdpr" @click="${this.setCustomize}" style="background-color:${this.accentColor}">${this.text?.customize.label}</button> <button aria-label="${o$1(this.text?.accept)}" class="button gdpr" @click="${this.acceptAll}" style="backgroundColor:${this.accentColor}">${this.text?.accept}</button></div></div></div>`;
+  }
+
+  function switchButton({ name, label, onChangeHandler, value }) {
+      const id = useId();
+      return x`<div class="container">${label ? x`<label class="textLabel" for="${id}">${label}</label>` : T} <label class="label"><input ?checked="${value}" class="input" ?disabled="${!onChangeHandler}" id="${id}" name="${o$1(name)}" type="checkbox" @change="${onChangeHandler}" value="${value}"> <span class="slider" style="color:${this.color};background-color:${value ? this.accentColor : 'transparent'};transition:background-color .2s"></span></label></div>`;
+  }
+
+  function _ts_decorate(decorators, target, key, desc) {
+      var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+      if (typeof Reflect === "object" && typeof undefined === "function") r = undefined(decorators, target, key, desc);
+      else for(var i = decorators.length - 1; i >= 0; i--)if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+      return c > 3 && r && Object.defineProperty(target, key, r), r;
+  }
+  class AMGDPR extends s {
+      _getConsent() {
+          const cookie = api.get('CookieConsent');
+          if (cookie) return JSON.parse(decodeURIComponent(cookie));
+          return;
+      }
+      _boolToConsentParams(bool) {
+          if (bool === undefined || bool === null) {
+              return undefined;
+          }
+          return bool ? 'granted' : 'denied';
+      }
+      _consentParamsToBool(param) {
+          if (param === undefined || param === null) {
+              return null;
+          }
+          return param === 'granted';
+      }
+      save() {
+          const consent = {
+              functionality_storage: 'granted',
+              analytics_storage: this._boolToConsentParams(this.statistical),
+              ad_user_data: this._boolToConsentParams(this.statistical),
+              ad_storage: this._boolToConsentParams(this.retargeting),
+              ad_personalization: this._boolToConsentParams(this.retargeting),
+              personalization_storage: this._boolToConsentParams(this.retargeting),
+              security_storage: 'granted'
+          };
+          api.set('CookieConsent', encodeURIComponent(JSON.stringify(consent)), {
+              sameSite: 'Lax',
+              expires: 365,
+              secure: "development" !== 'development'
+          });
+          for (const callback of this._consentListeners){
+              callback(consent);
+          }
+      }
+      acceptAll() {
+          const prev = {
+              statistical: this.statistical,
+              retargeting: this.retargeting
+          };
+          this.statistical = true;
+          this.retargeting = true;
+          this.saving = true;
+          setTimeout(()=>{
+              this.saving = false;
+              this._visible = false;
+              this.customize = false;
+          }, this.customize && (!prev.statistical || !prev.retargeting) ? 800 : 0);
+          if (!window.dataLayer || !window.google_tag_data) {
+              this._gtm?.initialize();
+          }
+          this.save();
+      }
+      declineAll() {
+          this._visible = false;
+          this.customize = false;
+          this.statistical = false;
+          this.retargeting = false;
+          if (!!window.dataLayer || !!window.google_tag_data) {
+              location.reload();
+          }
+          this.save();
+      }
+      esc({ key }) {
+          if (this.customize && key === 'Escape') this.setCustomize(false);
+      }
+      setCustomize(value) {
+          this.customize = !!value;
+          this._visible = !value;
+          this.statistical = !!this.statistical;
+          this.retargeting = !!this.retargeting;
+          if (value) {
+              setTimeout(()=>{
+                  const height = `${(this.dialogInner?.offsetHeight ?? 0) + 80}px`;
+                  if (this.dialog) Object.assign(this.dialog.style, {
+                      minHeight: height,
+                      maxHeight: height
+                  });
+              }, 10);
+          }
+      }
+      handleChange({ target }) {
+          if (target instanceof HTMLInputElement) {
+              const { checked, name } = target;
+              if (name in this) this[name] = checked;
+          }
+      }
+      setVisible() {
+          api.remove('CookieConsent');
+          this.statistical = null;
+          this.retargeting = null;
+          this._visible = !this._visible;
+      }
+      hideOnScroll() {
+          const bcr = document.body.getBoundingClientRect();
+          if (this.mini) {
+              this.mini.dataset.hide = (bcr.top < this._scrollPos && bcr.top < -20).toString();
+          }
+          this._scrollPos = bcr.top;
+      }
+      static get styles() {
+          return css_248z;
+      }
+      connectedCallback() {
+          super.connectedCallback();
+          this.statistical = this._consentParamsToBool(this._getConsent()?.analytics_storage);
+          this.retargeting = this._consentParamsToBool(this._getConsent()?.ad_storage);
+          this.text = getTranslation();
+          const sheet = this.shadowRoot?.adoptedStyleSheets[0];
+          sheet?.insertRule(`:host{--border-width:${this.borderWidth}px;h1,.h1,h2,.h2,h3,.h3{font-family:${this.fontFamily};}}`);
+          this._gtm = new GTM({
+              gtmId: this.gtmId
+          });
+          if (this.statistical || this.retargeting) {
+              this._gtm.initialize();
+          }
+          window.addGDPRConsent = (callback)=>{
+              this._consentListeners.push(callback);
+          };
+          document.addEventListener('keydown', this.esc, {
+              passive: true,
+              capture: true
+          });
+          document.addEventListener('scroll', this.hideOnScroll, {
+              passive: true,
+              capture: true
+          });
+      }
+      disconnectedCallback() {
+          super.disconnectedCallback();
+          document.removeEventListener('keydown', this.esc);
+          document.removeEventListener('scroll', this.hideOnScroll);
+      }
+      render() {
+          return !this.customize && !this.statistical && this.statistical !== false || !!this._visible ? this._cookieWarning() : !this.customize ? this._miniGDPR() : this._popUp();
+      }
+      constructor(){
+          super();
+          this.color = '#000';
+          this.backgroundColor = '#FFF';
+          this.accentColor = '#FFF';
+          this.fontFamily = '"Helvetica Neue", Helvetica, sans-serif';
+          this.borderWidth = 2;
+          this.hasRetargeting = false;
+          this.statistical = null;
+          this.retargeting = null;
+          this._visible = false;
+          this.customize = null;
+          this.saving = false;
+          this._scrollPos = 0;
+          this._consentListeners = [];
+          this._popUp = popUp;
+          this._cookieWarning = cookieWarning;
+          this._miniGDPR = miniGDPR;
+          this.switchButton = switchButton;
+          this.esc = this.esc.bind(this);
+          this.hideOnScroll = this.hideOnScroll.bind(this);
+      }
+  }
+  _ts_decorate([
+      n()
+  ], AMGDPR.prototype, "gtmId", void 0);
+  _ts_decorate([
+      n()
+  ], AMGDPR.prototype, "color", void 0);
+  _ts_decorate([
+      n()
+  ], AMGDPR.prototype, "backgroundColor", void 0);
+  _ts_decorate([
+      n()
+  ], AMGDPR.prototype, "accentColor", void 0);
+  _ts_decorate([
+      n()
+  ], AMGDPR.prototype, "fontFamily", void 0);
+  _ts_decorate([
+      n({
+          type: Number
+      })
+  ], AMGDPR.prototype, "borderWidth", void 0);
+  _ts_decorate([
+      n({
+          type: Boolean
+      })
+  ], AMGDPR.prototype, "hasRetargeting", void 0);
+  _ts_decorate([
+      n({
+          type: Object
+      })
+  ], AMGDPR.prototype, "text", void 0);
+  _ts_decorate([
+      r()
+  ], AMGDPR.prototype, "statistical", void 0);
+  _ts_decorate([
+      r()
+  ], AMGDPR.prototype, "retargeting", void 0);
+  _ts_decorate([
+      e$2('dialog')
+  ], AMGDPR.prototype, "dialog", void 0);
+  _ts_decorate([
+      e$2('.dialog-inner-box')
+  ], AMGDPR.prototype, "dialogInner", void 0);
+  _ts_decorate([
+      e$2('.miniGDPR')
+  ], AMGDPR.prototype, "mini", void 0);
+  _ts_decorate([
+      r()
+  ], AMGDPR.prototype, "_visible", void 0);
+  _ts_decorate([
+      r()
+  ], AMGDPR.prototype, "customize", void 0);
+  _ts_decorate([
+      r()
+  ], AMGDPR.prototype, "saving", void 0);
+  AMGDPR = _ts_decorate([
+      t$1('am-gdpr')
+  ], AMGDPR);
+
+  exports.AMGDPR = AMGDPR;
+
+})(this["am-gdpr"] = this["am-gdpr"] || {});

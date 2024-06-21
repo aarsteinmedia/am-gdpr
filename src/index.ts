@@ -298,6 +298,7 @@ export class AMGDPR extends LitElement {
     }
 
     window.addGDPRConsent = (callback: () => void) => {
+      // console.log('hoolabandoola')
       this._consentListeners.push(callback)
     }
 
