@@ -1,4 +1,4 @@
-.menuButton {
+.menu-button {
   position: absolute;
   width: 40px;
   max-width: 100%;
@@ -8,10 +8,10 @@
   z-index: 999;
   cursor: pointer;
   transition: transform .2s ease-in-out, color .2s ease-in-out;
-  background-color: transparent; //!important;
+  background-color: transparent;
   display: block;
-  border-color: unset; //!important;
-  outline-color: unset; //!important;
+  border-color: unset;
+  outline-color: unset;
 
   .hamburger {
     width: 100%;
@@ -60,96 +60,4 @@
       }
     }
   }
-
-  // &[data-context="expand"] {
-  //   .hamburger {
-  //     &::before {
-  //       transform: translateY(12px) rotate(-180deg);
-  //     }
-
-  //     .div {
-  //       transform: translateY(0) rotate(-180deg);
-  //       opacity: 0;
-  //     }
-
-  //     &::after {
-  //       transform: translateY(-12px) rotate(-90deg);
-  //     }
-  //   }
-
-  //   &[data-open="true"] {
-  //     .hamburger {
-  //       &::before {
-  //         transform: translateY(12px) rotate(180deg);
-  //       }
-
-  //       .div {
-  //         transform: translateY(0) rotate(-180deg);
-  //         opacity: 0;
-  //       }
-
-  //       &::after {
-  //         transform: translateY(-12px) rotate(0deg);
-  //       }
-  //     }
-  //   }
-
-  //   &[data-direction="right"] {
-  //     margin-left: 10px;
-
-  //     .hamburger {
-  //       &::before {
-  //         transform: translateY(4px) translateX(12px) rotate(-135deg);
-  //       }
-
-  //       .div {
-  //         transform: translateY(0) translateX(4px) scaleX(1.2) rotate(-180deg);
-  //         opacity: 1;
-  //       }
-
-  //       &::after {
-  //         transform: translateY(-4px) translateX(12px) rotate(-45deg);
-  //       }
-  //     }
-  //   }
-
-  //   &[data-direction="left"] {
-  //     transform: translateX(-10px);
-
-  //     .hamburger {
-  //       &::before {
-  //         transform: translateY(4px) translateX(-12px) rotate(-45deg);
-  //       }
-
-  //       .div {
-  //         transform: translateY(0) translateX(-4px) scaleX(1.2) rotate(-180deg);
-  //         opacity: 1;
-  //       }
-
-  //       &::after {
-  //         transform: translateY(-4px) translateX(-12px) rotate(-135deg);
-  //       }
-  //     }
-  //   }
-
-  //   &[data-direction="right"],
-  //   &[data-direction="left"] {
-  //     &[data-open="true"] {
-  //       .hamburger {
-  //         &::before {
-  //           transform: translateY(12px) rotate(135deg);
-  //         }
-
-  //         .div {
-  //           transform: translateY(0) rotate(-135deg);
-  //           opacity: 0;
-  //         }
-
-  //         &::after {
-  //           transform: translateY(-12px) rotate(-135deg);
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
 }

@@ -1,11 +1,9 @@
 import { gtmCode, resetDataLayer, sanitizeObject } from './utils'
-
 import type { DataLayerObject } from './types'
 
 export default class GTM {
-  
   private _initialized = false
-  
+
   public gtmId: string | null = null
   public resetDataLayer = false
   public sanitizeDataLayer = false
@@ -13,7 +11,6 @@ export default class GTM {
   public defer = false
 
   public initialize() {
-
     if (this._initialized) {
       console.warn('Google Tag Manager is already loaded')
       return
@@ -25,14 +22,21 @@ export default class GTM {
 
     const isAlreadyLoaded = document.getElementById('gtm-snippet')
 
-    if (!(isAlreadyLoaded && 'src' in isAlreadyLoaded &&
-    typeof isAlreadyLoaded.src === 'string' &&
-    isAlreadyLoaded.src.includes(`id=${this.gtmId}`))) {
+    if (
+      !(
+        isAlreadyLoaded &&
+        'src' in isAlreadyLoaded &&
+        typeof isAlreadyLoaded.src === 'string' &&
+        isAlreadyLoaded.src.includes(`id=${this.gtmId}`)
+      )
+    ) {
       const script = document.createElement('script'),
         innerHTML = gtmCode(
           this.gtmId,
           this.defer,
-          this.serverSideDomain ? this.serverSideDomain.replace(/http(|s):\/\/|\/$/g, '') : 'www.googletagmanager.com'
+          this.serverSideDomain
+            ? this.serverSideDomain.replace(/http(|s):\/\/|\/$/g, '')
+            : 'www.googletagmanager.com'
         )
 
       script.innerHTML = innerHTML
@@ -64,7 +68,7 @@ export default class GTM {
     resetDataLayer = false,
     sanitizeDataLayer = false,
     serverSideDomain = null,
-    defer = false
+    defer = false,
   }: {
     gtmId: string | null
     resetDataLayer?: boolean
@@ -78,5 +82,4 @@ export default class GTM {
     this.serverSideDomain = serverSideDomain ? serverSideDomain.trim() : null
     this.defer = !!defer
   }
-
 }

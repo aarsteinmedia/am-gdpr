@@ -1,44 +1,47 @@
-import { html } from 'lit'
-import { ifDefined } from 'lit/directives/if-defined.js'
-
-import icon from './icon'
-
 import type { AMGDPR } from '.'
 
+/**
+ * Cookie Warning
+ */
 export default function cookieWarning(this: AMGDPR) {
-  return (
-    html`
+  if (!this.gdprContainer) {
+    return
+  }
+  this.gdprContainer.innerHTML = /* HTML */ `<div class="cookie-container">
+    <div class="content">
       <div
-        class="cookieContainer"
-        style="color: ${this.color};background-color: ${this.backgroundColor};"
+        aria-describedby="cookie-warning-text"
+        aria-labelledby="cookie-warning-text"
+        aria-modal="false"
+        role="dialog"
       >
-        <div class="content">
-          <div
-            aria-describedby="cookieWarningText"
-            aria-labelledby="cookieWarningText"
-            aria-modal="false"
-            role="dialog"
-          >
-            <p
-              class="h3"
-              id="cookieWarningText"
-              lang=${document.documentElement.lang}
-            >${this.text?.header}${' '}${icon}</p>
-        </div>
-        <div class="buttonWrapper">
-          <button aria-label=${ifDefined(this.text?.customize.label)}
-            class="button gdpr"
-            @click=${this.setCustomize}
-            style="background-color: ${this.accentColor}"
-          >${this.text?.customize.label}</button>
-          <button
-            aria-label=${ifDefined(this.text?.accept)}
-            class="button gdpr"
-            @click=${this.acceptAll}
-            style="backgroundColor: ${this.accentColor}"
-          >${this.text?.accept}</button></div>
+        <p
+          class="h3"
+          id="cookie-warning-text"
+          lang="${document.documentElement.lang}"
+        ></p>
       </div>
+      <div class="button-wrapper">
+        <button
+          class="button gdpr customize"
+          style="background-color: transparent"
+        ></button>
+        <button class="button gdpr accept-all"></button>
       </div>
-      `
-  )
+    </div>
+  </div>`
+
+  if (this.text) {
+    this.setText(this.text)
+  }
+
+  const acceptAll = this.gdprContainer.querySelector('.accept-all')
+  if (acceptAll instanceof HTMLButtonElement) {
+    acceptAll.onclick = this.acceptAll
+  }
+
+  const customize = this.gdprContainer.querySelector('.customize')
+  if (customize instanceof HTMLButtonElement) {
+    customize.onclick = () => this.setCustomize(true)
+  }
 }

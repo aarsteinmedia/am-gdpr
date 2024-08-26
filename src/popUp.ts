@@ -1,99 +1,122 @@
-import { html, nothing } from 'lit'
-import { unsafeHTML } from 'lit/directives/unsafe-html.js'
-import { ifDefined } from 'lit/directives/if-defined.js'
-
 import uiButton from './uiButton'
 import icon from './icon'
-import loading from './loading'
-
 import type { AMGDPR } from '.'
 
+/**
+ * Settings Pop-Up
+ */
 export default function popUp(this: AMGDPR) {
-  const isOpen = !!this.customize
-  // setTimeout(() => {
-  //   this.dialogHeight = (this.dialogInner?.offsetHeight ?? 0) + 80
-  // }, 10)
-  // console.log(this.dialogInner)
-  // if (this.dialogInner) {
-  //   this.dialogHeight = (this.dialogInner?.offsetHeight ?? 0) + 80
-  // }
+  if (!this.gdprContainer) {
+    return
+  }
 
-  return (
-    html`
-      <div class="popUp fadeIn">
-        <dialog
-          ?open=${isOpen}
-          style="
-            color: ${this.color};
-            background-color: ${this.backgroundColor};
-          "
-        >
-          ${uiButton({
-            className: 'closeButton',
-            isOpen,
-            onClick: () => this.setCustomize(!isOpen)
+  this.gdprContainer.innerHTML = /* HTML */ `<div class="pop-up fadeIn">
+    <dialog open>
+      ${uiButton({
+        className: 'close-button',
+        isOpen: true,
+      })}
+      <div
+        class="dialog-inner-box"
+        style="display: flex; flex-direction: column;"
+      >
+        <h3>
+          <figure aria-label="cookies" class="icon-cookies">${icon}</figure>
+          <slot id="customizeHeader"></slot>
+        </h3>
+        <p id="customize-text"></p>
+        <p id="customize-link"></p>
+
+        <div id="save-wrapper" class="button-wrapper">
+          <button
+            class="button gdpr decline-all"
+            style="background-color: transparent;"
+          ></button>
+          <button class="button gdpr accept-all"></button>
+        </div>
+
+        <div class="button-wrapper">
+          ${this.switchButton({
+            label: this.text?.functional.label,
+            name: 'functional',
+            value: true,
+            disabled: true,
           })}
-          <div
-            class="dialog-inner-box"
-            style="display: flex; flex-direction: column;"
-          >
-            
-          
-            <h3>
-              <figure aria-label="cookies" class="icon-cookies">
-                ${icon}
-              </figure>${' '}${this.text?.customize.header}
-            </h3>
-            <p>${unsafeHTML(this.text?.customize.text)}</p>
-            <p>${unsafeHTML(this.text?.customize.link.replace('%URL%', this.text?.policyUrl))}</p>
-          
-            <div class="buttonWrapper">
-              <button
-                aria-label=${ifDefined(this.text?.decline)}
-                class="button bg-hover gdpr"
-                @click=${this.declineAll}
-              >${this.text?.decline}</button>
-              <button
-                aria-label=${ifDefined(this.text?.accept)}
-                class="button dark-bg bg-hover gdpr"
-                @click=${this.acceptAll}
-                style="background-color: ${this.accentColor};"
-              >${this.saving ? loading : (this.statistical || this.retargeting) ? this.text?.save : this.text?.acceptAll}</button>
-            </div>
-
-            <div class="buttonWrapper">
-              ${this.switchButton({
-                label: this.text?.functional.label,
-                value: true
-              })}
-              ${this.switchButton({
-                label: this.text?.statistical.label,
-                name: 'statistical',
-                onChangeHandler: this.handleChange,
-                value: !!this.statistical
-              })}
-              ${this.hasRetargeting ? 
-              
-                this.switchButton({
-                  label: this.text?.marketing.label,
-                  name: 'retargeting',
-                  onChangeHandler: this.handleChange,
-                  value: !!this.retargeting
-                })
-
-                :
-              
-                nothing
-              }
-            </div>
-          
-          </div>
-
-        </dialog>
+          ${this.switchButton({
+            label: this.text?.statistical.label,
+            name: 'allowStatistical',
+            value: !!this.allowStatistical,
+          })}
+          ${this.hasRetargeting
+            ? this.switchButton({
+                label: this.text?.marketing.label,
+                name: 'allowRetargeting',
+                value: !!this.allowRetargeting,
+              })
+            : ''}
+        </div>
       </div>
-    `
-  )
-}
+    </dialog>
+  </div>`
 
-// max-height: ${this.dialogHeight}px;
-// min-height: ${this.dialogHeight}px;
+  this.setText(this.text)
+
+  const saveWrapper = this.gdprContainer.querySelector('#save-wrapper'),
+    saveButton = document.createElement('button')
+
+  saveButton.innerText = this.text?.save ?? 'Save preferences'
+  saveButton.className = 'button gdpr save'
+  saveButton.onclick = () => {
+    this.save()
+    this.isCustomize = false
+    this.isVisible = false
+  }
+
+  const statistical = this.gdprContainer.querySelector(
+    '[name="allowStatistical"]'
+  )
+  if (statistical instanceof HTMLInputElement) {
+    statistical.onchange = (e) => {
+      saveWrapper?.replaceChildren(saveButton)
+      this.handleChange(e, this)
+    }
+  }
+
+  const retargeting = this.gdprContainer.querySelector(
+    '[name="allowRetargeting"]'
+  )
+  if (retargeting instanceof HTMLInputElement) {
+    retargeting.onchange = (e) => this.handleChange(e, this)
+  }
+
+  const acceptAll = this.gdprContainer.querySelector('.accept-all')
+  if (acceptAll instanceof HTMLButtonElement) {
+    acceptAll.onclick = this.acceptAll
+  }
+
+  const declineAll = this.gdprContainer.querySelector('.decline-all')
+  if (declineAll instanceof HTMLButtonElement) {
+    declineAll.onclick = this.declineAll
+  }
+
+  const closeButton = this.gdprContainer.querySelector('.close-button')
+  if (closeButton instanceof HTMLButtonElement) {
+    closeButton.onclick = () => this.setCustomize(false)
+  }
+
+  setTimeout(() => {
+    const dialog = this.gdprContainer?.querySelector('dialog'),
+      dialogInner = this.gdprContainer?.querySelector('.dialog-inner-box')
+    if (
+      !(dialog instanceof HTMLDialogElement) ||
+      !(dialogInner instanceof HTMLElement)
+    ) {
+      return
+    }
+    const height = `${(dialogInner.offsetHeight ?? 0) + 80}px`
+    Object.assign(dialog.style, {
+      minHeight: height,
+      maxHeight: height,
+    })
+  }, 10)
+}

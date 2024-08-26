@@ -4,10 +4,14 @@ import no from './no.json'
 
 export const languages = ['en', 'fr', 'nb', 'no'] as const,
   fallbackLanguage = 'en',
-  browserLanguage = document.documentElement.lang.toLowerCase() || fallbackLanguage,
+  browserLanguage =
+    document.documentElement.lang.toLowerCase() || fallbackLanguage,
+  translation =
+    languages.find((lang) => browserLanguage.includes(lang)) || fallbackLanguage
 
-  translation = languages.find(lang => browserLanguage.includes(lang)) || fallbackLanguage
-
+/**
+ *
+ */
 export default function getTranslation() {
   switch (translation) {
     case 'fr':

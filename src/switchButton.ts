@@ -1,61 +1,40 @@
-import { html, nothing } from 'lit'
-import { ifDefined } from 'lit/directives/if-defined.js'
-
 import { useId } from './utils'
 import type { AMGDPR } from '.'
 
-export default function switchButton(this: AMGDPR, {
-  name,
-  label,
-  onChangeHandler,
-  value
-}: {
-  name?: string
-  label?: string
-  onChangeHandler?: (e: Event) => void
-  value: boolean
-}) {
+/**
+ * Switch button
+ */
+export default function switchButton(
+  this: AMGDPR,
+  {
+    disabled = false,
+    name,
+    label,
+    value,
+  }: {
+    disabled?: boolean
+    name: string
+    label?: string
+    value: boolean
+  }
+) {
   const id = useId()
-  return (
-    html`
-      <div class="container">
+  return /* HTML */ `<div class="container">
+    ${label
+      ? /* HTML */ `<label class="textLabel" for="${id}">${label}</label> `
+      : ''}
 
-        ${ label ?
-
-          html`
-            <label
-              class="textLabel"
-              for=${id}
-            >${label}</label>
-          `
-
-          :  nothing
-
-        }
-
-        <label
-          class="label"
-        >
-          <input
-            ?checked=${value}
-            class="input"
-            ?disabled=${!onChangeHandler}
-            id=${id}
-            name=${ifDefined(name)}
-            type="checkbox"
-            @change=${onChangeHandler}
-            value=${value}
-          />
-          <span
-            class="slider"
-            style="
-              color: ${this.color};
-              background-color: ${value ? this.accentColor : 'transparent'};
-              transition: background-color .2s;
-            "
-          ></span>
-        </label>
-      </div>
-    `
-  )
+    <label class="label">
+      <input
+        ${value ? 'checked' : ''}
+        class="input"
+        ${disabled ? 'disabled' : ''}
+        id="${id}"
+        name="${name}"
+        type="checkbox"
+        value="${value}"
+      />
+      <span class="slider"></span>
+    </label>
+  </div> `
 }

@@ -1,0 +1,896 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/GTM.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GTM",
+          "members": [
+            {
+              "kind": "field",
+              "name": "_initialized",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "gtmId",
+              "type": {
+                "text": "string | null"
+              },
+              "privacy": "public",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "resetDataLayer",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "!!resetDataLayer"
+            },
+            {
+              "kind": "field",
+              "name": "sanitizeDataLayer",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "!!sanitizeDataLayer"
+            },
+            {
+              "kind": "field",
+              "name": "serverSideDomain",
+              "type": {
+                "text": "string | null"
+              },
+              "privacy": "public",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "defer",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "!!defer"
+            },
+            {
+              "kind": "method",
+              "name": "initialize",
+              "privacy": "public"
+            },
+            {
+              "kind": "method",
+              "name": "dataLayerPush",
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "obj",
+                  "type": {
+                    "text": "DataLayerObject"
+                  }
+                },
+                {
+                  "name": "reset",
+                  "default": "false"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_reset",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "obj",
+                  "type": {
+                    "text": "DataLayerObject"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "GTM",
+            "module": "src/GTM.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/cookieWarning.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "cookieWarning",
+          "parameters": [
+            {
+              "name": "this",
+              "type": {
+                "text": "AMGDPR"
+              }
+            }
+          ],
+          "description": "Cookie Warning"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "cookieWarning",
+            "module": "src/cookieWarning.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/icon.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "<svg\n  xmlns=\"http://www.w3.org/2000/svg\"\n  width=\"992\"\n  height=\"1024\"\n  viewBox=\"0 0 992 1024\"\n>\n  <path\n    d=\"M810.112 4.992c-27.232 0-49.28 22.112-49.344 49.344 0 27.232 22.112 49.344 49.344 49.344s49.344-22.112 49.344-49.344c0-27.232-22.112-49.344-49.344-49.344zm13.184 429.728c-167.424 54.048-292.352-63.52-236.384-243.232-61.728-22.944-82.24-90.368-58.016-166.24C255.36 11.456 14.336 224.416.672 498.048c-13.792 273.536 196.896 506.432 470.368 520.32 273.6 13.792 506.528-196.896 520.32-470.464 1.248-24.736.672-49.184-1.664-73.088-69.952 43.008-123.84 23.52-166.432-40.032zm-575.52-35.392c40.992 0 74.176 33.248 74.176 74.176s-33.248 74.176-74.176 74.176c-40.992 0-74.176-33.248-74.176-74.176s33.248-74.176 74.176-74.176zm233.696 94.56c23.616 0 42.752 19.136 42.752 42.752s-19.136 42.752-42.752 42.752c-23.616 0-42.752-19.136-42.752-42.752-.096-23.616 19.072-42.752 42.752-42.752zM295.968 669.952c28.8 0 52.16 23.36 52.16 52.16s-23.36 52.16-52.16 52.16c-28.8 0-52.16-23.36-52.16-52.16 0-28.864 23.36-52.16 52.16-52.16zm112.384-399.008c22.624 0 40.832 18.304 40.832 40.832 0 22.624-18.304 40.832-40.832 40.832-22.624 0-40.832-18.304-40.832-40.832s18.304-40.832 40.832-40.832zm221.952 417.28c37.856 0 68.48 30.688 68.48 68.48 0 37.856-30.688 68.48-68.48 68.48-37.856 0-68.48-30.688-68.48-68.48s30.688-68.48 68.48-68.48zm144.224-492.608c25.408 0 46.048 20.64 46.048 46.048s-20.64 46.048-46.048 46.048-46.048-20.64-46.048-46.048 20.64-46.048 46.048-46.048z\"\n  />\n</svg>",
+            "module": "src/icon.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "AM GDPR Web Component",
+          "name": "AMGDPR",
+          "members": [
+            {
+              "kind": "field",
+              "name": "shadow",
+              "type": {
+                "text": "ShadowRoot"
+              },
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "template",
+              "type": {
+                "text": "HTMLTemplateElement"
+              },
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "observedProperties",
+              "static": true,
+              "description": "Properties to observe",
+              "readonly": true
+            },
+            {
+              "kind": "method",
+              "name": "propertyChangedCallback",
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "_oldValue",
+                  "type": {
+                    "text": "unknown"
+                  }
+                },
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "unknown"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "gtmId",
+              "description": "Google Tag Manager ID"
+            },
+            {
+              "kind": "field",
+              "name": "color",
+              "description": "Text color"
+            },
+            {
+              "kind": "field",
+              "name": "backgroundColor",
+              "description": "Background color"
+            },
+            {
+              "kind": "field",
+              "name": "accentColor",
+              "description": "Accent color"
+            },
+            {
+              "kind": "field",
+              "name": "fontFamily",
+              "description": "Font family"
+            },
+            {
+              "kind": "field",
+              "name": "borderWidth",
+              "description": "Border width"
+            },
+            {
+              "kind": "field",
+              "name": "hasRetargeting",
+              "description": "Whether to include marketing/retargeting cookie"
+            },
+            {
+              "kind": "field",
+              "name": "text",
+              "description": "Replace default text"
+            },
+            {
+              "kind": "field",
+              "name": "allowStatistical",
+              "type": {
+                "text": "boolean | null"
+              },
+              "privacy": "public",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "allowRetargeting",
+              "type": {
+                "text": "boolean | null"
+              },
+              "privacy": "public",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "isVisible",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "isCustomize",
+              "type": {
+                "text": "boolean | null"
+              },
+              "privacy": "public",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "isSaving",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "public",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "gdprContainer",
+              "type": {
+                "text": "null | HTMLSlotElement"
+              },
+              "privacy": "protected"
+            },
+            {
+              "kind": "field",
+              "name": "_gtm",
+              "type": {
+                "text": "GTM | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_scrollPos",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "method",
+              "name": "_getConsent",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Gtag.ConsentParams | null"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_boolToConsentParams",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "bool",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_consentParamsToBool",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "param",
+                  "optional": true,
+                  "type": {
+                    "text": "'granted' | 'denied'"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "save",
+              "privacy": "public"
+            },
+            {
+              "kind": "method",
+              "name": "acceptAll",
+              "privacy": "public"
+            },
+            {
+              "kind": "method",
+              "name": "declineAll",
+              "privacy": "public"
+            },
+            {
+              "kind": "method",
+              "name": "esc",
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "{ key }",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "setCustomize",
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "boolean"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleChange",
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "{ target }",
+                  "type": {
+                    "text": "Event"
+                  }
+                },
+                {
+                  "name": "component",
+                  "type": {
+                    "text": "AMGDPR"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "setVisible",
+              "privacy": "public"
+            },
+            {
+              "kind": "method",
+              "name": "hideOnScroll",
+              "privacy": "public"
+            },
+            {
+              "kind": "field",
+              "name": "_consentListeners",
+              "type": {
+                "text": "((val?: unknown) => void)[]"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "_popUp",
+              "privacy": "private",
+              "default": "popUp"
+            },
+            {
+              "kind": "field",
+              "name": "_cookieWarning",
+              "privacy": "private",
+              "default": "cookieWarning"
+            },
+            {
+              "kind": "field",
+              "name": "_miniGDPR",
+              "privacy": "private",
+              "default": "miniGDPR"
+            },
+            {
+              "kind": "field",
+              "name": "switchButton",
+              "privacy": "public",
+              "default": "switchButton"
+            },
+            {
+              "kind": "method",
+              "name": "setText",
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "text",
+                  "type": {
+                    "text": "Text | null"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_addEventListeners",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_removeEventListeners",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "debug",
+              "privacy": "public"
+            }
+          ],
+          "superclass": {
+            "name": "EnhancedElement",
+            "module": "/src/observeProperties"
+          },
+          "tagName": "am-gdpr",
+          "customElement": true
+        },
+        {
+          "kind": "variable",
+          "name": "tagName",
+          "type": {
+            "text": "string"
+          },
+          "default": "'am-gdpr'"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AMGDPR",
+          "declaration": {
+            "name": "AMGDPR",
+            "module": "src/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "tagName",
+          "declaration": {
+            "name": "tagName",
+            "module": "src/index.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "am-gdpr",
+          "declaration": {
+            "name": "AMGDPR",
+            "module": "src/index.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/loading.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "<svg\n  xmlns=\"http://www.w3.org/2000/svg\"\n  width=\"24\"\n  height=\"24\"\n  stroke=\"currentColor\"\n>\n  <style>\n    @keyframes spinner_zKoa {\n      to {\n        transform: rotate(360deg);\n      }\n    }\n    @keyframes spinner_YpZS {\n      0% {\n        stroke-dasharray: 0 150;\n        stroke-dashoffset: 0;\n      }\n      47.5% {\n        stroke-dasharray: 42 150;\n        stroke-dashoffset: -16;\n      }\n      95%,\n      to {\n        stroke-dasharray: 42 150;\n        stroke-dashoffset: -59;\n      }\n    }\n  </style>\n  <g style=\"transform-origin:center;animation:spinner_zKoa 2s linear infinite\">\n    <circle\n      cx=\"12\"\n      cy=\"12\"\n      r=\"9.5\"\n      fill=\"none\"\n      stroke-width=\"3\"\n      style=\"stroke-linecap:round;animation:spinner_YpZS 1.5s ease-in-out infinite\"\n    />\n  </g>\n</svg>",
+            "module": "src/loading.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/miniGDPR.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "miniGDPR",
+          "parameters": [
+            {
+              "name": "this",
+              "type": {
+                "text": "AMGDPR"
+              }
+            }
+          ],
+          "description": "Mini GDPR"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "miniGDPR",
+            "module": "src/miniGDPR.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/observeProperties.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "HTMLElement enhanced to track property changes",
+          "name": "EnhancedElement",
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "EnhancedElement",
+            "module": "src/observeProperties.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/popUp.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "popUp",
+          "parameters": [
+            {
+              "name": "this",
+              "type": {
+                "text": "AMGDPR"
+              }
+            }
+          ],
+          "description": "Settings Pop-Up"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "popUp",
+            "module": "src/popUp.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/switchButton.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "switchButton",
+          "parameters": [
+            {
+              "name": "this",
+              "type": {
+                "text": "AMGDPR"
+              }
+            },
+            {
+              "name": "{\n    disabled = false,\n    name,\n    label,\n    value,\n  }",
+              "type": {
+                "text": "{\n    disabled?: boolean\n    name: string\n    label?: string\n    value: boolean\n  }"
+              }
+            }
+          ],
+          "description": "Switch button"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "switchButton",
+            "module": "src/switchButton.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/types.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/uiButton.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "uiButton",
+          "parameters": [
+            {
+              "name": "{\n  className,\n  isOpen,\n}",
+              "type": {
+                "text": "{\n  className: string\n  isOpen: boolean\n}"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "uiButton",
+            "module": "src/uiButton.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/utils.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "gtmCode",
+          "parameters": [
+            {
+              "name": "gtmId",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "defer",
+              "type": {
+                "text": "boolean"
+              }
+            },
+            {
+              "name": "domain",
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "variable",
+          "name": "hasKey"
+        },
+        {
+          "kind": "variable",
+          "name": "isServer"
+        },
+        {
+          "kind": "variable",
+          "name": "resetDataLayer"
+        },
+        {
+          "kind": "variable",
+          "name": "sanitize"
+        },
+        {
+          "kind": "variable",
+          "name": "sanitizeObject"
+        },
+        {
+          "kind": "variable",
+          "name": "useId"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "gtmCode",
+          "declaration": {
+            "name": "gtmCode",
+            "module": "src/utils.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "hasKey",
+          "declaration": {
+            "name": "hasKey",
+            "module": "src/utils.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "isServer",
+          "declaration": {
+            "name": "isServer",
+            "module": "src/utils.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "resetDataLayer",
+          "declaration": {
+            "name": "resetDataLayer",
+            "module": "src/utils.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "sanitize",
+          "declaration": {
+            "name": "sanitize",
+            "module": "src/utils.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "sanitizeObject",
+          "declaration": {
+            "name": "sanitizeObject",
+            "module": "src/utils.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "useId",
+          "declaration": {
+            "name": "useId",
+            "module": "src/utils.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/i18n/index.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "languages",
+          "type": {
+            "text": "['en', 'fr', 'nb', 'no']"
+          },
+          "default": "['en', 'fr', 'nb', 'no']"
+        },
+        {
+          "kind": "variable",
+          "name": "fallbackLanguage",
+          "type": {
+            "text": "string"
+          },
+          "default": "'en'"
+        },
+        {
+          "kind": "variable",
+          "name": "browserLanguage"
+        },
+        {
+          "kind": "variable",
+          "name": "translation"
+        },
+        {
+          "kind": "function",
+          "name": "getTranslation"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "languages",
+          "declaration": {
+            "name": "languages",
+            "module": "src/i18n/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "fallbackLanguage",
+          "declaration": {
+            "name": "fallbackLanguage",
+            "module": "src/i18n/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "browserLanguage",
+          "declaration": {
+            "name": "browserLanguage",
+            "module": "src/i18n/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "translation",
+          "declaration": {
+            "name": "translation",
+            "module": "src/i18n/index.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "getTranslation",
+            "module": "src/i18n/index.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

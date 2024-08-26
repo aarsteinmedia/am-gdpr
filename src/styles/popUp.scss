@@ -1,4 +1,4 @@
-.popUp {
+.pop-up {
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -17,7 +17,6 @@
     max-width: 90%;
     min-height: 0;
     max-height: 0;
-    // max-height: 90%;
     border-radius: .25em;
     border: solid var(--border-width);
     left: 0;
@@ -29,18 +28,21 @@
     overflow: hidden;
     transition: max-height .2s ease-in-out, min-height .2s ease-in-out;
     width: 600px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+    color: var(--color);
+    background-color: var(--background-color);
 
-    .closeButton {
+    .close-button {
       top: 14px;
       right: 14px;
       width: 25px;
     }
 
-    &[data-animate="up"] {
-      animation: fadeUp .3s ease-in-out;
+    & {
+      &[data-animate="up"] {
+        animation: fadeUp .3s ease-in-out;
+      }
     }
-
-    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
   }
 
   &[data-gallery="true"] {
@@ -50,7 +52,7 @@
   }
 }
 
-.innerWrapper {
+.inner-wrapper {
   width: 100%;
   float: left;
   position: relative;
@@ -97,11 +99,11 @@
 }
 
 @media only screen and (max-width: 760px) {
-  .popUp {
-    .popUpElement {
+  .pop-up {
+    .pop-up-element {
       padding: 25px;
 
-      .closeButton {
+      .close-button {
         width: 20px;
         top: 5px;
         right: 5px;
@@ -116,19 +118,19 @@
     scroll-snap-type: x mandatory;
     flex: 1 1;
     -webkit-overflow-scrolling: touch;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
     scrollbar-width: none;
+
+    & {
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
   }
 
   .column {
-    width: 100%; //calc(90vw - 50px);
+    width: 100%;
     height: 100%;
     position: relative;
-    // flex: 0 0 calc(90vw - 50px);
     flex: 0 0 100%;
     scroll-snap-align: start;
   }

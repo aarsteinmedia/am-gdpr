@@ -1,6 +1,5 @@
 declare module '*.scss' {
-  import type { CSSResult } from 'lit'
-  const content: CSSResult
+  const content: string
   export default content
 }
 
@@ -9,6 +8,8 @@ declare namespace NodeJS {
     NODE_ENV: 'production' | 'development' | 'debug'
   }
 }
+
+declare module 'rollup-plugin-serve'
 
 // type DataLayerObject = Record<string, unknown>[]
 
