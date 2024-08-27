@@ -3,6 +3,7 @@ import styles from './styles/index.scss'
 import EnhancedElement from './observeProperties'
 import getTranslation from './i18n'
 import GTM from './GTM'
+import GTag from './GTag'
 import miniGDPR from './miniGDPR'
 import popUp from './popUp'
 import cookieWarning from './cookieWarning'
@@ -43,10 +44,10 @@ export class AMGDPR extends EnhancedElement {
     this._addEventListeners()
 
     this.allowStatistical = this._consentParamsToBool(
-      this._getConsent()?.analytics_storage
+      this._getConsent().analytics_storage
     )
     this.allowRetargeting = this._consentParamsToBool(
-      this._getConsent()?.ad_storage
+      this._getConsent().ad_storage
     )
 
     this.gdprContainer = this.shadow.querySelector('#gdpr-container')
@@ -55,7 +56,8 @@ export class AMGDPR extends EnhancedElement {
       (!this.isCustomize &&
         !this.allowStatistical &&
         this.allowStatistical !== false) ||
-      !!this.isVisible
+      !!this.isVisible ||
+      !Cookies.get('CookieConsent')
     ) {
       this._cookieWarning()
     } else if (this.isCustomize) {
@@ -66,12 +68,23 @@ export class AMGDPR extends EnhancedElement {
 
     this.text = getTranslation()
 
-    this._gtm = new GTM({
-      gtmId: this.gtmId,
-    })
+    if (this.trackingID?.startsWith('GTM-')) {
+      this._gtm = new GTM({
+        gtmId: this.trackingID,
+        consentParams: this._getConsent(),
+      })
+    } else if (this.trackingID?.startsWith('G-')) {
+      this._gTag = new GTag({
+        trackingID: this.trackingID,
+        consentParams: this._getConsent(),
+      })
+    }
 
-    if (this.allowStatistical || this.allowRetargeting) {
-      this._gtm.initialize()
+    this._gtm?.initialize()
+    this._gTag?.initialize()
+
+    if (!this._gtm && !this._gTag) {
+      console.warn('No tracking is enabled')
     }
 
     window.addGDPRConsent = (callback: () => void) => {
@@ -91,7 +104,7 @@ export class AMGDPR extends EnhancedElement {
         }`)
     }, 0)
 
-    // this.debug()
+    this.debug()
   }
 
   disconnectedCallback() {
@@ -166,13 +179,13 @@ export class AMGDPR extends EnhancedElement {
   }
 
   /**
-   * Google Tag Manager ID
+   * Tracking ID
    */
-  set gtmId(value: string | null) {
-    this.setAttribute('gtmId', value || '')
+  set trackingID(value: string | null) {
+    this.setAttribute('trackingID', value || '')
   }
-  get gtmId() {
-    return this.getAttribute('gtmId')
+  get trackingID() {
+    return this.getAttribute('trackingID')
   }
 
   /**
@@ -228,18 +241,6 @@ export class AMGDPR extends EnhancedElement {
     return Number(this.getAttribute('borderWidth') ?? 2)
   }
 
-  /** Whether to include marketing/retargeting cookie */
-  set hasRetargeting(value: boolean) {
-    this.setAttribute('hasRetargeting', (!!value).toString())
-  }
-  get hasRetargeting() {
-    const val = this.getAttribute('hasRetargeting')
-    if (val === 'true' || val === '' || val === '1') {
-      return true
-    }
-    return false
-  }
-
   /**
    * Replace default text
    */
@@ -285,15 +286,25 @@ export class AMGDPR extends EnhancedElement {
   protected gdprContainer!: null | HTMLSlotElement
 
   private _gtm?: GTM
+  private _gTag?: GTag
 
   private _scrollPos = 0
 
-  private _getConsent(): Gtag.ConsentParams | null {
+  private _getConsent(): Gtag.ConsentParams {
     const cookie = Cookies.get('CookieConsent')
     if (cookie) {
       return JSON.parse(decodeURIComponent(cookie))
     }
-    return null
+    return {
+      functionality_storage: 'granted',
+      analytics_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_storage: 'denied',
+      ad_personalization: 'denied',
+      personalization_storage: 'denied',
+      security_storage: 'granted',
+      wait_for_update: 500,
+    }
   }
 
   private _boolToConsentParams(bool?: boolean | null) {
@@ -327,6 +338,14 @@ export class AMGDPR extends EnhancedElement {
       secure: process.env.NODE_ENV !== 'development',
     })
 
+    this._gtm?.updateConsent({
+      consentParams: this._getConsent(),
+    })
+
+    this._gTag?.updateConsent({
+      consentParams: this._getConsent(),
+    })
+
     for (const callback of this._consentListeners) {
       callback(consent)
     }
@@ -351,6 +370,7 @@ export class AMGDPR extends EnhancedElement {
 
     if (!window.dataLayer || !window.google_tag_data) {
       this._gtm?.initialize()
+      this._gTag?.initialize()
     }
 
     this.save()
@@ -441,10 +461,16 @@ export class AMGDPR extends EnhancedElement {
       customizeLabel.innerText = text.customize.label
     }
 
+    const accept = this.shadow.querySelector('.accept')
+    if (accept instanceof HTMLButtonElement) {
+      accept.ariaLabel = text.accept
+      accept.innerText = text.accept
+    }
+
     const acceptAll = this.shadow.querySelector('.accept-all')
     if (acceptAll instanceof HTMLButtonElement) {
-      acceptAll.ariaLabel = text.accept
-      acceptAll.innerText = text.accept
+      acceptAll.ariaLabel = text.acceptAll
+      acceptAll.innerText = text.acceptAll
     }
 
     const settings = this.shadow.querySelector('.settings')
@@ -508,13 +534,13 @@ export class AMGDPR extends EnhancedElement {
     }
     console.debug(
       {
-        gtmId: this.gtmId,
+        trackingID: this.trackingID,
         customize: this.isCustomize,
         statistical: this.allowStatistical,
         retargeting: this.allowRetargeting,
         visible: this.isVisible,
       },
-      this._gtm
+      this._gtm || this._gTag
     )
   }
 

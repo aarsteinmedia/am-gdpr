@@ -9,8 +9,8 @@ export declare class AMGDPR extends EnhancedElement {
     template: HTMLTemplateElement;
     static get observedProperties(): string[];
     propertyChangedCallback(name: string, _oldValue: unknown, value: unknown): void;
-    set gtmId(value: string | null);
-    get gtmId(): string | null;
+    set trackingID(value: string | null);
+    get trackingID(): string | null;
     set color(value: string);
     get color(): string;
     set backgroundColor(value: string);
@@ -21,8 +21,6 @@ export declare class AMGDPR extends EnhancedElement {
     get fontFamily(): string;
     set borderWidth(value: number);
     get borderWidth(): number;
-    set hasRetargeting(value: boolean);
-    get hasRetargeting(): boolean;
     set text(value: Text | null);
     get text(): Text | null;
     allowStatistical: boolean | null;
@@ -32,6 +30,7 @@ export declare class AMGDPR extends EnhancedElement {
     isSaving: boolean;
     protected gdprContainer: null | HTMLSlotElement;
     private _gtm?;
+    private _gTag?;
     private _scrollPos;
     private _getConsent;
     private _boolToConsentParams;

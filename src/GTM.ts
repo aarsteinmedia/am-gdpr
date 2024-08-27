@@ -1,7 +1,40 @@
-import { gtmCode, resetDataLayer, sanitizeObject } from './utils'
-import type { DataLayerObject } from './types'
+import { gtmCode /* resetDataLayer, sanitizeObject */ } from './utils'
+// import type { DataLayerObject } from './types'
 
 export default class GTM {
+  constructor({
+    gtmId,
+    resetDataLayer = false,
+    sanitizeDataLayer = false,
+    serverSideDomain = null,
+    consentParams,
+    defer = false,
+  }: {
+    gtmId: string
+    resetDataLayer?: boolean
+    sanitizeDataLayer?: boolean
+    serverSideDomain?: string | null
+    consentParams: Gtag.ConsentParams
+    defer?: boolean
+  }) {
+    this.gtmId = gtmId ? gtmId.trim() : null
+    this.resetDataLayer = !!resetDataLayer
+    this.sanitizeDataLayer = !!sanitizeDataLayer
+    this.serverSideDomain = serverSideDomain ? serverSideDomain.trim() : null
+    this.defer = !!defer
+
+    this.consentParams = consentParams
+
+    if (!window.gtag) {
+      window.gtag = function () {
+        window.dataLayer = window.dataLayer || []
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        window.dataLayer.push(arguments) // eslint-disable-line
+      }
+    }
+  }
+
   private _initialized = false
 
   public gtmId: string | null = null
@@ -9,6 +42,7 @@ export default class GTM {
   public sanitizeDataLayer = false
   public serverSideDomain: string | null = null
   public defer = false
+  public consentParams
 
   public initialize() {
     if (this._initialized) {
@@ -41,45 +75,40 @@ export default class GTM {
 
       script.innerHTML = innerHTML
       document.head.appendChild(script)
+
+      gtag('consent', 'default', this.consentParams)
+
       this._initialized = true
     }
   }
 
-  public dataLayerPush(obj: DataLayerObject, reset = false) {
-    window.dataLayer = window.dataLayer || []
-    if (this.sanitizeDataLayer) {
-      sanitizeObject(obj)
-    }
-    window.dataLayer.push(obj)
-    if (reset || this.resetDataLayer) {
-      this._reset(JSON.parse(JSON.stringify(obj)))
-    }
-  }
-
-  private _reset(obj: DataLayerObject) {
-    window.dataLayer = window.dataLayer || []
-    if (resetDataLayer(obj)) {
-      window.dataLayer.push(obj)
-    }
-  }
-
-  constructor({
-    gtmId = null,
-    resetDataLayer = false,
-    sanitizeDataLayer = false,
-    serverSideDomain = null,
-    defer = false,
+  public updateConsent({
+    consentParams,
   }: {
-    gtmId: string | null
-    resetDataLayer?: boolean
-    sanitizeDataLayer?: boolean
-    serverSideDomain?: string | null
-    defer?: boolean
+    consentParams: Gtag.ConsentParams
   }) {
-    this.gtmId = gtmId ? gtmId.trim() : null
-    this.resetDataLayer = !!resetDataLayer
-    this.sanitizeDataLayer = !!sanitizeDataLayer
-    this.serverSideDomain = serverSideDomain ? serverSideDomain.trim() : null
-    this.defer = !!defer
+    try {
+      window.gtag('consent', 'update', consentParams)
+    } catch (err) {
+      console.error(err)
+    }
   }
+
+  // public dataLayerPush(obj: DataLayerObject, reset = false) {
+  //   window.dataLayer = window.dataLayer || []
+  //   if (this.sanitizeDataLayer) {
+  //     sanitizeObject(obj)
+  //   }
+  //   window.dataLayer.push(obj)
+  //   if (reset || this.resetDataLayer) {
+  //     this._reset(JSON.parse(JSON.stringify(obj)))
+  //   }
+  // }
+
+  // private _reset(obj: DataLayerObject) {
+  //   window.dataLayer = window.dataLayer || []
+  //   if (resetDataLayer(obj)) {
+  //     window.dataLayer.push(obj)
+  //   }
+  // }
 }

@@ -26,7 +26,7 @@ export default function cookieWarning(this: AMGDPR) {
           class="button gdpr customize"
           style="background-color: transparent"
         ></button>
-        <button class="button gdpr accept-all"></button>
+        <button class="button gdpr accept"></button>
       </div>
     </div>
   </div>`
@@ -35,7 +35,7 @@ export default function cookieWarning(this: AMGDPR) {
     this.setText(this.text)
   }
 
-  const acceptAll = this.gdprContainer.querySelector('.accept-all')
+  const acceptAll = this.gdprContainer.querySelector('.accept')
   if (acceptAll instanceof HTMLButtonElement) {
     acceptAll.onclick = this.acceptAll
   }

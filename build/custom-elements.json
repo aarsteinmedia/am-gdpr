@@ -66,36 +66,25 @@
               "default": "!!defer"
             },
             {
+              "kind": "field",
+              "name": "consentParams",
+              "privacy": "public",
+              "default": "consentParams"
+            },
+            {
               "kind": "method",
               "name": "initialize",
               "privacy": "public"
             },
             {
               "kind": "method",
-              "name": "dataLayerPush",
+              "name": "updateConsent",
               "privacy": "public",
               "parameters": [
                 {
-                  "name": "obj",
+                  "name": "{\n    consentParams,\n  }",
                   "type": {
-                    "text": "DataLayerObject"
-                  }
-                },
-                {
-                  "name": "reset",
-                  "default": "false"
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_reset",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "obj",
-                  "type": {
-                    "text": "DataLayerObject"
+                    "text": "{\n    consentParams: Gtag.ConsentParams\n  }"
                   }
                 }
               ]
@@ -110,6 +99,80 @@
           "declaration": {
             "name": "GTM",
             "module": "src/GTM.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/GTag.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "GTag",
+          "members": [
+            {
+              "kind": "field",
+              "name": "_initialized",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "initialize",
+              "privacy": "public"
+            },
+            {
+              "kind": "method",
+              "name": "updateConsent",
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "{\n    consentParams,\n  }",
+                  "type": {
+                    "text": "{\n    consentParams: Gtag.ConsentParams\n  }"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "field",
+              "name": "trackingID",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "public",
+              "default": "trackingID"
+            },
+            {
+              "kind": "field",
+              "name": "config",
+              "type": {
+                "text": "object"
+              },
+              "privacy": "public",
+              "default": "config"
+            },
+            {
+              "kind": "field",
+              "name": "consentParams",
+              "privacy": "public",
+              "default": "consentParams"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "GTag",
+            "module": "src/GTag.ts"
           }
         }
       ]
@@ -216,8 +279,8 @@
             },
             {
               "kind": "field",
-              "name": "gtmId",
-              "description": "Google Tag Manager ID"
+              "name": "trackingID",
+              "description": "Tracking ID"
             },
             {
               "kind": "field",
@@ -243,11 +306,6 @@
               "kind": "field",
               "name": "borderWidth",
               "description": "Border width"
-            },
-            {
-              "kind": "field",
-              "name": "hasRetargeting",
-              "description": "Whether to include marketing/retargeting cookie"
             },
             {
               "kind": "field",
@@ -317,6 +375,14 @@
             },
             {
               "kind": "field",
+              "name": "_gTag",
+              "type": {
+                "text": "GTag | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
               "name": "_scrollPos",
               "type": {
                 "text": "number"
@@ -330,7 +396,7 @@
               "privacy": "private",
               "return": {
                 "type": {
-                  "text": "Gtag.ConsentParams | null"
+                  "text": "Gtag.ConsentParams"
                 }
               }
             },

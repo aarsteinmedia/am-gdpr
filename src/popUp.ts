@@ -47,13 +47,11 @@ export default function popUp(this: AMGDPR) {
             name: 'allowStatistical',
             value: !!this.allowStatistical,
           })}
-          ${this.hasRetargeting
-            ? this.switchButton({
-                label: this.text?.marketing.label,
-                name: 'allowRetargeting',
-                value: !!this.allowRetargeting,
-              })
-            : ''}
+          ${this.switchButton({
+            label: this.text?.marketing.label,
+            name: 'allowRetargeting',
+            value: !!this.allowRetargeting,
+          })}
         </div>
       </div>
     </dialog>
@@ -86,7 +84,10 @@ export default function popUp(this: AMGDPR) {
     '[name="allowRetargeting"]'
   )
   if (retargeting instanceof HTMLInputElement) {
-    retargeting.onchange = (e) => this.handleChange(e, this)
+    retargeting.onchange = (e) => {
+      saveWrapper?.replaceChildren(saveButton)
+      this.handleChange(e, this)
+    }
   }
 
   const acceptAll = this.gdprContainer.querySelector('.accept-all')
