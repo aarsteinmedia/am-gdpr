@@ -314,6 +314,11 @@
             },
             {
               "kind": "field",
+              "name": "privacyPolicyURL",
+              "description": "Privacy policy URL"
+            },
+            {
+              "kind": "field",
               "name": "allowStatistical",
               "type": {
                 "text": "boolean | null"

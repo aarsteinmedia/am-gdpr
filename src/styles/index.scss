@@ -1,15 +1,8 @@
 @layer GDPR {
 
   :host {
-    // --color: #000;
-    // --background-color: #FFF;
-    // --accent-color: #FFF;
-    // --font-family: 'Helvetica Neue',
-    //   Helvetica,
-    //   sans-serif;
-    // --border-width: 1px;
-
     font-family: var(--font-family);
+    font-size: 16px;
     color: var(--color);
     line-height: 1.3em;
     display: block;
@@ -61,7 +54,23 @@
     }
 
     a {
-      color: var(--accent-color);
+      // color: var(--accent-color);
+      color: inherit;
+      font-weight: bold;
+      text-decoration: none;
+      position: relative;
+      &::after {
+        content: '';
+        border-bottom: solid var(--border-width) var(--accent-color);
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+      }
+      &:hover:after {
+        opacity: 0;
+      }
     }
 
     svg {

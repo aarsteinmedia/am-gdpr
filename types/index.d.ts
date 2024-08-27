@@ -23,6 +23,8 @@ export declare class AMGDPR extends EnhancedElement {
     get borderWidth(): number;
     set text(value: Text | null);
     get text(): Text | null;
+    set privacyPolicyURL(value: string | null);
+    get privacyPolicyURL(): string | null;
     allowStatistical: boolean | null;
     allowRetargeting: boolean | null;
     isVisible: boolean;

@@ -254,6 +254,16 @@ export class AMGDPR extends EnhancedElement {
   }
 
   /**
+   * Privacy policy URL
+   */
+  set privacyPolicyURL(value: string | null) {
+    this.setAttribute('privacyPolicyURL', value || 'privacy')
+  }
+  get privacyPolicyURL() {
+    return this.getAttribute('privacyPolicyURL')
+  }
+
+  /**
    * @state
    * Allow Statistical
    */
@@ -498,7 +508,7 @@ export class AMGDPR extends EnhancedElement {
     if (customizeLink instanceof HTMLElement) {
       customizeLink.innerHTML = text.customize.link.replace(
         '%URL%',
-        text.policyUrl
+        this.privacyPolicyURL || text.policyUrl
       )
     }
   }

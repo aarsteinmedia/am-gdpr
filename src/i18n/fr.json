@@ -3,8 +3,7 @@
   "customize": {
     "header": "Vos données, votre choix",
     "label": "Personnaliser",
-    "text": "Nous utilisons des <strong>cookies fonctionnels</strong> pour la navigation, etc. De plus, nous utilisons des <strong>cookies statistiques</strong> pour voir comment les utilisateurs interagissent avec le site Web.",
-    "retargetingText": "Nous utilisons également des cookies à des fins de marketing.",
+    "text": "Nous utilisons des <strong>cookies fonctionnels</strong> pour la navigation, etc. De plus, nous utilisons des <strong>cookies statistiques</strong> pour voir comment les utilisateurs interagissent avec le site Web. Nous utilisons également <strong>des cookies à des fins de marketing.</strong>",
     "link": "Consultez notre <a href=\"/%URL%\">politique de confidentialité</a>"
   },
   "header": "Ce site Web est utilisé",

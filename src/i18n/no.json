@@ -3,8 +3,7 @@
   "customize": {
     "header": "Dine data, ditt valg",
     "label": "Tilpass",
-    "text": "Vi bruker <strong>funksjonelle cookies</strong> til navigering og lignende. I tillegg bruker vi <strong>statistiske cookies</strong> til å se hvordan brukere interagerer med nettsiden.",
-    "retargetingText": "Vi bruker også cookies til markedsføring.",
+    "text": "Vi bruker <strong>funksjonelle cookies</strong> til navigering og lignende. I tillegg bruker vi <strong>statistiske cookies</strong> til å se hvordan brukere interagerer med nettsiden. Vi bruker også <strong>cookies til markedsføring.</strong>",
     "link": "Les mer på vår <a href=\"/%URL%\">personvernserklæring</a>"
   },
   "header": "Denne nettsida bruker",
