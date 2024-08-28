@@ -496,7 +496,7 @@ export class AMGDPR extends EnhancedElement {
 
     const customizeHeader = this.shadow.querySelector('#customize-header')
     if (customizeHeader instanceof HTMLSlotElement) {
-      customizeHeader.innerText = ` ${text.customize.header}`
+      customizeHeader.innerText = text.customize.header
     }
 
     const customizeText = this.shadow.querySelector('#customize-text')

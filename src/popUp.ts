@@ -21,8 +21,14 @@ export default function popUp(this: AMGDPR) {
         style="display: flex; flex-direction: column;"
       >
         <h3>
-          <figure aria-label="cookies" class="icon-cookies">${icon}</figure>
-          <slot id="customizeHeader"></slot>
+          <figure
+            aria-label="cookies"
+            class="icon-cookies"
+            style="display: inline-flex; margin-right: 0.5em;"
+          >
+            ${icon}
+          </figure>
+          <slot id="customize-header"></slot>
         </h3>
         <p id="customize-text"></p>
         <p id="customize-link"></p>

@@ -33,14 +33,21 @@
 .button {
   border: solid var(--border-width);
   font-size: .9em;
+  line-height: .9em;
   font-weight: bold;
-  padding: 7px 15px 5px;
+  padding: 10px 15px;
   margin: 15px;
   margin-left: 0;
   border-radius: 1.5em;
   border-color: currentColor;
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
+  // vertical-align: text-bottom;
+
+  // > * {
+  //   display: inline-block;
+  //   vertical-align: top;
+  // }
 
   &:last-of-type {
     margin-right: 0;
