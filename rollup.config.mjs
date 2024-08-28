@@ -42,7 +42,15 @@ export default [
         ],
       }),
       template({
-        include: './src/index.ts',
+        include: [
+          './src/cookieWarning.ts',
+          './src/icon.ts',
+          './src/loading.ts',
+          './src/miniGDPR.ts',
+          './src/popUp.ts',
+          './src/switchButton.ts',
+          './src/uiButton.ts',
+        ],
         options: {
           shouldMinify({ parts }) {
             return parts.some(
