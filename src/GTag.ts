@@ -44,7 +44,9 @@ export default class GTag {
       script.id = scriptId
       script.async = true
       script.src = `https://www.googletagmanager.com/gtag/js?id=${this.trackingID}`
-      document.head.insertBefore(script, document.head.firstChild)
+      document.head.appendChild(script)
+      script.insertAdjacentHTML('beforebegin', '<!-- Google Analytics -->')
+      script.insertAdjacentHTML('afterend', '<!-- End Google Analytics -->')
 
       gtag('js', new Date())
       gtag('config', this.trackingID, this.config)

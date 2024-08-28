@@ -4,22 +4,22 @@ import { gtmCode /* resetDataLayer, sanitizeObject */ } from './utils'
 export default class GTM {
   constructor({
     gtmId,
-    resetDataLayer = false,
-    sanitizeDataLayer = false,
+    // resetDataLayer = false,
+    // sanitizeDataLayer = false,
     serverSideDomain = null,
     consentParams,
     defer = false,
   }: {
     gtmId: string
-    resetDataLayer?: boolean
-    sanitizeDataLayer?: boolean
+    // resetDataLayer?: boolean
+    // sanitizeDataLayer?: boolean
     serverSideDomain?: string | null
     consentParams: Gtag.ConsentParams
     defer?: boolean
   }) {
     this.gtmId = gtmId ? gtmId.trim() : null
-    this.resetDataLayer = !!resetDataLayer
-    this.sanitizeDataLayer = !!sanitizeDataLayer
+    // this.resetDataLayer = !!resetDataLayer
+    // this.sanitizeDataLayer = !!sanitizeDataLayer
     this.serverSideDomain = serverSideDomain ? serverSideDomain.trim() : null
     this.defer = !!defer
 
@@ -38,8 +38,8 @@ export default class GTM {
   private _initialized = false
 
   public gtmId: string | null = null
-  public resetDataLayer = false
-  public sanitizeDataLayer = false
+  // public resetDataLayer = false
+  // public sanitizeDataLayer = false
   public serverSideDomain: string | null = null
   public defer = false
   public consentParams
@@ -75,6 +75,8 @@ export default class GTM {
 
       script.innerHTML = innerHTML
       document.head.appendChild(script)
+      script.insertAdjacentHTML('beforebegin', '<!-- Google Tag Manager -->')
+      script.insertAdjacentHTML('afterend', '<!-- End Google Tag Manager -->')
 
       gtag('consent', 'default', this.consentParams)
 

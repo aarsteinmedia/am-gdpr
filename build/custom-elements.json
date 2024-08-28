@@ -31,24 +31,6 @@
             },
             {
               "kind": "field",
-              "name": "resetDataLayer",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "public",
-              "default": "!!resetDataLayer"
-            },
-            {
-              "kind": "field",
-              "name": "sanitizeDataLayer",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "public",
-              "default": "!!sanitizeDataLayer"
-            },
-            {
-              "kind": "field",
               "name": "serverSideDomain",
               "type": {
                 "text": "string | null"
@@ -813,18 +795,6 @@
         },
         {
           "kind": "variable",
-          "name": "resetDataLayer"
-        },
-        {
-          "kind": "variable",
-          "name": "sanitize"
-        },
-        {
-          "kind": "variable",
-          "name": "sanitizeObject"
-        },
-        {
-          "kind": "variable",
           "name": "useId"
         }
       ],
@@ -850,30 +820,6 @@
           "name": "isServer",
           "declaration": {
             "name": "isServer",
-            "module": "src/utils.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "resetDataLayer",
-          "declaration": {
-            "name": "resetDataLayer",
-            "module": "src/utils.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "sanitize",
-          "declaration": {
-            "name": "sanitize",
-            "module": "src/utils.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "sanitizeObject",
-          "declaration": {
-            "name": "sanitizeObject",
             "module": "src/utils.ts"
           }
         },
