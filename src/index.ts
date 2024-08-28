@@ -1,5 +1,4 @@
 import Cookies from 'js-cookie'
-import styles from './styles/index.scss'
 import EnhancedElement from './observeProperties'
 import getTranslation from './i18n'
 import GTM from './GTM'
@@ -8,10 +7,16 @@ import miniGDPR from './miniGDPR'
 import popUp from './popUp'
 import cookieWarning from './cookieWarning'
 import switchButton from './switchButton'
-import type { Text } from './types'
-import { isServer } from './utils'
+import {
+  boolToConsentParams,
+  consentParamsToBool,
+  getConsent,
+  isServer,
+} from './utils'
 import icon from './icon'
 import loading from './loading'
+import styles from './styles/index.scss'
+import type { Text } from './types'
 
 /**
  * AM GDPR Web Component
@@ -43,12 +48,8 @@ export class AMGDPR extends EnhancedElement {
 
     this._addEventListeners()
 
-    this.allowStatistical = this._consentParamsToBool(
-      this._getConsent().analytics_storage
-    )
-    this.allowRetargeting = this._consentParamsToBool(
-      this._getConsent().ad_storage
-    )
+    this.allowStatistical = consentParamsToBool(getConsent().analytics_storage)
+    this.allowRetargeting = consentParamsToBool(getConsent().ad_storage)
 
     this.gdprContainer = this.shadow.querySelector('#gdpr-container')
 
@@ -71,12 +72,12 @@ export class AMGDPR extends EnhancedElement {
     if (this.trackingID?.startsWith('GTM-')) {
       this._gtm = new GTM({
         gtmId: this.trackingID,
-        consentParams: this._getConsent(),
+        consentParams: getConsent(),
       })
     } else if (this.trackingID?.startsWith('G-')) {
       this._gTag = new GTag({
         trackingID: this.trackingID,
-        consentParams: this._getConsent(),
+        consentParams: getConsent(),
       })
     }
 
@@ -300,45 +301,14 @@ export class AMGDPR extends EnhancedElement {
 
   private _scrollPos = 0
 
-  private _getConsent(): Gtag.ConsentParams {
-    const cookie = Cookies.get('CookieConsent')
-    if (cookie) {
-      return JSON.parse(decodeURIComponent(cookie))
-    }
-    return {
-      functionality_storage: 'granted',
-      analytics_storage: 'denied',
-      ad_user_data: 'denied',
-      ad_storage: 'denied',
-      ad_personalization: 'denied',
-      personalization_storage: 'denied',
-      security_storage: 'granted',
-      wait_for_update: 500,
-    }
-  }
-
-  private _boolToConsentParams(bool?: boolean | null) {
-    if (bool === undefined || bool === null) {
-      return undefined
-    }
-    return bool ? 'granted' : 'denied'
-  }
-
-  private _consentParamsToBool(param?: 'granted' | 'denied') {
-    if (param === undefined || param === null) {
-      return null
-    }
-    return param === 'granted'
-  }
-
   public save() {
     const consent: Gtag.ConsentParams = {
       functionality_storage: 'granted',
-      analytics_storage: this._boolToConsentParams(this.allowStatistical),
-      ad_user_data: this._boolToConsentParams(this.allowStatistical),
-      ad_storage: this._boolToConsentParams(this.allowRetargeting),
-      ad_personalization: this._boolToConsentParams(this.allowRetargeting),
-      personalization_storage: this._boolToConsentParams(this.allowRetargeting),
+      analytics_storage: boolToConsentParams(this.allowStatistical),
+      ad_user_data: boolToConsentParams(this.allowStatistical),
+      ad_storage: boolToConsentParams(this.allowRetargeting),
+      ad_personalization: boolToConsentParams(this.allowRetargeting),
+      personalization_storage: boolToConsentParams(this.allowRetargeting),
       security_storage: 'granted',
     }
 
@@ -349,11 +319,11 @@ export class AMGDPR extends EnhancedElement {
     })
 
     this._gtm?.updateConsent({
-      consentParams: this._getConsent(),
+      consentParams: getConsent(),
     })
 
     this._gTag?.updateConsent({
-      consentParams: this._getConsent(),
+      consentParams: getConsent(),
     })
 
     for (const callback of this._consentListeners) {

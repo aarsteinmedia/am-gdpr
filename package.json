@@ -17,7 +17,7 @@
     "@rollup/plugin-commonjs": "^25.0.8",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "@swc/core": "^1.7.19",
+    "@swc/core": "^1.7.21",
     "@types/gtag.js": "^0.0.19",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^22.5.1",

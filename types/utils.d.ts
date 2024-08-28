@@ -1,1 +1,1 @@
-export declare const gtmCode: (gtmId: string, defer: boolean, domain: string) => string, hasKey: <T extends object>(obj: T, key: PropertyKey) => key is keyof T, isServer: () => boolean, useId: (prefix?: string) => string;
+export declare const boolToConsentParams: (bool?: boolean | null) => "denied" | "granted" | undefined, consentParamsToBool: (param?: "granted" | "denied") => boolean | null, getConsent: () => Gtag.ConsentParams, hasKey: <T extends object>(obj: T, key: PropertyKey) => key is keyof T, isServer: () => boolean, useId: (prefix?: string) => string;

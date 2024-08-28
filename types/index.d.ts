@@ -34,9 +34,6 @@ export declare class AMGDPR extends EnhancedElement {
     private _gtm?;
     private _gTag?;
     private _scrollPos;
-    private _getConsent;
-    private _boolToConsentParams;
-    private _consentParamsToBool;
     save(): void;
     acceptAll(): void;
     declineAll(): void;

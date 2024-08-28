@@ -379,44 +379,6 @@
             },
             {
               "kind": "method",
-              "name": "_getConsent",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "Gtag.ConsentParams"
-                }
-              }
-            },
-            {
-              "kind": "method",
-              "name": "_boolToConsentParams",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "bool",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | null"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_consentParamsToBool",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "param",
-                  "optional": true,
-                  "type": {
-                    "text": "'granted' | 'denied'"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
               "name": "save",
               "privacy": "public"
             },
@@ -763,27 +725,24 @@
       "declarations": [
         {
           "kind": "function",
-          "name": "gtmCode",
+          "name": "boolToConsentParams",
           "parameters": [
             {
-              "name": "gtmId",
+              "name": "bool",
+              "optional": true,
               "type": {
-                "text": "string"
-              }
-            },
-            {
-              "name": "defer",
-              "type": {
-                "text": "boolean"
-              }
-            },
-            {
-              "name": "domain",
-              "type": {
-                "text": "string"
+                "text": "boolean | null"
               }
             }
           ]
+        },
+        {
+          "kind": "variable",
+          "name": "consentParamsToBool"
+        },
+        {
+          "kind": "variable",
+          "name": "getConsent"
         },
         {
           "kind": "variable",
@@ -801,9 +760,25 @@
       "exports": [
         {
           "kind": "js",
-          "name": "gtmCode",
+          "name": "boolToConsentParams",
           "declaration": {
-            "name": "gtmCode",
+            "name": "boolToConsentParams",
+            "module": "src/utils.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "consentParamsToBool",
+          "declaration": {
+            "name": "consentParamsToBool",
+            "module": "src/utils.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getConsent",
+          "declaration": {
+            "name": "getConsent",
             "module": "src/utils.ts"
           }
         },
