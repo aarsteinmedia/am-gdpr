@@ -9,7 +9,13 @@ import {
   popUp,
   switchButton,
 } from '../templates'
-import { boolToConsentParams, consentParamsToBool, getConsent } from '../utils'
+import {
+  boolToConsentParams,
+  consentParamsToBool,
+  getConsent,
+  Align,
+  Format,
+} from '../utils'
 import type { Text } from '../types'
 import styles from '../styles/index.scss'
 import EnhancedElement from './EnhancedElement'
@@ -296,6 +302,34 @@ export class AMGDPR extends EnhancedElement {
   }
 
   /**
+   * Align GDPR Promt
+   */
+  set alignPrompt(value: Align) {
+    this.setAttribute('alignPrompt', value)
+  }
+  get alignPrompt() {
+    const value = this.getAttribute('alignPrompt')
+    if (value && Object.values(Align).includes(value as Align)) {
+      return value as Align
+    }
+    return Align.BottomLeft
+  }
+
+  /**
+   * GDPR Prompt format
+   */
+  set format(value: Format) {
+    this.setAttribute('format', value)
+  }
+  get format() {
+    const value = this.getAttribute('format')
+    if (value && Object.values(Format).includes(value as Format)) {
+      return value as Format
+    }
+    return Format.Box
+  }
+
+  /**
    * Replace default text
    */
   set text(value: Text | null) {
@@ -303,8 +337,8 @@ export class AMGDPR extends EnhancedElement {
     this.setAttribute('text', JSON.stringify(value))
   }
   get text() {
-    const val: Text | null = JSON.parse(this.getAttribute('text') || 'null')
-    return val
+    const value: Text | null = JSON.parse(this.getAttribute('text') || 'null')
+    return value
   }
 
   /**

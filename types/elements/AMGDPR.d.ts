@@ -1,4 +1,5 @@
 import { switchButton } from '../templates';
+import { Align, Format } from '../utils';
 import type { Text } from '../types';
 import EnhancedElement from './EnhancedElement';
 export declare class AMGDPR extends EnhancedElement {
@@ -27,6 +28,10 @@ export declare class AMGDPR extends EnhancedElement {
     get fontFamily(): string;
     set borderWidth(value: number);
     get borderWidth(): number;
+    set alignPrompt(value: Align);
+    get alignPrompt(): Align;
+    set format(value: Format);
+    get format(): Format;
     set text(value: Text | null);
     get text(): Text | null;
     set privacyPolicyURL(value: string | null);

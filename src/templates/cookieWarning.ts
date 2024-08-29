@@ -7,7 +7,9 @@ export default function cookieWarning(this: AMGDPR) {
   if (!this.gdprContainer) {
     return
   }
-  this.gdprContainer.innerHTML = /* HTML */ `<div class="cookie-container">
+  this.gdprContainer.innerHTML = /* HTML */ `<div
+    class="cookie-container ${this.alignPrompt} ${this.format}-format"
+  >
     <div class="content">
       <div
         aria-describedby="cookie-warning-text"

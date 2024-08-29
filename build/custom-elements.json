@@ -240,6 +240,16 @@
             },
             {
               "kind": "field",
+              "name": "alignPrompt",
+              "description": "Align GDPR Promt"
+            },
+            {
+              "kind": "field",
+              "name": "format",
+              "description": "GDPR Prompt format"
+            },
+            {
+              "kind": "field",
               "name": "text",
               "description": "Replace default text"
             },
