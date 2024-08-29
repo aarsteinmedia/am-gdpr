@@ -1,10 +1,10 @@
 export default class GTag {
   constructor({
-    trackingID,
+    googleID,
     config = {},
     consentParams,
   }: {
-    trackingID: string
+    googleID: string
     config?:
       | Gtag.ControlParams
       | Gtag.EventParams
@@ -12,7 +12,7 @@ export default class GTag {
       | Gtag.CustomParams
     consentParams: Gtag.ConsentParams
   }) {
-    this.trackingID = trackingID
+    this.googleID = googleID
     this.config = config
     this.consentParams = consentParams
 
@@ -29,28 +29,29 @@ export default class GTag {
   private _initialized = false
 
   public initialize() {
-    const scriptId = 'ga-gtag'
+    gtag('consent', 'default', this.consentParams)
 
-    if (document.getElementById(scriptId) || this._initialized) {
+    const scriptID = 'ga-gtag'
+
+    if (document.getElementById(scriptID) || this._initialized) {
       return
     }
 
     try {
-      if (!this.trackingID) {
+      if (!this.googleID) {
         throw new Error('No Google Tag ID was assigned')
       }
 
       const script = document.createElement('script')
-      script.id = scriptId
+      script.id = scriptID
       script.async = true
-      script.src = `https://www.googletagmanager.com/gtag/js?id=${this.trackingID}`
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${this.googleID}`
       document.head.appendChild(script)
       script.insertAdjacentHTML('beforebegin', '<!-- Google Analytics -->')
       script.insertAdjacentHTML('afterend', '<!-- End Google Analytics -->')
 
       gtag('js', new Date())
-      gtag('config', this.trackingID, this.config)
-      gtag('consent', 'default', this.consentParams)
+      gtag('config', this.googleID, this.config)
 
       this._initialized = true
     } catch (err) {
@@ -70,7 +71,7 @@ export default class GTag {
     }
   }
 
-  public trackingID: string
+  public googleID: string
   public config = {}
   public consentParams
 }

@@ -1,6 +1,6 @@
+import type { AMGDPR } from '../elements/AMGDPR'
 import uiButton from './uiButton'
 import icon from './icon'
-import type { AMGDPR } from '.'
 
 /**
  * Settings Pop-Up

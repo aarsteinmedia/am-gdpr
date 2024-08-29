@@ -20,6 +20,7 @@ export default [
     input: './src/index.ts',
     output: {
       extend: true,
+      exports: 'named',
       file: pkg.main,
       format: 'iife',
       name: pkg.name,
@@ -42,15 +43,7 @@ export default [
         ],
       }),
       template({
-        include: [
-          './src/cookieWarning.ts',
-          './src/icon.ts',
-          './src/loading.ts',
-          './src/miniGDPR.ts',
-          './src/popUp.ts',
-          './src/switchButton.ts',
-          './src/uiButton.ts',
-        ],
+        include: ['./src/templates/*'],
         options: {
           shouldMinify({ parts }) {
             return parts.some(

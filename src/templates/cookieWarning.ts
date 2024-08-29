@@ -1,4 +1,4 @@
-import type { AMGDPR } from '.'
+import type { AMGDPR } from '../elements/AMGDPR'
 
 /**
  * Cookie Warning

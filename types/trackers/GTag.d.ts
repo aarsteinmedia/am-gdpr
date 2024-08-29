@@ -1,6 +1,6 @@
 export default class GTag {
-    constructor({ trackingID, config, consentParams, }: {
-        trackingID: string;
+    constructor({ googleID, config, consentParams, }: {
+        googleID: string;
         config?: Gtag.ControlParams | Gtag.EventParams | Gtag.ConfigParams | Gtag.CustomParams;
         consentParams: Gtag.ConsentParams;
     });
@@ -9,7 +9,7 @@ export default class GTag {
     updateConsent({ consentParams, }: {
         consentParams: Gtag.ConsentParams;
     }): void;
-    trackingID: string;
+    googleID: string;
     config: {};
     consentParams: Gtag.ConsentParams;
 }

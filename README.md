@@ -1,6 +1,6 @@
 # AM GDPR for TagManager
 
-Reactive GDPR Web Component that prompts visitors for consent, stores their preferences and loads Tag Manager.
+Reactive GDPR Web Component that prompts visitors for consent, stores their preferences and implements tracking.
 
 ## Table of Contents
 
@@ -32,10 +32,12 @@ Example:
 The web component will promt new visitors for consent and offer customizations based on your settings.
 
 The component has the following properties:
-- `gtmId`!: `string` TagManager ID *required*
-- `hasRetargeting`?: `boolean` Whether you want to prompt for retargeting. Defaults to `false`
-- `text`?: `object` Override the default text
+- `googleID`?: `string` TagManager ID / GTag
+- `metaPixelID`?: `string` Meta Pixel
+- `snapChatPixelID`?: `string` Snap Pixel
+- `tiktokPixelID`?: `string` TikTok Pixel
 
+- `text`?: `object` Override the default text
 - `fontFamily`?: `string` = 'Helvetica Neue, Helvetica, sans-serif'
 - `color`?: `string` = '#000'
 - `backgroundColor`?: `string` = '#FFF'

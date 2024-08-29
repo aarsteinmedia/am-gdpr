@@ -1,5 +1,5 @@
-import { useId } from './utils'
-import type { AMGDPR } from '.'
+import { useId } from '../utils'
+import type { AMGDPR } from '../elements/AMGDPR'
 
 /**
  * Switch button
