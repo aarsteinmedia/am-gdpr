@@ -9,6 +9,7 @@ export default function cookieWarning(this: AMGDPR) {
   }
   this.gdprContainer.innerHTML = /* HTML */ `<div
     class="cookie-container ${this.alignPrompt} ${this.format}-format"
+    lang="${document.documentElement.lang}"
   >
     <div class="content">
       <div
@@ -17,11 +18,7 @@ export default function cookieWarning(this: AMGDPR) {
         aria-modal="false"
         role="dialog"
       >
-        <p
-          class="h3"
-          id="cookie-warning-text"
-          lang="${document.documentElement.lang}"
-        ></p>
+        <p class="h3" id="cookie-warning-text"></p>
       </div>
       <div class="button-wrapper">
         <button

@@ -10,7 +10,10 @@ export default function popUp(this: AMGDPR) {
     return
   }
 
-  this.gdprContainer.innerHTML = /* HTML */ `<div class="pop-up fadeIn">
+  this.gdprContainer.innerHTML = /* HTML */ `<div
+    class="pop-up fadeIn"
+    lang="${document.documentElement.lang}"
+  >
     <dialog open>
       ${uiButton({
         className: 'close-button',
