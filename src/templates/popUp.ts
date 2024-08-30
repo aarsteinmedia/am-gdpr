@@ -56,11 +56,13 @@ export default function popUp(this: AMGDPR) {
             name: 'allowStatistical',
             value: !!this.allowStatistical,
           })}
-          ${this.switchButton({
-            label: this.text?.marketing.label,
-            name: 'allowRetargeting',
-            value: !!this.allowRetargeting,
-          })}
+          ${this.hasRetargeting
+            ? this.switchButton({
+                label: this.text?.marketing.label,
+                name: 'allowRetargeting',
+                value: !!this.allowRetargeting,
+              })
+            : ''}
         </div>
       </div>
     </dialog>

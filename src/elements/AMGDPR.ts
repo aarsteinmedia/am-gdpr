@@ -76,6 +76,7 @@ export class AMGDPR extends EnhancedElement {
         gtmId: this.googleID,
         consentParams: getConsent(),
       })
+      this.hasRetargeting = true
     } else if (this.googleID?.startsWith('G-')) {
       this._gTag = new GTag({
         googleID: this.googleID,
@@ -86,16 +87,19 @@ export class AMGDPR extends EnhancedElement {
           metaPixelID: this.metaPixelID,
           locale: navigator.language,
         })
+        this.hasRetargeting = true
       }
       if (this.snapChatPixelID) {
         this._snapChat = new SnapChatPixel({
           snapChatPixelID: this.snapChatPixelID,
         })
+        this.hasRetargeting = true
       }
       if (this.tiktokPixelID) {
         this._tikTok = new TikTokPixel({
           tiktokPixelID: this.tiktokPixelID,
         })
+        this.hasRetargeting = true
       }
     }
 
@@ -430,10 +434,10 @@ export class AMGDPR extends EnhancedElement {
   public acceptAll() {
     const prev = {
       statistical: this.allowStatistical,
-      retargeting: this.allowRetargeting,
+      retargeting: this.hasRetargeting ? this.allowRetargeting : false,
     }
     this.allowStatistical = true
-    this.allowRetargeting = true
+    this.allowRetargeting = this.hasRetargeting
     this.isSaving = true
     setTimeout(
       () => {
@@ -517,6 +521,8 @@ export class AMGDPR extends EnhancedElement {
 
   private _consentListeners: ((val?: unknown) => void)[] = []
 
+  public hasRetargeting = false
+
   private _popUp = popUp
   private _cookieWarning = cookieWarning
   private _miniGDPR = miniGDPR
@@ -567,7 +573,9 @@ export class AMGDPR extends EnhancedElement {
 
     const customizeText = this.shadow.querySelector('#customize-text')
     if (customizeText instanceof HTMLElement) {
-      customizeText.innerHTML = text.customize.text
+      customizeText.innerHTML = `${text.customize.text}${
+        this.hasRetargeting ? ` ${text.customize.retargeting}` : ''
+      }`
     }
 
     const customizeLink = this.shadow.querySelector('#customize-link')

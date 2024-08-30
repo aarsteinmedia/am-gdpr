@@ -5,6 +5,7 @@ export default function getTranslation(): {
         header: string;
         label: string;
         text: string;
+        retargeting: string;
         link: string;
     };
     header: string;

@@ -57,6 +57,7 @@ export declare class AMGDPR extends EnhancedElement {
     setVisible(): void;
     hideOnScroll(): void;
     private _consentListeners;
+    hasRetargeting: boolean;
     private _popUp;
     private _cookieWarning;
     private _miniGDPR;
