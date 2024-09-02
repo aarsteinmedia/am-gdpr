@@ -1,4 +1,4 @@
-// import type { DataLayerObject } from './types'
+import type { DataLayerObject } from '../types'
 
 const gtmCode = (gtmId: string, defer: boolean, domain: string) =>
   `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.id='gtm-snippet';j.${defer ? 'defer' : 'async'}=true;j.src='https://${domain}/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`
@@ -76,11 +76,9 @@ export default class GTM {
     this.consentParams = consentParams
 
     if (!window.gtag) {
-      window.gtag = function () {
+      window.gtag = function (...args: unknown[]) {
         window.dataLayer = window.dataLayer || []
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        window.dataLayer.push(arguments) // eslint-disable-line
+        window.dataLayer.push(args as unknown as DataLayerObject)
       }
     }
   }

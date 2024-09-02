@@ -1,3 +1,5 @@
+import { DataLayerObject } from '../types'
+
 export default class GTag {
   constructor({
     googleID,
@@ -17,11 +19,9 @@ export default class GTag {
     this.consentParams = consentParams
 
     if (!window.gtag) {
-      window.gtag = function () {
+      window.gtag = function (...args: unknown[]) {
         window.dataLayer = window.dataLayer || []
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        window.dataLayer.push(arguments) // eslint-disable-line
+        window.dataLayer.push(args as unknown as DataLayerObject)
       }
     }
   }
