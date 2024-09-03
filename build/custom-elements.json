@@ -165,17 +165,9 @@
             {
               "kind": "field",
               "name": "observedProperties",
-              "type": {
-                "text": "(keyof EnhancedElement)[]"
-              },
               "static": true,
-              "default": "[]",
               "description": "Properties to observe",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "EnhancedElement",
-                "module": "src/elements/EnhancedElement.ts"
-              }
+              "readonly": true
             },
             {
               "kind": "method",
@@ -536,17 +528,6 @@
           "kind": "class",
           "description": "HTMLElement enhanced to track property changes",
           "name": "EnhancedElement",
-          "members": [
-            {
-              "kind": "field",
-              "name": "observedProperties",
-              "type": {
-                "text": "(keyof EnhancedElement)[]"
-              },
-              "static": true,
-              "default": "[]"
-            }
-          ],
           "superclass": {
             "name": "HTMLElement"
           },

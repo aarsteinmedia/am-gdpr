@@ -8,7 +8,7 @@ export declare class AMGDPR extends EnhancedElement {
     disconnectedCallback(): void;
     shadow: ShadowRoot;
     template: HTMLTemplateElement;
-    static get observedProperties(): (keyof EnhancedElement)[];
+    static get observedProperties(): string[];
     propertyChangedCallback(name: string, _oldValue: unknown, value: unknown): void;
     set googleID(value: string | null);
     get googleID(): string | null;

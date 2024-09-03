@@ -151,14 +151,14 @@ export class AMGDPR extends EnhancedElement {
   /**
    * Properties to observe
    */
-  static override get observedProperties() {
+  static get observedProperties() {
     return [
       'allowStatistical',
       'allowRetargeting',
       'isVisible',
       'isCustomize',
       'isSaving',
-    ] as unknown as (keyof EnhancedElement)[]
+    ]
   }
 
   propertyChangedCallback(name: string, _oldValue: unknown, value: unknown) {
