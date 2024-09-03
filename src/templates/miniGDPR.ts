@@ -9,8 +9,9 @@ export default function miniGDPR(this: AMGDPR) {
     return
   }
   this.gdprContainer.innerHTML = /* HTML */ `<button
-    class="mini-gdpr"
+    class="mini-gdpr ${this.alignMiniPrompt}"
     data-hide="false"
+    aria-label="${this.text?.miniGDPR || 'Cookie settings'}"
   >
     <figure class="icon-cookies settings">${icon}</figure>
   </button> `

@@ -306,13 +306,27 @@ export class AMGDPR extends EnhancedElement {
   }
 
   /**
-   * Align GDPR Promt
+   * Align GDPR promt
    */
   set alignPrompt(value: Align) {
     this.setAttribute('alignPrompt', value)
   }
   get alignPrompt() {
     const value = this.getAttribute('alignPrompt')
+    if (value && Object.values(Align).includes(value as Align)) {
+      return value as Align
+    }
+    return Align.BottomLeft
+  }
+
+  /**
+   * Align mini GDPR prompt
+   */
+  set alignMiniPrompt(value: Align) {
+    this.setAttribute('alignMiniPrompt', value)
+  }
+  get alignMiniPrompt() {
+    const value = this.getAttribute('alignMiniPrompt')
     if (value && Object.values(Align).includes(value as Align)) {
       return value as Align
     }
@@ -584,6 +598,11 @@ export class AMGDPR extends EnhancedElement {
         '%URL%',
         this.privacyPolicyURL || text.policyUrl
       )
+    }
+
+    const miniGDPR = this.shadow.querySelector('.mini-gdpr')
+    if (miniGDPR instanceof HTMLButtonElement) {
+      miniGDPR.ariaLabel = text.miniGDPR
     }
   }
 

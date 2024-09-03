@@ -241,7 +241,12 @@
             {
               "kind": "field",
               "name": "alignPrompt",
-              "description": "Align GDPR Promt"
+              "description": "Align GDPR promt"
+            },
+            {
+              "kind": "field",
+              "name": "alignMiniPrompt",
+              "description": "Align mini GDPR prompt"
             },
             {
               "kind": "field",

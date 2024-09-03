@@ -9,6 +9,7 @@ export default function getTranslation(): {
         link: string;
     };
     header: string;
+    miniGDPR: string;
     accept: string;
     acceptAll: string;
     decline: string;

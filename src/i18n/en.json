@@ -8,6 +8,7 @@
     "link": "See our <a href=\"/%URL%\">privacy policy</a>"
   },
   "header": "This website uses",
+  "miniGDPR": "Cookie settings",
   "accept": "I understand",
   "acceptAll": "Accept all",
   "decline": "Only functional",

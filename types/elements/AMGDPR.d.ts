@@ -30,6 +30,8 @@ export declare class AMGDPR extends EnhancedElement {
     get borderWidth(): number;
     set alignPrompt(value: Align);
     get alignPrompt(): Align;
+    set alignMiniPrompt(value: Align);
+    get alignMiniPrompt(): Align;
     set format(value: Format);
     get format(): Format;
     set text(value: Text | null);
