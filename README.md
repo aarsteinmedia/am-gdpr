@@ -23,7 +23,7 @@ Example:
 </head>
 <body>
   <!-- All content of Body -->
-  <am-gdpr gtmId="<YOUR_GTM_ID>"></am-gdpr>
+  <am-gdpr googleID="<YOUR_GOOGLE_TRACKING_ID>"></am-gdpr>
 </body>
 ```
 
