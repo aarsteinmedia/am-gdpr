@@ -30,11 +30,11 @@ export const boolToConsentParams = (bool?: boolean | null) => {
       return JSON.parse(decodeURIComponent(cookie))
     }
     return {
-      functionality_storage: 'granted',
-      analytics_storage: 'denied',
-      ad_user_data: 'denied',
-      ad_storage: 'denied',
       ad_personalization: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      analytics_storage: 'denied',
+      functionality_storage: 'granted',
       personalization_storage: 'denied',
       security_storage: 'granted',
       wait_for_update: 500,

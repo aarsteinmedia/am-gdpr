@@ -73,19 +73,19 @@ export class AMGDPR extends EnhancedElement {
 
     if (this.googleID?.startsWith('GTM-')) {
       this._gtm = new GTM({
-        gtmId: this.googleID,
         consentParams: getConsent(),
+        gtmId: this.googleID,
       })
       this.hasRetargeting = true
     } else if (this.googleID?.startsWith('G-')) {
       this._gTag = new GTag({
-        googleID: this.googleID,
         consentParams: getConsent(),
+        googleID: this.googleID,
       })
       if (this.metaPixelID) {
         this._meta = new MetaPixel({
-          metaPixelID: this.metaPixelID,
           locale: navigator.language,
+          metaPixelID: this.metaPixelID,
         })
         this.hasRetargeting = true
       }
@@ -411,18 +411,18 @@ export class AMGDPR extends EnhancedElement {
 
   public save() {
     const consent: Gtag.ConsentParams = {
-      functionality_storage: 'granted',
-      analytics_storage: boolToConsentParams(this.allowStatistical),
-      ad_user_data: boolToConsentParams(this.allowStatistical),
-      ad_storage: boolToConsentParams(this.allowRetargeting),
       ad_personalization: boolToConsentParams(this.allowRetargeting),
+      ad_storage: boolToConsentParams(this.allowRetargeting),
+      ad_user_data: boolToConsentParams(this.allowStatistical),
+      analytics_storage: boolToConsentParams(this.allowStatistical),
+      functionality_storage: 'granted',
       personalization_storage: boolToConsentParams(this.allowRetargeting),
       security_storage: 'granted',
     }
 
     Cookies.set('CookieConsent', encodeURIComponent(JSON.stringify(consent)), {
-      sameSite: 'Lax',
       expires: 365,
+      sameSite: 'Lax',
       secure: process.env.NODE_ENV !== 'development',
     })
 
@@ -447,8 +447,8 @@ export class AMGDPR extends EnhancedElement {
 
   public acceptAll() {
     const prev = {
-      statistical: this.allowStatistical,
       retargeting: this.hasRetargeting ? this.allowRetargeting : false,
+      statistical: this.allowStatistical,
     }
     this.allowStatistical = true
     this.allowRetargeting = this.hasRetargeting
@@ -608,12 +608,12 @@ export class AMGDPR extends EnhancedElement {
 
   private _addEventListeners() {
     document.addEventListener('keydown', this.esc, {
-      passive: true,
       capture: true,
+      passive: true,
     })
     document.addEventListener('scroll', this.hideOnScroll, {
-      passive: true,
       capture: true,
+      passive: true,
     })
   }
 
@@ -637,10 +637,10 @@ export class AMGDPR extends EnhancedElement {
     }
     console.debug(
       {
-        googleID: this.googleID,
         customize: this.isCustomize,
-        statistical: this.allowStatistical,
+        googleID: this.googleID,
         retargeting: this.allowRetargeting,
+        statistical: this.allowStatistical,
         visible: this.isVisible,
       },
       this._gtm || this._gTag

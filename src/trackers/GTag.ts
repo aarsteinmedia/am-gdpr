@@ -1,8 +1,8 @@
 export default class GTag {
   constructor({
-    googleID,
     config = {},
     consentParams,
+    googleID,
   }: {
     googleID: string
     config?:

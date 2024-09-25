@@ -8,8 +8,8 @@ export default function switchButton(
   this: AMGDPR,
   {
     disabled = false,
-    name,
     label,
+    name,
     value,
   }: {
     disabled?: boolean

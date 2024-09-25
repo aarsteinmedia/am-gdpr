@@ -6,6 +6,7 @@
     "es6": true
   },
   "plugins": [
+    "perfectionist",
     "@typescript-eslint",
     "import",
     "jsdoc"
@@ -159,6 +160,7 @@
       "error",
       "always"
     ],
+    "perfectionist/sort-objects": "warn",
     "prefer-object-spread": "warn",
     "quotes": [
       "error",

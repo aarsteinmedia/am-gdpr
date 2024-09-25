@@ -1,5 +1,5 @@
 import type { AMGDPR } from '../elements/AMGDPR';
-export default function switchButton(this: AMGDPR, { disabled, name, label, value, }: {
+export default function switchButton(this: AMGDPR, { disabled, label, name, value, }: {
     disabled?: boolean;
     name: string;
     label?: string;

@@ -46,10 +46,10 @@ export default function popUp(this: AMGDPR) {
 
         <div class="button-wrapper">
           ${this.switchButton({
+            disabled: true,
             label: this.text?.functional.label,
             name: 'functional',
             value: true,
-            disabled: true,
           })}
           ${this.switchButton({
             label: this.text?.statistical.label,
@@ -127,8 +127,8 @@ export default function popUp(this: AMGDPR) {
     }
     const height = `${(dialogInner.offsetHeight ?? 0) + 80}px`
     Object.assign(dialog.style, {
-      minHeight: height,
       maxHeight: height,
+      minHeight: height,
     })
   }, 10)
 }

@@ -1,5 +1,5 @@
 export default class GTM {
-    constructor({ gtmId, serverSideDomain, consentParams, defer, }: {
+    constructor({ consentParams, defer, gtmId, serverSideDomain, }: {
         gtmId: string;
         serverSideDomain?: string | null;
         consentParams: Gtag.ConsentParams;

@@ -1,7 +1,7 @@
 export default class MetaPixel {
   constructor({
-    metaPixelID,
     locale = 'en_US',
+    metaPixelID,
   }: {
     metaPixelID: string
     locale?: string

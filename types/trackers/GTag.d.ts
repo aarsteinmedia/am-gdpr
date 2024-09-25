@@ -1,5 +1,5 @@
 export default class GTag {
-    constructor({ googleID, config, consentParams, }: {
+    constructor({ config, consentParams, googleID, }: {
         googleID: string;
         config?: Gtag.ControlParams | Gtag.EventParams | Gtag.ConfigParams | Gtag.CustomParams;
         consentParams: Gtag.ConsentParams;

@@ -51,12 +51,12 @@ const gtmCode = (gtmId: string, defer: boolean, domain: string) =>
 
 export default class GTM {
   constructor({
+    consentParams,
+    defer = false,
     gtmId,
     // resetDataLayer = false,
     // sanitizeDataLayer = false,
     serverSideDomain = null,
-    consentParams,
-    defer = false,
   }: {
     gtmId: string
     // resetDataLayer?: boolean
