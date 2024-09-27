@@ -218,6 +218,7 @@
     "import/default": "error",
     "import/namespace": "error",
     "import/export": "error",
+    "import/no-cycle": "error",
     "import/no-named-as-default": "warn",
     "import/no-named-as-default-member": "warn",
     "import/no-duplicates": "warn",

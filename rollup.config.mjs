@@ -18,18 +18,18 @@ const isProd = process.env.NODE_ENV !== 'development'
 export default [
   {
     input: './src/index.ts',
-    output: {
-      extend: true,
-      exports: 'named',
-      file: pkg.main,
-      format: 'iife',
-      name: pkg.name,
-    },
     onwarn(warning, warn) {
       if (warning.code === 'THIS_IS_UNDEFINED') {
         return
       }
       warn(warning)
+    },
+    output: {
+      exports: 'named',
+      extend: true,
+      file: pkg.main,
+      format: 'iife',
+      name: pkg.name,
     },
     plugins: [
       postcss({
