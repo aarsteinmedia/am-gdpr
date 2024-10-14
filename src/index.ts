@@ -1,5 +1,5 @@
-import { AMGDPR } from './elements/AMGDPR'
-import { isServer } from './utils'
+import { AMGDPR } from '@/elements/AMGDPR'
+import { isServer } from '@/utils'
 
 export default AMGDPR
 

@@ -1,6 +1,5 @@
 import Cookies from 'js-cookie'
-import getTranslation from '../i18n'
-import { GTM, GTag, MetaPixel, SnapChatPixel, TikTokPixel } from '../trackers'
+import getTranslation from '@/i18n'
 import {
   cookieWarning,
   icon,
@@ -8,17 +7,18 @@ import {
   miniGDPR,
   popUp,
   switchButton,
-} from '../templates'
+} from '@/templates'
 import {
   boolToConsentParams,
   consentParamsToBool,
   getConsent,
   Align,
   Format,
-} from '../utils'
-import type { Text } from '../types'
-import styles from '../styles/index.scss'
-import EnhancedElement from './EnhancedElement'
+} from '@/utils'
+import type { Text } from '@/types'
+import styles from '@/styles/index.scss'
+import EnhancedElement from '@/elements/EnhancedElement'
+import { GTM, GTag, MetaPixel, SnapChatPixel, TikTokPixel } from '../trackers'
 
 /**
  * AM GDPR Web Component

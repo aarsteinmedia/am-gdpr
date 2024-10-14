@@ -1,6 +1,6 @@
-import en from './en.json'
-import fr from './fr.json'
-import no from './no.json'
+import en from '@/i18n/en.json'
+import fr from '@/i18n/fr.json'
+import no from '@/i18n/no.json'
 
 export const languages = ['en', 'fr', 'nb', 'no'] as const,
   fallbackLanguage = 'en',

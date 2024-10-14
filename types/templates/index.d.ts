@@ -1,8 +1,8 @@
-import cookieWarning from './cookieWarning';
-import icon from './icon';
-import loading from './loading';
-import miniGDPR from './miniGDPR';
-import popUp from './popUp';
-import switchButton from './switchButton';
-import uiButton from './uiButton';
+import cookieWarning from '@/templates/cookieWarning';
+import icon from '@/templates/icon';
+import loading from '@/templates/loading';
+import miniGDPR from '@/templates/miniGDPR';
+import popUp from '@/templates/popUp';
+import switchButton from '@/templates/switchButton';
+import uiButton from '@/templates/uiButton';
 export { cookieWarning, icon, loading, miniGDPR, popUp, switchButton, uiButton };

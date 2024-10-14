@@ -1,5 +1,5 @@
-import type { AMGDPR } from '../elements/AMGDPR'
-import icon from './icon'
+import type { AMGDPR } from '@/elements/AMGDPR'
+import icon from '@/templates/icon'
 
 /**
  * Mini GDPR
