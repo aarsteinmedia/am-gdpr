@@ -21,7 +21,7 @@ export default function switchButton(
   const id = useId()
   return /* HTML */ `<div class="container">
     ${label
-      ? /* HTML */ `<label class="textLabel" for="${id}">${label}</label> `
+      ? /* HTML */ `<label class="text-label" for="${id}">${label}</label> `
       : ''}
 
     <label class="label">

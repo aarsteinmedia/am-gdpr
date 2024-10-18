@@ -7,12 +7,11 @@
   overflow: hidden;
   z-index: 999999;
   animation-duration: .4s;
-  animation-name: fadeIn;
-  background-color: rgba(0, 0, 0, 0.3);
+  animation-name: fade-in;
+  background-color: rgb(0 0 0 / 30%);
 
   dialog {
     position: absolute;
-    width: 600px;
     height: 90%;
     max-width: 90%;
     min-height: 0;
@@ -28,7 +27,7 @@
     overflow: hidden;
     transition: max-height .2s ease-in-out, min-height .2s ease-in-out;
     width: 600px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+    box-shadow: 0 10px 20px rgb(0 0 0 / 20%);
     color: var(--color);
     background-color: var(--background-color);
 
@@ -38,11 +37,10 @@
       width: 25px;
     }
 
-    & {
-      &[data-animate="up"] {
-        animation: fadeUp .3s ease-in-out;
-      }
+    &[data-animate="up"] {
+      animation: fade-up .3s ease-in-out;
     }
+
   }
 
   &[data-gallery="true"] {
@@ -76,7 +74,7 @@
   align-items: flex-start;
 }
 
-@keyframes fadeIn {
+@keyframes fade-in {
   0% {
     opacity: 0;
   }
@@ -86,7 +84,7 @@
   }
 }
 
-@keyframes fadeUp {
+@keyframes fade-up {
   0% {
     opacity: 0;
     transform: translateY(0);
@@ -98,7 +96,7 @@
   }
 }
 
-@media only screen and (max-width: 760px) {
+@media only screen and (width <= 760px) {
   .pop-up {
     .pop-up-element {
       padding: 25px;
@@ -112,18 +110,15 @@
   }
 
   .row {
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow: auto hidden;
     scroll-snap-points-x: repeat(100%);
     scroll-snap-type: x mandatory;
     flex: 1 1;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
 
-    & {
-      &::-webkit-scrollbar {
-        display: none;
-      }
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 

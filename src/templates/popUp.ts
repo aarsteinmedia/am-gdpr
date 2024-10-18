@@ -11,7 +11,7 @@ export default function popUp(this: AMGDPR) {
   }
 
   this.gdprContainer.innerHTML = /* HTML */ `<div
-    class="pop-up fadeIn"
+    class="pop-up fade-in"
     lang="${document.documentElement.lang}"
   >
     <dialog open>

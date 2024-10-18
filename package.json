@@ -50,6 +50,8 @@
     "rollup-plugin-swc3": "^0.12.1",
     "rollup-plugin-typescript-paths": "^1.5.0",
     "sass": "^1.80.2",
+    "stylelint": "^16.10.0",
+    "stylelint-config-standard-scss": "^13.1.0",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.6.3"
   },
@@ -60,7 +62,9 @@
     "prod": "pnpm build:types && pnpm build && pnpm build:cem",
     "dev": "rollup -c -w --environment NODE_ENV:development",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "lint:css": "npx stylelint **/*.scss",
+    "lint:css:fix": "npx stylelint **/*.scss --fix"
   },
   "license": "GPL-2.0-or-later",
   "publishConfig": {
