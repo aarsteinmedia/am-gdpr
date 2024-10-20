@@ -97,11 +97,11 @@
 
 .button {
   border: solid var(--border-width) currentcolor;
-  font-size: .9em;
-  line-height: .9;
+  font-size: 0.9em;
+  line-height: 0.9;
   font-weight: bold;
   padding: 0 15px;
-  height: 35px;
+  height: calc(1em + 20px);
   margin: 0;
   border-radius: 1.5em;
   display: inline-flex;
@@ -110,7 +110,7 @@
 
 .button-wrapper {
   display: flex;
-  gap: .5em;
+  gap: 0.5em;
 }
 
 .mini-gdpr {

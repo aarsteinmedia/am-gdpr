@@ -18,7 +18,7 @@ import {
 import type { Text } from '@/types'
 import styles from '@/styles/index.scss'
 import EnhancedElement from '@/elements/EnhancedElement'
-import { GTM, GTag, MetaPixel, SnapChatPixel, TikTokPixel } from '../trackers'
+import { GTM, GTag, MetaPixel, SnapChatPixel, TikTokPixel } from '@/trackers'
 
 /**
  * AM GDPR Web Component
