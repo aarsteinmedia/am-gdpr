@@ -1,8 +1,8 @@
 const loading = /* HTML */ `<svg
   xmlns="http://www.w3.org/2000/svg"
-  width="24"
-  height="24"
-  stroke="currentColor"
+  width="22"
+  height="22"
+  stroke="currentcolor"
 >
   <style>
     @keyframes spinner_zKoa {
@@ -28,8 +28,8 @@ const loading = /* HTML */ `<svg
   </style>
   <g style="transform-origin:center;animation:spinner_zKoa 2s linear infinite">
     <circle
-      cx="12"
-      cy="12"
+      cx="11"
+      cy="11"
       r="9.5"
       fill="none"
       stroke-width="3"

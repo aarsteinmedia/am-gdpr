@@ -30,7 +30,7 @@
   cursor: pointer;
   inset: 0;
   border-radius: 1em;
-  border: solid var(--border-width);
+  border: solid var(--border-width) currentcolor;
   appearance: none;
   transition: background-color .2s;
 

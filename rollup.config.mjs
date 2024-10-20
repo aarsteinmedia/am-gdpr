@@ -35,13 +35,15 @@ const isProd = process.env.NODE_ENV !== 'development',
         typescriptPaths(),
         postcss({
           inject: false,
-          plugins: [
-            flexbugs(),
-            layers(),
-            autoprefixer({
-              flexbox: 'no-2009',
-            }),
-          ],
+          plugins: isProd
+            ? [
+                flexbugs(),
+                layers(),
+                autoprefixer({
+                  flexbox: 'no-2009',
+                }),
+              ]
+            : [],
         }),
         template({
           include: ['./src/templates/*'],
