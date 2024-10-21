@@ -133,13 +133,9 @@ export class AMGDPR extends EnhancedElement {
     const sheet = this.shadowRoot?.adoptedStyleSheets[0]
 
     setTimeout(() => {
-      sheet?.insertRule(/* CSS */ `:host{
-          --border-width: ${this.borderWidth}px;
-          --font-family: ${this.fontFamily};
-          --color: ${this.color};
-          --background-color: ${this.backgroundColor};
-          --accent-color: ${this.accentColor};
-        }`)
+      sheet?.insertRule(
+        /* CSS */ `:host{--border-width: ${this.borderWidth}px;--font-family: ${this.fontFamily};--color: ${this.color};--background-color: ${this.backgroundColor};--accent-color: ${this.accentColor};}`
+      )
     }, 0)
 
     this.debug()
