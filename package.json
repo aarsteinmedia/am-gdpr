@@ -68,8 +68,10 @@
     "typescript": "^5.6.3"
   },
   "scripts": {
-    "build": "rimraf ./build && rollup -c",
-    "build:types": "rimraf ./types && tsc && tsc-alias",
+    "prebuild": "rimraf ./build",
+    "build": "rollup -c",
+    "prebuild:types": "rimraf ./types",
+    "build:types": "tsc && tsc-alias",
     "build:cem": "npx cem analyze --config 'cem.config.mjs'",
     "prod": "pnpm build:types && pnpm build && pnpm build:cem",
     "dev": "rollup -c -w --environment NODE_ENV:development",

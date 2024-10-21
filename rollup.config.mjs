@@ -4,7 +4,7 @@ import { readFile } from 'fs/promises'
 import commonjs from '@rollup/plugin-commonjs'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import json from '@rollup/plugin-json'
-import { summary } from 'rollup-plugin-summary'
+import * as summary from 'rollup-plugin-summary'
 import { swc, minify } from 'rollup-plugin-swc3'
 import template from 'rollup-plugin-html-literals'
 import postcss from 'rollup-plugin-postcss'
@@ -18,23 +18,23 @@ import { typescriptPaths } from 'rollup-plugin-typescript-paths'
 import { dts } from 'rollup-plugin-dts'
 
 const isProd = process.env.NODE_ENV !== 'development',
-  pkg = JSON.parse(await readFile(new URL('./package.json', import.meta.url))),
   __filename = fileURLToPath(import.meta.url),
   __dirname = path.dirname(__filename),
+  pkg = JSON.parse(
+    (
+      await readFile(
+        new URL(path.resolve(__dirname, 'package.json'), import.meta.url)
+      )
+    ).toString()
+  ),
   input = path.resolve(__dirname, 'src', 'index.ts'),
   types = {
     input: path.resolve(__dirname, 'types', 'index.d.ts'),
-    onwarn(warning, warn) {
-      if (warning.code === 'THIS_IS_UNDEFINED') {
-        return
-      }
-      warn(warning)
-    },
     output: {
       file: pkg.types,
       format: 'esm',
     },
-    plugins: [typescriptPaths(), json(), dts()],
+    plugins: [json(), dts()],
   },
   module = {
     external: ['js-cookie'],
@@ -88,8 +88,6 @@ const isProd = process.env.NODE_ENV !== 'development',
       }),
       nodeResolve({
         extensions: ['ts'],
-        jsnext: true,
-        module: true,
         preferBuiltins: true,
       }),
       commonjs(),
@@ -97,7 +95,7 @@ const isProd = process.env.NODE_ENV !== 'development',
         NODE_ENV: 'production',
       }),
       swc(),
-      summary(),
+      summary.default(),
     ],
   },
   unpkg = {
@@ -130,7 +128,10 @@ const isProd = process.env.NODE_ENV !== 'development',
           : [],
       }),
       template({
-        include: [path.resolve(__dirname, 'src', 'templates', '*')],
+        include: [
+          // path.resolve(__dirname, 'src', 'elements', 'AMGDPR.ts'),
+          path.resolve(__dirname, 'src', 'templates', '*'),
+        ],
         options: {
           shouldMinify({ parts }) {
             return parts.some(
@@ -148,8 +149,6 @@ const isProd = process.env.NODE_ENV !== 'development',
       }),
       nodeResolve({
         extensions: ['ts'],
-        jsnext: true,
-        module: true,
         preferBuiltins: false,
       }),
       commonjs(),
@@ -163,7 +162,7 @@ const isProd = process.env.NODE_ENV !== 'development',
         }),
       !isProd && livereload(),
       isProd && minify(),
-      isProd && summary(),
+      isProd && summary.default(),
     ],
   }
 
