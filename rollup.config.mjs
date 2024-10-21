@@ -1,3 +1,6 @@
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { readFile } from 'fs/promises'
 import commonjs from '@rollup/plugin-commonjs'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import json from '@rollup/plugin-json'
@@ -12,76 +15,156 @@ import serve from 'rollup-plugin-serve'
 import livereload from 'rollup-plugin-livereload'
 import injectProcessEnv from 'rollup-plugin-inject-process-env'
 import { typescriptPaths } from 'rollup-plugin-typescript-paths'
-import pkg from './package.json' assert { type: 'json' }
+import { dts } from 'rollup-plugin-dts'
 
 const isProd = process.env.NODE_ENV !== 'development',
-  rollupConfig = [
-    {
-      input: './src/index.ts',
-      onwarn(warning, warn) {
-        if (warning.code === 'THIS_IS_UNDEFINED') {
-          return
-        }
-        warn(warning)
-      },
-      output: {
-        exports: 'named',
-        extend: true,
-        file: pkg.main,
-        format: 'iife',
-        name: pkg.name,
-      },
-      plugins: [
-        typescriptPaths(),
-        postcss({
-          inject: false,
-          plugins: isProd
-            ? [
-                flexbugs(),
-                layers(),
-                autoprefixer({
-                  flexbox: 'no-2009',
-                }),
-              ]
-            : [],
-        }),
-        template({
-          include: ['./src/templates/*'],
-          options: {
-            shouldMinify({ parts }) {
-              return parts.some(
-                ({ text }) =>
-                  text.includes('<div') ||
-                  text.includes('<button') ||
-                  text.includes('<svg') ||
-                  text.includes('<label')
-              )
-            },
-          },
-        }),
-        json({
-          compact: true,
-        }),
-        nodeResolve({
-          extensions: ['ts'],
-          jsnext: true,
-          module: true,
-          preferBuiltins: false,
-        }),
-        commonjs(),
-        injectProcessEnv({
-          NODE_ENV: isProd ? 'production' : 'development',
-        }),
-        swc(),
-        !isProd &&
-          serve({
-            open: true,
-          }),
-        !isProd && livereload(),
-        isProd && minify(),
-        isProd && summary(),
-      ],
+  pkg = JSON.parse(await readFile(new URL('./package.json', import.meta.url))),
+  __filename = fileURLToPath(import.meta.url),
+  __dirname = path.dirname(__filename),
+  input = path.resolve(__dirname, 'src', 'index.ts'),
+  types = {
+    input: path.resolve(__dirname, 'types', 'index.d.ts'),
+    onwarn(warning, warn) {
+      if (warning.code === 'THIS_IS_UNDEFINED') {
+        return
+      }
+      warn(warning)
     },
-  ]
+    output: {
+      file: pkg.types,
+      format: 'esm',
+    },
+    plugins: [typescriptPaths(), json(), dts()],
+  },
+  module = {
+    external: ['js-cookie'],
+    input,
+    onwarn(warning, warn) {
+      if (warning.code === 'THIS_IS_UNDEFINED') {
+        return
+      }
+      warn(warning)
+    },
+    output: [
+      {
+        exports: 'named',
+        file: pkg.module,
+        format: 'esm',
+      },
+      {
+        exports: 'named',
+        file: pkg.exports['.'].require,
+        format: 'cjs',
+      },
+    ],
+    plugins: [
+      typescriptPaths(),
+      postcss({
+        inject: false,
+        plugins: [
+          flexbugs(),
+          layers(),
+          autoprefixer({
+            flexbox: 'no-2009',
+          }),
+        ],
+      }),
+      template({
+        include: [path.resolve(__dirname, 'src', 'templates', '*')],
+        options: {
+          shouldMinify({ parts }) {
+            return parts.some(
+              ({ text }) =>
+                text.includes('<div') ||
+                text.includes('<button') ||
+                text.includes('<svg') ||
+                text.includes('<label')
+            )
+          },
+        },
+      }),
+      json({
+        compact: true,
+      }),
+      nodeResolve({
+        extensions: ['ts'],
+        jsnext: true,
+        module: true,
+        preferBuiltins: true,
+      }),
+      commonjs(),
+      injectProcessEnv({
+        NODE_ENV: 'production',
+      }),
+      swc(),
+      summary(),
+    ],
+  },
+  unpkg = {
+    input,
+    onwarn(warning, warn) {
+      if (warning.code === 'THIS_IS_UNDEFINED') {
+        return
+      }
+      warn(warning)
+    },
+    output: {
+      exports: 'named',
+      extend: true,
+      file: pkg.main,
+      format: 'iife',
+      name: pkg.name,
+    },
+    plugins: [
+      typescriptPaths(),
+      postcss({
+        inject: false,
+        plugins: isProd
+          ? [
+              flexbugs(),
+              layers(),
+              autoprefixer({
+                flexbox: 'no-2009',
+              }),
+            ]
+          : [],
+      }),
+      template({
+        include: [path.resolve(__dirname, 'src', 'templates', '*')],
+        options: {
+          shouldMinify({ parts }) {
+            return parts.some(
+              ({ text }) =>
+                text.includes('<div') ||
+                text.includes('<button') ||
+                text.includes('<svg') ||
+                text.includes('<label')
+            )
+          },
+        },
+      }),
+      json({
+        compact: true,
+      }),
+      nodeResolve({
+        extensions: ['ts'],
+        jsnext: true,
+        module: true,
+        preferBuiltins: false,
+      }),
+      commonjs(),
+      injectProcessEnv({
+        NODE_ENV: isProd ? 'production' : 'development',
+      }),
+      swc(),
+      !isProd &&
+        serve({
+          open: true,
+        }),
+      !isProd && livereload(),
+      isProd && minify(),
+      isProd && summary(),
+    ],
+  }
 
-export default rollupConfig
+export default isProd ? [module, types, unpkg] : unpkg

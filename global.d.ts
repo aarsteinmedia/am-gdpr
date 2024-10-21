@@ -10,11 +10,3 @@ declare namespace NodeJS {
 }
 
 declare module 'rollup-plugin-serve'
-
-// type DataLayerObject = Record<string, unknown>[]
-
-// interface Window {
-//   addGDPRConsent?: (func: () => void) => void
-//   google_tag_data?: unknown
-//   dataLayer?: DataLayerObject
-// }

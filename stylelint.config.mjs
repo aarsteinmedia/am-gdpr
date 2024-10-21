@@ -1,3 +1,16 @@
 import standard from 'stylelint-config-standard-scss'
 
-export default standard
+const stylelintConfig = {
+  ...standard,
+  rules: {
+    ...standard.rules,
+    'no-descending-specificity': [
+      true,
+      {
+        severity: 'warning',
+      },
+    ],
+  },
+}
+
+export default stylelintConfig
