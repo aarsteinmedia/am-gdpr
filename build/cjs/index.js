@@ -846,7 +846,7 @@ class AMGDPR extends EnhancedElement {
 }
 
 const tagName = 'am-gdpr';
-if (!isServer()) {
+if (!isServer() && !customElements.get('am-gdpr')) {
     customElements.define('am-gdpr', AMGDPR);
 }
 

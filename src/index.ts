@@ -5,6 +5,6 @@ export default AMGDPR
 
 export const tagName = 'am-gdpr'
 
-if (!isServer()) {
+if (!isServer() && !customElements.get('am-gdpr')) {
   customElements.define('am-gdpr', AMGDPR)
 }

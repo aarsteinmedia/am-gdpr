@@ -4,7 +4,7 @@ import { readFile } from 'fs/promises'
 import commonjs from '@rollup/plugin-commonjs'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import json from '@rollup/plugin-json'
-import * as summary from 'rollup-plugin-summary'
+import { summary } from 'rollup-plugin-summary'
 import { swc, minify } from 'rollup-plugin-swc3'
 import template from 'rollup-plugin-html-literals'
 import postcss from 'rollup-plugin-postcss'
@@ -95,7 +95,7 @@ const isProd = process.env.NODE_ENV !== 'development',
         NODE_ENV: 'production',
       }),
       swc(),
-      summary.default(),
+      summary(),
     ],
   },
   unpkg = {
@@ -162,7 +162,7 @@ const isProd = process.env.NODE_ENV !== 'development',
         }),
       !isProd && livereload(),
       isProd && minify(),
-      isProd && summary.default(),
+      isProd && summary(),
     ],
   }
 
