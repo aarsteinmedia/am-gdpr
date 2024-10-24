@@ -1,6 +1,8 @@
 {
-  "name": "am-gdpr",
-  "version": "1.0.3",
+  "$schema": "https://json.schemastore.org/package",
+  "name": "am-cookies",
+  "description": "Simple and versatile GDPR compatible Cookie Compliance Web Component",
+  "version": "2.0.0",
   "main": "./build/index.js",
   "module": "./build/esm/index.js",
   "types": "./build/index.d.ts",
@@ -22,21 +24,29 @@
     "js-cookie": "^3.0.5"
   },
   "devDependencies": {
-    "@csstools/postcss-cascade-layers": "^5.0.0",
+    "@csstools/postcss-cascade-layers": "^5.0.1",
     "@custom-elements-manifest/analyzer": "^0.10.3",
     "@eslint/compat": "^1.2.1",
     "@eslint/eslintrc": "^3.1.0",
     "@eslint/js": "^9.13.0",
+    "@esm-bundle/chai": "4.3.4-fix.0",
+    "@open-wc/testing": "^4.0.0",
     "@rollup/plugin-commonjs": "^28.0.1",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.3.0",
-    "@swc/core": "^1.7.36",
+    "@swc/core": "^1.7.39",
     "@types/gtag.js": "^0.0.20",
     "@types/js-cookie": "^3.0.6",
-    "@types/node": "^22.7.7",
+    "@types/mocha": "^10.0.9",
+    "@types/node": "^22.7.9",
     "@types/postcss-flexbugs-fixes": "^5.0.3",
     "@typescript-eslint/eslint-plugin": "^8.11.0",
     "@typescript-eslint/parser": "^8.11.0",
+    "@web/dev-server-esbuild": "^1.0.2",
+    "@web/dev-server-import-maps": "^0.2.1",
+    "@web/dev-server-rollup": "^0.6.4",
+    "@web/test-runner": "^0.19.0",
+    "@web/test-runner-playwright": "^0.11.0",
     "autoprefixer": "^10.4.20",
     "esbuild": "^0.24.0",
     "esbuild-sass-plugin": "^3.3.1",
@@ -61,17 +71,18 @@
     "rollup-plugin-summary": "^2.0.1",
     "rollup-plugin-swc3": "^0.12.1",
     "rollup-plugin-typescript-paths": "^1.5.0",
-    "sass": "^1.80.3",
+    "sass": "^1.80.4",
     "stylelint": "^16.10.0",
     "stylelint-config-standard-scss": "^13.1.0",
     "tsc-alias": "^1.8.10",
     "typescript": "^5.6.3"
   },
   "scripts": {
+    "test": "wtr",
     "prebuild": "rimraf ./build",
     "build": "rollup -c",
     "prebuild:types": "rimraf ./types",
-    "build:types": "tsc && tsc-alias",
+    "build:types": "tsc -p ./tsconfig.prod.json && tsc-alias",
     "build:cem": "npx cem analyze --config 'cem.config.mjs'",
     "prod": "pnpm build:types && pnpm build && pnpm build:cem",
     "dev": "rollup -c -w --environment NODE_ENV:development",
@@ -84,6 +95,11 @@
   "publishConfig": {
     "access": "public"
   },
+  "files": [
+    "build",
+    "custom-elements.json",
+    "README.md"
+  ],
   "browserslist": {
     "production": [
       ">0.3%",
@@ -96,5 +112,5 @@
       "last 1 safari version"
     ]
   },
-  "customElements": "build/custom-elements.json"
+  "customElements": "custom-elements.json"
 }

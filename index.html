@@ -8,6 +8,8 @@
     <script src="/build/index.js"></script>
   </head>
   <body>
+    <am-cookies alignMiniPrompt="bottom-left" googleID="G-YBH0K0VB3T" color="#2f6171" accentColor="#9de5ad"
+      backgroundColor="#fff" fontFamily="sans-serif"></am-cookies>
     <div style="margin: 40px auto; max-width: 600px;">
       <h1>Lorem Ipsum</h1>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magnaaliqua. Sed adipiscing diam donec adipiscing tristique risus nec feugiat in. Vitae aliquet nec ullamcorper sit ametrisus nullam eget. Ut ornare lectus sit amet est placerat in egestas erat. Urna condimentum mattis pellentesque id nibhtortor. Placerat vestibulum lectus mauris ultrices eros in. Mattis ullamcorper velit sed ullamcorper morbi tincidunt
@@ -47,15 +49,13 @@
       integer. Pellentesque diam volutpat commodo sed egestas. Quam vulputate dignissim suspendisse in est ante in. Bibendum
       ut tristique et egestas quis. Neque ornare aenean euismod elementum. Id donec ultrices tincidunt arcu non.</p>
     </div>
-    <am-gdpr
-      format="banner"
-      alignMiniPrompt="bottom-left"
-      googleID="G-YBH0K0VB3T"
-      color="#2f6171"
-      accentColor="#9de5ad"
-      backgroundColor="#fff"
-      fontFamily="sans-serif"
-    ></am-gdpr>
+    <script>
+      const amCookies = document.querySelector('am-cookies')
+      amCookies?.setText({
+        ...amCookies.getText(),
+        header: 'Hello world'
+      })
+    </script>
   </body>
 </html>
 

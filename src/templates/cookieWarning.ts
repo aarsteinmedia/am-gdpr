@@ -1,9 +1,9 @@
-import type { AMGDPR } from '../elements/AMGDPR'
+import type AMCookies from '@/elements/AMCookies'
 
 /**
  * Cookie Warning
  */
-export default function cookieWarning(this: AMGDPR) {
+export default function cookieWarning(this: AMCookies) {
   if (!this.gdprContainer) {
     return
   }
@@ -30,9 +30,7 @@ export default function cookieWarning(this: AMGDPR) {
     </div>
   </div>`
 
-  if (this.text) {
-    this.setText(this.text)
-  }
+  this.populateText()
 
   const acceptAll = this.gdprContainer.querySelector('.accept')
   if (acceptAll instanceof HTMLButtonElement) {

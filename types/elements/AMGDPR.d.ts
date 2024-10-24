@@ -2,7 +2,7 @@ import { switchButton } from '../templates';
 import { Align, Format } from '../utils';
 import type { Text } from '../types';
 import EnhancedElement from '../elements/EnhancedElement';
-export declare class AMGDPR extends EnhancedElement {
+export default class AMGDPR extends EnhancedElement {
     constructor();
     connectedCallback(): void;
     disconnectedCallback(): void;

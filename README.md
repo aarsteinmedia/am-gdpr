@@ -13,7 +13,7 @@ Reactive GDPR Web Component that prompts visitors for consent, stores their pref
 
 Download `build/index.js` to you local server (and rename it?), or use GitHub as CDN: https://cdn.jsdelivr.net/gh/aarsteinmedia/am-gdpr/build/index.js.
 
-Add this script to all the pages of your website, either in `head` or right before the closing `body` tag. Then, add the web component itself, `am-gdpr` to the bottom of each page, and plot in your TagManager ID.
+Add this script to all the pages of your website, either in `head` or right before the closing `body` tag. Then, add the web component itself, `am-cookies` to the bottom of each page, and plot in your TagManager ID.
 
 Example:
 ```xml
@@ -23,7 +23,7 @@ Example:
 </head>
 <body>
   <!-- All content of Body -->
-  <am-gdpr googleID="<YOUR_GOOGLE_TRACKING_ID>"></am-gdpr>
+  <am-cookies googleID="<YOUR_GOOGLE_TRACKING_ID>"></am-cookies>
 </body>
 ```
 
@@ -37,12 +37,20 @@ The component has the following properties:
 - `snapChatPixelID`?: `string` Snap Pixel
 - `tiktokPixelID`?: `string` TikTok Pixel
 
-- `text`?: `object` Override the default text
 - `fontFamily`?: `string` = 'Helvetica Neue, Helvetica, sans-serif'
 - `color`?: `string` = '#000'
 - `backgroundColor`?: `string` = '#FFF'
 - `accentColor`?: `string` = '#FFF'
 - `borderWidth`?: `number` = 2
+
+Change default text:
+```javascript
+const amCookies = document.querySelector('am-cookies')
+  amCookies?.setText({
+    ...amCookies.getText(),
+    header: 'Hello world'
+  })
+```
 
 
 ## Support

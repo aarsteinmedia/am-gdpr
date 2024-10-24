@@ -45,8 +45,8 @@ function cookieWarning() {
         return;
     }
     this.gdprContainer.innerHTML = `<div class="cookie-container ${this.alignPrompt} ${this.format}-format" lang="${document.documentElement.lang}"><div class="content"><div aria-describedby="cookie-warning-text" aria-labelledby="cookie-warning-text" aria-modal="false" role="dialog"><p class="h3" id="cookie-warning-text"></p></div><div class="button-wrapper"><button class="button gdpr customize" style="background-color:transparent"></button> <button class="button gdpr accept"></button></div></div></div>`;
-    if (this.text) {
-        this.setText(this.text);
+    if (this._text) {
+        this.setText(this._text);
     }
     const acceptAll = this.gdprContainer.querySelector('.accept');
     if (acceptAll instanceof HTMLButtonElement) {
@@ -66,7 +66,7 @@ function miniGDPR() {
     if (!this.gdprContainer) {
         return;
     }
-    this.gdprContainer.innerHTML = `<button class="mini-gdpr ${this.alignMiniPrompt}" data-hide="false" aria-label="${this.text?.miniGDPR || 'Cookie settings'}"><figure class="icon-cookies settings">${icon}</figure></button>`;
+    this.gdprContainer.innerHTML = `<button class="mini-gdpr ${this.alignMiniPrompt}" data-hide="false" aria-label="${this._text?.miniGDPR || 'Cookie settings'}"><figure class="icon-cookies settings">${icon}</figure></button>`;
     const button = this.gdprContainer.querySelector('.mini-gdpr');
     if (button instanceof HTMLButtonElement) {
         button.onclick = this.setVisible;
@@ -86,21 +86,21 @@ function popUp() {
         isOpen: true
     })}<div class="dialog-inner-box" style="display:flex;flex-direction:column"><h3><figure aria-label="cookies" class="icon-cookies" style="display:inline-flex;margin-right:.5em">${icon}</figure><slot id="customize-header"></slot></h3><p id="customize-text"></p><p id="customize-link"></p><div id="save-wrapper" class="button-wrapper"><button class="button gdpr decline-all" style="background-color:transparent"></button> <button class="button gdpr accept-all"></button></div><div class="button-wrapper">${this.switchButton({
         disabled: true,
-        label: this.text?.functional.label,
+        label: this._text?.functional.label,
         name: 'functional',
         value: true
     })} ${this.switchButton({
-        label: this.text?.statistical.label,
+        label: this._text?.statistical.label,
         name: 'allowStatistical',
         value: !!this.allowStatistical
     })} ${this.hasRetargeting ? this.switchButton({
-        label: this.text?.marketing.label,
+        label: this._text?.marketing.label,
         name: 'allowRetargeting',
         value: !!this.allowRetargeting
     }) : ''}</div></div></dialog></div>`;
-    this.setText(this.text);
+    this.setText(this._text);
     const saveWrapper = this.gdprContainer.querySelector('#save-wrapper'), saveButton = document.createElement('button');
-    saveButton.innerText = this.text?.save ?? 'Save preferences';
+    saveButton.innerText = this._text?.save ?? 'Save preferences';
     saveButton.className = 'button gdpr save';
     saveButton.onclick = ()=>{
         this.save();
@@ -418,7 +418,7 @@ let TikTokPixel = class TikTokPixel {
     }
 };
 
-class AMGDPR extends EnhancedElement {
+let AMGDPR = class AMGDPR extends EnhancedElement {
     connectedCallback() {
         super.connectedCallback();
         this.render();
@@ -433,7 +433,7 @@ class AMGDPR extends EnhancedElement {
         } else {
             this._miniGDPR();
         }
-        this.text = getTranslation();
+        this._text = getTranslation();
         if (this.googleID?.startsWith('GTM-')) {
             this._gtm = new GTM({
                 consentParams: getConsent(),
@@ -633,19 +633,60 @@ class AMGDPR extends EnhancedElement {
         }
         return Format.Box;
     }
-    set text(value) {
-        this.setText(value);
-        this.setAttribute('text', JSON.stringify(value));
-    }
-    get text() {
-        const value = JSON.parse(this.getAttribute('text') || 'null');
-        return value;
-    }
     set privacyPolicyURL(value) {
         this.setAttribute('privacyPolicyURL', value || 'privacy');
     }
     get privacyPolicyURL() {
         return this.getAttribute('privacyPolicyURL');
+    }
+    setText(text) {
+        if (!text) {
+            return;
+        }
+        const cookieWarningText = this.shadow.querySelector('#cookie-warning-text');
+        if (cookieWarningText) {
+            cookieWarningText.innerHTML = `${text.header} ${icon}`;
+        }
+        const customizeLabel = this.shadow.querySelector('.customize');
+        if (customizeLabel instanceof HTMLButtonElement) {
+            customizeLabel.ariaLabel = text.customize.label;
+            customizeLabel.innerText = text.customize.label;
+        }
+        const accept = this.shadow.querySelector('.accept');
+        if (accept instanceof HTMLButtonElement) {
+            accept.ariaLabel = text.accept;
+            accept.innerText = text.accept;
+        }
+        const acceptAll = this.shadow.querySelector('.accept-all');
+        if (acceptAll instanceof HTMLButtonElement) {
+            acceptAll.ariaLabel = text.acceptAll;
+            acceptAll.innerText = text.acceptAll;
+        }
+        const settings = this.shadow.querySelector('.settings');
+        if (settings instanceof HTMLElement) {
+            settings.ariaLabel = text.settings;
+        }
+        const decline = this.shadow.querySelector('.decline-all');
+        if (decline instanceof HTMLButtonElement) {
+            decline.ariaLabel = text.decline;
+            decline.innerText = text.decline;
+        }
+        const customizeHeader = this.shadow.querySelector('#customize-header');
+        if (customizeHeader instanceof HTMLSlotElement) {
+            customizeHeader.innerText = text.customize.header;
+        }
+        const customizeText = this.shadow.querySelector('#customize-text');
+        if (customizeText instanceof HTMLElement) {
+            customizeText.innerHTML = `${text.customize.text}${this.hasRetargeting ? ` ${text.customize.retargeting}` : ''}`;
+        }
+        const customizeLink = this.shadow.querySelector('#customize-link');
+        if (customizeLink instanceof HTMLElement) {
+            customizeLink.innerHTML = text.customize.link.replace('%URL%', this.privacyPolicyURL || text.policyUrl);
+        }
+        const miniGDPR = this.shadow.querySelector('.mini-gdpr');
+        if (miniGDPR instanceof HTMLButtonElement) {
+            miniGDPR.ariaLabel = text.miniGDPR;
+        }
     }
     save() {
         const consent = {
@@ -744,55 +785,6 @@ class AMGDPR extends EnhancedElement {
         mini.dataset.hide = (bcr.top < this._scrollPos && bcr.top < -20).toString();
         this._scrollPos = bcr.top;
     }
-    setText(text) {
-        if (!text) {
-            return;
-        }
-        const cookieWarningText = this.shadow.querySelector('#cookie-warning-text');
-        if (cookieWarningText) {
-            cookieWarningText.innerHTML = `${text.header} ${icon}`;
-        }
-        const customizeLabel = this.shadow.querySelector('.customize');
-        if (customizeLabel instanceof HTMLButtonElement) {
-            customizeLabel.ariaLabel = text.customize.label;
-            customizeLabel.innerText = text.customize.label;
-        }
-        const accept = this.shadow.querySelector('.accept');
-        if (accept instanceof HTMLButtonElement) {
-            accept.ariaLabel = text.accept;
-            accept.innerText = text.accept;
-        }
-        const acceptAll = this.shadow.querySelector('.accept-all');
-        if (acceptAll instanceof HTMLButtonElement) {
-            acceptAll.ariaLabel = text.acceptAll;
-            acceptAll.innerText = text.acceptAll;
-        }
-        const settings = this.shadow.querySelector('.settings');
-        if (settings instanceof HTMLElement) {
-            settings.ariaLabel = text.settings;
-        }
-        const decline = this.shadow.querySelector('.decline-all');
-        if (decline instanceof HTMLButtonElement) {
-            decline.ariaLabel = text.decline;
-            decline.innerText = text.decline;
-        }
-        const customizeHeader = this.shadow.querySelector('#customize-header');
-        if (customizeHeader instanceof HTMLSlotElement) {
-            customizeHeader.innerText = text.customize.header;
-        }
-        const customizeText = this.shadow.querySelector('#customize-text');
-        if (customizeText instanceof HTMLElement) {
-            customizeText.innerHTML = `${text.customize.text}${this.hasRetargeting ? ` ${text.customize.retargeting}` : ''}`;
-        }
-        const customizeLink = this.shadow.querySelector('#customize-link');
-        if (customizeLink instanceof HTMLElement) {
-            customizeLink.innerHTML = text.customize.link.replace('%URL%', this.privacyPolicyURL || text.policyUrl);
-        }
-        const miniGDPR = this.shadow.querySelector('.mini-gdpr');
-        if (miniGDPR instanceof HTMLButtonElement) {
-            miniGDPR.ariaLabel = text.miniGDPR;
-        }
-    }
     _addEventListeners() {
         document.addEventListener('keydown', this.esc, {
             capture: true,
@@ -843,7 +835,7 @@ class AMGDPR extends EnhancedElement {
             mode: 'open'
         });
     }
-}
+};
 
 const tagName = 'am-gdpr';
 if (!isServer() && !customElements.get('am-gdpr')) {

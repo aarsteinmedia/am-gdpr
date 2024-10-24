@@ -12,9 +12,9 @@ import {
   boolToConsentParams,
   consentParamsToBool,
   getConsent,
-  Align,
-  Format,
+  isText,
 } from '@/utils'
+import { Align, Format } from '@/enums'
 import type { Text } from '@/types'
 import styles from '@/styles/index.scss'
 import EnhancedElement from '@/elements/EnhancedElement'
@@ -25,8 +25,9 @@ import { GTM, GTag, MetaPixel, SnapChatPixel, TikTokPixel } from '@/trackers'
  * @exports
  * @class AMGDPR
  * @extends { EnhancedElement }
+ * @description Simple and versatile GDPR compatible Cookie Compliance Web Component
  */
-export class AMGDPR extends EnhancedElement {
+export default class AMCookies extends EnhancedElement {
   constructor() {
     super()
     this.acceptAll = this.acceptAll.bind(this)
@@ -36,6 +37,8 @@ export class AMGDPR extends EnhancedElement {
     this.setVisible = this.setVisible.bind(this)
 
     // this.debug = this.debug.bind(this)
+
+    this._text = getTranslation()
 
     this.template = document.createElement('template')
     this.shadow = this.attachShadow({ mode: 'open' })
@@ -68,8 +71,6 @@ export class AMGDPR extends EnhancedElement {
     } else {
       this._miniGDPR()
     }
-
-    this.text = getTranslation()
 
     if (this.googleID?.startsWith('GTM-')) {
       this._gtm = new GTM({
@@ -348,18 +349,6 @@ export class AMGDPR extends EnhancedElement {
   }
 
   /**
-   * Replace default text
-   */
-  set text(value: Text | null) {
-    this.setText(value)
-    this.setAttribute('text', JSON.stringify(value))
-  }
-  get text() {
-    const value: Text | null = JSON.parse(this.getAttribute('text') || 'null')
-    return value
-  }
-
-  /**
    * Privacy policy URL
    */
   set privacyPolicyURL(value: string | null) {
@@ -367,6 +356,144 @@ export class AMGDPR extends EnhancedElement {
   }
   get privacyPolicyURL() {
     return this.getAttribute('privacyPolicyURL')
+  }
+
+  /**
+   * Text object
+   */
+  private _text?: Text
+
+  /**
+   * Get text
+   */
+  public getText() {
+    return this._text || getTranslation()
+  }
+
+  /**
+   * Set Text
+   */
+  public setText(text: Text) {
+    if (!isText(text)) {
+      return
+    }
+    this._text = text
+    this.populateText()
+  }
+
+  /**
+   * Populate Text
+   */
+  protected populateText() {
+    if (!isText(this._text)) {
+      return
+    }
+
+    const cookieWarningText = this.shadow.querySelector('#cookie-warning-text')
+    if (cookieWarningText) {
+      cookieWarningText.innerHTML = `${this._text.header} ${icon}`
+    }
+
+    const customizeLabel = this.shadow.querySelector('.customize')
+    if (customizeLabel instanceof HTMLButtonElement) {
+      customizeLabel.ariaLabel = this._text.customize.label
+      customizeLabel.innerText = this._text.customize.label
+    }
+
+    const accept = this.shadow.querySelector('.accept')
+    if (accept instanceof HTMLButtonElement) {
+      accept.ariaLabel = this._text.accept
+      accept.innerText = this._text.accept
+    }
+
+    const acceptAll = this.shadow.querySelector('.accept-all')
+    if (acceptAll instanceof HTMLButtonElement) {
+      acceptAll.ariaLabel = this._text.acceptAll
+      acceptAll.innerText = this._text.acceptAll
+    }
+
+    const settings = this.shadow.querySelector('.settings')
+    if (settings instanceof HTMLElement) {
+      settings.ariaLabel = this._text.settings
+    }
+
+    const decline = this.shadow.querySelector('.decline-all')
+    if (decline instanceof HTMLButtonElement) {
+      decline.ariaLabel = this._text.decline
+      decline.innerText = this._text.decline
+    }
+
+    const customizeHeader = this.shadow.querySelector('#customize-header')
+    if (customizeHeader instanceof HTMLSlotElement) {
+      customizeHeader.innerText = this._text.customize.header
+    }
+
+    const customizeText = this.shadow.querySelector('#customize-text')
+    if (customizeText instanceof HTMLElement) {
+      customizeText.innerHTML = `${this._text.customize.text}${
+        this.hasRetargeting ? ` ${this._text.customize.retargeting}` : ''
+      }`
+    }
+
+    const customizeLink = this.shadow.querySelector('#customize-link')
+    if (customizeLink instanceof HTMLElement) {
+      customizeLink.innerHTML = this._text.customize.link.replace(
+        '%URL%',
+        this.privacyPolicyURL || this._text.policyUrl
+      )
+    }
+
+    const miniGDPR = this.shadow.querySelector('.mini-gdpr')
+    if (miniGDPR instanceof HTMLButtonElement) {
+      miniGDPR.ariaLabel = this._text.miniGDPR
+    }
+
+    const functionalLabel = this.shadow.querySelector(
+      '[data-name="functional-label"]'
+    )
+    if (functionalLabel instanceof HTMLLabelElement) {
+      functionalLabel.innerHTML = this._text.functional.label
+    }
+
+    const functionalAria = this.shadow.querySelector(
+      '[data-name="functional-aria"]'
+    )
+    if (functionalAria instanceof HTMLLabelElement) {
+      functionalAria.ariaLabel = this._text.functional.label
+    }
+
+    const statisticalLabel = this.shadow.querySelector(
+      '[data-name="allowStatistical-label"]'
+    )
+    if (statisticalLabel instanceof HTMLLabelElement) {
+      statisticalLabel.innerHTML = this._text.statistical.label
+    }
+
+    const statisticalAria = this.shadow.querySelector(
+      '[data-name="allowStatistical-aria"]'
+    )
+    if (statisticalAria instanceof HTMLLabelElement) {
+      statisticalAria.ariaLabel = this._text.statistical.label
+    }
+
+    const retargetingLabel = this.shadow.querySelector(
+      '[data-name="allowRetargeting-label"]'
+    )
+    if (retargetingLabel instanceof HTMLLabelElement) {
+      retargetingLabel.innerHTML = this._text.marketing.label
+    }
+
+    const retargetingAria = this.shadow.querySelector(
+      '[data-name="allowRetargeting-aria"]'
+    )
+    if (retargetingAria instanceof HTMLLabelElement) {
+      retargetingAria.ariaLabel = this._text.marketing.label
+    }
+
+    const closeButton = this.shadow.querySelector('.close-button')
+    if (closeButton instanceof HTMLButtonElement) {
+      closeButton.ariaLabel = this._text.close
+    }
   }
 
   /**
@@ -480,9 +607,9 @@ export class AMGDPR extends EnhancedElement {
 
     this.debug()
 
-    if (!!window.dataLayer || !!window.google_tag_data) {
-      location.reload()
-    }
+    // if (!!window.dataLayer || !!window.google_tag_data) {
+    //   location.reload()
+    // }
     this.save()
   }
 
@@ -501,16 +628,16 @@ export class AMGDPR extends EnhancedElement {
     this.debug()
   }
 
-  public handleChange({ target }: Event, component: AMGDPR) {
+  public handleChange({ target }: Event, component: AMCookies) {
     if (target instanceof HTMLInputElement) {
       const { checked, name } = target
       if (
         name in component &&
-        typeof component[name as keyof AMGDPR] === 'boolean'
+        typeof component[name as keyof AMCookies] === 'boolean'
       ) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        component[name as keyof AMGDPR] = checked
+        component[name as keyof AMCookies] = checked
       }
     }
     this.debug()
@@ -544,70 +671,6 @@ export class AMGDPR extends EnhancedElement {
   private _cookieWarning = cookieWarning
   private _miniGDPR = miniGDPR
   public switchButton = switchButton
-
-  public setText(text: Text | null) {
-    if (!text) {
-      return
-    }
-    const cookieWarningText = this.shadow.querySelector('#cookie-warning-text')
-    if (cookieWarningText) {
-      cookieWarningText.innerHTML = `${text.header} ${icon}`
-    }
-
-    const customizeLabel = this.shadow.querySelector('.customize')
-    if (customizeLabel instanceof HTMLButtonElement) {
-      customizeLabel.ariaLabel = text.customize.label
-      customizeLabel.innerText = text.customize.label
-    }
-
-    const accept = this.shadow.querySelector('.accept')
-    if (accept instanceof HTMLButtonElement) {
-      accept.ariaLabel = text.accept
-      accept.innerText = text.accept
-    }
-
-    const acceptAll = this.shadow.querySelector('.accept-all')
-    if (acceptAll instanceof HTMLButtonElement) {
-      acceptAll.ariaLabel = text.acceptAll
-      acceptAll.innerText = text.acceptAll
-    }
-
-    const settings = this.shadow.querySelector('.settings')
-    if (settings instanceof HTMLElement) {
-      settings.ariaLabel = text.settings
-    }
-
-    const decline = this.shadow.querySelector('.decline-all')
-    if (decline instanceof HTMLButtonElement) {
-      decline.ariaLabel = text.decline
-      decline.innerText = text.decline
-    }
-
-    const customizeHeader = this.shadow.querySelector('#customize-header')
-    if (customizeHeader instanceof HTMLSlotElement) {
-      customizeHeader.innerText = text.customize.header
-    }
-
-    const customizeText = this.shadow.querySelector('#customize-text')
-    if (customizeText instanceof HTMLElement) {
-      customizeText.innerHTML = `${text.customize.text}${
-        this.hasRetargeting ? ` ${text.customize.retargeting}` : ''
-      }`
-    }
-
-    const customizeLink = this.shadow.querySelector('#customize-link')
-    if (customizeLink instanceof HTMLElement) {
-      customizeLink.innerHTML = text.customize.link.replace(
-        '%URL%',
-        this.privacyPolicyURL || text.policyUrl
-      )
-    }
-
-    const miniGDPR = this.shadow.querySelector('.mini-gdpr')
-    if (miniGDPR instanceof HTMLButtonElement) {
-      miniGDPR.ariaLabel = text.miniGDPR
-    }
-  }
 
   private _addEventListeners() {
     document.addEventListener('keydown', this.esc, {
@@ -653,7 +716,7 @@ export class AMGDPR extends EnhancedElement {
   protected render() {
     this.template.innerHTML = '<slot id="gdpr-container"></slot>'
 
-    this.shadow.adoptedStyleSheets = [AMGDPR.styles]
+    this.shadow.adoptedStyleSheets = [AMCookies.styles]
     this.shadow.appendChild(this.template.content.cloneNode(true))
   }
 }

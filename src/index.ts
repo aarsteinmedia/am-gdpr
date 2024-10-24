@@ -1,10 +1,10 @@
-import { AMGDPR } from '@/elements/AMGDPR'
+import AMCookies from '@/elements/AMCookies'
 import { isServer } from '@/utils'
 
-export default AMGDPR
+export default AMCookies
 
-export const tagName = 'am-gdpr'
+export const tagName = 'am-cookies'
 
-if (!isServer() && !customElements.get('am-gdpr')) {
-  customElements.define('am-gdpr', AMGDPR)
+if (!isServer() && !customElements.get('am-cookies')) {
+  customElements.define('am-cookies', AMCookies)
 }

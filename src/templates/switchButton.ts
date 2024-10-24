@@ -1,11 +1,11 @@
 import { useId } from '@/utils'
-import type { AMGDPR } from '@/elements/AMGDPR'
+import type AMCookies from '@/elements/AMCookies'
 
 /**
  * Switch button
  */
 export default function switchButton(
-  this: AMGDPR,
+  this: AMCookies,
   {
     disabled = false,
     label,
@@ -21,10 +21,15 @@ export default function switchButton(
   const id = useId()
   return /* HTML */ `<div class="container">
     ${label
-      ? /* HTML */ `<label class="text-label" for="${id}">${label}</label> `
+      ? /* HTML */ `<label
+          data-name="${name}-label"
+          class="text-label"
+          for="${id}"
+          >${label}</label
+        > `
       : ''}
 
-    <label class="label">
+    <label data-name="${name}-aria" class="label">
       <input
         ${value ? 'checked' : ''}
         class="input"

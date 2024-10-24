@@ -1,11 +1,11 @@
-import type { AMGDPR } from '@/elements/AMGDPR'
+import type AMCookies from '@/elements/AMCookies'
 import uiButton from '@/templates/uiButton'
 import icon from '@/templates/icon'
 
 /**
  * Settings Pop-Up
  */
-export default function popUp(this: AMGDPR) {
+export default function popUp(this: AMCookies) {
   if (!this.gdprContainer) {
     return
   }
@@ -47,18 +47,18 @@ export default function popUp(this: AMGDPR) {
         <div class="button-wrapper">
           ${this.switchButton({
             disabled: true,
-            label: this.text?.functional.label,
+            label: '#',
             name: 'functional',
             value: true,
           })}
           ${this.switchButton({
-            label: this.text?.statistical.label,
+            label: '#', // this.text?.statistical.label,
             name: 'allowStatistical',
             value: !!this.allowStatistical,
           })}
           ${this.hasRetargeting
             ? this.switchButton({
-                label: this.text?.marketing.label,
+                label: '#', // this.text?.marketing.label,
                 name: 'allowRetargeting',
                 value: !!this.allowRetargeting,
               })
@@ -68,12 +68,12 @@ export default function popUp(this: AMGDPR) {
     </dialog>
   </div>`
 
-  this.setText(this.text)
+  this.populateText()
 
   const saveWrapper = this.gdprContainer.querySelector('#save-wrapper'),
     saveButton = document.createElement('button')
 
-  saveButton.innerText = this.text?.save ?? 'Save preferences'
+  // saveButton.innerText = 'Save preferences'
   saveButton.className = 'button gdpr save'
   saveButton.onclick = () => {
     this.save()

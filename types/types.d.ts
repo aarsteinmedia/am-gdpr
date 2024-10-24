@@ -1,3 +1,4 @@
+import type { Plugin } from '@custom-elements-manifest/analyzer';
 import text from '@/i18n/en.json';
 export type Text = typeof text;
 export interface DataLayerObject {
@@ -18,6 +19,24 @@ interface EventData {
 }
 interface PageData {
     path: string;
+}
+export interface CEMConfig {
+    catalyst: boolean;
+    dependencies: boolean;
+    dev: boolean;
+    exclude: string[];
+    fast: boolean;
+    globs: ['src/**/*.ts'];
+    litelement: boolean;
+    outdir: string;
+    packagejson: boolean;
+    stencil: boolean;
+    watch: boolean;
+    plugins: Array<() => Plugin>;
+    overrideModuleCreation({ globs, ts, }: {
+        ts: unknown;
+        globs: string[];
+    }): unknown[];
 }
 export type DataLayerEventName = 'customUser' | 'customEvent' | 'customPage' | 'customEcommerce';
 declare global {

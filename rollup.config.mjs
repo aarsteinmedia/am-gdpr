@@ -20,6 +20,9 @@ import { dts } from 'rollup-plugin-dts'
 const isProd = process.env.NODE_ENV !== 'development',
   __filename = fileURLToPath(import.meta.url),
   __dirname = path.dirname(__filename),
+  /**
+   * @type {typeof import('./package.json')}
+   * */
   pkg = JSON.parse(
     (
       await readFile(
@@ -28,14 +31,20 @@ const isProd = process.env.NODE_ENV !== 'development',
     ).toString()
   ),
   input = path.resolve(__dirname, 'src', 'index.ts'),
+  /**
+   * @type {import('rollup').RollupOptions}
+   * */
   types = {
     input: path.resolve(__dirname, 'types', 'index.d.ts'),
     output: {
       file: pkg.types,
       format: 'esm',
     },
-    plugins: [json(), dts()],
+    plugins: [typescriptPaths(), json(), dts()],
   },
+  /**
+   * @type {import('rollup').RollupOptions}
+   * */
   module = {
     external: ['js-cookie'],
     input,
@@ -98,6 +107,9 @@ const isProd = process.env.NODE_ENV !== 'development',
       summary(),
     ],
   },
+  /**
+   * @type {import('rollup').RollupOptions}
+   * */
   unpkg = {
     input,
     onwarn(warning, warn) {

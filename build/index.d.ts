@@ -1,5 +1,3 @@
-import text from '@/i18n/en.json';
-
 declare function switchButton(this: AMGDPR, { disabled, label, name, value, }: {
     disabled?: boolean;
     name: string;
@@ -17,6 +15,47 @@ declare enum Format {
     Banner = "banner",
     Box = "box"
 }
+
+var settings = "Cookie Settings";
+var customize = {
+	header: "Your data, your choice",
+	label: "Customize",
+	text: "We use <strong>functional cookies</strong> for navigation, etc. In addition, we use <strong>statistical cookies</strong> to see how users interact with the website.",
+	retargeting: "We also use <strong>cookies for marketing.</strong>",
+	link: "See our <a href=\"/%URL%\">privacy policy</a>"
+};
+var header = "This website uses";
+var miniGDPR = "Cookie settings";
+var accept = "I understand";
+var acceptAll = "Accept all";
+var decline = "Only functional";
+var close = "Close";
+var save = "Save preferences";
+var functional = {
+	label: "Functional"
+};
+var statistical = {
+	label: "Statistical"
+};
+var marketing = {
+	label: "Marketing"
+};
+var policyUrl = "privacy";
+var text = {
+	settings: settings,
+	customize: customize,
+	header: header,
+	miniGDPR: miniGDPR,
+	accept: accept,
+	acceptAll: acceptAll,
+	decline: decline,
+	close: close,
+	save: save,
+	functional: functional,
+	statistical: statistical,
+	marketing: marketing,
+	policyUrl: policyUrl
+};
 
 type Text = typeof text;
 interface DataLayerObject {

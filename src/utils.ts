@@ -1,16 +1,5 @@
 import Cookies from 'js-cookie'
-
-export enum Align {
-  BottomLeft = 'bottom-left',
-  BottomRight = 'bottom-right',
-  TopLeft = 'top-left',
-  TopRight = 'top-right',
-}
-
-export enum Format {
-  Banner = 'banner',
-  Box = 'box',
-}
+import { Text } from '@/types'
 
 export const boolToConsentParams = (bool?: boolean | null) => {
     if (bool === undefined || bool === null) {
@@ -43,6 +32,18 @@ export const boolToConsentParams = (bool?: boolean | null) => {
   hasKey = <T extends object>(obj: T, key: PropertyKey): key is keyof T =>
     key in obj,
   isServer = () => !(typeof window !== 'undefined' && window.document),
+  isText = (text?: unknown): text is Text => {
+    if (
+      !text ||
+      typeof text !== 'object' ||
+      !('settings' in text) ||
+      !('customize' in text) ||
+      !('header' in text)
+    ) {
+      return false
+    }
+    return true
+  },
   useId = (prefix?: string) => {
     const s4 = () =>
       (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
