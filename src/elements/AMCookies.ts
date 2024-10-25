@@ -2,7 +2,6 @@ import Cookies from 'js-cookie'
 import getTranslation from '@/i18n'
 import {
   cookieWarning,
-  icon,
   loading,
   miniGDPR,
   popUp,
@@ -36,7 +35,7 @@ export default class AMCookies extends EnhancedElement {
     this.hideOnScroll = this.hideOnScroll.bind(this)
     this.setVisible = this.setVisible.bind(this)
 
-    // this.debug = this.debug.bind(this)
+    this._debug = this._debug.bind(this)
 
     this._text = getTranslation()
 
@@ -139,7 +138,7 @@ export default class AMCookies extends EnhancedElement {
       )
     }, 0)
 
-    this.debug()
+    this._debug()
   }
 
   disconnectedCallback() {
@@ -159,6 +158,7 @@ export default class AMCookies extends EnhancedElement {
       'isVisible',
       'isCustomize',
       'isSaving',
+      '_text',
     ]
   }
 
@@ -209,6 +209,14 @@ export default class AMCookies extends EnhancedElement {
           this._miniGDPR()
         }
         break
+      }
+      // If text is set dynamically initial elements must be reinitialized
+      case '_text': {
+        if (Cookies.get('CookieConsent')) {
+          this._miniGDPR()
+        } else {
+          this._cookieWarning()
+        }
       }
     }
   }
@@ -375,125 +383,10 @@ export default class AMCookies extends EnhancedElement {
    */
   public setText(text: Text) {
     if (!isText(text)) {
+      console.warn('Invalid text object')
       return
     }
     this._text = text
-    this.populateText()
-  }
-
-  /**
-   * Populate Text
-   */
-  protected populateText() {
-    if (!isText(this._text)) {
-      return
-    }
-
-    const cookieWarningText = this.shadow.querySelector('#cookie-warning-text')
-    if (cookieWarningText) {
-      cookieWarningText.innerHTML = `${this._text.header} ${icon}`
-    }
-
-    const customizeLabel = this.shadow.querySelector('.customize')
-    if (customizeLabel instanceof HTMLButtonElement) {
-      customizeLabel.ariaLabel = this._text.customize.label
-      customizeLabel.innerText = this._text.customize.label
-    }
-
-    const accept = this.shadow.querySelector('.accept')
-    if (accept instanceof HTMLButtonElement) {
-      accept.ariaLabel = this._text.accept
-      accept.innerText = this._text.accept
-    }
-
-    const acceptAll = this.shadow.querySelector('.accept-all')
-    if (acceptAll instanceof HTMLButtonElement) {
-      acceptAll.ariaLabel = this._text.acceptAll
-      acceptAll.innerText = this._text.acceptAll
-    }
-
-    const settings = this.shadow.querySelector('.settings')
-    if (settings instanceof HTMLElement) {
-      settings.ariaLabel = this._text.settings
-    }
-
-    const decline = this.shadow.querySelector('.decline-all')
-    if (decline instanceof HTMLButtonElement) {
-      decline.ariaLabel = this._text.decline
-      decline.innerText = this._text.decline
-    }
-
-    const customizeHeader = this.shadow.querySelector('#customize-header')
-    if (customizeHeader instanceof HTMLSlotElement) {
-      customizeHeader.innerText = this._text.customize.header
-    }
-
-    const customizeText = this.shadow.querySelector('#customize-text')
-    if (customizeText instanceof HTMLElement) {
-      customizeText.innerHTML = `${this._text.customize.text}${
-        this.hasRetargeting ? ` ${this._text.customize.retargeting}` : ''
-      }`
-    }
-
-    const customizeLink = this.shadow.querySelector('#customize-link')
-    if (customizeLink instanceof HTMLElement) {
-      customizeLink.innerHTML = this._text.customize.link.replace(
-        '%URL%',
-        this.privacyPolicyURL || this._text.policyUrl
-      )
-    }
-
-    const miniGDPR = this.shadow.querySelector('.mini-gdpr')
-    if (miniGDPR instanceof HTMLButtonElement) {
-      miniGDPR.ariaLabel = this._text.miniGDPR
-    }
-
-    const functionalLabel = this.shadow.querySelector(
-      '[data-name="functional-label"]'
-    )
-    if (functionalLabel instanceof HTMLLabelElement) {
-      functionalLabel.innerHTML = this._text.functional.label
-    }
-
-    const functionalAria = this.shadow.querySelector(
-      '[data-name="functional-aria"]'
-    )
-    if (functionalAria instanceof HTMLLabelElement) {
-      functionalAria.ariaLabel = this._text.functional.label
-    }
-
-    const statisticalLabel = this.shadow.querySelector(
-      '[data-name="allowStatistical-label"]'
-    )
-    if (statisticalLabel instanceof HTMLLabelElement) {
-      statisticalLabel.innerHTML = this._text.statistical.label
-    }
-
-    const statisticalAria = this.shadow.querySelector(
-      '[data-name="allowStatistical-aria"]'
-    )
-    if (statisticalAria instanceof HTMLLabelElement) {
-      statisticalAria.ariaLabel = this._text.statistical.label
-    }
-
-    const retargetingLabel = this.shadow.querySelector(
-      '[data-name="allowRetargeting-label"]'
-    )
-    if (retargetingLabel instanceof HTMLLabelElement) {
-      retargetingLabel.innerHTML = this._text.marketing.label
-    }
-
-    const retargetingAria = this.shadow.querySelector(
-      '[data-name="allowRetargeting-aria"]'
-    )
-    if (retargetingAria instanceof HTMLLabelElement) {
-      retargetingAria.ariaLabel = this._text.marketing.label
-    }
-
-    const closeButton = this.shadow.querySelector('.close-button')
-    if (closeButton instanceof HTMLButtonElement) {
-      closeButton.ariaLabel = this._text.close
-    }
   }
 
   /**
@@ -596,7 +489,7 @@ export default class AMCookies extends EnhancedElement {
 
     this.save()
 
-    this.debug()
+    this._debug()
   }
 
   public declineAll() {
@@ -605,11 +498,8 @@ export default class AMCookies extends EnhancedElement {
     this.allowStatistical = false
     this.allowRetargeting = false
 
-    this.debug()
+    this._debug()
 
-    // if (!!window.dataLayer || !!window.google_tag_data) {
-    //   location.reload()
-    // }
     this.save()
   }
 
@@ -625,7 +515,7 @@ export default class AMCookies extends EnhancedElement {
     this.allowStatistical = !!this.allowStatistical
     this.allowRetargeting = !!this.allowRetargeting
 
-    this.debug()
+    this._debug()
   }
 
   public handleChange({ target }: Event, component: AMCookies) {
@@ -640,7 +530,7 @@ export default class AMCookies extends EnhancedElement {
         component[name as keyof AMCookies] = checked
       }
     }
-    this.debug()
+    this._debug()
   }
 
   public setVisible() {
@@ -649,7 +539,7 @@ export default class AMCookies extends EnhancedElement {
     this.allowRetargeting = null
     this.isVisible = true
 
-    this.debug()
+    this._debug()
   }
 
   public hideOnScroll() {
@@ -697,11 +587,12 @@ export default class AMCookies extends EnhancedElement {
     return styleSheet
   }
 
-  public debug() {
+  private _debug() {
     if (process.env.NODE_ENV !== 'development') {
       return
     }
     console.debug(
+      'For developers: Current cookie values',
       {
         customize: this.isCustomize,
         googleID: this.googleID,

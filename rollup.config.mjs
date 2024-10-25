@@ -49,7 +49,10 @@ const isProd = process.env.NODE_ENV !== 'development',
     external: ['js-cookie'],
     input,
     onwarn(warning, warn) {
-      if (warning.code === 'THIS_IS_UNDEFINED') {
+      if (
+        warning.code === 'THIS_IS_UNDEFINED' ||
+        warning.code === 'CIRCULAR_DEPENDENCY'
+      ) {
         return
       }
       warn(warning)

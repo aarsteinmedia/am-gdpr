@@ -10,7 +10,10 @@
 }
 
 #cookie-warning-text {
-  margin: 0
+  margin: 0;
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: baseline;
 }
 
 .cookie-container {
@@ -18,13 +21,15 @@
   transform-origin: bottom;
   align-items: center;
   display: flex;
+  // justify-content: flex-start;
   position: fixed;
   z-index: 999999;
   background-color: var(--background-color);
 
   .content {
     display: flex;
-    align-items: center;
+    // align-items: baseline;
+    // justify-content: center;
     margin: 0;
     font-size: 0.9em;
     gap: 1em;
@@ -111,6 +116,7 @@
 .button-wrapper {
   display: flex;
   gap: 0.5em;
+  // margin-top: 0.7em;
 }
 
 .mini-gdpr {

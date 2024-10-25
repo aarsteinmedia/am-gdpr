@@ -175,8 +175,8 @@
         if (!this.gdprContainer) {
             return;
         }
-        this.gdprContainer.innerHTML = `<div class="cookie-container ${this.alignPrompt} ${this.format}-format" lang="${document.documentElement.lang}"><div class="content"><div aria-describedby="cookie-warning-text" aria-labelledby="cookie-warning-text" aria-modal="false" role="dialog"><p class="h3" id="cookie-warning-text"></p></div><div class="button-wrapper"><button class="button gdpr customize" style="background-color:transparent"></button> <button class="button gdpr accept"></button></div></div></div>`;
-        this.populateText();
+        const { accept, customize: { label: customizeLabel }, header } = this.getText();
+        this.gdprContainer.innerHTML = `<div aria-describedby="cookie-warning-text" aria-labelledby="cookie-warning-text" aria-modal="false" role="dialog" class="cookie-container ${this.alignPrompt} ${this.format}-format" lang="${document.documentElement.lang}"><div class="content"><p class="h3" id="cookie-warning-text">${header} ${icon}</p><div class="button-wrapper"><button class="button gdpr customize" style="background-color:transparent">${customizeLabel}</button> <button class="button gdpr accept">${accept}</button></div></div></div>`;
         const acceptAll = this.gdprContainer.querySelector('.accept');
         if (acceptAll instanceof HTMLButtonElement) {
             acceptAll.onclick = this.acceptAll;
@@ -195,41 +195,43 @@
         if (!this.gdprContainer) {
             return;
         }
-        this.gdprContainer.innerHTML = `<button class="mini-gdpr ${this.alignMiniPrompt}" data-hide="false" aria-label=""><figure class="icon-cookies settings">${icon}</figure></button>`;
-        this.populateText();
+        const { miniGDPR, settings } = this.getText();
+        this.gdprContainer.innerHTML = `<button class="mini-gdpr ${this.alignMiniPrompt}" data-hide="false" aria-label="${miniGDPR}"><figure aria-label="${settings}" class="icon-cookies settings">${icon}</figure></button>`;
         const button = this.gdprContainer.querySelector('.mini-gdpr');
         if (button instanceof HTMLButtonElement) {
             button.onclick = this.setVisible;
         }
     }
 
-    function uiButton({ className, isOpen }) {
-        return `<button class="menu-button ${className}" data-open="${isOpen}"><span class="hamburger"><span></span></span></button>`;
+    function uiButton({ ariaLabel, className, isOpen }) {
+        return `<button ariaLabel="${ariaLabel}" class="menu-button ${className}" data-open="${isOpen}"><span class="hamburger"><span></span></span></button>`;
     }
 
     function popUp() {
         if (!this.gdprContainer) {
             return;
         }
+        const { acceptAll: acceptAllText, close: closeText, customize: { header: customizeHeaderText, link: customizeLink, retargeting: customizeRetargetingText, text: customizeText }, decline: declineText, functional: { label: functionalLabel }, marketing: { label: marketingLabel }, policyUrl, save: saveText, statistical: { label: statisticalLabel } } = this.getText();
         this.gdprContainer.innerHTML = `<div class="pop-up fade-in" lang="${document.documentElement.lang}"><dialog open>${uiButton({
+        ariaLabel: closeText,
         className: 'close-button',
         isOpen: true
-    })}<div class="dialog-inner-box" style="display:flex;flex-direction:column"><h3><figure aria-label="cookies" class="icon-cookies" style="display:inline-flex;margin-right:.5em">${icon}</figure><slot id="customize-header"></slot></h3><p id="customize-text"></p><p id="customize-link"></p><div id="save-wrapper" class="button-wrapper"><button class="button gdpr decline-all" style="background-color:transparent"></button> <button class="button gdpr accept-all"></button></div><div class="button-wrapper">${this.switchButton({
+    })}<div class="dialog-inner-box" style="display:flex;flex-direction:column"><h3><figure aria-label="cookies" class="icon-cookies" style="display:inline-flex;margin-right:.5em">${icon}</figure>${customizeHeaderText}</h3><p>${customizeText}${this.hasRetargeting ? ` ${customizeRetargetingText}` : ''}</p><p>${customizeLink.replace('%URL%', this.privacyPolicyURL || policyUrl)}</p><div id="save-wrapper" class="button-wrapper"><button class="button gdpr decline-all" style="background-color:transparent">${declineText}</button> <button class="button gdpr accept-all">${acceptAllText}</button></div><div class="button-wrapper">${this.switchButton({
         disabled: true,
-        label: '#',
+        label: functionalLabel,
         name: 'functional',
         value: true
     })} ${this.switchButton({
-        label: '#',
+        label: statisticalLabel,
         name: 'allowStatistical',
         value: !!this.allowStatistical
     })} ${this.hasRetargeting ? this.switchButton({
-        label: '#',
+        label: marketingLabel,
         name: 'allowRetargeting',
         value: !!this.allowRetargeting
     }) : ''}</div></div></dialog></div>`;
-        this.populateText();
         const saveWrapper = this.gdprContainer.querySelector('#save-wrapper'), saveButton = document.createElement('button');
+        saveButton.innerText = saveText;
         saveButton.className = 'button gdpr save';
         saveButton.onclick = ()=>{
             this.save();
@@ -312,7 +314,7 @@
 
     function switchButton({ disabled = false, label, name, value }) {
         const id = useId();
-        return `<div class="container">${label ? `<label data-name="${name}-label" class="text-label" for="${id}">${label}</label>` : ''} <label data-name="${name}-aria" class="label"><input ${value ? 'checked' : ''} class="input" ${disabled ? 'disabled' : ''} id="${id}" name="${name}" type="checkbox" value="${value}"> <span class="slider"></span></label></div>`;
+        return `<div class="container">${label ? `<label class="text-label" for="${id}">${label}</label>` : ''} <label class="label"><input ${value ? 'checked' : ''} class="input" ${disabled ? 'disabled' : ''} id="${id}" name="${name}" type="checkbox" value="${value}"> <span class="slider"></span></label></div>`;
     }
 
     var Align = /*#__PURE__*/ function(Align) {
@@ -328,7 +330,7 @@
         return Format;
     }({});
 
-    var css_248z = "@layer GDPR {\n  :host {\n    font-family: var(--font-family);\n    font-size: 16px;\n    color: var(--color);\n    line-height: 1.3;\n    display: block;\n    width: 100%;\n    height: 100%;\n    cursor: default;\n  }\n  :host *::selection {\n    background-color: var(--color);\n    color: var(--background-color);\n  }\n  :host .cookie-overlay {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    z-index: 99999;\n    background-color: rgba(0, 0, 0, 0.3);\n    backdrop-filter: blur(2px);\n  }\n  :host #cookie-warning-text {\n    margin: 0;\n  }\n  :host .cookie-container {\n    padding: 20px 30px;\n    transform-origin: bottom;\n    align-items: center;\n    display: flex;\n    position: fixed;\n    z-index: 999999;\n    background-color: var(--background-color);\n  }\n  :host .cookie-container .content {\n    display: flex;\n    align-items: center;\n    margin: 0;\n    font-size: 0.9em;\n    gap: 1em;\n  }\n  :host .cookie-container.bottom-left, :host .cookie-container.bottom-right {\n    animation: fade-in-up 0.3s ease-in-out;\n  }\n  :host .cookie-container.top-left, :host .cookie-container.top-right {\n    animation: fade-in-down 0.3s ease-in-out;\n  }\n  :host .cookie-container.box-format {\n    flex-direction: column;\n    border: solid var(--border-width) currentcolor;\n    border-radius: 0.25em;\n  }\n  :host .cookie-container.box-format.bottom-left {\n    left: 30px;\n    bottom: 30px;\n  }\n  :host .cookie-container.box-format.bottom-right {\n    right: 30px;\n    bottom: 30px;\n  }\n  :host .cookie-container.box-format.top-left {\n    left: 30px;\n    top: 30px;\n  }\n  :host .cookie-container.box-format.top-right {\n    right: 30px;\n    top: 30px;\n  }\n  :host .cookie-container.box-format .content {\n    flex-direction: column;\n  }\n  :host .cookie-container.banner-format {\n    flex-direction: row;\n    left: 0;\n    right: 0;\n  }\n  :host .cookie-container.banner-format.bottom-left, :host .cookie-container.banner-format.bottom-right {\n    bottom: 0;\n    border-top: solid var(--border-width) currentcolor;\n  }\n  :host .cookie-container.banner-format.top-left, :host .cookie-container.banner-format.top-right {\n    top: 0;\n    border-bottom: solid var(--border-width) currentcolor;\n  }\n  :host .cookie-container.banner-format .content {\n    flex-direction: row;\n    justify-content: space-between;\n    width: 100%;\n  }\n  :host .button {\n    border: solid var(--border-width) currentcolor;\n    font-size: 0.9em;\n    line-height: 0.9;\n    font-weight: bold;\n    padding: 0 15px;\n    height: calc(1em + 20px);\n    margin: 0;\n    border-radius: 1.5em;\n    display: inline-flex;\n    align-items: center;\n  }\n  :host .button-wrapper {\n    display: flex;\n    gap: 0.5em;\n  }\n  :host .mini-gdpr {\n    position: fixed;\n    width: 40px;\n    height: 40px;\n    z-index: 99999;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: transform 0.2s ease-in-out;\n  }\n  :host .mini-gdpr.bottom-left, :host .mini-gdpr.bottom-right {\n    bottom: 0;\n    border-top: solid var(--border-width);\n  }\n  :host .mini-gdpr.top-left, :host .mini-gdpr.top-right {\n    top: 0;\n    border-bottom: solid var(--border-width);\n  }\n  :host .mini-gdpr.bottom-left, :host .mini-gdpr.top-left {\n    left: 0;\n    border-right: solid var(--border-width);\n  }\n  :host .mini-gdpr.bottom-right, :host .mini-gdpr.top-right {\n    right: 0;\n    border-left: solid var(--border-width);\n  }\n  :host .mini-gdpr.bottom-left {\n    border-radius: 0 66% 0 0;\n    transform-origin: bottom left;\n    animation: pop-in-bottom-left 0.3s ease-in-out;\n  }\n  :host .mini-gdpr.bottom-left[data-hide=true] {\n    transform: translateY(100%) translateX(-100%);\n  }\n  :host .mini-gdpr.bottom-right {\n    border-radius: 66% 0 0;\n    transform-origin: bottom right;\n    animation: pop-in-bottom-right 0.3s ease-in-out;\n  }\n  :host .mini-gdpr.bottom-right[data-hide=true] {\n    transform: translateY(100%) translateX(100%);\n  }\n  :host .mini-gdpr.top-left {\n    border-radius: 0 0 66%;\n    transform-origin: top left;\n    animation: pop-in-top-left 0.3s ease-in-out;\n  }\n  :host .mini-gdpr.top-left[data-hide=true] {\n    transform: translateY(-100%) translateX(-100%);\n  }\n  :host .mini-gdpr.top-right {\n    border-radius: 0 0 0 66%;\n    transform-origin: top right;\n    animation: pop-in-top-right 0.3s ease-in-out;\n  }\n  :host .mini-gdpr.top-right[data-hide=true] {\n    transform: translateY(-100%) translateX(100%);\n  }\n  :host .mini-gdpr svg {\n    height: 1em;\n  }\n  :host .mini-gdpr:hover, :host .mini-gdpr:active {\n    transform: scale(1.1);\n  }\n  @media only screen and (width <= 760px) {\n    :host .cookie-container {\n      padding: 15px;\n    }\n    :host .cookie-container.box-format {\n      left: 20px;\n      right: 20px;\n    }\n    :host .cookie-container.banner-format .content {\n      flex-direction: column;\n    }\n    :host .cookie-container.banner-format.top-left, :host .cookie-container.banner-format.top-right {\n      padding-bottom: 10px;\n    }\n    :host .cookie-container.banner-format.bottom-left, :host .cookie-container.banner-format.bottom-right {\n      padding-top: 10px;\n    }\n  }\n  @keyframes fade-in-up {\n    0% {\n      transform: translateY(1em);\n      opacity: 0;\n    }\n    100% {\n      transform: translateY(0);\n      opacity: 1;\n    }\n  }\n  @keyframes fade-in-down {\n    0% {\n      transform: translateY(-1em);\n      opacity: 0;\n    }\n    100% {\n      transform: translateY(0);\n      opacity: 1;\n    }\n  }\n  @keyframes pop-in-bottom-left {\n    0% {\n      transform: translateY(100%) translateX(-100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-bottom-right {\n    0% {\n      transform: translateY(100%) translateX(100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-top-left {\n    0% {\n      transform: translateY(-100%) translateX(-100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-top-right {\n    0% {\n      transform: translateY(-100%) translateX(100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  :host .pop-up {\n    position: fixed;\n    width: 100vw;\n    height: 100vh;\n    top: 0;\n    left: 0;\n    overflow: hidden;\n    z-index: 999999;\n    animation-duration: 0.4s;\n    animation-name: fade-in;\n    background-color: rgba(0, 0, 0, 0.3);\n  }\n  :host .pop-up dialog {\n    position: absolute;\n    height: 90%;\n    max-width: 90%;\n    min-height: 0;\n    max-height: 0;\n    border-radius: 0.25em;\n    border: solid var(--border-width) currentcolor;\n    left: 0;\n    right: 0;\n    margin: auto;\n    top: 50%;\n    transform: translateY(-50%);\n    padding: 40px;\n    overflow: hidden;\n    transition: max-height 0.2s ease-in-out, min-height 0.2s ease-in-out;\n    width: 600px;\n    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);\n    color: var(--color);\n    background-color: var(--background-color);\n  }\n  :host .pop-up dialog .close-button {\n    top: 14px;\n    right: 14px;\n    width: 25px;\n  }\n  :host .pop-up dialog[data-animate=up] {\n    animation: fade-up 0.3s ease-in-out;\n  }\n  :host .pop-up[data-gallery=true] dialog {\n    padding: 0;\n  }\n  :host .inner-wrapper {\n    width: 100%;\n    float: left;\n    position: relative;\n    display: flex;\n    align-items: center;\n    overflow: hidden;\n  }\n  :host .row {\n    display: flex;\n    flex-direction: row;\n    gap: 1em;\n    align-items: flex-start;\n    margin: 0;\n  }\n  :host .column {\n    display: flex;\n    flex: 1 1;\n    flex-direction: column;\n    align-items: flex-start;\n  }\n  @keyframes fade-in {\n    0% {\n      opacity: 0;\n    }\n    100% {\n      opacity: 1;\n    }\n  }\n  @keyframes fade-up {\n    0% {\n      opacity: 0;\n      transform: translateY(0);\n    }\n    100% {\n      opacity: 1;\n      transform: translateY(-50%);\n    }\n  }\n  @media only screen and (width <= 760px) {\n    :host .pop-up .pop-up-element {\n      padding: 25px;\n    }\n    :host .pop-up .pop-up-element .close-button {\n      width: 20px;\n      top: 5px;\n      right: 5px;\n    }\n    :host .row {\n      overflow: auto hidden;\n      scroll-snap-points-x: repeat(100%);\n      scroll-snap-type: x mandatory;\n      flex: 1 1;\n      -webkit-overflow-scrolling: touch;\n      scrollbar-width: none;\n    }\n    :host .row::-webkit-scrollbar {\n      display: none;\n    }\n    :host .column {\n      width: 100%;\n      height: 100%;\n      position: relative;\n      flex: 0 0 100%;\n      scroll-snap-align: start;\n    }\n  }\n  :host .container {\n    display: inline-flex;\n    flex-direction: column;\n    margin-right: 0.5em;\n    margin-top: 0.5em;\n    font-size: 0.9em;\n  }\n  :host .text-label {\n    margin-bottom: 0.5em;\n  }\n  :host .label {\n    position: relative;\n    display: inline-block;\n    width: 3em;\n    height: 1.5em;\n  }\n  :host .label .input {\n    opacity: 0;\n    width: 0;\n    height: 0;\n    margin: 0;\n    padding: 0;\n  }\n  :host .slider {\n    position: absolute;\n    cursor: pointer;\n    inset: 0;\n    border-radius: 1em;\n    border: solid var(--border-width) currentcolor;\n    appearance: none;\n    transition: background-color 0.2s;\n  }\n  :host .slider::before {\n    position: absolute;\n    border-radius: 50%;\n    content: \"\";\n    height: 1em;\n    width: 1em;\n    left: 0.2em;\n    bottom: 0;\n    top: 0;\n    margin: auto;\n    background-color: currentcolor;\n    transition: 0.4s;\n  }\n  :host .input:focus + .slider {\n    box-shadow: 0 0 1px;\n  }\n  :host .input:checked + .slider {\n    background-color: var(--accent-color);\n  }\n  :host .input:checked + .slider::before {\n    transform: translateX(1.4em);\n  }\n  :host .input:disabled + .slider {\n    opacity: 0.5;\n  }\n  :host .menu-button {\n    position: absolute;\n    width: 40px;\n    max-width: 100%;\n    padding: 0;\n    margin: 0;\n    line-height: 0;\n    z-index: 999;\n    cursor: pointer;\n    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;\n    background-color: transparent;\n    display: block;\n    border-color: unset;\n    outline-color: unset;\n  }\n  :host .menu-button .hamburger {\n    width: 100%;\n    display: inline-block;\n    vertical-align: middle;\n  }\n  :host .menu-button .hamburger::before,\n  :host .menu-button .hamburger > span, :host .menu-button .hamburger::after {\n    background-color: currentcolor;\n    border-color: currentcolor;\n    outline-color: currentcolor;\n    display: block;\n    height: 2px;\n    margin: 10px 0;\n    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease-in-out;\n  }\n  :host .menu-button .hamburger::before, :host .menu-button .hamburger::after {\n    content: \"\";\n  }\n  :host .menu-button .hamburger::before {\n    margin-top: 0;\n  }\n  :host .menu-button .hamburger::after {\n    margin-bottom: 0;\n  }\n  :host .menu-button[data-open=true] .hamburger::before {\n    transform: translateY(12px) rotate(135deg);\n  }\n  :host .menu-button[data-open=true] .hamburger > span {\n    transform: translateY(0) rotate(-135deg);\n    opacity: 0;\n  }\n  :host .menu-button[data-open=true] .hamburger::after {\n    transform: translateY(-12px) rotate(-135deg);\n  }\n  :host * {\n    box-sizing: border-box;\n  }\n  :host input,\n  :host textarea,\n  :host button {\n    color: inherit;\n    font-size: inherit;\n    font-family: inherit;\n    font-weight: inherit;\n    border: 0;\n    outline: 0;\n    background-color: transparent;\n  }\n  :host button {\n    background-color: var(--accent-color);\n    transition: transform 0.2s ease-in-out;\n  }\n  :host button,\n  :host input[type=submit],\n  :host input[type=button],\n  :host input[type=reset] {\n    appearance: none;\n  }\n  :host button *,\n  :host input[type=submit] *,\n  :host input[type=button] *,\n  :host input[type=reset] * {\n    pointer-events: none;\n  }\n  :host button:not([disabled]),\n  :host input[type=submit]:not([disabled]),\n  :host input[type=button]:not([disabled]),\n  :host input[type=reset]:not([disabled]) {\n    cursor: pointer;\n  }\n  :host button:hover,\n  :host input[type=submit]:hover,\n  :host input[type=button]:hover,\n  :host input[type=reset]:hover {\n    transform: scale(1.02);\n  }\n  :host a {\n    color: inherit;\n    font-weight: bold;\n    text-decoration: none;\n    position: relative;\n  }\n  :host a::after {\n    content: \"\";\n    border-bottom: solid var(--border-width) var(--accent-color);\n    position: absolute;\n    width: 100%;\n    bottom: 0;\n    left: 0;\n    z-index: -1;\n  }\n  :host a:hover::after {\n    opacity: 0;\n  }\n  :host svg {\n    width: auto;\n    height: auto;\n    display: inline-block;\n  }\n  :host svg path {\n    fill: currentcolor;\n  }\n  :host p {\n    margin: 0;\n    padding: 0.5em 0 0.7em;\n  }\n  :host h1,\n  :host .h1,\n  :host h2,\n  :host .h2,\n  :host h3,\n  :host .h3 {\n    font-weight: bold;\n    font-size: 2.2em;\n    padding: 0;\n    margin: 0;\n    margin-top: 0.5em;\n  }\n  :host h2,\n  :host .h2 {\n    font-size: 1.7em;\n  }\n  :host h3,\n  :host .h3 {\n    font-size: 1.5em;\n  }\n  :host h3 svg,\n  :host .h3 svg {\n    height: 1.2em;\n    display: inline-block;\n    vertical-align: bottom;\n  }\n  :host .icon-cookies {\n    display: flex;\n    margin: 0;\n    padding: 0;\n  }\n}";
+    var css_248z = "@layer GDPR {\n  :host {\n    font-family: var(--font-family);\n    font-size: 16px;\n    color: var(--color);\n    line-height: 1.3;\n    display: block;\n    width: 100%;\n    height: 100%;\n    cursor: default;\n  }\n  :host *::selection {\n    background-color: var(--color);\n    color: var(--background-color);\n  }\n  :host .cookie-overlay {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    z-index: 99999;\n    background-color: rgba(0, 0, 0, 0.3);\n    backdrop-filter: blur(2px);\n  }\n  :host #cookie-warning-text {\n    margin: 0;\n    display: inline-flex;\n    gap: 0.5rem;\n    align-items: baseline;\n  }\n  :host .cookie-container {\n    padding: 20px 30px;\n    transform-origin: bottom;\n    align-items: center;\n    display: flex;\n    position: fixed;\n    z-index: 999999;\n    background-color: var(--background-color);\n  }\n  :host .cookie-container .content {\n    display: flex;\n    margin: 0;\n    font-size: 0.9em;\n    gap: 1em;\n  }\n  :host .cookie-container.bottom-left, :host .cookie-container.bottom-right {\n    animation: fade-in-up 0.3s ease-in-out;\n  }\n  :host .cookie-container.top-left, :host .cookie-container.top-right {\n    animation: fade-in-down 0.3s ease-in-out;\n  }\n  :host .cookie-container.box-format {\n    flex-direction: column;\n    border: solid var(--border-width) currentcolor;\n    border-radius: 0.25em;\n  }\n  :host .cookie-container.box-format.bottom-left {\n    left: 30px;\n    bottom: 30px;\n  }\n  :host .cookie-container.box-format.bottom-right {\n    right: 30px;\n    bottom: 30px;\n  }\n  :host .cookie-container.box-format.top-left {\n    left: 30px;\n    top: 30px;\n  }\n  :host .cookie-container.box-format.top-right {\n    right: 30px;\n    top: 30px;\n  }\n  :host .cookie-container.box-format .content {\n    flex-direction: column;\n  }\n  :host .cookie-container.banner-format {\n    flex-direction: row;\n    left: 0;\n    right: 0;\n  }\n  :host .cookie-container.banner-format.bottom-left, :host .cookie-container.banner-format.bottom-right {\n    bottom: 0;\n    border-top: solid var(--border-width) currentcolor;\n  }\n  :host .cookie-container.banner-format.top-left, :host .cookie-container.banner-format.top-right {\n    top: 0;\n    border-bottom: solid var(--border-width) currentcolor;\n  }\n  :host .cookie-container.banner-format .content {\n    flex-direction: row;\n    justify-content: space-between;\n    width: 100%;\n  }\n  :host .button {\n    border: solid var(--border-width) currentcolor;\n    font-size: 0.9em;\n    line-height: 0.9;\n    font-weight: bold;\n    padding: 0 15px;\n    height: calc(1em + 20px);\n    margin: 0;\n    border-radius: 1.5em;\n    display: inline-flex;\n    align-items: center;\n  }\n  :host .button-wrapper {\n    display: flex;\n    gap: 0.5em;\n  }\n  :host .mini-gdpr {\n    position: fixed;\n    width: 40px;\n    height: 40px;\n    z-index: 99999;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: transform 0.2s ease-in-out;\n  }\n  :host .mini-gdpr.bottom-left, :host .mini-gdpr.bottom-right {\n    bottom: 0;\n    border-top: solid var(--border-width);\n  }\n  :host .mini-gdpr.top-left, :host .mini-gdpr.top-right {\n    top: 0;\n    border-bottom: solid var(--border-width);\n  }\n  :host .mini-gdpr.bottom-left, :host .mini-gdpr.top-left {\n    left: 0;\n    border-right: solid var(--border-width);\n  }\n  :host .mini-gdpr.bottom-right, :host .mini-gdpr.top-right {\n    right: 0;\n    border-left: solid var(--border-width);\n  }\n  :host .mini-gdpr.bottom-left {\n    border-radius: 0 66% 0 0;\n    transform-origin: bottom left;\n    animation: pop-in-bottom-left 0.3s ease-in-out;\n  }\n  :host .mini-gdpr.bottom-left[data-hide=true] {\n    transform: translateY(100%) translateX(-100%);\n  }\n  :host .mini-gdpr.bottom-right {\n    border-radius: 66% 0 0;\n    transform-origin: bottom right;\n    animation: pop-in-bottom-right 0.3s ease-in-out;\n  }\n  :host .mini-gdpr.bottom-right[data-hide=true] {\n    transform: translateY(100%) translateX(100%);\n  }\n  :host .mini-gdpr.top-left {\n    border-radius: 0 0 66%;\n    transform-origin: top left;\n    animation: pop-in-top-left 0.3s ease-in-out;\n  }\n  :host .mini-gdpr.top-left[data-hide=true] {\n    transform: translateY(-100%) translateX(-100%);\n  }\n  :host .mini-gdpr.top-right {\n    border-radius: 0 0 0 66%;\n    transform-origin: top right;\n    animation: pop-in-top-right 0.3s ease-in-out;\n  }\n  :host .mini-gdpr.top-right[data-hide=true] {\n    transform: translateY(-100%) translateX(100%);\n  }\n  :host .mini-gdpr svg {\n    height: 1em;\n  }\n  :host .mini-gdpr:hover, :host .mini-gdpr:active {\n    transform: scale(1.1);\n  }\n  @media only screen and (width <= 760px) {\n    :host .cookie-container {\n      padding: 15px;\n    }\n    :host .cookie-container.box-format {\n      left: 20px;\n      right: 20px;\n    }\n    :host .cookie-container.banner-format .content {\n      flex-direction: column;\n    }\n    :host .cookie-container.banner-format.top-left, :host .cookie-container.banner-format.top-right {\n      padding-bottom: 10px;\n    }\n    :host .cookie-container.banner-format.bottom-left, :host .cookie-container.banner-format.bottom-right {\n      padding-top: 10px;\n    }\n  }\n  @keyframes fade-in-up {\n    0% {\n      transform: translateY(1em);\n      opacity: 0;\n    }\n    100% {\n      transform: translateY(0);\n      opacity: 1;\n    }\n  }\n  @keyframes fade-in-down {\n    0% {\n      transform: translateY(-1em);\n      opacity: 0;\n    }\n    100% {\n      transform: translateY(0);\n      opacity: 1;\n    }\n  }\n  @keyframes pop-in-bottom-left {\n    0% {\n      transform: translateY(100%) translateX(-100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-bottom-right {\n    0% {\n      transform: translateY(100%) translateX(100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-top-left {\n    0% {\n      transform: translateY(-100%) translateX(-100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-top-right {\n    0% {\n      transform: translateY(-100%) translateX(100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  :host .pop-up {\n    position: fixed;\n    width: 100vw;\n    height: 100vh;\n    top: 0;\n    left: 0;\n    overflow: hidden;\n    z-index: 999999;\n    animation-duration: 0.4s;\n    animation-name: fade-in;\n    background-color: rgba(0, 0, 0, 0.3);\n  }\n  :host .pop-up dialog {\n    position: absolute;\n    height: 90%;\n    max-width: 90%;\n    min-height: 0;\n    max-height: 0;\n    border-radius: 0.25em;\n    border: solid var(--border-width) currentcolor;\n    left: 0;\n    right: 0;\n    margin: auto;\n    top: 50%;\n    transform: translateY(-50%);\n    padding: 40px;\n    overflow: hidden;\n    transition: max-height 0.2s ease-in-out, min-height 0.2s ease-in-out;\n    width: 600px;\n    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);\n    color: var(--color);\n    background-color: var(--background-color);\n  }\n  :host .pop-up dialog .button-wrapper {\n    margin-top: 1em;\n  }\n  :host .pop-up dialog .close-button {\n    top: 14px;\n    right: 14px;\n    width: 25px;\n  }\n  :host .pop-up dialog[data-animate=up] {\n    animation: fade-up 0.3s ease-in-out;\n  }\n  :host .pop-up[data-gallery=true] dialog {\n    padding: 0;\n  }\n  :host .inner-wrapper {\n    width: 100%;\n    float: left;\n    position: relative;\n    display: flex;\n    align-items: center;\n    overflow: hidden;\n  }\n  :host .row {\n    display: flex;\n    flex-direction: row;\n    gap: 1em;\n    align-items: flex-start;\n    margin: 0;\n  }\n  :host .column {\n    display: flex;\n    flex: 1 1;\n    flex-direction: column;\n    align-items: flex-start;\n  }\n  @keyframes fade-in {\n    0% {\n      opacity: 0;\n    }\n    100% {\n      opacity: 1;\n    }\n  }\n  @keyframes fade-up {\n    0% {\n      opacity: 0;\n      transform: translateY(0);\n    }\n    100% {\n      opacity: 1;\n      transform: translateY(-50%);\n    }\n  }\n  @media only screen and (width <= 760px) {\n    :host .pop-up .pop-up-element {\n      padding: 25px;\n    }\n    :host .pop-up .pop-up-element .close-button {\n      width: 20px;\n      top: 5px;\n      right: 5px;\n    }\n    :host .row {\n      overflow: auto hidden;\n      scroll-snap-points-x: repeat(100%);\n      scroll-snap-type: x mandatory;\n      flex: 1 1;\n      -webkit-overflow-scrolling: touch;\n      scrollbar-width: none;\n    }\n    :host .row::-webkit-scrollbar {\n      display: none;\n    }\n    :host .column {\n      width: 100%;\n      height: 100%;\n      position: relative;\n      flex: 0 0 100%;\n      scroll-snap-align: start;\n    }\n  }\n  :host .container {\n    display: inline-flex;\n    flex-direction: column;\n    margin-right: 0.5em;\n    margin-top: 0.5em;\n    font-size: 0.9em;\n  }\n  :host .text-label {\n    margin-bottom: 0.5em;\n  }\n  :host .label {\n    position: relative;\n    display: inline-block;\n    width: 3em;\n    height: 1.5em;\n  }\n  :host .label .input {\n    opacity: 0;\n    width: 0;\n    height: 0;\n    margin: 0;\n    padding: 0;\n  }\n  :host .slider {\n    position: absolute;\n    cursor: pointer;\n    inset: 0;\n    border-radius: 1em;\n    border: solid var(--border-width) currentcolor;\n    appearance: none;\n    transition: background-color 0.2s;\n  }\n  :host .slider::before {\n    position: absolute;\n    border-radius: 50%;\n    content: \"\";\n    height: 1em;\n    width: 1em;\n    left: 0.2em;\n    bottom: 0;\n    top: 0;\n    margin: auto;\n    background-color: currentcolor;\n    transition: 0.4s;\n  }\n  :host .input:focus + .slider {\n    box-shadow: 0 0 1px;\n  }\n  :host .input:checked + .slider {\n    background-color: var(--accent-color);\n  }\n  :host .input:checked + .slider::before {\n    transform: translateX(1.4em);\n  }\n  :host .input:disabled + .slider {\n    opacity: 0.5;\n  }\n  :host .menu-button {\n    position: absolute;\n    width: 40px;\n    max-width: 100%;\n    padding: 0;\n    margin: 0;\n    line-height: 0;\n    z-index: 999;\n    cursor: pointer;\n    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;\n    background-color: transparent;\n    display: block;\n    border-color: unset;\n    outline-color: unset;\n  }\n  :host .menu-button .hamburger {\n    width: 100%;\n    display: inline-block;\n    vertical-align: middle;\n  }\n  :host .menu-button .hamburger::before,\n  :host .menu-button .hamburger > span, :host .menu-button .hamburger::after {\n    background-color: currentcolor;\n    border-color: currentcolor;\n    outline-color: currentcolor;\n    display: block;\n    height: 2px;\n    margin: 10px 0;\n    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease-in-out;\n  }\n  :host .menu-button .hamburger::before, :host .menu-button .hamburger::after {\n    content: \"\";\n  }\n  :host .menu-button .hamburger::before {\n    margin-top: 0;\n  }\n  :host .menu-button .hamburger::after {\n    margin-bottom: 0;\n  }\n  :host .menu-button[data-open=true] .hamburger::before {\n    transform: translateY(12px) rotate(135deg);\n  }\n  :host .menu-button[data-open=true] .hamburger > span {\n    transform: translateY(0) rotate(-135deg);\n    opacity: 0;\n  }\n  :host .menu-button[data-open=true] .hamburger::after {\n    transform: translateY(-12px) rotate(-135deg);\n  }\n  :host * {\n    box-sizing: border-box;\n  }\n  :host input,\n  :host textarea,\n  :host button {\n    color: inherit;\n    font-size: inherit;\n    font-family: inherit;\n    font-weight: inherit;\n    border: 0;\n    outline: 0;\n    background-color: transparent;\n  }\n  :host button {\n    background-color: var(--accent-color);\n    transition: transform 0.2s ease-in-out;\n  }\n  :host button,\n  :host input[type=submit],\n  :host input[type=button],\n  :host input[type=reset] {\n    appearance: none;\n  }\n  :host button *,\n  :host input[type=submit] *,\n  :host input[type=button] *,\n  :host input[type=reset] * {\n    pointer-events: none;\n  }\n  :host button:not([disabled]),\n  :host input[type=submit]:not([disabled]),\n  :host input[type=button]:not([disabled]),\n  :host input[type=reset]:not([disabled]) {\n    cursor: pointer;\n  }\n  :host button:hover,\n  :host input[type=submit]:hover,\n  :host input[type=button]:hover,\n  :host input[type=reset]:hover {\n    transform: scale(1.02);\n  }\n  :host a {\n    color: inherit;\n    font-weight: bold;\n    text-decoration: none;\n    position: relative;\n  }\n  :host a::after {\n    content: \"\";\n    border-bottom: solid var(--border-width) var(--accent-color);\n    position: absolute;\n    width: 100%;\n    bottom: 0;\n    left: 0;\n    z-index: -1;\n  }\n  :host a:hover::after {\n    opacity: 0;\n  }\n  :host svg {\n    width: auto;\n    height: auto;\n    display: inline-block;\n  }\n  :host svg path {\n    fill: currentcolor;\n  }\n  :host p {\n    margin: 0;\n    padding: 0.5em 0 0.7em;\n  }\n  :host h1,\n  :host .h1,\n  :host h2,\n  :host .h2,\n  :host h3,\n  :host .h3 {\n    font-weight: bold;\n    font-size: 2.2em;\n    padding: 0;\n    margin: 0;\n    margin-top: 0.5em;\n  }\n  :host h2,\n  :host .h2 {\n    font-size: 1.7em;\n  }\n  :host h3,\n  :host .h3 {\n    font-size: 1.5em;\n  }\n  :host h3 svg,\n  :host .h3 svg {\n    height: 1.2em;\n    display: inline-block;\n    vertical-align: bottom;\n  }\n  :host .icon-cookies {\n    display: flex;\n    margin: 0;\n    padding: 0;\n  }\n}";
 
     const UPDATE_ON_CONNECTED = Symbol('UPDATE_ON_CONNECTED');
     if (isServer()) {
@@ -619,7 +621,7 @@
             setTimeout(()=>{
                 sheet?.insertRule(`:host{--border-width: ${this.borderWidth}px;--font-family: ${this.fontFamily};--color: ${this.color};--background-color: ${this.backgroundColor};--accent-color: ${this.accentColor};}`);
             }, 0);
-            this.debug();
+            this._debug();
         }
         disconnectedCallback() {
             this._removeEventListeners();
@@ -630,7 +632,8 @@
                 'allowRetargeting',
                 'isVisible',
                 'isCustomize',
-                'isSaving'
+                'isSaving',
+                '_text'
             ];
         }
         propertyChangedCallback(name, _oldValue, value) {
@@ -680,6 +683,14 @@
                             this._miniGDPR();
                         }
                         break;
+                    }
+                case '_text':
+                    {
+                        if (api.get('CookieConsent')) {
+                            this._miniGDPR();
+                        } else {
+                            this._cookieWarning();
+                        }
                     }
             }
         }
@@ -778,87 +789,10 @@
         }
         setText(text) {
             if (!isText(text)) {
+                console.warn('Invalid text object');
                 return;
             }
             this._text = text;
-            this.populateText();
-        }
-        populateText() {
-            if (!isText(this._text)) {
-                return;
-            }
-            const cookieWarningText = this.shadow.querySelector('#cookie-warning-text');
-            if (cookieWarningText) {
-                cookieWarningText.innerHTML = `${this._text.header} ${icon}`;
-            }
-            const customizeLabel = this.shadow.querySelector('.customize');
-            if (customizeLabel instanceof HTMLButtonElement) {
-                customizeLabel.ariaLabel = this._text.customize.label;
-                customizeLabel.innerText = this._text.customize.label;
-            }
-            const accept = this.shadow.querySelector('.accept');
-            if (accept instanceof HTMLButtonElement) {
-                accept.ariaLabel = this._text.accept;
-                accept.innerText = this._text.accept;
-            }
-            const acceptAll = this.shadow.querySelector('.accept-all');
-            if (acceptAll instanceof HTMLButtonElement) {
-                acceptAll.ariaLabel = this._text.acceptAll;
-                acceptAll.innerText = this._text.acceptAll;
-            }
-            const settings = this.shadow.querySelector('.settings');
-            if (settings instanceof HTMLElement) {
-                settings.ariaLabel = this._text.settings;
-            }
-            const decline = this.shadow.querySelector('.decline-all');
-            if (decline instanceof HTMLButtonElement) {
-                decline.ariaLabel = this._text.decline;
-                decline.innerText = this._text.decline;
-            }
-            const customizeHeader = this.shadow.querySelector('#customize-header');
-            if (customizeHeader instanceof HTMLSlotElement) {
-                customizeHeader.innerText = this._text.customize.header;
-            }
-            const customizeText = this.shadow.querySelector('#customize-text');
-            if (customizeText instanceof HTMLElement) {
-                customizeText.innerHTML = `${this._text.customize.text}${this.hasRetargeting ? ` ${this._text.customize.retargeting}` : ''}`;
-            }
-            const customizeLink = this.shadow.querySelector('#customize-link');
-            if (customizeLink instanceof HTMLElement) {
-                customizeLink.innerHTML = this._text.customize.link.replace('%URL%', this.privacyPolicyURL || this._text.policyUrl);
-            }
-            const miniGDPR = this.shadow.querySelector('.mini-gdpr');
-            if (miniGDPR instanceof HTMLButtonElement) {
-                miniGDPR.ariaLabel = this._text.miniGDPR;
-            }
-            const functionalLabel = this.shadow.querySelector('[data-name="functional-label"]');
-            if (functionalLabel instanceof HTMLLabelElement) {
-                functionalLabel.innerHTML = this._text.functional.label;
-            }
-            const functionalAria = this.shadow.querySelector('[data-name="functional-aria"]');
-            if (functionalAria instanceof HTMLLabelElement) {
-                functionalAria.ariaLabel = this._text.functional.label;
-            }
-            const statisticalLabel = this.shadow.querySelector('[data-name="allowStatistical-label"]');
-            if (statisticalLabel instanceof HTMLLabelElement) {
-                statisticalLabel.innerHTML = this._text.statistical.label;
-            }
-            const statisticalAria = this.shadow.querySelector('[data-name="allowStatistical-aria"]');
-            if (statisticalAria instanceof HTMLLabelElement) {
-                statisticalAria.ariaLabel = this._text.statistical.label;
-            }
-            const retargetingLabel = this.shadow.querySelector('[data-name="allowRetargeting-label"]');
-            if (retargetingLabel instanceof HTMLLabelElement) {
-                retargetingLabel.innerHTML = this._text.marketing.label;
-            }
-            const retargetingAria = this.shadow.querySelector('[data-name="allowRetargeting-aria"]');
-            if (retargetingAria instanceof HTMLLabelElement) {
-                retargetingAria.ariaLabel = this._text.marketing.label;
-            }
-            const closeButton = this.shadow.querySelector('.close-button');
-            if (closeButton instanceof HTMLButtonElement) {
-                closeButton.ariaLabel = this._text.close;
-            }
         }
         save() {
             const consent = {
@@ -908,14 +842,14 @@
                 this._gTag?.initialize();
             }
             this.save();
-            this.debug();
+            this._debug();
         }
         declineAll() {
             this.isCustomize = false;
             this.isVisible = false;
             this.allowStatistical = false;
             this.allowRetargeting = false;
-            this.debug();
+            this._debug();
             this.save();
         }
         esc({ key }) {
@@ -928,7 +862,7 @@
             this.isVisible = !value;
             this.allowStatistical = !!this.allowStatistical;
             this.allowRetargeting = !!this.allowRetargeting;
-            this.debug();
+            this._debug();
         }
         handleChange({ target }, component) {
             if (target instanceof HTMLInputElement) {
@@ -937,14 +871,14 @@
                     component[name] = checked;
                 }
             }
-            this.debug();
+            this._debug();
         }
         setVisible() {
             api.remove('CookieConsent');
             this.allowStatistical = null;
             this.allowRetargeting = null;
             this.isVisible = true;
-            this.debug();
+            this._debug();
         }
         hideOnScroll() {
             const bcr = document.body.getBoundingClientRect(), mini = this.gdprContainer?.querySelector('.mini-gdpr');
@@ -973,11 +907,11 @@
             styleSheet.replace(css_248z);
             return styleSheet;
         }
-        debug() {
+        _debug() {
             if (process.env.NODE_ENV !== 'development') {
                 return;
             }
-            console.debug({
+            console.debug('For developers: Current cookie values', {
                 customize: this.isCustomize,
                 googleID: this.googleID,
                 retargeting: this.allowRetargeting,
@@ -999,6 +933,7 @@
             this.esc = this.esc.bind(this);
             this.hideOnScroll = this.hideOnScroll.bind(this);
             this.setVisible = this.setVisible.bind(this);
+            this._debug = this._debug.bind(this);
             this._text = getTranslation();
             this.template = document.createElement('template');
             this.shadow = this.attachShadow({

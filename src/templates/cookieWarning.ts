@@ -1,3 +1,4 @@
+import { icon } from '@/templates'
 import type AMCookies from '@/elements/AMCookies'
 
 /**
@@ -7,30 +8,34 @@ export default function cookieWarning(this: AMCookies) {
   if (!this.gdprContainer) {
     return
   }
+
+  const {
+    accept,
+    customize: { label: customizeLabel },
+    header,
+  } = this.getText()
+
   this.gdprContainer.innerHTML = /* HTML */ `<div
+    aria-describedby="cookie-warning-text"
+    aria-labelledby="cookie-warning-text"
+    aria-modal="false"
+    role="dialog"
     class="cookie-container ${this.alignPrompt} ${this.format}-format"
     lang="${document.documentElement.lang}"
   >
     <div class="content">
-      <div
-        aria-describedby="cookie-warning-text"
-        aria-labelledby="cookie-warning-text"
-        aria-modal="false"
-        role="dialog"
-      >
-        <p class="h3" id="cookie-warning-text"></p>
-      </div>
+      <p class="h3" id="cookie-warning-text">${header} ${icon}</p>
       <div class="button-wrapper">
         <button
           class="button gdpr customize"
           style="background-color: transparent"
-        ></button>
-        <button class="button gdpr accept"></button>
+        >
+          ${customizeLabel}
+        </button>
+        <button class="button gdpr accept">${accept}</button>
       </div>
     </div>
   </div>`
-
-  this.populateText()
 
   const acceptAll = this.gdprContainer.querySelector('.accept')
   if (acceptAll instanceof HTMLButtonElement) {

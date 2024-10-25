@@ -8,15 +8,18 @@ export default function miniGDPR(this: AMCookies) {
   if (!this.gdprContainer) {
     return
   }
+
+  const { miniGDPR, settings } = this.getText()
+
   this.gdprContainer.innerHTML = /* HTML */ `<button
     class="mini-gdpr ${this.alignMiniPrompt}"
     data-hide="false"
-    aria-label=""
+    aria-label="${miniGDPR}"
   >
-    <figure class="icon-cookies settings">${icon}</figure>
+    <figure aria-label="${settings}" class="icon-cookies settings">
+      ${icon}
+    </figure>
   </button>`
-
-  this.populateText()
 
   const button = this.gdprContainer.querySelector('.mini-gdpr')
   if (button instanceof HTMLButtonElement) {

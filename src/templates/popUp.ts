@@ -10,12 +10,30 @@ export default function popUp(this: AMCookies) {
     return
   }
 
+  const {
+    acceptAll: acceptAllText,
+    close: closeText,
+    customize: {
+      header: customizeHeaderText,
+      link: customizeLink,
+      retargeting: customizeRetargetingText,
+      text: customizeText,
+    },
+    decline: declineText,
+    functional: { label: functionalLabel },
+    marketing: { label: marketingLabel },
+    policyUrl,
+    save: saveText,
+    statistical: { label: statisticalLabel },
+  } = this.getText()
+
   this.gdprContainer.innerHTML = /* HTML */ `<div
     class="pop-up fade-in"
     lang="${document.documentElement.lang}"
   >
     <dialog open>
       ${uiButton({
+        ariaLabel: closeText,
         className: 'close-button',
         isOpen: true,
       })}
@@ -31,34 +49,42 @@ export default function popUp(this: AMCookies) {
           >
             ${icon}
           </figure>
-          <slot id="customize-header"></slot>
+          ${customizeHeaderText}
         </h3>
-        <p id="customize-text"></p>
-        <p id="customize-link"></p>
+        <p>
+          ${customizeText}${this.hasRetargeting
+            ? ` ${customizeRetargetingText}`
+            : ''}
+        </p>
+        <p>
+          ${customizeLink.replace('%URL%', this.privacyPolicyURL || policyUrl)}
+        </p>
 
         <div id="save-wrapper" class="button-wrapper">
           <button
             class="button gdpr decline-all"
             style="background-color: transparent;"
-          ></button>
-          <button class="button gdpr accept-all"></button>
+          >
+            ${declineText}
+          </button>
+          <button class="button gdpr accept-all">${acceptAllText}</button>
         </div>
 
         <div class="button-wrapper">
           ${this.switchButton({
             disabled: true,
-            label: '#',
+            label: functionalLabel,
             name: 'functional',
             value: true,
           })}
           ${this.switchButton({
-            label: '#', // this.text?.statistical.label,
+            label: statisticalLabel,
             name: 'allowStatistical',
             value: !!this.allowStatistical,
           })}
           ${this.hasRetargeting
             ? this.switchButton({
-                label: '#', // this.text?.marketing.label,
+                label: marketingLabel,
                 name: 'allowRetargeting',
                 value: !!this.allowRetargeting,
               })
@@ -68,12 +94,10 @@ export default function popUp(this: AMCookies) {
     </dialog>
   </div>`
 
-  this.populateText()
-
   const saveWrapper = this.gdprContainer.querySelector('#save-wrapper'),
     saveButton = document.createElement('button')
 
-  // saveButton.innerText = 'Save preferences'
+  saveButton.innerText = saveText
   saveButton.className = 'button gdpr save'
   saveButton.onclick = () => {
     this.save()

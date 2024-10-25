@@ -22,8 +22,8 @@ Example:
   <script src="https://cdn.jsdelivr.net/gh/aarsteinmedia/am-gdpr/build/index.js"></script>
 </head>
 <body>
-  <!-- All content of Body -->
   <am-cookies googleID="<YOUR_GOOGLE_TRACKING_ID>"></am-cookies>
+  <!-- All content of Body -->
 </body>
 ```
 
