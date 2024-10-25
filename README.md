@@ -46,10 +46,10 @@ The component has the following properties:
 Change default text:
 ```javascript
 const amCookies = document.querySelector('am-cookies')
-  amCookies?.setText({
-    ...amCookies.getText(),
-    header: 'Hello world'
-  })
+amCookies?.setText({
+  ...amCookies.getText(),
+  header: 'Hello world'
+})
 ```
 
 
