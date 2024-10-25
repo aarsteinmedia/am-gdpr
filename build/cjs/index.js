@@ -16,25 +16,50 @@ var Cookies = require('js-cookie');
     globalThis.process = { env:env };
 })();
 
-var settings$2="Cookie Settings";var customize$2={header:"Your data, your choice",label:"Customize",text:"We use <strong>functional cookies</strong> for navigation, etc. In addition, we use <strong>statistical cookies</strong> to see how users interact with the website.",retargeting:"We also use <strong>cookies for marketing.</strong>",link:"See our <a href=\"/%URL%\">privacy policy</a>"};var header$2="This website uses";var miniGDPR$3="Cookie settings";var accept$2="I understand";var acceptAll$2="Accept all";var decline$2="Only functional";var close$2="Close";var save$2="Save preferences";var functional$2={label:"Functional"};var statistical$2={label:"Statistical"};var marketing$2={label:"Marketing"};var policyUrl$2="privacy";var en = {settings:settings$2,customize:customize$2,header:header$2,miniGDPR:miniGDPR$3,accept:accept$2,acceptAll:acceptAll$2,decline:decline$2,close:close$2,save:save$2,functional:functional$2,statistical:statistical$2,marketing:marketing$2,policyUrl:policyUrl$2};
+var settings$7="Cookie-Einstellungen";var customize$7={header:"Ihre Daten, Ihre Wahl",label:"Anpassen",text:"Wir verwenden <strong>funktionale Cookies</strong> für die Navigation usw. Außerdem verwenden wir <strong>statistische Cookies</strong>, um zu sehen, wie Benutzer mit der Website interagieren.",retargeting:"Wir verwenden auch <strong>Cookies für Marketing.</strong>",link:"Siehe unsere <a href=\"/%URL%\">Datenschutzrichtlinie</a>"};var header$7="Diese Website verwendet";var miniGDPR$8="Cookie-Einstellungen";var accept$7="Ich verstehe";var acceptAll$7="Alle akzeptieren";var decline$7="Nur funktionale";var close$7="Schließen";var save$7="Einstellungen speichern";var functional$7={label:"Funktional"};var statistical$7={label:"Statistisch"};var marketing$7={label:"Marketing"};var policyUrl$7="datenschutz";var de = {settings:settings$7,customize:customize$7,header:header$7,miniGDPR:miniGDPR$8,accept:accept$7,acceptAll:acceptAll$7,decline:decline$7,close:close$7,save:save$7,functional:functional$7,statistical:statistical$7,marketing:marketing$7,policyUrl:policyUrl$7};
 
-var settings$1="Paramètres des cookies";var customize$1={header:"Vos données, votre choix",label:"Personnaliser",text:"Nous utilisons des <strong>cookies fonctionnels</strong> pour la navigation, etc. De plus, nous utilisons des <strong>cookies statistiques</strong> pour voir comment les utilisateurs interagissent avec le site Web.",retargeting:"Nous utilisons également <strong>des cookies à des fins de marketing.</strong>",link:"Consultez notre <a href=\"/%URL%\">politique de confidentialité</a>"};var header$1="Ce site Web est utilisé";var miniGDPR$2="Paramètres des cookies";var accept$1="Je comprends";var acceptAll$1="Accepter tout";var decline$1="Uniquement fonctionnel";var close$1="Fermer";var save$1="Enregistrer les préférences";var functional$1={label:"Fonctionnel"};var statistical$1={label:"Calcul statistique"};var marketing$1={label:"Commercialisation"};var policyUrl$1="confidentialite";var fr = {settings:settings$1,customize:customize$1,header:header$1,miniGDPR:miniGDPR$2,accept:accept$1,acceptAll:acceptAll$1,decline:decline$1,close:close$1,save:save$1,functional:functional$1,statistical:statistical$1,marketing:marketing$1,policyUrl:policyUrl$1};
+var settings$6="Cookie-indstillinger";var customize$6={header:"Dine data, dit valg",label:"Tilpas",text:"Vi bruger <strong>funktionelle cookies</strong> til navigation osv. Derudover bruger vi <strong>statistiske cookies</strong> til at se, hvordan brugere interagerer med websitet.",retargeting:"Vi bruger også <strong>cookies til marketing.</strong>",link:"Se vores <a href=\"/%URL%\">privatlivspolitik</a>"};var header$6="Denne hjemmeside bruger";var miniGDPR$7="Cookie-indstillinger";var accept$6="Jeg forstår";var acceptAll$6="Accepter alle";var decline$6="Kun funktionelle";var close$6="Luk";var save$6="Gem præferencer";var functional$6={label:"Funktionel"};var statistical$6={label:"Statistisk"};var marketing$6={label:"Marketing"};var policyUrl$6="privatliv";var dk = {settings:settings$6,customize:customize$6,header:header$6,miniGDPR:miniGDPR$7,accept:accept$6,acceptAll:acceptAll$6,decline:decline$6,close:close$6,save:save$6,functional:functional$6,statistical:statistical$6,marketing:marketing$6,policyUrl:policyUrl$6};
 
-var settings="Cookieinnstillinger";var customize={header:"Dine data, ditt valg",label:"Tilpass",text:"Vi bruker <strong>funksjonelle cookies</strong> til navigering og lignende. I tillegg bruker vi <strong>statistiske cookies</strong> til å se hvordan brukere interagerer med nettsiden.",retargeting:"Vi bruker også <strong>cookies til markedsføring.</strong>",link:"Les mer på vår <a href=\"/%URL%\">personvernserklæring</a>"};var header="Denne nettsida bruker";var miniGDPR$1="Innstillinger for cookies";var accept="Jeg forstår";var acceptAll="Godta alle";var decline="Bare funksjonelle";var close="Lukk";var save="Lagre innstillinger";var functional={label:"Funksjonell"};var statistical={label:"Statistisk"};var marketing={label:"Markedsføring"};var policyUrl="personvern";var no = {settings:settings,customize:customize,header:header,miniGDPR:miniGDPR$1,accept:accept,acceptAll:acceptAll,decline:decline,close:close,save:save,functional:functional,statistical:statistical,marketing:marketing,policyUrl:policyUrl};
+var settings$5="Cookie Settings";var customize$5={header:"Your data, your choice",label:"Customize",text:"We use <strong>functional cookies</strong> for navigation, etc. In addition, we use <strong>statistical cookies</strong> to see how users interact with the website.",retargeting:"We also use <strong>cookies for marketing.</strong>",link:"See our <a href=\"/%URL%\">privacy policy</a>"};var header$5="This website uses";var miniGDPR$6="Cookie settings";var accept$5="I understand";var acceptAll$5="Accept all";var decline$5="Only functional";var close$5="Close";var save$5="Save preferences";var functional$5={label:"Functional"};var statistical$5={label:"Statistical"};var marketing$5={label:"Marketing"};var policyUrl$5="privacy";var en = {settings:settings$5,customize:customize$5,header:header$5,miniGDPR:miniGDPR$6,accept:accept$5,acceptAll:acceptAll$5,decline:decline$5,close:close$5,save:save$5,functional:functional$5,statistical:statistical$5,marketing:marketing$5,policyUrl:policyUrl$5};
+
+var settings$4="Configuración de cookies";var customize$4={header:"Tus datos, tu elección",label:"Personalizar",text:"Utilizamos <strong>cookies funcionales</strong> para la navegación, etc. Además, utilizamos <strong>cookies estadísticas</strong> para ver cómo los usuarios interactúan con el sitio web.",retargeting:"También usamos <strong>cookies para marketing.</strong>",link:"Consulta nuestra <a href=\"/%URL%\">política de privacidad</a>"};var header$4="Este sitio web utiliza";var miniGDPR$5="Configuración de cookies";var accept$4="Entiendo";var acceptAll$4="Aceptar todo";var decline$4="Solo funcional";var close$4="Cerrar";var save$4="Guardar preferencias";var functional$4={label:"Funcional"};var statistical$4={label:"Estadístico"};var marketing$4={label:"Marketing"};var policyUrl$4="privacidad";var es = {settings:settings$4,customize:customize$4,header:header$4,miniGDPR:miniGDPR$5,accept:accept$4,acceptAll:acceptAll$4,decline:decline$4,close:close$4,save:save$4,functional:functional$4,statistical:statistical$4,marketing:marketing$4,policyUrl:policyUrl$4};
+
+var settings$3="Evästeasetukset";var customize$3={header:"Tietosi, valintasi",label:"Mukauttaa",text:"Käytämme <strong>toiminnallisia evästeitä</strong> navigointiin jne. Lisäksi käytämme <strong>tilastollisia evästeitä</strong> nähdäksesi, miten käyttäjät vuorovaikuttavat verkkosivuston kanssa.",retargeting:"Käytämme myös <strong>markkinointievästeitä.</strong>",link:"Katso <a href=\"/%URL%\">tietosuojakäytäntömme</a>"};var header$3="Tämä verkkosivusto käyttää";var miniGDPR$4="Evästeasetukset";var accept$3="Ymmärrän";var acceptAll$3="Hyväksy kaikki";var decline$3="Vain toiminnalliset";var close$3="Sulje";var save$3="Tallenna asetukset";var functional$3={label:"Toiminnallinen"};var statistical$3={label:"Tilastollinen"};var marketing$3={label:"Markkinointi"};var policyUrl$3="tietosuoja";var fin = {settings:settings$3,customize:customize$3,header:header$3,miniGDPR:miniGDPR$4,accept:accept$3,acceptAll:acceptAll$3,decline:decline$3,close:close$3,save:save$3,functional:functional$3,statistical:statistical$3,marketing:marketing$3,policyUrl:policyUrl$3};
+
+var settings$2="Paramètres des cookies";var customize$2={header:"Vos données, votre choix",label:"Personnaliser",text:"Nous utilisons des <strong>cookies fonctionnels</strong> pour la navigation, etc. De plus, nous utilisons des <strong>cookies statistiques</strong> pour voir comment les utilisateurs interagissent avec le site Web.",retargeting:"Nous utilisons également <strong>des cookies à des fins de marketing.</strong>",link:"Consultez notre <a href=\"/%URL%\">politique de confidentialité</a>"};var header$2="Ce site Web est utilisé";var miniGDPR$3="Paramètres des cookies";var accept$2="Je comprends";var acceptAll$2="Accepter tout";var decline$2="Uniquement fonctionnel";var close$2="Fermer";var save$2="Enregistrer les préférences";var functional$2={label:"Fonctionnel"};var statistical$2={label:"Calcul statistique"};var marketing$2={label:"Commercialisation"};var policyUrl$2="confidentialite";var fr = {settings:settings$2,customize:customize$2,header:header$2,miniGDPR:miniGDPR$3,accept:accept$2,acceptAll:acceptAll$2,decline:decline$2,close:close$2,save:save$2,functional:functional$2,statistical:statistical$2,marketing:marketing$2,policyUrl:policyUrl$2};
+
+var settings$1="Cookieinnstillinger";var customize$1={header:"Dine data, ditt valg",label:"Tilpass",text:"Vi bruker <strong>funksjonelle cookies</strong> til navigering og lignende. I tillegg bruker vi <strong>statistiske cookies</strong> til å se hvordan brukere interagerer med nettsiden.",retargeting:"Vi bruker også <strong>cookies til markedsføring.</strong>",link:"Les mer på vår <a href=\"/%URL%\">personvernserklæring</a>"};var header$1="Denne nettsida bruker";var miniGDPR$2="Innstillinger for cookies";var accept$1="Jeg forstår";var acceptAll$1="Godta alle";var decline$1="Bare funksjonelle";var close$1="Lukk";var save$1="Lagre innstillinger";var functional$1={label:"Funksjonell"};var statistical$1={label:"Statistisk"};var marketing$1={label:"Markedsføring"};var policyUrl$1="personvern";var no = {settings:settings$1,customize:customize$1,header:header$1,miniGDPR:miniGDPR$2,accept:accept$1,acceptAll:acceptAll$1,decline:decline$1,close:close$1,save:save$1,functional:functional$1,statistical:statistical$1,marketing:marketing$1,policyUrl:policyUrl$1};
+
+var settings="Cookie-inställningar";var customize={header:"Dina uppgifter, ditt val",label:"Anpassa",text:"Vi använder <strong>funktionella cookies</strong> för navigering, etc. Dessutom använder vi <strong>statistiska cookies</strong> för att se hur användare interagerar med webbplatsen.",retargeting:"Vi använder också <strong>cookies för marknadsföring.</strong>",link:"Se vår <a href=\"/%URL%\">integritetspolicy</a>"};var header="Denna webbplats använder";var miniGDPR$1="Cookie-inställningar";var accept="Jag förstår";var acceptAll="Acceptera allt";var decline="Endast funktionella";var close="Stäng";var save="Spara inställningar";var functional={label:"Funktionell"};var statistical={label:"Statistisk"};var marketing={label:"Marknadsföring"};var policyUrl="integritet";var sv = {settings:settings,customize:customize,header:header,miniGDPR:miniGDPR$1,accept:accept,acceptAll:acceptAll,decline:decline,close:close,save:save,functional:functional,statistical:statistical,marketing:marketing,policyUrl:policyUrl};
 
 const languages = [
+    'de',
+    'dk',
     'en',
+    'es',
+    'fin',
     'fr',
     'nb',
-    'no'
+    'no',
+    'sv'
 ], fallbackLanguage = 'en', browserLanguage = document.documentElement.lang.toLowerCase() || fallbackLanguage, translation = languages.find((lang)=>browserLanguage.includes(lang)) || fallbackLanguage;
 function getTranslation() {
     switch(translation){
+        case 'de':
+            return de;
+        case 'dk':
+            return dk;
+        case 'es':
+            return es;
+        case 'fin':
+            return fin;
         case 'fr':
             return fr;
         case 'no':
         case 'nb':
             return no;
+        case 'sv':
+            return sv;
         default:
             return en;
     }
@@ -44,10 +69,8 @@ function cookieWarning() {
     if (!this.gdprContainer) {
         return;
     }
-    this.gdprContainer.innerHTML = `<div class="cookie-container ${this.alignPrompt} ${this.format}-format" lang="${document.documentElement.lang}"><div class="content"><div aria-describedby="cookie-warning-text" aria-labelledby="cookie-warning-text" aria-modal="false" role="dialog"><p class="h3" id="cookie-warning-text"></p></div><div class="button-wrapper"><button class="button gdpr customize" style="background-color:transparent"></button> <button class="button gdpr accept"></button></div></div></div>`;
-    if (this._text) {
-        this.setText(this._text);
-    }
+    const { accept, customize: { label: customizeLabel }, header } = this.getText();
+    this.gdprContainer.innerHTML = `<div aria-describedby="cookie-warning-text" aria-labelledby="cookie-warning-text" aria-modal="false" role="dialog" class="cookie-container ${this.alignPrompt} ${this.format}-format" lang="${document.documentElement.lang}"><div class="content"><p class="h3" id="cookie-warning-text">${header} ${icon}</p><div class="button-wrapper"><button class="button gdpr customize" style="background-color:transparent">${customizeLabel}</button> <button class="button gdpr accept">${accept}</button></div></div></div>`;
     const acceptAll = this.gdprContainer.querySelector('.accept');
     if (acceptAll instanceof HTMLButtonElement) {
         acceptAll.onclick = this.acceptAll;
@@ -66,41 +89,43 @@ function miniGDPR() {
     if (!this.gdprContainer) {
         return;
     }
-    this.gdprContainer.innerHTML = `<button class="mini-gdpr ${this.alignMiniPrompt}" data-hide="false" aria-label="${this._text?.miniGDPR || 'Cookie settings'}"><figure class="icon-cookies settings">${icon}</figure></button>`;
+    const { miniGDPR, settings } = this.getText();
+    this.gdprContainer.innerHTML = `<button class="mini-gdpr ${this.alignMiniPrompt}" data-hide="false" aria-label="${miniGDPR}"><figure aria-label="${settings}" class="icon-cookies settings">${icon}</figure></button>`;
     const button = this.gdprContainer.querySelector('.mini-gdpr');
     if (button instanceof HTMLButtonElement) {
         button.onclick = this.setVisible;
     }
 }
 
-function uiButton({ className, isOpen }) {
-    return `<button class="menu-button ${className}" data-open="${isOpen}"><span class="hamburger"><span></span></span></button>`;
+function uiButton({ ariaLabel, className, isOpen }) {
+    return `<button ariaLabel="${ariaLabel}" class="menu-button ${className}" data-open="${isOpen}"><span class="hamburger"><span></span></span></button>`;
 }
 
 function popUp() {
     if (!this.gdprContainer) {
         return;
     }
+    const { acceptAll: acceptAllText, close: closeText, customize: { header: customizeHeaderText, link: customizeLink, retargeting: customizeRetargetingText, text: customizeText }, decline: declineText, functional: { label: functionalLabel }, marketing: { label: marketingLabel }, policyUrl, save: saveText, statistical: { label: statisticalLabel } } = this.getText();
     this.gdprContainer.innerHTML = `<div class="pop-up fade-in" lang="${document.documentElement.lang}"><dialog open>${uiButton({
+        ariaLabel: closeText,
         className: 'close-button',
         isOpen: true
-    })}<div class="dialog-inner-box" style="display:flex;flex-direction:column"><h3><figure aria-label="cookies" class="icon-cookies" style="display:inline-flex;margin-right:.5em">${icon}</figure><slot id="customize-header"></slot></h3><p id="customize-text"></p><p id="customize-link"></p><div id="save-wrapper" class="button-wrapper"><button class="button gdpr decline-all" style="background-color:transparent"></button> <button class="button gdpr accept-all"></button></div><div class="button-wrapper">${this.switchButton({
+    })}<div class="dialog-inner-box" style="display:flex;flex-direction:column"><h3><figure aria-label="cookies" class="icon-cookies" style="display:inline-flex;margin-right:.5em">${icon}</figure>${customizeHeaderText}</h3><p>${customizeText}${this.hasRetargeting ? ` ${customizeRetargetingText}` : ''}</p><p>${customizeLink.replace('%URL%', this.privacyPolicyURL || policyUrl)}</p><div id="save-wrapper" class="button-wrapper"><button class="button gdpr decline-all" style="background-color:transparent">${declineText}</button> <button class="button gdpr accept-all">${acceptAllText}</button></div><div class="button-wrapper">${this.switchButton({
         disabled: true,
-        label: this._text?.functional.label,
+        label: functionalLabel,
         name: 'functional',
         value: true
     })} ${this.switchButton({
-        label: this._text?.statistical.label,
+        label: statisticalLabel,
         name: 'allowStatistical',
         value: !!this.allowStatistical
     })} ${this.hasRetargeting ? this.switchButton({
-        label: this._text?.marketing.label,
+        label: marketingLabel,
         name: 'allowRetargeting',
         value: !!this.allowRetargeting
     }) : ''}</div></div></dialog></div>`;
-    this.setText(this._text);
     const saveWrapper = this.gdprContainer.querySelector('#save-wrapper'), saveButton = document.createElement('button');
-    saveButton.innerText = this._text?.save ?? 'Save preferences';
+    saveButton.innerText = saveText;
     saveButton.className = 'button gdpr save';
     saveButton.onclick = ()=>{
         this.save();
@@ -146,18 +171,6 @@ function popUp() {
     }, 10);
 }
 
-var Align = /*#__PURE__*/ function(Align) {
-    Align["BottomLeft"] = "bottom-left";
-    Align["BottomRight"] = "bottom-right";
-    Align["TopLeft"] = "top-left";
-    Align["TopRight"] = "top-right";
-    return Align;
-}({});
-var Format = /*#__PURE__*/ function(Format) {
-    Format["Banner"] = "banner";
-    Format["Box"] = "box";
-    return Format;
-}({});
 const boolToConsentParams = (bool)=>{
     if (bool === undefined || bool === null) {
         return undefined;
@@ -183,7 +196,12 @@ const boolToConsentParams = (bool)=>{
         security_storage: 'granted',
         wait_for_update: 500
     };
-}, isServer = ()=>!(typeof window !== 'undefined' && window.document), useId = (prefix)=>{
+}, isServer = ()=>!(typeof window !== 'undefined' && window.document), isText = (text)=>{
+    if (!text || typeof text !== 'object' || !('settings' in text) || !('customize' in text) || !('header' in text)) {
+        return false;
+    }
+    return true;
+}, useId = (prefix)=>{
     const s4 = ()=>((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
     return `${`:${s4()}`}-${s4()}`;
 };
@@ -193,7 +211,20 @@ function switchButton({ disabled = false, label, name, value }) {
     return `<div class="container">${label ? `<label class="text-label" for="${id}">${label}</label>` : ''} <label class="label"><input ${value ? 'checked' : ''} class="input" ${disabled ? 'disabled' : ''} id="${id}" name="${name}" type="checkbox" value="${value}"> <span class="slider"></span></label></div>`;
 }
 
-var css_248z = "\n  @keyframes fade-in-up {\n    0% {\n      transform: translateY(1em);\n      opacity: 0;\n    }\n    100% {\n      transform: translateY(0);\n      opacity: 1;\n    }\n  }\n  @keyframes fade-in-down {\n    0% {\n      transform: translateY(-1em);\n      opacity: 0;\n    }\n    100% {\n      transform: translateY(0);\n      opacity: 1;\n    }\n  }\n  @keyframes pop-in-bottom-left {\n    0% {\n      transform: translateY(100%) translateX(-100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-bottom-right {\n    0% {\n      transform: translateY(100%) translateX(100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-top-left {\n    0% {\n      transform: translateY(-100%) translateX(-100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-top-right {\n    0% {\n      transform: translateY(-100%) translateX(100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes fade-in {\n    0% {\n      opacity: 0;\n    }\n    100% {\n      opacity: 1;\n    }\n  }\n  @keyframes fade-up {\n    0% {\n      opacity: 0;\n      transform: translateY(0);\n    }\n    100% {\n      opacity: 1;\n      transform: translateY(-50%);\n    }\n  }:host {\n    font-family: var(--font-family);\n    font-size: 16px;\n    color: var(--color);\n    line-height: 1.3;\n    display: block;\n    width: 100%;\n    height: 100%;\n    cursor: default;\n  }:host *::selection {\n    background-color: var(--color);\n    color: var(--background-color);\n  }:host .cookie-overlay {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    z-index: 99999;\n    background-color: rgba(0, 0, 0, 0.3);\n    backdrop-filter: blur(2px);\n  }:host #cookie-warning-text {\n    margin: 0;\n  }:host .cookie-container {\n    padding: 20px 30px;\n    transform-origin: bottom;\n    align-items: center;\n    display: flex;\n    position: fixed;\n    z-index: 999999;\n    background-color: var(--background-color);\n  }:host .cookie-container .content {\n    display: flex;\n    align-items: center;\n    margin: 0;\n    font-size: 0.9em;\n    gap: 1em;\n  }:host .cookie-container.bottom-left, :host .cookie-container.bottom-right {\n    animation: fade-in-up 0.3s ease-in-out;\n  }:host .cookie-container.top-left, :host .cookie-container.top-right {\n    animation: fade-in-down 0.3s ease-in-out;\n  }:host .cookie-container.box-format {\n    flex-direction: column;\n    border: solid var(--border-width) currentcolor;\n    border-radius: 0.25em;\n  }:host .cookie-container.box-format.bottom-left {\n    left: 30px;\n    bottom: 30px;\n  }:host .cookie-container.box-format.bottom-right {\n    right: 30px;\n    bottom: 30px;\n  }:host .cookie-container.box-format.top-left {\n    left: 30px;\n    top: 30px;\n  }:host .cookie-container.box-format.top-right {\n    right: 30px;\n    top: 30px;\n  }:host .cookie-container.box-format .content {\n    flex-direction: column;\n  }:host .cookie-container.banner-format {\n    flex-direction: row;\n    left: 0;\n    right: 0;\n  }:host .cookie-container.banner-format.bottom-left, :host .cookie-container.banner-format.bottom-right {\n    bottom: 0;\n    border-top: solid var(--border-width) currentcolor;\n  }:host .cookie-container.banner-format.top-left, :host .cookie-container.banner-format.top-right {\n    top: 0;\n    border-bottom: solid var(--border-width) currentcolor;\n  }:host .cookie-container.banner-format .content {\n    flex-direction: row;\n    justify-content: space-between;\n    width: 100%;\n  }:host .button {\n    border: solid var(--border-width) currentcolor;\n    font-size: 0.9em;\n    line-height: 0.9;\n    font-weight: bold;\n    padding: 0 15px;\n    height: calc(1em + 20px);\n    margin: 0;\n    border-radius: 1.5em;\n    display: inline-flex;\n    align-items: center;\n  }:host .button-wrapper {\n    display: flex;\n    gap: 0.5em;\n  }:host .mini-gdpr {\n    position: fixed;\n    width: 40px;\n    height: 40px;\n    z-index: 99999;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: transform 0.2s ease-in-out;\n  }:host .mini-gdpr.bottom-left, :host .mini-gdpr.bottom-right {\n    bottom: 0;\n    border-top: solid var(--border-width);\n  }:host .mini-gdpr.top-left, :host .mini-gdpr.top-right {\n    top: 0;\n    border-bottom: solid var(--border-width);\n  }:host .mini-gdpr.bottom-left, :host .mini-gdpr.top-left {\n    left: 0;\n    border-right: solid var(--border-width);\n  }:host .mini-gdpr.bottom-right, :host .mini-gdpr.top-right {\n    right: 0;\n    border-left: solid var(--border-width);\n  }:host .mini-gdpr.bottom-left {\n    border-radius: 0 66% 0 0;\n    transform-origin: bottom left;\n    animation: pop-in-bottom-left 0.3s ease-in-out;\n  }:host .mini-gdpr.bottom-left[data-hide=true] {\n    transform: translateY(100%) translateX(-100%);\n  }:host .mini-gdpr.bottom-right {\n    border-radius: 66% 0 0;\n    transform-origin: bottom right;\n    animation: pop-in-bottom-right 0.3s ease-in-out;\n  }:host .mini-gdpr.bottom-right[data-hide=true] {\n    transform: translateY(100%) translateX(100%);\n  }:host .mini-gdpr.top-left {\n    border-radius: 0 0 66%;\n    transform-origin: top left;\n    animation: pop-in-top-left 0.3s ease-in-out;\n  }:host .mini-gdpr.top-left[data-hide=true] {\n    transform: translateY(-100%) translateX(-100%);\n  }:host .mini-gdpr.top-right {\n    border-radius: 0 0 0 66%;\n    transform-origin: top right;\n    animation: pop-in-top-right 0.3s ease-in-out;\n  }:host .mini-gdpr.top-right[data-hide=true] {\n    transform: translateY(-100%) translateX(100%);\n  }:host .mini-gdpr svg {\n    height: 1em;\n  }:host .mini-gdpr:hover, :host .mini-gdpr:active {\n    transform: scale(1.1);\n  }@media only screen and (width <= 760px) {\n    :host .cookie-container {\n      padding: 15px;\n    }\n    :host .cookie-container.box-format {\n      left: 20px;\n      right: 20px;\n    }\n    :host .cookie-container.banner-format .content {\n      flex-direction: column;\n    }\n    :host .cookie-container.banner-format.top-left, :host .cookie-container.banner-format.top-right {\n      padding-bottom: 10px;\n    }\n    :host .cookie-container.banner-format.bottom-left, :host .cookie-container.banner-format.bottom-right {\n      padding-top: 10px;\n    }\n  }:host .pop-up {\n    position: fixed;\n    width: 100vw;\n    height: 100vh;\n    top: 0;\n    left: 0;\n    overflow: hidden;\n    z-index: 999999;\n    animation-duration: 0.4s;\n    animation-name: fade-in;\n    background-color: rgba(0, 0, 0, 0.3);\n  }:host .pop-up dialog {\n    position: absolute;\n    height: 90%;\n    max-width: 90%;\n    min-height: 0;\n    max-height: 0;\n    border-radius: 0.25em;\n    border: solid var(--border-width) currentcolor;\n    left: 0;\n    right: 0;\n    margin: auto;\n    top: 50%;\n    transform: translateY(-50%);\n    padding: 40px;\n    overflow: hidden;\n    transition: max-height 0.2s ease-in-out, min-height 0.2s ease-in-out;\n    width: 600px;\n    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);\n    color: var(--color);\n    background-color: var(--background-color);\n  }:host .pop-up dialog .close-button {\n    top: 14px;\n    right: 14px;\n    width: 25px;\n  }:host .pop-up dialog[data-animate=up] {\n    animation: fade-up 0.3s ease-in-out;\n  }:host .pop-up[data-gallery=true] dialog {\n    padding: 0;\n  }:host .inner-wrapper {\n    width: 100%;\n    float: left;\n    position: relative;\n    display: flex;\n    align-items: center;\n    overflow: hidden;\n  }:host .row {\n    display: flex;\n    flex-direction: row;\n    gap: 1em;\n    align-items: flex-start;\n    margin: 0;\n  }:host .column {\n    display: flex;\n    flex: 1 1;\n    flex-direction: column;\n    align-items: flex-start;\n  }@media only screen and (width <= 760px) {\n    :host .pop-up .pop-up-element {\n      padding: 25px;\n    }\n    :host .pop-up .pop-up-element .close-button {\n      width: 20px;\n      top: 5px;\n      right: 5px;\n    }\n    :host .row {\n      overflow: auto hidden;\n      scroll-snap-points-x: repeat(100%);\n      scroll-snap-type: x mandatory;\n      flex: 1 1;\n      -webkit-overflow-scrolling: touch;\n      scrollbar-width: none;\n    }\n    :host .row::-webkit-scrollbar {\n      display: none;\n    }\n    :host .column {\n      width: 100%;\n      height: 100%;\n      position: relative;\n      flex: 0 0 100%;\n      scroll-snap-align: start;\n    }\n  }:host .container {\n    display: inline-flex;\n    flex-direction: column;\n    margin-right: 0.5em;\n    margin-top: 0.5em;\n    font-size: 0.9em;\n  }:host .text-label {\n    margin-bottom: 0.5em;\n  }:host .label {\n    position: relative;\n    display: inline-block;\n    width: 3em;\n    height: 1.5em;\n  }:host .label .input {\n    opacity: 0;\n    width: 0;\n    height: 0;\n    margin: 0;\n    padding: 0;\n  }:host .slider {\n    position: absolute;\n    cursor: pointer;\n    inset: 0;\n    border-radius: 1em;\n    border: solid var(--border-width) currentcolor;\n    appearance: none;\n    transition: background-color 0.2s;\n  }:host .slider::before {\n    position: absolute;\n    border-radius: 50%;\n    content: \"\";\n    height: 1em;\n    width: 1em;\n    left: 0.2em;\n    bottom: 0;\n    top: 0;\n    margin: auto;\n    background-color: currentcolor;\n    transition: 0.4s;\n  }:host .input:focus + .slider {\n    box-shadow: 0 0 1px;\n  }:host .input:checked + .slider {\n    background-color: var(--accent-color);\n  }:host .input:checked + .slider::before {\n    transform: translateX(1.4em);\n  }:host .input:disabled + .slider {\n    opacity: 0.5;\n  }:host .menu-button {\n    position: absolute;\n    width: 40px;\n    max-width: 100%;\n    padding: 0;\n    margin: 0;\n    line-height: 0;\n    z-index: 999;\n    cursor: pointer;\n    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;\n    background-color: transparent;\n    display: block;\n    border-color: unset;\n    outline-color: unset;\n  }:host .menu-button .hamburger {\n    width: 100%;\n    display: inline-block;\n    vertical-align: middle;\n  }:host .menu-button .hamburger::before,\n  :host .menu-button .hamburger > span,\n  :host .menu-button .hamburger::after {\n    background-color: currentcolor;\n    border-color: currentcolor;\n    outline-color: currentcolor;\n    display: block;\n    height: 2px;\n    margin: 10px 0;\n    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease-in-out;\n  }:host .menu-button .hamburger::before, :host .menu-button .hamburger::after {\n    content: \"\";\n  }:host .menu-button .hamburger::before {\n    margin-top: 0;\n  }:host .menu-button .hamburger::after {\n    margin-bottom: 0;\n  }:host .menu-button[data-open=true] .hamburger::before {\n    transform: translateY(12px) rotate(135deg);\n  }:host .menu-button[data-open=true] .hamburger > span {\n    transform: translateY(0) rotate(-135deg);\n    opacity: 0;\n  }:host .menu-button[data-open=true] .hamburger::after {\n    transform: translateY(-12px) rotate(-135deg);\n  }:host * {\n    box-sizing: border-box;\n  }:host input,\n  :host textarea,\n  :host button {\n    color: inherit;\n    font-size: inherit;\n    font-family: inherit;\n    font-weight: inherit;\n    border: 0;\n    outline: 0;\n    background-color: transparent;\n  }:host button {\n    background-color: var(--accent-color);\n    transition: transform 0.2s ease-in-out;\n  }:host button,\n  :host input[type=submit],\n  :host input[type=button],\n  :host input[type=reset] {\n    appearance: none;\n  }:host button *,\n  :host input[type=submit] *,\n  :host input[type=button] *,\n  :host input[type=reset] * {\n    pointer-events: none;\n  }:host button:not([disabled]),\n  :host input[type=submit]:not([disabled]),\n  :host input[type=button]:not([disabled]),\n  :host input[type=reset]:not([disabled]) {\n    cursor: pointer;\n  }:host button:hover,\n  :host input[type=submit]:hover,\n  :host input[type=button]:hover,\n  :host input[type=reset]:hover {\n    transform: scale(1.02);\n  }:host a {\n    color: inherit;\n    font-weight: bold;\n    text-decoration: none;\n    position: relative;\n  }:host a::after {\n    content: \"\";\n    border-bottom: solid var(--border-width) var(--accent-color);\n    position: absolute;\n    width: 100%;\n    bottom: 0;\n    left: 0;\n    z-index: -1;\n  }:host a:hover::after {\n    opacity: 0;\n  }:host svg {\n    width: auto;\n    height: auto;\n    display: inline-block;\n  }:host svg path {\n    fill: currentcolor;\n  }:host p {\n    margin: 0;\n    padding: 0.5em 0 0.7em;\n  }:host h1,\n  :host .h1,\n  :host h2,\n  :host .h2,\n  :host h3,\n  :host .h3 {\n    font-weight: bold;\n    font-size: 2.2em;\n    padding: 0;\n    margin: 0;\n    margin-top: 0.5em;\n  }:host h2,\n  :host .h2 {\n    font-size: 1.7em;\n  }:host h3,\n  :host .h3 {\n    font-size: 1.5em;\n  }:host h3 svg,\n  :host .h3 svg {\n    height: 1.2em;\n    display: inline-block;\n    vertical-align: bottom;\n  }:host .icon-cookies {\n    display: flex;\n    margin: 0;\n    padding: 0;\n  }";
+var Align = /*#__PURE__*/ function(Align) {
+    Align["BottomLeft"] = "bottom-left";
+    Align["BottomRight"] = "bottom-right";
+    Align["TopLeft"] = "top-left";
+    Align["TopRight"] = "top-right";
+    return Align;
+}({});
+var Format = /*#__PURE__*/ function(Format) {
+    Format["Banner"] = "banner";
+    Format["Box"] = "box";
+    return Format;
+}({});
+
+var css_248z = "\n  @keyframes fade-in-up {\n    0% {\n      transform: translateY(1em);\n      opacity: 0;\n    }\n    100% {\n      transform: translateY(0);\n      opacity: 1;\n    }\n  }\n  @keyframes fade-in-down {\n    0% {\n      transform: translateY(-1em);\n      opacity: 0;\n    }\n    100% {\n      transform: translateY(0);\n      opacity: 1;\n    }\n  }\n  @keyframes pop-in-bottom-left {\n    0% {\n      transform: translateY(100%) translateX(-100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-bottom-right {\n    0% {\n      transform: translateY(100%) translateX(100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-top-left {\n    0% {\n      transform: translateY(-100%) translateX(-100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-top-right {\n    0% {\n      transform: translateY(-100%) translateX(100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes fade-in {\n    0% {\n      opacity: 0;\n    }\n    100% {\n      opacity: 1;\n    }\n  }\n  @keyframes fade-up {\n    0% {\n      opacity: 0;\n      transform: translateY(0);\n    }\n    100% {\n      opacity: 1;\n      transform: translateY(-50%);\n    }\n  }:host {\n    font-family: var(--font-family);\n    font-size: 16px;\n    color: var(--color);\n    line-height: 1.3;\n    display: block;\n    width: 100%;\n    height: 100%;\n    cursor: default;\n  }:host *::selection {\n    background-color: var(--color);\n    color: var(--background-color);\n  }:host .cookie-overlay {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    z-index: 99999;\n    background-color: rgba(0, 0, 0, 0.3);\n    backdrop-filter: blur(2px);\n  }:host #cookie-warning-text {\n    margin: 0;\n    display: inline-flex;\n    gap: 0.5rem;\n    align-items: baseline;\n  }:host .cookie-container {\n    padding: 20px 30px;\n    transform-origin: bottom;\n    align-items: center;\n    display: flex;\n    position: fixed;\n    z-index: 999999;\n    background-color: var(--background-color);\n  }:host .cookie-container .content {\n    display: flex;\n    margin: 0;\n    font-size: 0.9em;\n    gap: 1em;\n  }:host .cookie-container.bottom-left, :host .cookie-container.bottom-right {\n    animation: fade-in-up 0.3s ease-in-out;\n  }:host .cookie-container.top-left, :host .cookie-container.top-right {\n    animation: fade-in-down 0.3s ease-in-out;\n  }:host .cookie-container.box-format {\n    flex-direction: column;\n    border: solid var(--border-width) currentcolor;\n    border-radius: 0.25em;\n  }:host .cookie-container.box-format.bottom-left {\n    left: 30px;\n    bottom: 30px;\n  }:host .cookie-container.box-format.bottom-right {\n    right: 30px;\n    bottom: 30px;\n  }:host .cookie-container.box-format.top-left {\n    left: 30px;\n    top: 30px;\n  }:host .cookie-container.box-format.top-right {\n    right: 30px;\n    top: 30px;\n  }:host .cookie-container.box-format .content {\n    flex-direction: column;\n  }:host .cookie-container.banner-format {\n    flex-direction: row;\n    left: 0;\n    right: 0;\n  }:host .cookie-container.banner-format.bottom-left, :host .cookie-container.banner-format.bottom-right {\n    bottom: 0;\n    border-top: solid var(--border-width) currentcolor;\n  }:host .cookie-container.banner-format.top-left, :host .cookie-container.banner-format.top-right {\n    top: 0;\n    border-bottom: solid var(--border-width) currentcolor;\n  }:host .cookie-container.banner-format .content {\n    flex-direction: row;\n    justify-content: space-between;\n    width: 100%;\n  }:host .button {\n    border: solid var(--border-width) currentcolor;\n    font-size: 0.9em;\n    line-height: 0.9;\n    font-weight: bold;\n    padding: 0 15px;\n    height: calc(1em + 20px);\n    margin: 0;\n    border-radius: 1.5em;\n    display: inline-flex;\n    align-items: center;\n  }:host .button-wrapper {\n    display: flex;\n    gap: 0.5em;\n  }:host .mini-gdpr {\n    position: fixed;\n    width: 40px;\n    height: 40px;\n    z-index: 99999;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: transform 0.2s ease-in-out;\n  }:host .mini-gdpr.bottom-left, :host .mini-gdpr.bottom-right {\n    bottom: 0;\n    border-top: solid var(--border-width);\n  }:host .mini-gdpr.top-left, :host .mini-gdpr.top-right {\n    top: 0;\n    border-bottom: solid var(--border-width);\n  }:host .mini-gdpr.bottom-left, :host .mini-gdpr.top-left {\n    left: 0;\n    border-right: solid var(--border-width);\n  }:host .mini-gdpr.bottom-right, :host .mini-gdpr.top-right {\n    right: 0;\n    border-left: solid var(--border-width);\n  }:host .mini-gdpr.bottom-left {\n    border-radius: 0 66% 0 0;\n    transform-origin: bottom left;\n    animation: pop-in-bottom-left 0.3s ease-in-out;\n  }:host .mini-gdpr.bottom-left[data-hide=true] {\n    transform: translateY(100%) translateX(-100%);\n  }:host .mini-gdpr.bottom-right {\n    border-radius: 66% 0 0;\n    transform-origin: bottom right;\n    animation: pop-in-bottom-right 0.3s ease-in-out;\n  }:host .mini-gdpr.bottom-right[data-hide=true] {\n    transform: translateY(100%) translateX(100%);\n  }:host .mini-gdpr.top-left {\n    border-radius: 0 0 66%;\n    transform-origin: top left;\n    animation: pop-in-top-left 0.3s ease-in-out;\n  }:host .mini-gdpr.top-left[data-hide=true] {\n    transform: translateY(-100%) translateX(-100%);\n  }:host .mini-gdpr.top-right {\n    border-radius: 0 0 0 66%;\n    transform-origin: top right;\n    animation: pop-in-top-right 0.3s ease-in-out;\n  }:host .mini-gdpr.top-right[data-hide=true] {\n    transform: translateY(-100%) translateX(100%);\n  }:host .mini-gdpr svg {\n    height: 1em;\n  }:host .mini-gdpr:hover, :host .mini-gdpr:active {\n    transform: scale(1.1);\n  }@media only screen and (width <= 760px) {\n    :host .cookie-container {\n      padding: 15px;\n    }\n    :host .cookie-container.box-format {\n      left: 20px;\n      right: 20px;\n    }\n    :host .cookie-container.banner-format .content {\n      flex-direction: column;\n    }\n    :host .cookie-container.banner-format.top-left, :host .cookie-container.banner-format.top-right {\n      padding-bottom: 10px;\n    }\n    :host .cookie-container.banner-format.bottom-left, :host .cookie-container.banner-format.bottom-right {\n      padding-top: 10px;\n    }\n  }:host .pop-up {\n    position: fixed;\n    width: 100vw;\n    height: 100vh;\n    top: 0;\n    left: 0;\n    overflow: hidden;\n    z-index: 999999;\n    animation-duration: 0.4s;\n    animation-name: fade-in;\n    background-color: rgba(0, 0, 0, 0.3);\n  }:host .pop-up dialog {\n    position: absolute;\n    height: 90%;\n    max-width: 90%;\n    min-height: 0;\n    max-height: 0;\n    border-radius: 0.25em;\n    border: solid var(--border-width) currentcolor;\n    left: 0;\n    right: 0;\n    margin: auto;\n    top: 50%;\n    transform: translateY(-50%);\n    padding: 40px;\n    overflow: hidden;\n    transition: max-height 0.2s ease-in-out, min-height 0.2s ease-in-out;\n    width: 600px;\n    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);\n    color: var(--color);\n    background-color: var(--background-color);\n  }:host .pop-up dialog .button-wrapper {\n    margin-top: 1em;\n  }:host .pop-up dialog .close-button {\n    top: 14px;\n    right: 14px;\n    width: 25px;\n  }:host .pop-up dialog[data-animate=up] {\n    animation: fade-up 0.3s ease-in-out;\n  }:host .pop-up[data-gallery=true] dialog {\n    padding: 0;\n  }:host .inner-wrapper {\n    width: 100%;\n    float: left;\n    position: relative;\n    display: flex;\n    align-items: center;\n    overflow: hidden;\n  }:host .row {\n    display: flex;\n    flex-direction: row;\n    gap: 1em;\n    align-items: flex-start;\n    margin: 0;\n  }:host .column {\n    display: flex;\n    flex: 1 1;\n    flex-direction: column;\n    align-items: flex-start;\n  }@media only screen and (width <= 760px) {\n    :host .pop-up .pop-up-element {\n      padding: 25px;\n    }\n    :host .pop-up .pop-up-element .close-button {\n      width: 20px;\n      top: 5px;\n      right: 5px;\n    }\n    :host .row {\n      overflow: auto hidden;\n      scroll-snap-points-x: repeat(100%);\n      scroll-snap-type: x mandatory;\n      flex: 1 1;\n      -webkit-overflow-scrolling: touch;\n      scrollbar-width: none;\n    }\n    :host .row::-webkit-scrollbar {\n      display: none;\n    }\n    :host .column {\n      width: 100%;\n      height: 100%;\n      position: relative;\n      flex: 0 0 100%;\n      scroll-snap-align: start;\n    }\n  }:host .container {\n    display: inline-flex;\n    flex-direction: column;\n    margin-right: 0.5em;\n    margin-top: 0.5em;\n    font-size: 0.9em;\n  }:host .text-label {\n    margin-bottom: 0.5em;\n  }:host .label {\n    position: relative;\n    display: inline-block;\n    width: 3em;\n    height: 1.5em;\n  }:host .label .input {\n    opacity: 0;\n    width: 0;\n    height: 0;\n    margin: 0;\n    padding: 0;\n  }:host .slider {\n    position: absolute;\n    cursor: pointer;\n    inset: 0;\n    border-radius: 1em;\n    border: solid var(--border-width) currentcolor;\n    appearance: none;\n    transition: background-color 0.2s;\n  }:host .slider::before {\n    position: absolute;\n    border-radius: 50%;\n    content: \"\";\n    height: 1em;\n    width: 1em;\n    left: 0.2em;\n    bottom: 0;\n    top: 0;\n    margin: auto;\n    background-color: currentcolor;\n    transition: 0.4s;\n  }:host .input:focus + .slider {\n    box-shadow: 0 0 1px;\n  }:host .input:checked + .slider {\n    background-color: var(--accent-color);\n  }:host .input:checked + .slider::before {\n    transform: translateX(1.4em);\n  }:host .input:disabled + .slider {\n    opacity: 0.5;\n  }:host .menu-button {\n    position: absolute;\n    width: 40px;\n    max-width: 100%;\n    padding: 0;\n    margin: 0;\n    line-height: 0;\n    z-index: 999;\n    cursor: pointer;\n    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;\n    background-color: transparent;\n    display: block;\n    border-color: unset;\n    outline-color: unset;\n  }:host .menu-button .hamburger {\n    width: 100%;\n    display: inline-block;\n    vertical-align: middle;\n  }:host .menu-button .hamburger::before,\n  :host .menu-button .hamburger > span,\n  :host .menu-button .hamburger::after {\n    background-color: currentcolor;\n    border-color: currentcolor;\n    outline-color: currentcolor;\n    display: block;\n    height: 2px;\n    margin: 10px 0;\n    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease-in-out;\n  }:host .menu-button .hamburger::before, :host .menu-button .hamburger::after {\n    content: \"\";\n  }:host .menu-button .hamburger::before {\n    margin-top: 0;\n  }:host .menu-button .hamburger::after {\n    margin-bottom: 0;\n  }:host .menu-button[data-open=true] .hamburger::before {\n    transform: translateY(12px) rotate(135deg);\n  }:host .menu-button[data-open=true] .hamburger > span {\n    transform: translateY(0) rotate(-135deg);\n    opacity: 0;\n  }:host .menu-button[data-open=true] .hamburger::after {\n    transform: translateY(-12px) rotate(-135deg);\n  }:host * {\n    box-sizing: border-box;\n  }:host input,\n  :host textarea,\n  :host button {\n    color: inherit;\n    font-size: inherit;\n    font-family: inherit;\n    font-weight: inherit;\n    border: 0;\n    outline: 0;\n    background-color: transparent;\n  }:host button {\n    background-color: var(--accent-color);\n    transition: transform 0.2s ease-in-out;\n  }:host button,\n  :host input[type=submit],\n  :host input[type=button],\n  :host input[type=reset] {\n    appearance: none;\n  }:host button *,\n  :host input[type=submit] *,\n  :host input[type=button] *,\n  :host input[type=reset] * {\n    pointer-events: none;\n  }:host button:not([disabled]),\n  :host input[type=submit]:not([disabled]),\n  :host input[type=button]:not([disabled]),\n  :host input[type=reset]:not([disabled]) {\n    cursor: pointer;\n  }:host button:hover,\n  :host input[type=submit]:hover,\n  :host input[type=button]:hover,\n  :host input[type=reset]:hover {\n    transform: scale(1.02);\n  }:host a {\n    color: inherit;\n    font-weight: bold;\n    text-decoration: none;\n    position: relative;\n  }:host a::after {\n    content: \"\";\n    border-bottom: solid var(--border-width) var(--accent-color);\n    position: absolute;\n    width: 100%;\n    bottom: 0;\n    left: 0;\n    z-index: -1;\n  }:host a:hover::after {\n    opacity: 0;\n  }:host svg {\n    width: auto;\n    height: auto;\n    display: inline-block;\n  }:host svg path {\n    fill: currentcolor;\n  }:host p {\n    margin: 0;\n    padding: 0.5em 0 0.7em;\n  }:host h1,\n  :host .h1,\n  :host h2,\n  :host .h2,\n  :host h3,\n  :host .h3 {\n    font-weight: bold;\n    font-size: 2.2em;\n    padding: 0;\n    margin: 0;\n    margin-top: 0.5em;\n  }:host h2,\n  :host .h2 {\n    font-size: 1.7em;\n  }:host h3,\n  :host .h3 {\n    font-size: 1.5em;\n  }:host h3 svg,\n  :host .h3 svg {\n    height: 1.2em;\n    display: inline-block;\n    vertical-align: bottom;\n  }:host .icon-cookies {\n    display: flex;\n    margin: 0;\n    padding: 0;\n  }";
 
 const UPDATE_ON_CONNECTED = Symbol('UPDATE_ON_CONNECTED');
 if (isServer()) {
@@ -418,7 +449,7 @@ let TikTokPixel = class TikTokPixel {
     }
 };
 
-let AMGDPR = class AMGDPR extends EnhancedElement {
+let AMCookies = class AMCookies extends EnhancedElement {
     connectedCallback() {
         super.connectedCallback();
         this.render();
@@ -433,7 +464,6 @@ let AMGDPR = class AMGDPR extends EnhancedElement {
         } else {
             this._miniGDPR();
         }
-        this._text = getTranslation();
         if (this.googleID?.startsWith('GTM-')) {
             this._gtm = new GTM({
                 consentParams: getConsent(),
@@ -485,7 +515,7 @@ let AMGDPR = class AMGDPR extends EnhancedElement {
         setTimeout(()=>{
             sheet?.insertRule(`:host{--border-width: ${this.borderWidth}px;--font-family: ${this.fontFamily};--color: ${this.color};--background-color: ${this.backgroundColor};--accent-color: ${this.accentColor};}`);
         }, 0);
-        this.debug();
+        this._debug();
     }
     disconnectedCallback() {
         this._removeEventListeners();
@@ -496,7 +526,8 @@ let AMGDPR = class AMGDPR extends EnhancedElement {
             'allowRetargeting',
             'isVisible',
             'isCustomize',
-            'isSaving'
+            'isSaving',
+            '_text'
         ];
     }
     propertyChangedCallback(name, _oldValue, value) {
@@ -546,6 +577,14 @@ let AMGDPR = class AMGDPR extends EnhancedElement {
                         this._miniGDPR();
                     }
                     break;
+                }
+            case '_text':
+                {
+                    if (Cookies.get('CookieConsent')) {
+                        this._miniGDPR();
+                    } else {
+                        this._cookieWarning();
+                    }
                 }
         }
     }
@@ -639,54 +678,15 @@ let AMGDPR = class AMGDPR extends EnhancedElement {
     get privacyPolicyURL() {
         return this.getAttribute('privacyPolicyURL');
     }
+    getText() {
+        return this._text || getTranslation();
+    }
     setText(text) {
-        if (!text) {
+        if (!isText(text)) {
+            console.warn('Invalid text object');
             return;
         }
-        const cookieWarningText = this.shadow.querySelector('#cookie-warning-text');
-        if (cookieWarningText) {
-            cookieWarningText.innerHTML = `${text.header} ${icon}`;
-        }
-        const customizeLabel = this.shadow.querySelector('.customize');
-        if (customizeLabel instanceof HTMLButtonElement) {
-            customizeLabel.ariaLabel = text.customize.label;
-            customizeLabel.innerText = text.customize.label;
-        }
-        const accept = this.shadow.querySelector('.accept');
-        if (accept instanceof HTMLButtonElement) {
-            accept.ariaLabel = text.accept;
-            accept.innerText = text.accept;
-        }
-        const acceptAll = this.shadow.querySelector('.accept-all');
-        if (acceptAll instanceof HTMLButtonElement) {
-            acceptAll.ariaLabel = text.acceptAll;
-            acceptAll.innerText = text.acceptAll;
-        }
-        const settings = this.shadow.querySelector('.settings');
-        if (settings instanceof HTMLElement) {
-            settings.ariaLabel = text.settings;
-        }
-        const decline = this.shadow.querySelector('.decline-all');
-        if (decline instanceof HTMLButtonElement) {
-            decline.ariaLabel = text.decline;
-            decline.innerText = text.decline;
-        }
-        const customizeHeader = this.shadow.querySelector('#customize-header');
-        if (customizeHeader instanceof HTMLSlotElement) {
-            customizeHeader.innerText = text.customize.header;
-        }
-        const customizeText = this.shadow.querySelector('#customize-text');
-        if (customizeText instanceof HTMLElement) {
-            customizeText.innerHTML = `${text.customize.text}${this.hasRetargeting ? ` ${text.customize.retargeting}` : ''}`;
-        }
-        const customizeLink = this.shadow.querySelector('#customize-link');
-        if (customizeLink instanceof HTMLElement) {
-            customizeLink.innerHTML = text.customize.link.replace('%URL%', this.privacyPolicyURL || text.policyUrl);
-        }
-        const miniGDPR = this.shadow.querySelector('.mini-gdpr');
-        if (miniGDPR instanceof HTMLButtonElement) {
-            miniGDPR.ariaLabel = text.miniGDPR;
-        }
+        this._text = text;
     }
     save() {
         const consent = {
@@ -736,17 +736,14 @@ let AMGDPR = class AMGDPR extends EnhancedElement {
             this._gTag?.initialize();
         }
         this.save();
-        this.debug();
+        this._debug();
     }
     declineAll() {
         this.isCustomize = false;
         this.isVisible = false;
         this.allowStatistical = false;
         this.allowRetargeting = false;
-        this.debug();
-        if (!!window.dataLayer || !!window.google_tag_data) {
-            location.reload();
-        }
+        this._debug();
         this.save();
     }
     esc({ key }) {
@@ -759,7 +756,7 @@ let AMGDPR = class AMGDPR extends EnhancedElement {
         this.isVisible = !value;
         this.allowStatistical = !!this.allowStatistical;
         this.allowRetargeting = !!this.allowRetargeting;
-        this.debug();
+        this._debug();
     }
     handleChange({ target }, component) {
         if (target instanceof HTMLInputElement) {
@@ -768,14 +765,14 @@ let AMGDPR = class AMGDPR extends EnhancedElement {
                 component[name] = checked;
             }
         }
-        this.debug();
+        this._debug();
     }
     setVisible() {
         Cookies.remove('CookieConsent');
         this.allowStatistical = null;
         this.allowRetargeting = null;
         this.isVisible = true;
-        this.debug();
+        this._debug();
     }
     hideOnScroll() {
         const bcr = document.body.getBoundingClientRect(), mini = this.gdprContainer?.querySelector('.mini-gdpr');
@@ -804,11 +801,11 @@ let AMGDPR = class AMGDPR extends EnhancedElement {
         styleSheet.replace(css_248z);
         return styleSheet;
     }
-    debug() {
+    _debug() {
         if (process.env.NODE_ENV !== 'development') {
             return;
         }
-        console.debug({
+        console.debug('For developers: Current cookie values', {
             customize: this.isCustomize,
             googleID: this.googleID,
             retargeting: this.allowRetargeting,
@@ -819,7 +816,7 @@ let AMGDPR = class AMGDPR extends EnhancedElement {
     render() {
         this.template.innerHTML = '<slot id="gdpr-container"></slot>';
         this.shadow.adoptedStyleSheets = [
-            AMGDPR.styles
+            AMCookies.styles
         ];
         this.shadow.appendChild(this.template.content.cloneNode(true));
     }
@@ -830,6 +827,8 @@ let AMGDPR = class AMGDPR extends EnhancedElement {
         this.esc = this.esc.bind(this);
         this.hideOnScroll = this.hideOnScroll.bind(this);
         this.setVisible = this.setVisible.bind(this);
+        this._debug = this._debug.bind(this);
+        this._text = getTranslation();
         this.template = document.createElement('template');
         this.shadow = this.attachShadow({
             mode: 'open'
@@ -837,10 +836,10 @@ let AMGDPR = class AMGDPR extends EnhancedElement {
     }
 };
 
-const tagName = 'am-gdpr';
-if (!isServer() && !customElements.get('am-gdpr')) {
-    customElements.define('am-gdpr', AMGDPR);
+const tagName = 'am-cookies';
+if (!isServer() && !customElements.get('am-cookies')) {
+    customElements.define('am-cookies', AMCookies);
 }
 
-exports.default = AMGDPR;
+exports.default = AMCookies;
 exports.tagName = tagName;

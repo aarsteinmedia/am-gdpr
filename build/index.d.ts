@@ -1,4 +1,4 @@
-declare function switchButton(this: AMGDPR, { disabled, label, name, value, }: {
+declare function switchButton(this: AMCookies, { disabled, label, name, value, }: {
     disabled?: boolean;
     name: string;
     label?: string;
@@ -84,6 +84,15 @@ declare global {
         google_tag_data?: unknown;
         dataLayer?: DataLayerObject[];
     }
+    interface HTMLElementTagNameMap {
+        'dotlottie-player': AMCookies;
+    }
+    function amCookies(): AMCookies;
+    namespace JSX {
+        interface IntrinsicElements {
+            'am-cookies': AMCookies;
+        }
+    }
 }
 
 declare class EnhancedElement extends HTMLElement {
@@ -91,7 +100,7 @@ declare class EnhancedElement extends HTMLElement {
     connectedCallback(): void;
 }
 
-declare class AMGDPR extends EnhancedElement {
+declare class AMCookies extends EnhancedElement {
     constructor();
     connectedCallback(): void;
     disconnectedCallback(): void;
@@ -123,10 +132,37 @@ declare class AMGDPR extends EnhancedElement {
     get alignMiniPrompt(): Align;
     set format(value: Format);
     get format(): Format;
-    set text(value: Text | null);
-    get text(): Text | null;
     set privacyPolicyURL(value: string | null);
     get privacyPolicyURL(): string | null;
+    private _text?;
+    getText(): {
+        settings: string;
+        customize: {
+            header: string;
+            label: string;
+            text: string;
+            retargeting: string;
+            link: string;
+        };
+        header: string;
+        miniGDPR: string;
+        accept: string;
+        acceptAll: string;
+        decline: string;
+        close: string;
+        save: string;
+        functional: {
+            label: string;
+        };
+        statistical: {
+            label: string;
+        };
+        marketing: {
+            label: string;
+        };
+        policyUrl: string;
+    };
+    setText(text: Text): void;
     allowStatistical: boolean | null;
     allowRetargeting: boolean | null;
     isVisible: boolean;
@@ -144,7 +180,7 @@ declare class AMGDPR extends EnhancedElement {
     declineAll(): void;
     esc({ key }: KeyboardEvent): void;
     setCustomize(value: boolean): void;
-    handleChange({ target }: Event, component: AMGDPR): void;
+    handleChange({ target }: Event, component: AMCookies): void;
     setVisible(): void;
     hideOnScroll(): void;
     private _consentListeners;
@@ -153,14 +189,13 @@ declare class AMGDPR extends EnhancedElement {
     private _cookieWarning;
     private _miniGDPR;
     switchButton: typeof switchButton;
-    setText(text: Text | null): void;
     private _addEventListeners;
     private _removeEventListeners;
     static get styles(): CSSStyleSheet;
-    debug(): void;
+    private _debug;
     protected render(): void;
 }
 
-declare const tagName = "am-gdpr";
+declare const tagName = "am-cookies";
 
-export { AMGDPR as default, tagName };
+export { AMCookies as default, tagName };

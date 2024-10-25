@@ -1,4 +1,5 @@
 import type { Plugin } from '@custom-elements-manifest/analyzer';
+import type AMCookies from './elements/AMCookies';
 import text from '@/i18n/en.json';
 export type Text = typeof text;
 export interface DataLayerObject {
@@ -44,6 +45,15 @@ declare global {
         addGDPRConsent?: (func: () => void) => void;
         google_tag_data?: unknown;
         dataLayer?: DataLayerObject[];
+    }
+    interface HTMLElementTagNameMap {
+        'dotlottie-player': AMCookies;
+    }
+    function amCookies(): AMCookies;
+    namespace JSX {
+        interface IntrinsicElements {
+            'am-cookies': AMCookies;
+        }
     }
 }
 export {};

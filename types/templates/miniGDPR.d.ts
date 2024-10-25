@@ -1,2 +1,2 @@
-import type AMGDPR from '../elements/AMGDPR';
-export default function miniGDPR(this: AMGDPR): void;
+import type AMCookies from '../elements/AMCookies';
+export default function miniGDPR(this: AMCookies): void;

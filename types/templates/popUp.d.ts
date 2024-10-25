@@ -1,2 +1,2 @@
-import type AMGDPR from '../elements/AMGDPR';
-export default function popUp(this: AMGDPR): void;
+import type AMCookies from '../elements/AMCookies';
+export default function popUp(this: AMCookies): void;

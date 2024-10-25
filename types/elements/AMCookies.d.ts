@@ -1,8 +1,8 @@
 import { switchButton } from '../templates';
-import { Align, Format } from '../utils';
+import { Align, Format } from '../enums';
 import type { Text } from '../types';
 import EnhancedElement from '../elements/EnhancedElement';
-export default class AMGDPR extends EnhancedElement {
+export default class AMCookies extends EnhancedElement {
     constructor();
     connectedCallback(): void;
     disconnectedCallback(): void;
@@ -34,10 +34,37 @@ export default class AMGDPR extends EnhancedElement {
     get alignMiniPrompt(): Align;
     set format(value: Format);
     get format(): Format;
-    set text(value: Text | null);
-    get text(): Text | null;
     set privacyPolicyURL(value: string | null);
     get privacyPolicyURL(): string | null;
+    private _text?;
+    getText(): {
+        settings: string;
+        customize: {
+            header: string;
+            label: string;
+            text: string;
+            retargeting: string;
+            link: string;
+        };
+        header: string;
+        miniGDPR: string;
+        accept: string;
+        acceptAll: string;
+        decline: string;
+        close: string;
+        save: string;
+        functional: {
+            label: string;
+        };
+        statistical: {
+            label: string;
+        };
+        marketing: {
+            label: string;
+        };
+        policyUrl: string;
+    };
+    setText(text: Text): void;
     allowStatistical: boolean | null;
     allowRetargeting: boolean | null;
     isVisible: boolean;
@@ -55,7 +82,7 @@ export default class AMGDPR extends EnhancedElement {
     declineAll(): void;
     esc({ key }: KeyboardEvent): void;
     setCustomize(value: boolean): void;
-    handleChange({ target }: Event, component: AMGDPR): void;
+    handleChange({ target }: Event, component: AMCookies): void;
     setVisible(): void;
     hideOnScroll(): void;
     private _consentListeners;
@@ -64,10 +91,9 @@ export default class AMGDPR extends EnhancedElement {
     private _cookieWarning;
     private _miniGDPR;
     switchButton: typeof switchButton;
-    setText(text: Text | null): void;
     private _addEventListeners;
     private _removeEventListeners;
     static get styles(): CSSStyleSheet;
-    debug(): void;
+    private _debug;
     protected render(): void;
 }

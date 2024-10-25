@@ -1,4 +1,4 @@
-# AM GDPR for TagManager
+# AM Cookies
 
 Reactive GDPR Web Component that prompts visitors for consent, stores their preferences and implements tracking.
 

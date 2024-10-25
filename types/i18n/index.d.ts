@@ -1,4 +1,4 @@
-export declare const languages: readonly ["en", "fr", "nb", "no"], fallbackLanguage = "en", browserLanguage: string, translation: "en" | "fr" | "nb" | "no";
+export declare const languages: readonly ["de", "dk", "en", "es", "fin", "fr", "nb", "no", "sv"], fallbackLanguage = "en", browserLanguage: string, translation: "de" | "dk" | "en" | "es" | "fin" | "fr" | "nb" | "no" | "sv";
 export default function getTranslation(): {
     settings: string;
     customize: {

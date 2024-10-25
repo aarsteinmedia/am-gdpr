@@ -1,5 +1,5 @@
-import type AMGDPR from '../elements/AMGDPR';
-export default function switchButton(this: AMGDPR, { disabled, label, name, value, }: {
+import type AMCookies from '../elements/AMCookies';
+export default function switchButton(this: AMCookies, { disabled, label, name, value, }: {
     disabled?: boolean;
     name: string;
     label?: string;
