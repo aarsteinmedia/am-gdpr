@@ -43,7 +43,9 @@ const languages = [
     'no',
     'sv'
 ], fallbackLanguage = 'en', browserLanguage = document.documentElement.lang.toLowerCase() || fallbackLanguage, translation = languages.find((lang)=>browserLanguage.includes(lang)) || fallbackLanguage;
-function getTranslation() {
+/**
+ *
+ */ function getTranslation() {
     switch(translation){
         case 'de':
             return de;
@@ -65,12 +67,14 @@ function getTranslation() {
     }
 }
 
-function cookieWarning() {
+/**
+ * Cookie Warning
+ */ function cookieWarning() {
     if (!this.gdprContainer) {
         return;
     }
     const { accept, customize: { label: customizeLabel }, header } = this.getText();
-    this.gdprContainer.innerHTML = `<div aria-describedby="cookie-warning-text" aria-labelledby="cookie-warning-text" aria-modal="false" role="dialog" class="cookie-container ${this.alignPrompt} ${this.format}-format" lang="${document.documentElement.lang}"><div class="content"><p class="h3" id="cookie-warning-text">${header} ${icon}</p><div class="button-wrapper"><button class="button gdpr customize" style="background-color:transparent">${customizeLabel}</button> <button class="button gdpr accept">${accept}</button></div></div></div>`;
+    this.gdprContainer.innerHTML = /* HTML */ `<div aria-describedby="cookie-warning-text" aria-labelledby="cookie-warning-text" aria-modal="false" role="dialog" class="cookie-container ${this.alignPrompt} ${this.format}-format" lang="${document.documentElement.lang}"><div class="content"><p class="h3" id="cookie-warning-text">${header} ${icon}</p><div class="button-wrapper"><button class="button gdpr customize" style="background-color:transparent">${customizeLabel}</button> <button class="button gdpr accept">${accept}</button></div></div></div>`;
     const acceptAll = this.gdprContainer.querySelector('.accept');
     if (acceptAll instanceof HTMLButtonElement) {
         acceptAll.onclick = this.acceptAll;
@@ -81,32 +85,38 @@ function cookieWarning() {
     }
 }
 
-const icon = `<svg xmlns="http://www.w3.org/2000/svg" width="992" height="1024" viewBox="0 0 992 1024"><path d="M810.112 4.992c-27.232 0-49.28 22.112-49.344 49.344 0 27.232 22.112 49.344 49.344 49.344s49.344-22.112 49.344-49.344c0-27.232-22.112-49.344-49.344-49.344zm13.184 429.728c-167.424 54.048-292.352-63.52-236.384-243.232-61.728-22.944-82.24-90.368-58.016-166.24C255.36 11.456 14.336 224.416.672 498.048c-13.792 273.536 196.896 506.432 470.368 520.32 273.6 13.792 506.528-196.896 520.32-470.464 1.248-24.736.672-49.184-1.664-73.088-69.952 43.008-123.84 23.52-166.432-40.032zm-575.52-35.392c40.992 0 74.176 33.248 74.176 74.176s-33.248 74.176-74.176 74.176c-40.992 0-74.176-33.248-74.176-74.176s33.248-74.176 74.176-74.176zm233.696 94.56c23.616 0 42.752 19.136 42.752 42.752s-19.136 42.752-42.752 42.752c-23.616 0-42.752-19.136-42.752-42.752-.096-23.616 19.072-42.752 42.752-42.752zM295.968 669.952c28.8 0 52.16 23.36 52.16 52.16s-23.36 52.16-52.16 52.16c-28.8 0-52.16-23.36-52.16-52.16 0-28.864 23.36-52.16 52.16-52.16zm112.384-399.008c22.624 0 40.832 18.304 40.832 40.832 0 22.624-18.304 40.832-40.832 40.832-22.624 0-40.832-18.304-40.832-40.832s18.304-40.832 40.832-40.832zm221.952 417.28c37.856 0 68.48 30.688 68.48 68.48 0 37.856-30.688 68.48-68.48 68.48-37.856 0-68.48-30.688-68.48-68.48s30.688-68.48 68.48-68.48zm144.224-492.608c25.408 0 46.048 20.64 46.048 46.048s-20.64 46.048-46.048 46.048-46.048-20.64-46.048-46.048 20.64-46.048 46.048-46.048z"/></svg>`;
+const icon = /* HTML */ `<svg xmlns="http://www.w3.org/2000/svg" width="992" height="1024" viewBox="0 0 992 1024"><path d="M810.112 4.992c-27.232 0-49.28 22.112-49.344 49.344 0 27.232 22.112 49.344 49.344 49.344s49.344-22.112 49.344-49.344c0-27.232-22.112-49.344-49.344-49.344zm13.184 429.728c-167.424 54.048-292.352-63.52-236.384-243.232-61.728-22.944-82.24-90.368-58.016-166.24C255.36 11.456 14.336 224.416.672 498.048c-13.792 273.536 196.896 506.432 470.368 520.32 273.6 13.792 506.528-196.896 520.32-470.464 1.248-24.736.672-49.184-1.664-73.088-69.952 43.008-123.84 23.52-166.432-40.032zm-575.52-35.392c40.992 0 74.176 33.248 74.176 74.176s-33.248 74.176-74.176 74.176c-40.992 0-74.176-33.248-74.176-74.176s33.248-74.176 74.176-74.176zm233.696 94.56c23.616 0 42.752 19.136 42.752 42.752s-19.136 42.752-42.752 42.752c-23.616 0-42.752-19.136-42.752-42.752-.096-23.616 19.072-42.752 42.752-42.752zM295.968 669.952c28.8 0 52.16 23.36 52.16 52.16s-23.36 52.16-52.16 52.16c-28.8 0-52.16-23.36-52.16-52.16 0-28.864 23.36-52.16 52.16-52.16zm112.384-399.008c22.624 0 40.832 18.304 40.832 40.832 0 22.624-18.304 40.832-40.832 40.832-22.624 0-40.832-18.304-40.832-40.832s18.304-40.832 40.832-40.832zm221.952 417.28c37.856 0 68.48 30.688 68.48 68.48 0 37.856-30.688 68.48-68.48 68.48-37.856 0-68.48-30.688-68.48-68.48s30.688-68.48 68.48-68.48zm144.224-492.608c25.408 0 46.048 20.64 46.048 46.048s-20.64 46.048-46.048 46.048-46.048-20.64-46.048-46.048 20.64-46.048 46.048-46.048z"/></svg>`;
 
-const loading = `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" stroke="currentcolor"><style>@keyframes spinner_zKoa{to{transform:rotate(360deg)}}@keyframes spinner_YpZS{0%{stroke-dasharray:0 150;stroke-dashoffset:0}47.5%{stroke-dasharray:42 150;stroke-dashoffset:-16}95%,to{stroke-dasharray:42 150;stroke-dashoffset:-59}}</style><g style="transform-origin:center;animation:spinner_zKoa 2s linear infinite"><circle cx="11" cy="11" r="9.5" fill="none" stroke-width="3" style="stroke-linecap:round;animation:spinner_YpZS 1.5s ease-in-out infinite"/></g></svg>`;
+const loading = /* HTML */ `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" stroke="currentcolor"><style>@keyframes spinner_zKoa{to{transform:rotate(360deg)}}@keyframes spinner_YpZS{0%{stroke-dasharray:0 150;stroke-dashoffset:0}47.5%{stroke-dasharray:42 150;stroke-dashoffset:-16}95%,to{stroke-dasharray:42 150;stroke-dashoffset:-59}}</style><g style="transform-origin:center;animation:spinner_zKoa 2s linear infinite"><circle cx="11" cy="11" r="9.5" fill="none" stroke-width="3" style="stroke-linecap:round;animation:spinner_YpZS 1.5s ease-in-out infinite"/></g></svg>`;
 
-function miniGDPR() {
+/**
+ * Mini GDPR
+ */ function miniGDPR() {
     if (!this.gdprContainer) {
         return;
     }
     const { miniGDPR, settings } = this.getText();
-    this.gdprContainer.innerHTML = `<button class="mini-gdpr ${this.alignMiniPrompt}" data-hide="false" aria-label="${miniGDPR}"><figure aria-label="${settings}" class="icon-cookies settings">${icon}</figure></button>`;
+    this.gdprContainer.innerHTML = /* HTML */ `<button class="mini-gdpr ${this.alignMiniPrompt}" data-hide="false" aria-label="${miniGDPR}"><figure aria-label="${settings}" class="icon-cookies settings">${icon}</figure></button>`;
     const button = this.gdprContainer.querySelector('.mini-gdpr');
     if (button instanceof HTMLButtonElement) {
         button.onclick = this.setVisible;
     }
 }
 
-function uiButton({ ariaLabel, className, isOpen }) {
-    return `<button ariaLabel="${ariaLabel}" class="menu-button ${className}" data-open="${isOpen}"><span class="hamburger"><span></span></span></button>`;
+/**
+ *
+ */ function uiButton({ ariaLabel, className, isOpen }) {
+    return /* HTML */ `<button ariaLabel="${ariaLabel}" class="menu-button ${className}" data-open="${isOpen}"><span class="hamburger"><span></span></span></button>`;
 }
 
-function popUp() {
+/**
+ * Settings Pop-Up
+ */ function popUp() {
     if (!this.gdprContainer) {
         return;
     }
     const { acceptAll: acceptAllText, close: closeText, customize: { header: customizeHeaderText, link: customizeLink, retargeting: customizeRetargetingText, text: customizeText }, decline: declineText, functional: { label: functionalLabel }, marketing: { label: marketingLabel }, policyUrl, save: saveText, statistical: { label: statisticalLabel } } = this.getText();
-    this.gdprContainer.innerHTML = `<div class="pop-up fade-in" lang="${document.documentElement.lang}"><dialog open>${uiButton({
+    this.gdprContainer.innerHTML = /* HTML */ `<div class="pop-up fade-in" lang="${document.documentElement.lang}"><dialog open>${uiButton({
         ariaLabel: closeText,
         className: 'close-button',
         isOpen: true
@@ -206,9 +216,11 @@ const boolToConsentParams = (bool)=>{
     return `${`:${s4()}`}-${s4()}`;
 };
 
-function switchButton({ disabled = false, label, name, value }) {
+/**
+ * Switch button
+ */ function switchButton({ disabled = false, label, name, value }) {
     const id = useId();
-    return `<div class="container">${label ? `<label class="text-label" for="${id}">${label}</label>` : ''} <label class="label"><input ${value ? 'checked' : ''} class="input" ${disabled ? 'disabled' : ''} id="${id}" name="${name}" type="checkbox" value="${value}"> <span class="slider"></span></label></div>`;
+    return /* HTML */ `<div class="container">${label ? /* HTML */ `<label class="text-label" for="${id}">${label}</label>` : ''} <label class="label"><input ${value ? 'checked' : ''} class="input" ${disabled ? 'disabled' : ''} id="${id}" name="${name}" type="checkbox" value="${value}"> <span class="slider"></span></label></div>`;
 }
 
 var Align = /*#__PURE__*/ function(Align) {
@@ -226,8 +238,13 @@ var Format = /*#__PURE__*/ function(Format) {
 
 var css_248z = "\n  @keyframes fade-in-up {\n    0% {\n      transform: translateY(1em);\n      opacity: 0;\n    }\n    100% {\n      transform: translateY(0);\n      opacity: 1;\n    }\n  }\n  @keyframes fade-in-down {\n    0% {\n      transform: translateY(-1em);\n      opacity: 0;\n    }\n    100% {\n      transform: translateY(0);\n      opacity: 1;\n    }\n  }\n  @keyframes pop-in-bottom-left {\n    0% {\n      transform: translateY(100%) translateX(-100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-bottom-right {\n    0% {\n      transform: translateY(100%) translateX(100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-top-left {\n    0% {\n      transform: translateY(-100%) translateX(-100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-top-right {\n    0% {\n      transform: translateY(-100%) translateX(100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes fade-in {\n    0% {\n      opacity: 0;\n    }\n    100% {\n      opacity: 1;\n    }\n  }\n  @keyframes fade-up {\n    0% {\n      opacity: 0;\n      transform: translateY(0);\n    }\n    100% {\n      opacity: 1;\n      transform: translateY(-50%);\n    }\n  }:host {\n    font-family: var(--font-family);\n    font-size: 16px;\n    color: var(--color);\n    line-height: 1.3;\n    display: block;\n    width: 100%;\n    height: 100%;\n    cursor: default;\n  }:host *::selection {\n    background-color: var(--color);\n    color: var(--background-color);\n  }:host .cookie-overlay {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    z-index: 99999;\n    background-color: rgba(0, 0, 0, 0.3);\n    backdrop-filter: blur(2px);\n  }:host #cookie-warning-text {\n    margin: 0;\n    display: inline-flex;\n    gap: 0.5rem;\n    align-items: baseline;\n  }:host .cookie-container {\n    padding: 20px 30px;\n    transform-origin: bottom;\n    align-items: center;\n    display: flex;\n    position: fixed;\n    z-index: 999999;\n    background-color: var(--background-color);\n  }:host .cookie-container .content {\n    display: flex;\n    margin: 0;\n    font-size: 0.9em;\n    gap: 1em;\n  }:host .cookie-container.bottom-left, :host .cookie-container.bottom-right {\n    animation: fade-in-up 0.3s ease-in-out;\n  }:host .cookie-container.top-left, :host .cookie-container.top-right {\n    animation: fade-in-down 0.3s ease-in-out;\n  }:host .cookie-container.box-format {\n    flex-direction: column;\n    border: solid var(--border-width) currentcolor;\n    border-radius: 0.25em;\n  }:host .cookie-container.box-format.bottom-left {\n    left: 30px;\n    bottom: 30px;\n  }:host .cookie-container.box-format.bottom-right {\n    right: 30px;\n    bottom: 30px;\n  }:host .cookie-container.box-format.top-left {\n    left: 30px;\n    top: 30px;\n  }:host .cookie-container.box-format.top-right {\n    right: 30px;\n    top: 30px;\n  }:host .cookie-container.box-format .content {\n    flex-direction: column;\n  }:host .cookie-container.banner-format {\n    flex-direction: row;\n    left: 0;\n    right: 0;\n  }:host .cookie-container.banner-format.bottom-left, :host .cookie-container.banner-format.bottom-right {\n    bottom: 0;\n    border-top: solid var(--border-width) currentcolor;\n  }:host .cookie-container.banner-format.top-left, :host .cookie-container.banner-format.top-right {\n    top: 0;\n    border-bottom: solid var(--border-width) currentcolor;\n  }:host .cookie-container.banner-format .content {\n    flex-direction: row;\n    justify-content: space-between;\n    width: 100%;\n  }:host .button {\n    border: solid var(--border-width) currentcolor;\n    font-size: 0.9em;\n    line-height: 0.9;\n    font-weight: bold;\n    padding: 0 15px;\n    height: calc(1em + 20px);\n    margin: 0;\n    border-radius: 1.5em;\n    display: inline-flex;\n    align-items: center;\n  }:host .button-wrapper {\n    display: flex;\n    gap: 0.5em;\n  }:host .mini-gdpr {\n    position: fixed;\n    width: 40px;\n    height: 40px;\n    z-index: 99999;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: transform 0.2s ease-in-out;\n  }:host .mini-gdpr.bottom-left, :host .mini-gdpr.bottom-right {\n    bottom: 0;\n    border-top: solid var(--border-width);\n  }:host .mini-gdpr.top-left, :host .mini-gdpr.top-right {\n    top: 0;\n    border-bottom: solid var(--border-width);\n  }:host .mini-gdpr.bottom-left, :host .mini-gdpr.top-left {\n    left: 0;\n    border-right: solid var(--border-width);\n  }:host .mini-gdpr.bottom-right, :host .mini-gdpr.top-right {\n    right: 0;\n    border-left: solid var(--border-width);\n  }:host .mini-gdpr.bottom-left {\n    border-radius: 0 66% 0 0;\n    transform-origin: bottom left;\n    animation: pop-in-bottom-left 0.3s ease-in-out;\n  }:host .mini-gdpr.bottom-left[data-hide=true] {\n    transform: translateY(100%) translateX(-100%);\n  }:host .mini-gdpr.bottom-right {\n    border-radius: 66% 0 0;\n    transform-origin: bottom right;\n    animation: pop-in-bottom-right 0.3s ease-in-out;\n  }:host .mini-gdpr.bottom-right[data-hide=true] {\n    transform: translateY(100%) translateX(100%);\n  }:host .mini-gdpr.top-left {\n    border-radius: 0 0 66%;\n    transform-origin: top left;\n    animation: pop-in-top-left 0.3s ease-in-out;\n  }:host .mini-gdpr.top-left[data-hide=true] {\n    transform: translateY(-100%) translateX(-100%);\n  }:host .mini-gdpr.top-right {\n    border-radius: 0 0 0 66%;\n    transform-origin: top right;\n    animation: pop-in-top-right 0.3s ease-in-out;\n  }:host .mini-gdpr.top-right[data-hide=true] {\n    transform: translateY(-100%) translateX(100%);\n  }:host .mini-gdpr svg {\n    height: 1em;\n  }:host .mini-gdpr:hover, :host .mini-gdpr:active {\n    transform: scale(1.1);\n  }@media only screen and (width <= 760px) {\n    :host .cookie-container {\n      padding: 15px;\n    }\n    :host .cookie-container.box-format {\n      left: 20px;\n      right: 20px;\n    }\n    :host .cookie-container.banner-format .content {\n      flex-direction: column;\n    }\n    :host .cookie-container.banner-format.top-left, :host .cookie-container.banner-format.top-right {\n      padding-bottom: 10px;\n    }\n    :host .cookie-container.banner-format.bottom-left, :host .cookie-container.banner-format.bottom-right {\n      padding-top: 10px;\n    }\n  }:host .pop-up {\n    position: fixed;\n    width: 100vw;\n    height: 100vh;\n    top: 0;\n    left: 0;\n    overflow: hidden;\n    z-index: 999999;\n    animation-duration: 0.4s;\n    animation-name: fade-in;\n    background-color: rgba(0, 0, 0, 0.3);\n  }:host .pop-up dialog {\n    position: absolute;\n    height: 90%;\n    max-width: 90%;\n    min-height: 0;\n    max-height: 0;\n    border-radius: 0.25em;\n    border: solid var(--border-width) currentcolor;\n    left: 0;\n    right: 0;\n    margin: auto;\n    top: 50%;\n    transform: translateY(-50%);\n    padding: 40px;\n    overflow: hidden;\n    transition: max-height 0.2s ease-in-out, min-height 0.2s ease-in-out;\n    width: 600px;\n    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);\n    color: var(--color);\n    background-color: var(--background-color);\n  }:host .pop-up dialog .button-wrapper {\n    margin-top: 1em;\n  }:host .pop-up dialog .close-button {\n    top: 14px;\n    right: 14px;\n    width: 25px;\n  }:host .pop-up dialog[data-animate=up] {\n    animation: fade-up 0.3s ease-in-out;\n  }:host .pop-up[data-gallery=true] dialog {\n    padding: 0;\n  }:host .inner-wrapper {\n    width: 100%;\n    float: left;\n    position: relative;\n    display: flex;\n    align-items: center;\n    overflow: hidden;\n  }:host .row {\n    display: flex;\n    flex-direction: row;\n    gap: 1em;\n    align-items: flex-start;\n    margin: 0;\n  }:host .column {\n    display: flex;\n    flex: 1 1;\n    flex-direction: column;\n    align-items: flex-start;\n  }@media only screen and (width <= 760px) {\n    :host .pop-up .pop-up-element {\n      padding: 25px;\n    }\n    :host .pop-up .pop-up-element .close-button {\n      width: 20px;\n      top: 5px;\n      right: 5px;\n    }\n    :host .row {\n      overflow: auto hidden;\n      scroll-snap-points-x: repeat(100%);\n      scroll-snap-type: x mandatory;\n      flex: 1 1;\n      -webkit-overflow-scrolling: touch;\n      scrollbar-width: none;\n    }\n    :host .row::-webkit-scrollbar {\n      display: none;\n    }\n    :host .column {\n      width: 100%;\n      height: 100%;\n      position: relative;\n      flex: 0 0 100%;\n      scroll-snap-align: start;\n    }\n  }:host .container {\n    display: inline-flex;\n    flex-direction: column;\n    margin-right: 0.5em;\n    margin-top: 0.5em;\n    font-size: 0.9em;\n  }:host .text-label {\n    margin-bottom: 0.5em;\n  }:host .label {\n    position: relative;\n    display: inline-block;\n    width: 3em;\n    height: 1.5em;\n  }:host .label .input {\n    opacity: 0;\n    width: 0;\n    height: 0;\n    margin: 0;\n    padding: 0;\n  }:host .slider {\n    position: absolute;\n    cursor: pointer;\n    inset: 0;\n    border-radius: 1em;\n    border: solid var(--border-width) currentcolor;\n    appearance: none;\n    transition: background-color 0.2s;\n  }:host .slider::before {\n    position: absolute;\n    border-radius: 50%;\n    content: \"\";\n    height: 1em;\n    width: 1em;\n    left: 0.2em;\n    bottom: 0;\n    top: 0;\n    margin: auto;\n    background-color: currentcolor;\n    transition: 0.4s;\n  }:host .input:focus + .slider {\n    box-shadow: 0 0 1px;\n  }:host .input:checked + .slider {\n    background-color: var(--accent-color);\n  }:host .input:checked + .slider::before {\n    transform: translateX(1.4em);\n  }:host .input:disabled + .slider {\n    opacity: 0.5;\n  }:host .menu-button {\n    position: absolute;\n    width: 40px;\n    max-width: 100%;\n    padding: 0;\n    margin: 0;\n    line-height: 0;\n    z-index: 999;\n    cursor: pointer;\n    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;\n    background-color: transparent;\n    display: block;\n    border-color: unset;\n    outline-color: unset;\n  }:host .menu-button .hamburger {\n    width: 100%;\n    display: inline-block;\n    vertical-align: middle;\n  }:host .menu-button .hamburger::before,\n  :host .menu-button .hamburger > span,\n  :host .menu-button .hamburger::after {\n    background-color: currentcolor;\n    border-color: currentcolor;\n    outline-color: currentcolor;\n    display: block;\n    height: 2px;\n    margin: 10px 0;\n    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease-in-out;\n  }:host .menu-button .hamburger::before, :host .menu-button .hamburger::after {\n    content: \"\";\n  }:host .menu-button .hamburger::before {\n    margin-top: 0;\n  }:host .menu-button .hamburger::after {\n    margin-bottom: 0;\n  }:host .menu-button[data-open=true] .hamburger::before {\n    transform: translateY(12px) rotate(135deg);\n  }:host .menu-button[data-open=true] .hamburger > span {\n    transform: translateY(0) rotate(-135deg);\n    opacity: 0;\n  }:host .menu-button[data-open=true] .hamburger::after {\n    transform: translateY(-12px) rotate(-135deg);\n  }:host * {\n    box-sizing: border-box;\n  }:host input,\n  :host textarea,\n  :host button {\n    color: inherit;\n    font-size: inherit;\n    font-family: inherit;\n    font-weight: inherit;\n    border: 0;\n    outline: 0;\n    background-color: transparent;\n  }:host button {\n    background-color: var(--accent-color);\n    transition: transform 0.2s ease-in-out;\n  }:host button,\n  :host input[type=submit],\n  :host input[type=button],\n  :host input[type=reset] {\n    appearance: none;\n  }:host button *,\n  :host input[type=submit] *,\n  :host input[type=button] *,\n  :host input[type=reset] * {\n    pointer-events: none;\n  }:host button:not([disabled]),\n  :host input[type=submit]:not([disabled]),\n  :host input[type=button]:not([disabled]),\n  :host input[type=reset]:not([disabled]) {\n    cursor: pointer;\n  }:host button:hover,\n  :host input[type=submit]:hover,\n  :host input[type=button]:hover,\n  :host input[type=reset]:hover {\n    transform: scale(1.02);\n  }:host a {\n    color: inherit;\n    font-weight: bold;\n    text-decoration: none;\n    position: relative;\n  }:host a::after {\n    content: \"\";\n    border-bottom: solid var(--border-width) var(--accent-color);\n    position: absolute;\n    width: 100%;\n    bottom: 0;\n    left: 0;\n    z-index: -1;\n  }:host a:hover::after {\n    opacity: 0;\n  }:host svg {\n    width: auto;\n    height: auto;\n    display: inline-block;\n  }:host svg path {\n    fill: currentcolor;\n  }:host p {\n    margin: 0;\n    padding: 0.5em 0 0.7em;\n  }:host h1,\n  :host .h1,\n  :host h2,\n  :host .h2,\n  :host h3,\n  :host .h3 {\n    font-weight: bold;\n    font-size: 2.2em;\n    padding: 0;\n    margin: 0;\n    margin-top: 0.5em;\n  }:host h2,\n  :host .h2 {\n    font-size: 1.7em;\n  }:host h3,\n  :host .h3 {\n    font-size: 1.5em;\n  }:host h3 svg,\n  :host .h3 svg {\n    height: 1.2em;\n    display: inline-block;\n    vertical-align: bottom;\n  }:host .icon-cookies {\n    display: flex;\n    margin: 0;\n    padding: 0;\n  }";
 
-const UPDATE_ON_CONNECTED = Symbol('UPDATE_ON_CONNECTED');
+/**
+ * Credit to:
+ * @author Leonardo Favre <https://github.com/leofavre/observed-properties>
+ */ /* eslint-disable @typescript-eslint/ban-ts-comment */ const UPDATE_ON_CONNECTED = Symbol('UPDATE_ON_CONNECTED');
 if (isServer()) {
+    // Mock HTMLElement for server-side rendering
+    // @ts-ignore
     global.HTMLElement = class EmptyHTMLElement {
     };
 }
@@ -248,6 +265,7 @@ let EnhancedElement = class EnhancedElement extends HTMLElement {
     }
     constructor(){
         super();
+        // @ts-ignore
         const { observedProperties = [] } = this.constructor;
         if (UPDATE_ON_CONNECTED in this) {
             this[UPDATE_ON_CONNECTED] = [];
@@ -255,6 +273,7 @@ let EnhancedElement = class EnhancedElement extends HTMLElement {
         if ('propertyChangedCallback' in this && typeof this.propertyChangedCallback === 'function') {
             for (const propName of observedProperties){
                 const initialValue = this[propName], CACHED_VALUE = Symbol(propName);
+                // @ts-ignore
                 this[CACHED_VALUE] = initialValue;
                 Object.defineProperty(this, propName, {
                     get () {
@@ -305,19 +324,28 @@ let GTM = class GTM {
             console.error(err);
         }
     }
-    constructor({ consentParams, defer = false, gtmId, serverSideDomain = null }){
+    constructor({ consentParams, defer = false, gtmId, // resetDataLayer = false,
+    // sanitizeDataLayer = false,
+    serverSideDomain = null }){
         this._initialized = false;
         this.gtmId = null;
+        // public resetDataLayer = false
+        // public sanitizeDataLayer = false
         this.serverSideDomain = null;
         this.defer = false;
         this.gtmId = gtmId ? gtmId.trim() : null;
+        // this.resetDataLayer = !!resetDataLayer
+        // this.sanitizeDataLayer = !!sanitizeDataLayer
         this.serverSideDomain = serverSideDomain ? serverSideDomain.trim() : null;
         this.defer = !!defer;
         this.consentParams = consentParams;
         if (!window.gtag) {
             window.gtag = function() {
                 window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push(arguments);
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                window.dataLayer.push(arguments) // eslint-disable-line prefer-rest-params
+                ;
             };
         }
     }
@@ -364,7 +392,10 @@ let GTag = class GTag {
         if (!window.gtag) {
             window.gtag = function() {
                 window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push(arguments);
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                window.dataLayer.push(arguments) // eslint-disable-line prefer-rest-params
+                ;
             };
         }
     }
@@ -450,7 +481,9 @@ let TikTokPixel = class TikTokPixel {
 };
 
 let AMCookies = class AMCookies extends EnhancedElement {
-    connectedCallback() {
+    /**
+   * Initialize everything on component first render
+   */ connectedCallback() {
         super.connectedCallback();
         this.render();
         this._addEventListeners();
@@ -513,14 +546,16 @@ let AMCookies = class AMCookies extends EnhancedElement {
         };
         const sheet = this.shadowRoot?.adoptedStyleSheets[0];
         setTimeout(()=>{
-            sheet?.insertRule(`:host{--border-width: ${this.borderWidth}px;--font-family: ${this.fontFamily};--color: ${this.color};--background-color: ${this.backgroundColor};--accent-color: ${this.accentColor};}`);
+            sheet?.insertRule(/* CSS */ `:host{--border-width: ${this.borderWidth}px;--font-family: ${this.fontFamily};--color: ${this.color};--background-color: ${this.backgroundColor};--accent-color: ${this.accentColor};}`);
         }, 0);
         this._debug();
     }
     disconnectedCallback() {
         this._removeEventListeners();
     }
-    static get observedProperties() {
+    /**
+   * Properties to observe
+   */ static get observedProperties() {
         return [
             'allowStatistical',
             'allowRetargeting',
@@ -578,6 +613,7 @@ let AMCookies = class AMCookies extends EnhancedElement {
                     }
                     break;
                 }
+            // If text is set dynamically initial elements must be reinitialized
             case '_text':
                 {
                     if (Cookies.get('CookieConsent')) {
@@ -588,61 +624,81 @@ let AMCookies = class AMCookies extends EnhancedElement {
                 }
         }
     }
-    set googleID(value) {
+    /**
+   * Tracking ID for GTM / GTag
+   */ set googleID(value) {
         this.setAttribute('googleID', value || '');
     }
     get googleID() {
         return this.getAttribute('googleID');
     }
-    set metaPixelID(value) {
+    /**
+   * Meta Pixel
+   */ set metaPixelID(value) {
         this.setAttribute('metaPixelID', value || '');
     }
     get metaPixelID() {
         return this.getAttribute('metaPixelID');
     }
-    set snapChatPixelID(value) {
+    /**
+   * Snap Pixel
+   */ set snapChatPixelID(value) {
         this.setAttribute('snapChatPixelID', value || '');
     }
     get snapChatPixelID() {
         return this.getAttribute('snapChatPixelID');
     }
-    set tiktokPixelID(value) {
+    /**
+   * TikTok Pixel
+   */ set tiktokPixelID(value) {
         this.setAttribute('tiktokPixelID', value || '');
     }
     get tiktokPixelID() {
         return this.getAttribute('tiktokPixelID');
     }
-    set color(value) {
+    /**
+   * Text color
+   */ set color(value) {
         this.setAttribute('color', value);
     }
     get color() {
         return this.getAttribute('color') || '#000';
     }
-    set backgroundColor(value) {
+    /**
+   * Background color
+   */ set backgroundColor(value) {
         this.setAttribute('backgroundColor', value);
     }
     get backgroundColor() {
         return this.getAttribute('backgroundColor') || '#FFF';
     }
-    set accentColor(value) {
+    /**
+   * Accent color
+   */ set accentColor(value) {
         this.setAttribute('accentColor', value);
     }
     get accentColor() {
         return this.getAttribute('accentColor') || '#FFF';
     }
-    set fontFamily(value) {
+    /**
+   * Font family
+   */ set fontFamily(value) {
         this.setAttribute('fontFamily', value);
     }
     get fontFamily() {
         return this.getAttribute('fontFamily') || '"Helvetica Neue", Helvetica, sans-serif';
     }
-    set borderWidth(value) {
+    /**
+   * Border width
+   */ set borderWidth(value) {
         this.setAttribute('borderWidth', value.toString());
     }
     get borderWidth() {
         return Number(this.getAttribute('borderWidth') ?? 2);
     }
-    set alignPrompt(value) {
+    /**
+   * Align GDPR promt
+   */ set alignPrompt(value) {
         this.setAttribute('alignPrompt', value);
     }
     get alignPrompt() {
@@ -652,7 +708,9 @@ let AMCookies = class AMCookies extends EnhancedElement {
         }
         return Align.BottomLeft;
     }
-    set alignMiniPrompt(value) {
+    /**
+   * Align mini GDPR prompt
+   */ set alignMiniPrompt(value) {
         this.setAttribute('alignMiniPrompt', value);
     }
     get alignMiniPrompt() {
@@ -662,7 +720,9 @@ let AMCookies = class AMCookies extends EnhancedElement {
         }
         return Align.BottomLeft;
     }
-    set format(value) {
+    /**
+   * GDPR Prompt format
+   */ set format(value) {
         this.setAttribute('format', value);
     }
     get format() {
@@ -672,16 +732,22 @@ let AMCookies = class AMCookies extends EnhancedElement {
         }
         return Format.Box;
     }
-    set privacyPolicyURL(value) {
+    /**
+   * Privacy policy URL
+   */ set privacyPolicyURL(value) {
         this.setAttribute('privacyPolicyURL', value || 'privacy');
     }
     get privacyPolicyURL() {
         return this.getAttribute('privacyPolicyURL');
     }
-    getText() {
+    /**
+   * Get text
+   */ getText() {
         return this._text || getTranslation();
     }
-    setText(text) {
+    /**
+   * Set Text
+   */ setText(text) {
         if (!isText(text)) {
             console.warn('Invalid text object');
             return;
@@ -762,6 +828,8 @@ let AMCookies = class AMCookies extends EnhancedElement {
         if (target instanceof HTMLInputElement) {
             const { checked, name } = target;
             if (name in component && typeof component[name] === 'boolean') {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 component[name] = checked;
             }
         }
@@ -796,7 +864,9 @@ let AMCookies = class AMCookies extends EnhancedElement {
         document.removeEventListener('keydown', this.esc);
         document.removeEventListener('scroll', this.hideOnScroll);
     }
-    static get styles() {
+    /**
+   * Return the styles for the component
+   */ static get styles() {
         const styleSheet = new CSSStyleSheet();
         styleSheet.replace(css_248z);
         return styleSheet;
@@ -821,7 +891,22 @@ let AMCookies = class AMCookies extends EnhancedElement {
         this.shadow.appendChild(this.template.content.cloneNode(true));
     }
     constructor(){
-        super(), this.allowStatistical = null, this.allowRetargeting = null, this.isVisible = false, this.isCustomize = null, this.isSaving = false, this._scrollPos = 0, this._consentListeners = [], this.hasRetargeting = false, this._popUp = popUp, this._cookieWarning = cookieWarning, this._miniGDPR = miniGDPR, this.switchButton = switchButton;
+        super(), /**
+   * @state
+   * Allow Statistical
+   */ this.allowStatistical = null, /**
+   * @state
+   * Allow Retargeting
+   */ this.allowRetargeting = null, /**
+   * @state
+   * Visibility
+   */ this.isVisible = false, /**
+   * @state
+   * Customize
+   */ this.isCustomize = null, /**
+   * @state
+   * Saving
+   */ this.isSaving = false, this._scrollPos = 0, this._consentListeners = [], this.hasRetargeting = false, this._popUp = popUp, this._cookieWarning = cookieWarning, this._miniGDPR = miniGDPR, this.switchButton = switchButton;
         this.acceptAll = this.acceptAll.bind(this);
         this.declineAll = this.declineAll.bind(this);
         this.esc = this.esc.bind(this);
