@@ -1,7 +1,7 @@
-import { switchButton } from '../templates';
-import { Align, Format } from '../enums';
 import type { Text } from '../types';
 import EnhancedElement from '../elements/EnhancedElement';
+import { Align, Format } from '../enums';
+import { switchButton } from '../templates';
 export default class AMCookies extends EnhancedElement {
     constructor();
     connectedCallback(): void;

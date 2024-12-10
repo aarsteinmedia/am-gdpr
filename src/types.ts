@@ -6,9 +6,9 @@ export type Text = typeof text
 
 export interface DataLayerObject {
   event: DataLayerEventName
-  userData?: UserData
   eventData?: EventData
   pageData?: PageData
+  userData?: UserData
 }
 
 interface UserData {
@@ -16,11 +16,11 @@ interface UserData {
 }
 
 interface EventData {
-  category: string
   action: string
+  category: string
   label?: string
-  value?: number
   nonInteraction?: boolean
+  value?: number
 }
 
 interface PageData {
@@ -44,14 +44,6 @@ export interface CEMConfig {
   litelement: boolean
   /** Directory to output CEM to */
   outdir: string
-  /** Output CEM path to `package.json`, defaults to true */
-  packagejson: boolean
-  /** Enable special handling for stencil */
-  stencil: boolean
-  /** Run in watch mode, runs on file changes */
-  watch: boolean
-  /** Provide custom plugins */
-  plugins: Array<() => Plugin>
   /** Overrides default module creation: */
   overrideModuleCreation({
     globs,
@@ -60,6 +52,14 @@ export interface CEMConfig {
     ts: unknown // TypeScrip
     globs: string[]
   }): unknown[] // SourceFile[]
+  /** Output CEM path to `package.json`, defaults to true */
+  packagejson: boolean
+  /** Provide custom plugins */
+  plugins: Array<() => Plugin>
+  /** Enable special handling for stencil */
+  stencil: boolean
+  /** Run in watch mode, runs on file changes */
+  watch: boolean
 }
 
 export type DataLayerEventName =
@@ -71,8 +71,8 @@ export type DataLayerEventName =
 declare global {
   interface Window {
     addGDPRConsent?: (func: () => void) => void
-    google_tag_data?: unknown
     dataLayer?: DataLayerObject[]
+    google_tag_data?: unknown
   }
   interface HTMLElementTagNameMap {
     'dotlottie-player': AMCookies

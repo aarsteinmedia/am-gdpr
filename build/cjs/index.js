@@ -16,6 +16,111 @@ var Cookies = require('js-cookie');
     globalThis.process = { env:env };
 })();
 
+const boolToConsentParams = (bool)=>{
+    if (bool === undefined || bool === null) {
+        return undefined;
+    }
+    return bool ? 'granted' : 'denied';
+}, consentParamsToBool = (param)=>{
+    if (param === undefined || param === null) {
+        return null;
+    }
+    return param === 'granted';
+}, getConsent = ()=>{
+    const cookie = Cookies.get('CookieConsent');
+    if (cookie) {
+        return JSON.parse(decodeURIComponent(cookie));
+    }
+    return {
+        ad_personalization: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'granted',
+        personalization_storage: 'denied',
+        security_storage: 'granted',
+        wait_for_update: 500
+    };
+}, isServer = ()=>!(typeof window !== 'undefined' && window.document), isText = (text)=>{
+    if (!text || typeof text !== 'object' || !('settings' in text) || !('customize' in text) || !('header' in text)) {
+        return false;
+    }
+    return true;
+}, useId = (prefix)=>{
+    const s4 = ()=>((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
+    return `${`:${s4()}`}-${s4()}`;
+};
+
+/**
+ * Credit to:
+ * @author Leonardo Favre <https://github.com/leofavre/observed-properties>
+ */ /* eslint-disable @typescript-eslint/ban-ts-comment */ const UPDATE_ON_CONNECTED = Symbol('UPDATE_ON_CONNECTED');
+if (isServer()) {
+    // Mock HTMLElement for server-side rendering
+    // @ts-ignore
+    global.HTMLElement = class EmptyHTMLElement {
+    };
+}
+let EnhancedElement = class EnhancedElement extends HTMLElement {
+    connectedCallback() {
+        let arr = [];
+        if (UPDATE_ON_CONNECTED in this && Array.isArray(this[UPDATE_ON_CONNECTED])) {
+            arr = this[UPDATE_ON_CONNECTED];
+        }
+        for (const propName of arr){
+            if (!('propertyChangedCallback' in this) || typeof this.propertyChangedCallback !== 'function') {
+                continue;
+            }
+            if (propName in this) {
+                this.propertyChangedCallback(propName, undefined, this[propName]);
+            }
+        }
+    }
+    constructor(){
+        super();
+        // @ts-ignore
+        const { observedProperties = [] } = this.constructor;
+        if (UPDATE_ON_CONNECTED in this) {
+            this[UPDATE_ON_CONNECTED] = [];
+        }
+        if ('propertyChangedCallback' in this && typeof this.propertyChangedCallback === 'function') {
+            for (const propName of observedProperties){
+                const initialValue = this[propName], CACHED_VALUE = Symbol(propName);
+                // @ts-ignore
+                this[CACHED_VALUE] = initialValue;
+                Object.defineProperty(this, propName, {
+                    get () {
+                        return this[CACHED_VALUE];
+                    },
+                    set (value) {
+                        const oldValue = this[CACHED_VALUE];
+                        this[CACHED_VALUE] = value;
+                        this.propertyChangedCallback(propName, oldValue, value);
+                    }
+                });
+                if (typeof initialValue !== 'undefined') {
+                    if (UPDATE_ON_CONNECTED in this && Array.isArray(this[UPDATE_ON_CONNECTED])) {
+                        this[UPDATE_ON_CONNECTED].push(propName);
+                    }
+                }
+            }
+        }
+    }
+};
+
+var Align = /*#__PURE__*/ function(Align) {
+    Align["BottomLeft"] = "bottom-left";
+    Align["BottomRight"] = "bottom-right";
+    Align["TopLeft"] = "top-left";
+    Align["TopRight"] = "top-right";
+    return Align;
+}({});
+var Format = /*#__PURE__*/ function(Format) {
+    Format["Banner"] = "banner";
+    Format["Box"] = "box";
+    return Format;
+}({});
+
 var settings$7="Cookie-Einstellungen";var customize$7={header:"Ihre Daten, Ihre Wahl",label:"Anpassen",text:"Wir verwenden <strong>funktionale Cookies</strong> für die Navigation usw. Außerdem verwenden wir <strong>statistische Cookies</strong>, um zu sehen, wie Benutzer mit der Website interagieren.",retargeting:"Wir verwenden auch <strong>Cookies für Marketing.</strong>",link:"Siehe unsere <a href=\"/%URL%\">Datenschutzrichtlinie</a>"};var header$7="Diese Website verwendet";var miniGDPR$8="Cookie-Einstellungen";var accept$7="Ich verstehe";var acceptAll$7="Alle akzeptieren";var decline$7="Nur funktionale";var close$7="Schließen";var save$7="Einstellungen speichern";var functional$7={label:"Funktional"};var statistical$7={label:"Statistisch"};var marketing$7={label:"Marketing"};var policyUrl$7="datenschutz";var de = {settings:settings$7,customize:customize$7,header:header$7,miniGDPR:miniGDPR$8,accept:accept$7,acceptAll:acceptAll$7,decline:decline$7,close:close$7,save:save$7,functional:functional$7,statistical:statistical$7,marketing:marketing$7,policyUrl:policyUrl$7};
 
 var settings$6="Cookie-indstillinger";var customize$6={header:"Dine data, dit valg",label:"Tilpas",text:"Vi bruger <strong>funktionelle cookies</strong> til navigation osv. Derudover bruger vi <strong>statistiske cookies</strong> til at se, hvordan brugere interagerer med websitet.",retargeting:"Vi bruger også <strong>cookies til marketing.</strong>",link:"Se vores <a href=\"/%URL%\">privatlivspolitik</a>"};var header$6="Denne hjemmeside bruger";var miniGDPR$7="Cookie-indstillinger";var accept$6="Jeg forstår";var acceptAll$6="Accepter alle";var decline$6="Kun funktionelle";var close$6="Luk";var save$6="Gem præferencer";var functional$6={label:"Funktionel"};var statistical$6={label:"Statistisk"};var marketing$6={label:"Marketing"};var policyUrl$6="privatliv";var dk = {settings:settings$6,customize:customize$6,header:header$6,miniGDPR:miniGDPR$7,accept:accept$6,acceptAll:acceptAll$6,decline:decline$6,close:close$6,save:save$6,functional:functional$6,statistical:statistical$6,marketing:marketing$6,policyUrl:policyUrl$6};
@@ -66,6 +171,8 @@ const languages = [
             return en;
     }
 }
+
+var css_248z = "\n  @keyframes fade-in-up {\n    0% {\n      transform: translateY(1em);\n      opacity: 0;\n    }\n    100% {\n      transform: translateY(0);\n      opacity: 1;\n    }\n  }\n  @keyframes fade-in-down {\n    0% {\n      transform: translateY(-1em);\n      opacity: 0;\n    }\n    100% {\n      transform: translateY(0);\n      opacity: 1;\n    }\n  }\n  @keyframes pop-in-bottom-left {\n    0% {\n      transform: translateY(100%) translateX(-100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-bottom-right {\n    0% {\n      transform: translateY(100%) translateX(100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-top-left {\n    0% {\n      transform: translateY(-100%) translateX(-100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-top-right {\n    0% {\n      transform: translateY(-100%) translateX(100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes fade-in {\n    0% {\n      opacity: 0;\n    }\n    100% {\n      opacity: 1;\n    }\n  }\n  @keyframes fade-up {\n    0% {\n      opacity: 0;\n      transform: translateY(0);\n    }\n    100% {\n      opacity: 1;\n      transform: translateY(-50%);\n    }\n  }:host {\n    font-family: var(--font-family);\n    font-size: 16px;\n    color: var(--color);\n    line-height: 1.3;\n    display: block;\n    width: 100%;\n    height: 100%;\n    cursor: default;\n  }:host *::selection {\n    background-color: var(--color);\n    color: var(--background-color);\n  }:host .cookie-overlay {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    z-index: 99999;\n    background-color: rgba(0, 0, 0, 0.3);\n    backdrop-filter: blur(2px);\n  }:host #cookie-warning-text {\n    margin: 0;\n    display: inline-flex;\n    gap: 0.5rem;\n    align-items: baseline;\n  }:host .cookie-container {\n    padding: 20px 30px;\n    transform-origin: bottom;\n    align-items: center;\n    display: flex;\n    position: fixed;\n    z-index: 999999;\n    background-color: var(--background-color);\n  }:host .cookie-container .content {\n    display: flex;\n    margin: 0;\n    font-size: 0.9em;\n    gap: 1em;\n  }:host .cookie-container.bottom-left, :host .cookie-container.bottom-right {\n    animation: fade-in-up 0.3s ease-in-out;\n  }:host .cookie-container.top-left, :host .cookie-container.top-right {\n    animation: fade-in-down 0.3s ease-in-out;\n  }:host .cookie-container.box-format {\n    flex-direction: column;\n    border: solid var(--border-width) currentcolor;\n    border-radius: 0.25em;\n  }:host .cookie-container.box-format.bottom-left {\n    left: 30px;\n    bottom: 30px;\n  }:host .cookie-container.box-format.bottom-right {\n    right: 30px;\n    bottom: 30px;\n  }:host .cookie-container.box-format.top-left {\n    left: 30px;\n    top: 30px;\n  }:host .cookie-container.box-format.top-right {\n    right: 30px;\n    top: 30px;\n  }:host .cookie-container.box-format .content {\n    flex-direction: column;\n  }:host .cookie-container.banner-format {\n    flex-direction: row;\n    left: 0;\n    right: 0;\n  }:host .cookie-container.banner-format.bottom-left, :host .cookie-container.banner-format.bottom-right {\n    bottom: 0;\n    border-top: solid var(--border-width) currentcolor;\n  }:host .cookie-container.banner-format.top-left, :host .cookie-container.banner-format.top-right {\n    top: 0;\n    border-bottom: solid var(--border-width) currentcolor;\n  }:host .cookie-container.banner-format .content {\n    flex-direction: row;\n    justify-content: space-between;\n    width: 100%;\n  }:host .button {\n    border: solid var(--border-width) currentcolor;\n    font-size: 0.9em;\n    line-height: 0.9;\n    font-weight: bold;\n    padding: 0 15px;\n    height: calc(1em + 20px);\n    margin: 0;\n    border-radius: 1.5em;\n    display: inline-flex;\n    align-items: center;\n  }:host .button-wrapper {\n    display: flex;\n    gap: 0.5em;\n  }:host .mini-gdpr {\n    position: fixed;\n    width: 40px;\n    height: 40px;\n    z-index: 99999;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: transform 0.2s ease-in-out;\n  }:host .mini-gdpr.bottom-left, :host .mini-gdpr.bottom-right {\n    bottom: 0;\n    border-top: solid var(--border-width);\n  }:host .mini-gdpr.top-left, :host .mini-gdpr.top-right {\n    top: 0;\n    border-bottom: solid var(--border-width);\n  }:host .mini-gdpr.bottom-left, :host .mini-gdpr.top-left {\n    left: 0;\n    border-right: solid var(--border-width);\n  }:host .mini-gdpr.bottom-right, :host .mini-gdpr.top-right {\n    right: 0;\n    border-left: solid var(--border-width);\n  }:host .mini-gdpr.bottom-left {\n    border-radius: 0 66% 0 0;\n    transform-origin: bottom left;\n    animation: pop-in-bottom-left 0.3s ease-in-out;\n  }:host .mini-gdpr.bottom-left[data-hide=true] {\n    transform: translateY(100%) translateX(-100%);\n  }:host .mini-gdpr.bottom-right {\n    border-radius: 66% 0 0;\n    transform-origin: bottom right;\n    animation: pop-in-bottom-right 0.3s ease-in-out;\n  }:host .mini-gdpr.bottom-right[data-hide=true] {\n    transform: translateY(100%) translateX(100%);\n  }:host .mini-gdpr.top-left {\n    border-radius: 0 0 66%;\n    transform-origin: top left;\n    animation: pop-in-top-left 0.3s ease-in-out;\n  }:host .mini-gdpr.top-left[data-hide=true] {\n    transform: translateY(-100%) translateX(-100%);\n  }:host .mini-gdpr.top-right {\n    border-radius: 0 0 0 66%;\n    transform-origin: top right;\n    animation: pop-in-top-right 0.3s ease-in-out;\n  }:host .mini-gdpr.top-right[data-hide=true] {\n    transform: translateY(-100%) translateX(100%);\n  }:host .mini-gdpr svg {\n    height: 1em;\n  }:host .mini-gdpr:hover, :host .mini-gdpr:active {\n    transform: scale(1.1);\n  }@media only screen and (width <= 760px) {\n    :host .cookie-container {\n      padding: 15px;\n    }\n    :host .cookie-container.box-format {\n      left: 20px;\n      right: 20px;\n    }\n    :host .cookie-container.banner-format .content {\n      flex-direction: column;\n    }\n    :host .cookie-container.banner-format.top-left, :host .cookie-container.banner-format.top-right {\n      padding-bottom: 10px;\n    }\n    :host .cookie-container.banner-format.bottom-left, :host .cookie-container.banner-format.bottom-right {\n      padding-top: 10px;\n    }\n  }:host .pop-up {\n    position: fixed;\n    width: 100vw;\n    height: 100vh;\n    top: 0;\n    left: 0;\n    overflow: hidden;\n    z-index: 999999;\n    animation-duration: 0.4s;\n    animation-name: fade-in;\n    background-color: rgba(0, 0, 0, 0.3);\n  }:host .pop-up dialog {\n    position: absolute;\n    height: 90%;\n    max-width: 90%;\n    min-height: 0;\n    max-height: 0;\n    border-radius: 0.25em;\n    border: solid var(--border-width) currentcolor;\n    left: 0;\n    right: 0;\n    margin: auto;\n    top: 50%;\n    transform: translateY(-50%);\n    padding: 40px;\n    overflow: hidden;\n    transition: max-height 0.2s ease-in-out, min-height 0.2s ease-in-out;\n    width: 600px;\n    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);\n    color: var(--color);\n    background-color: var(--background-color);\n  }:host .pop-up dialog .button-wrapper {\n    margin-top: 1em;\n  }:host .pop-up dialog .close-button {\n    top: 14px;\n    right: 14px;\n    width: 25px;\n  }:host .pop-up dialog[data-animate=up] {\n    animation: fade-up 0.3s ease-in-out;\n  }:host .pop-up[data-gallery=true] dialog {\n    padding: 0;\n  }:host .inner-wrapper {\n    width: 100%;\n    float: left;\n    position: relative;\n    display: flex;\n    align-items: center;\n    overflow: hidden;\n  }:host .row {\n    display: flex;\n    flex-direction: row;\n    gap: 1em;\n    align-items: flex-start;\n    margin: 0;\n  }:host .column {\n    display: flex;\n    flex: 1 1;\n    flex-direction: column;\n    align-items: flex-start;\n  }@media only screen and (width <= 760px) {\n    :host .pop-up .pop-up-element {\n      padding: 25px;\n    }\n    :host .pop-up .pop-up-element .close-button {\n      width: 20px;\n      top: 5px;\n      right: 5px;\n    }\n    :host .row {\n      overflow: auto hidden;\n      scroll-snap-points-x: repeat(100%);\n      scroll-snap-type: x mandatory;\n      flex: 1 1;\n      -webkit-overflow-scrolling: touch;\n      scrollbar-width: none;\n    }\n    :host .row::-webkit-scrollbar {\n      display: none;\n    }\n    :host .column {\n      width: 100%;\n      height: 100%;\n      position: relative;\n      flex: 0 0 100%;\n      scroll-snap-align: start;\n    }\n  }:host .container {\n    display: inline-flex;\n    flex-direction: column;\n    margin-right: 0.5em;\n    margin-top: 0.5em;\n    font-size: 0.9em;\n  }:host .text-label {\n    margin-bottom: 0.5em;\n  }:host .label {\n    position: relative;\n    display: inline-block;\n    width: 3em;\n    height: 1.5em;\n  }:host .label .input {\n    opacity: 0;\n    width: 0;\n    height: 0;\n    margin: 0;\n    padding: 0;\n  }:host .slider {\n    position: absolute;\n    cursor: pointer;\n    inset: 0;\n    border-radius: 1em;\n    border: solid var(--border-width) currentcolor;\n    appearance: none;\n    transition: background-color 0.2s;\n  }:host .slider::before {\n    position: absolute;\n    border-radius: 50%;\n    content: \"\";\n    height: 1em;\n    width: 1em;\n    left: 0.2em;\n    bottom: 0;\n    top: 0;\n    margin: auto;\n    background-color: currentcolor;\n    transition: 0.4s;\n  }:host .input:focus + .slider {\n    box-shadow: 0 0 1px;\n  }:host .input:checked + .slider {\n    background-color: var(--accent-color);\n  }:host .input:checked + .slider::before {\n    transform: translateX(1.4em);\n  }:host .input:disabled + .slider {\n    opacity: 0.5;\n  }:host .menu-button {\n    position: absolute;\n    width: 40px;\n    max-width: 100%;\n    padding: 0;\n    margin: 0;\n    line-height: 0;\n    z-index: 999;\n    cursor: pointer;\n    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;\n    background-color: transparent;\n    display: block;\n    border-color: unset;\n    outline-color: unset;\n  }:host .menu-button .hamburger {\n    width: 100%;\n    display: inline-block;\n    vertical-align: middle;\n  }:host .menu-button .hamburger::before,\n  :host .menu-button .hamburger > span,\n  :host .menu-button .hamburger::after {\n    background-color: currentcolor;\n    border-color: currentcolor;\n    outline-color: currentcolor;\n    display: block;\n    height: 2px;\n    margin: 10px 0;\n    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease-in-out;\n  }:host .menu-button .hamburger::before, :host .menu-button .hamburger::after {\n    content: \"\";\n  }:host .menu-button .hamburger::before {\n    margin-top: 0;\n  }:host .menu-button .hamburger::after {\n    margin-bottom: 0;\n  }:host .menu-button[data-open=true] .hamburger::before {\n    transform: translateY(12px) rotate(135deg);\n  }:host .menu-button[data-open=true] .hamburger > span {\n    transform: translateY(0) rotate(-135deg);\n    opacity: 0;\n  }:host .menu-button[data-open=true] .hamburger::after {\n    transform: translateY(-12px) rotate(-135deg);\n  }:host * {\n    box-sizing: border-box;\n  }:host input,\n  :host textarea,\n  :host button {\n    color: inherit;\n    font-size: inherit;\n    font-family: inherit;\n    font-weight: inherit;\n    border: 0;\n    outline: 0;\n    background-color: transparent;\n  }:host button {\n    background-color: var(--accent-color);\n    transition: transform 0.2s ease-in-out;\n  }:host button,\n  :host input[type=submit],\n  :host input[type=button],\n  :host input[type=reset] {\n    appearance: none;\n  }:host button *,\n  :host input[type=submit] *,\n  :host input[type=button] *,\n  :host input[type=reset] * {\n    pointer-events: none;\n  }:host button:not([disabled]),\n  :host input[type=submit]:not([disabled]),\n  :host input[type=button]:not([disabled]),\n  :host input[type=reset]:not([disabled]) {\n    cursor: pointer;\n  }:host button:hover,\n  :host input[type=submit]:hover,\n  :host input[type=button]:hover,\n  :host input[type=reset]:hover {\n    transform: scale(1.02);\n  }:host a {\n    color: inherit;\n    font-weight: bold;\n    text-decoration: none;\n    position: relative;\n  }:host a::after {\n    content: \"\";\n    border-bottom: solid var(--border-width) var(--accent-color);\n    position: absolute;\n    width: 100%;\n    bottom: 0;\n    left: 0;\n    z-index: -1;\n  }:host a:hover::after {\n    opacity: 0;\n  }:host svg {\n    width: auto;\n    height: auto;\n    display: inline-block;\n  }:host svg path {\n    fill: currentcolor;\n  }:host p {\n    margin: 0;\n    padding: 0.5em 0 0.7em;\n  }:host h1,\n  :host .h1,\n  :host h2,\n  :host .h2,\n  :host h3,\n  :host .h3 {\n    font-weight: bold;\n    font-size: 2.2em;\n    padding: 0;\n    margin: 0;\n    margin-top: 0.5em;\n  }:host h2,\n  :host .h2 {\n    font-size: 1.7em;\n  }:host h3,\n  :host .h3 {\n    font-size: 1.5em;\n  }:host h3 svg,\n  :host .h3 svg {\n    height: 1.2em;\n    display: inline-block;\n    vertical-align: bottom;\n  }:host .icon-cookies {\n    display: flex;\n    margin: 0;\n    padding: 0;\n  }";
 
 /**
  * Cookie Warning
@@ -181,41 +288,6 @@ const loading = /* HTML */ `<svg xmlns="http://www.w3.org/2000/svg" width="22" h
     }, 10);
 }
 
-const boolToConsentParams = (bool)=>{
-    if (bool === undefined || bool === null) {
-        return undefined;
-    }
-    return bool ? 'granted' : 'denied';
-}, consentParamsToBool = (param)=>{
-    if (param === undefined || param === null) {
-        return null;
-    }
-    return param === 'granted';
-}, getConsent = ()=>{
-    const cookie = Cookies.get('CookieConsent');
-    if (cookie) {
-        return JSON.parse(decodeURIComponent(cookie));
-    }
-    return {
-        ad_personalization: 'denied',
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        analytics_storage: 'denied',
-        functionality_storage: 'granted',
-        personalization_storage: 'denied',
-        security_storage: 'granted',
-        wait_for_update: 500
-    };
-}, isServer = ()=>!(typeof window !== 'undefined' && window.document), isText = (text)=>{
-    if (!text || typeof text !== 'object' || !('settings' in text) || !('customize' in text) || !('header' in text)) {
-        return false;
-    }
-    return true;
-}, useId = (prefix)=>{
-    const s4 = ()=>((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
-    return `${`:${s4()}`}-${s4()}`;
-};
-
 /**
  * Switch button
  */ function switchButton({ disabled = false, label, name, value }) {
@@ -223,74 +295,52 @@ const boolToConsentParams = (bool)=>{
     return /* HTML */ `<div class="container">${label ? /* HTML */ `<label class="text-label" for="${id}">${label}</label>` : ''} <label class="label"><input ${value ? 'checked' : ''} class="input" ${disabled ? 'disabled' : ''} id="${id}" name="${name}" type="checkbox" value="${value}"> <span class="slider"></span></label></div>`;
 }
 
-var Align = /*#__PURE__*/ function(Align) {
-    Align["BottomLeft"] = "bottom-left";
-    Align["BottomRight"] = "bottom-right";
-    Align["TopLeft"] = "top-left";
-    Align["TopRight"] = "top-right";
-    return Align;
-}({});
-var Format = /*#__PURE__*/ function(Format) {
-    Format["Banner"] = "banner";
-    Format["Box"] = "box";
-    return Format;
-}({});
-
-var css_248z = "\n  @keyframes fade-in-up {\n    0% {\n      transform: translateY(1em);\n      opacity: 0;\n    }\n    100% {\n      transform: translateY(0);\n      opacity: 1;\n    }\n  }\n  @keyframes fade-in-down {\n    0% {\n      transform: translateY(-1em);\n      opacity: 0;\n    }\n    100% {\n      transform: translateY(0);\n      opacity: 1;\n    }\n  }\n  @keyframes pop-in-bottom-left {\n    0% {\n      transform: translateY(100%) translateX(-100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-bottom-right {\n    0% {\n      transform: translateY(100%) translateX(100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-top-left {\n    0% {\n      transform: translateY(-100%) translateX(-100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-top-right {\n    0% {\n      transform: translateY(-100%) translateX(100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes fade-in {\n    0% {\n      opacity: 0;\n    }\n    100% {\n      opacity: 1;\n    }\n  }\n  @keyframes fade-up {\n    0% {\n      opacity: 0;\n      transform: translateY(0);\n    }\n    100% {\n      opacity: 1;\n      transform: translateY(-50%);\n    }\n  }:host {\n    font-family: var(--font-family);\n    font-size: 16px;\n    color: var(--color);\n    line-height: 1.3;\n    display: block;\n    width: 100%;\n    height: 100%;\n    cursor: default;\n  }:host *::selection {\n    background-color: var(--color);\n    color: var(--background-color);\n  }:host .cookie-overlay {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    z-index: 99999;\n    background-color: rgba(0, 0, 0, 0.3);\n    backdrop-filter: blur(2px);\n  }:host #cookie-warning-text {\n    margin: 0;\n    display: inline-flex;\n    gap: 0.5rem;\n    align-items: baseline;\n  }:host .cookie-container {\n    padding: 20px 30px;\n    transform-origin: bottom;\n    align-items: center;\n    display: flex;\n    position: fixed;\n    z-index: 999999;\n    background-color: var(--background-color);\n  }:host .cookie-container .content {\n    display: flex;\n    margin: 0;\n    font-size: 0.9em;\n    gap: 1em;\n  }:host .cookie-container.bottom-left, :host .cookie-container.bottom-right {\n    animation: fade-in-up 0.3s ease-in-out;\n  }:host .cookie-container.top-left, :host .cookie-container.top-right {\n    animation: fade-in-down 0.3s ease-in-out;\n  }:host .cookie-container.box-format {\n    flex-direction: column;\n    border: solid var(--border-width) currentcolor;\n    border-radius: 0.25em;\n  }:host .cookie-container.box-format.bottom-left {\n    left: 30px;\n    bottom: 30px;\n  }:host .cookie-container.box-format.bottom-right {\n    right: 30px;\n    bottom: 30px;\n  }:host .cookie-container.box-format.top-left {\n    left: 30px;\n    top: 30px;\n  }:host .cookie-container.box-format.top-right {\n    right: 30px;\n    top: 30px;\n  }:host .cookie-container.box-format .content {\n    flex-direction: column;\n  }:host .cookie-container.banner-format {\n    flex-direction: row;\n    left: 0;\n    right: 0;\n  }:host .cookie-container.banner-format.bottom-left, :host .cookie-container.banner-format.bottom-right {\n    bottom: 0;\n    border-top: solid var(--border-width) currentcolor;\n  }:host .cookie-container.banner-format.top-left, :host .cookie-container.banner-format.top-right {\n    top: 0;\n    border-bottom: solid var(--border-width) currentcolor;\n  }:host .cookie-container.banner-format .content {\n    flex-direction: row;\n    justify-content: space-between;\n    width: 100%;\n  }:host .button {\n    border: solid var(--border-width) currentcolor;\n    font-size: 0.9em;\n    line-height: 0.9;\n    font-weight: bold;\n    padding: 0 15px;\n    height: calc(1em + 20px);\n    margin: 0;\n    border-radius: 1.5em;\n    display: inline-flex;\n    align-items: center;\n  }:host .button-wrapper {\n    display: flex;\n    gap: 0.5em;\n  }:host .mini-gdpr {\n    position: fixed;\n    width: 40px;\n    height: 40px;\n    z-index: 99999;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: transform 0.2s ease-in-out;\n  }:host .mini-gdpr.bottom-left, :host .mini-gdpr.bottom-right {\n    bottom: 0;\n    border-top: solid var(--border-width);\n  }:host .mini-gdpr.top-left, :host .mini-gdpr.top-right {\n    top: 0;\n    border-bottom: solid var(--border-width);\n  }:host .mini-gdpr.bottom-left, :host .mini-gdpr.top-left {\n    left: 0;\n    border-right: solid var(--border-width);\n  }:host .mini-gdpr.bottom-right, :host .mini-gdpr.top-right {\n    right: 0;\n    border-left: solid var(--border-width);\n  }:host .mini-gdpr.bottom-left {\n    border-radius: 0 66% 0 0;\n    transform-origin: bottom left;\n    animation: pop-in-bottom-left 0.3s ease-in-out;\n  }:host .mini-gdpr.bottom-left[data-hide=true] {\n    transform: translateY(100%) translateX(-100%);\n  }:host .mini-gdpr.bottom-right {\n    border-radius: 66% 0 0;\n    transform-origin: bottom right;\n    animation: pop-in-bottom-right 0.3s ease-in-out;\n  }:host .mini-gdpr.bottom-right[data-hide=true] {\n    transform: translateY(100%) translateX(100%);\n  }:host .mini-gdpr.top-left {\n    border-radius: 0 0 66%;\n    transform-origin: top left;\n    animation: pop-in-top-left 0.3s ease-in-out;\n  }:host .mini-gdpr.top-left[data-hide=true] {\n    transform: translateY(-100%) translateX(-100%);\n  }:host .mini-gdpr.top-right {\n    border-radius: 0 0 0 66%;\n    transform-origin: top right;\n    animation: pop-in-top-right 0.3s ease-in-out;\n  }:host .mini-gdpr.top-right[data-hide=true] {\n    transform: translateY(-100%) translateX(100%);\n  }:host .mini-gdpr svg {\n    height: 1em;\n  }:host .mini-gdpr:hover, :host .mini-gdpr:active {\n    transform: scale(1.1);\n  }@media only screen and (width <= 760px) {\n    :host .cookie-container {\n      padding: 15px;\n    }\n    :host .cookie-container.box-format {\n      left: 20px;\n      right: 20px;\n    }\n    :host .cookie-container.banner-format .content {\n      flex-direction: column;\n    }\n    :host .cookie-container.banner-format.top-left, :host .cookie-container.banner-format.top-right {\n      padding-bottom: 10px;\n    }\n    :host .cookie-container.banner-format.bottom-left, :host .cookie-container.banner-format.bottom-right {\n      padding-top: 10px;\n    }\n  }:host .pop-up {\n    position: fixed;\n    width: 100vw;\n    height: 100vh;\n    top: 0;\n    left: 0;\n    overflow: hidden;\n    z-index: 999999;\n    animation-duration: 0.4s;\n    animation-name: fade-in;\n    background-color: rgba(0, 0, 0, 0.3);\n  }:host .pop-up dialog {\n    position: absolute;\n    height: 90%;\n    max-width: 90%;\n    min-height: 0;\n    max-height: 0;\n    border-radius: 0.25em;\n    border: solid var(--border-width) currentcolor;\n    left: 0;\n    right: 0;\n    margin: auto;\n    top: 50%;\n    transform: translateY(-50%);\n    padding: 40px;\n    overflow: hidden;\n    transition: max-height 0.2s ease-in-out, min-height 0.2s ease-in-out;\n    width: 600px;\n    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);\n    color: var(--color);\n    background-color: var(--background-color);\n  }:host .pop-up dialog .button-wrapper {\n    margin-top: 1em;\n  }:host .pop-up dialog .close-button {\n    top: 14px;\n    right: 14px;\n    width: 25px;\n  }:host .pop-up dialog[data-animate=up] {\n    animation: fade-up 0.3s ease-in-out;\n  }:host .pop-up[data-gallery=true] dialog {\n    padding: 0;\n  }:host .inner-wrapper {\n    width: 100%;\n    float: left;\n    position: relative;\n    display: flex;\n    align-items: center;\n    overflow: hidden;\n  }:host .row {\n    display: flex;\n    flex-direction: row;\n    gap: 1em;\n    align-items: flex-start;\n    margin: 0;\n  }:host .column {\n    display: flex;\n    flex: 1 1;\n    flex-direction: column;\n    align-items: flex-start;\n  }@media only screen and (width <= 760px) {\n    :host .pop-up .pop-up-element {\n      padding: 25px;\n    }\n    :host .pop-up .pop-up-element .close-button {\n      width: 20px;\n      top: 5px;\n      right: 5px;\n    }\n    :host .row {\n      overflow: auto hidden;\n      scroll-snap-points-x: repeat(100%);\n      scroll-snap-type: x mandatory;\n      flex: 1 1;\n      -webkit-overflow-scrolling: touch;\n      scrollbar-width: none;\n    }\n    :host .row::-webkit-scrollbar {\n      display: none;\n    }\n    :host .column {\n      width: 100%;\n      height: 100%;\n      position: relative;\n      flex: 0 0 100%;\n      scroll-snap-align: start;\n    }\n  }:host .container {\n    display: inline-flex;\n    flex-direction: column;\n    margin-right: 0.5em;\n    margin-top: 0.5em;\n    font-size: 0.9em;\n  }:host .text-label {\n    margin-bottom: 0.5em;\n  }:host .label {\n    position: relative;\n    display: inline-block;\n    width: 3em;\n    height: 1.5em;\n  }:host .label .input {\n    opacity: 0;\n    width: 0;\n    height: 0;\n    margin: 0;\n    padding: 0;\n  }:host .slider {\n    position: absolute;\n    cursor: pointer;\n    inset: 0;\n    border-radius: 1em;\n    border: solid var(--border-width) currentcolor;\n    appearance: none;\n    transition: background-color 0.2s;\n  }:host .slider::before {\n    position: absolute;\n    border-radius: 50%;\n    content: \"\";\n    height: 1em;\n    width: 1em;\n    left: 0.2em;\n    bottom: 0;\n    top: 0;\n    margin: auto;\n    background-color: currentcolor;\n    transition: 0.4s;\n  }:host .input:focus + .slider {\n    box-shadow: 0 0 1px;\n  }:host .input:checked + .slider {\n    background-color: var(--accent-color);\n  }:host .input:checked + .slider::before {\n    transform: translateX(1.4em);\n  }:host .input:disabled + .slider {\n    opacity: 0.5;\n  }:host .menu-button {\n    position: absolute;\n    width: 40px;\n    max-width: 100%;\n    padding: 0;\n    margin: 0;\n    line-height: 0;\n    z-index: 999;\n    cursor: pointer;\n    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;\n    background-color: transparent;\n    display: block;\n    border-color: unset;\n    outline-color: unset;\n  }:host .menu-button .hamburger {\n    width: 100%;\n    display: inline-block;\n    vertical-align: middle;\n  }:host .menu-button .hamburger::before,\n  :host .menu-button .hamburger > span,\n  :host .menu-button .hamburger::after {\n    background-color: currentcolor;\n    border-color: currentcolor;\n    outline-color: currentcolor;\n    display: block;\n    height: 2px;\n    margin: 10px 0;\n    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease-in-out;\n  }:host .menu-button .hamburger::before, :host .menu-button .hamburger::after {\n    content: \"\";\n  }:host .menu-button .hamburger::before {\n    margin-top: 0;\n  }:host .menu-button .hamburger::after {\n    margin-bottom: 0;\n  }:host .menu-button[data-open=true] .hamburger::before {\n    transform: translateY(12px) rotate(135deg);\n  }:host .menu-button[data-open=true] .hamburger > span {\n    transform: translateY(0) rotate(-135deg);\n    opacity: 0;\n  }:host .menu-button[data-open=true] .hamburger::after {\n    transform: translateY(-12px) rotate(-135deg);\n  }:host * {\n    box-sizing: border-box;\n  }:host input,\n  :host textarea,\n  :host button {\n    color: inherit;\n    font-size: inherit;\n    font-family: inherit;\n    font-weight: inherit;\n    border: 0;\n    outline: 0;\n    background-color: transparent;\n  }:host button {\n    background-color: var(--accent-color);\n    transition: transform 0.2s ease-in-out;\n  }:host button,\n  :host input[type=submit],\n  :host input[type=button],\n  :host input[type=reset] {\n    appearance: none;\n  }:host button *,\n  :host input[type=submit] *,\n  :host input[type=button] *,\n  :host input[type=reset] * {\n    pointer-events: none;\n  }:host button:not([disabled]),\n  :host input[type=submit]:not([disabled]),\n  :host input[type=button]:not([disabled]),\n  :host input[type=reset]:not([disabled]) {\n    cursor: pointer;\n  }:host button:hover,\n  :host input[type=submit]:hover,\n  :host input[type=button]:hover,\n  :host input[type=reset]:hover {\n    transform: scale(1.02);\n  }:host a {\n    color: inherit;\n    font-weight: bold;\n    text-decoration: none;\n    position: relative;\n  }:host a::after {\n    content: \"\";\n    border-bottom: solid var(--border-width) var(--accent-color);\n    position: absolute;\n    width: 100%;\n    bottom: 0;\n    left: 0;\n    z-index: -1;\n  }:host a:hover::after {\n    opacity: 0;\n  }:host svg {\n    width: auto;\n    height: auto;\n    display: inline-block;\n  }:host svg path {\n    fill: currentcolor;\n  }:host p {\n    margin: 0;\n    padding: 0.5em 0 0.7em;\n  }:host h1,\n  :host .h1,\n  :host h2,\n  :host .h2,\n  :host h3,\n  :host .h3 {\n    font-weight: bold;\n    font-size: 2.2em;\n    padding: 0;\n    margin: 0;\n    margin-top: 0.5em;\n  }:host h2,\n  :host .h2 {\n    font-size: 1.7em;\n  }:host h3,\n  :host .h3 {\n    font-size: 1.5em;\n  }:host h3 svg,\n  :host .h3 svg {\n    height: 1.2em;\n    display: inline-block;\n    vertical-align: bottom;\n  }:host .icon-cookies {\n    display: flex;\n    margin: 0;\n    padding: 0;\n  }";
-
-/**
- * Credit to:
- * @author Leonardo Favre <https://github.com/leofavre/observed-properties>
- */ /* eslint-disable @typescript-eslint/ban-ts-comment */ const UPDATE_ON_CONNECTED = Symbol('UPDATE_ON_CONNECTED');
-if (isServer()) {
-    // Mock HTMLElement for server-side rendering
-    // @ts-ignore
-    global.HTMLElement = class EmptyHTMLElement {
-    };
-}
-let EnhancedElement = class EnhancedElement extends HTMLElement {
-    connectedCallback() {
-        let arr = [];
-        if (UPDATE_ON_CONNECTED in this && Array.isArray(this[UPDATE_ON_CONNECTED])) {
-            arr = this[UPDATE_ON_CONNECTED];
+let GTag = class GTag {
+    initialize() {
+        gtag('consent', 'default', this.consentParams);
+        const scriptID = 'ga-gtag';
+        if (document.getElementById(scriptID) || this._initialized) {
+            return;
         }
-        for (const propName of arr){
-            if (!('propertyChangedCallback' in this) || typeof this.propertyChangedCallback !== 'function') {
-                continue;
+        try {
+            if (!this.googleID) {
+                throw new Error('No Google Tag ID was assigned');
             }
-            if (propName in this) {
-                this.propertyChangedCallback(propName, undefined, this[propName]);
-            }
+            const script = document.createElement('script');
+            script.id = scriptID;
+            script.async = true;
+            script.src = `https://www.googletagmanager.com/gtag/js?id=${this.googleID}`;
+            document.head.appendChild(script);
+            script.insertAdjacentHTML('beforebegin', '<!-- Google Analytics -->');
+            script.insertAdjacentHTML('afterend', '<!-- End Google Analytics -->');
+            gtag('js', new Date());
+            gtag('config', this.googleID, this.config);
+            this._initialized = true;
+        } catch (err) {
+            console.error(err);
         }
     }
-    constructor(){
-        super();
-        // @ts-ignore
-        const { observedProperties = [] } = this.constructor;
-        if (UPDATE_ON_CONNECTED in this) {
-            this[UPDATE_ON_CONNECTED] = [];
+    updateConsent({ consentParams }) {
+        try {
+            window.gtag('consent', 'update', consentParams);
+        } catch (err) {
+            console.error(err);
         }
-        if ('propertyChangedCallback' in this && typeof this.propertyChangedCallback === 'function') {
-            for (const propName of observedProperties){
-                const initialValue = this[propName], CACHED_VALUE = Symbol(propName);
+    }
+    constructor({ config = {}, consentParams, googleID }){
+        this._initialized = false;
+        this.config = {};
+        this.googleID = googleID;
+        this.config = config;
+        this.consentParams = consentParams;
+        if (!window.gtag) {
+            window.gtag = function() {
+                window.dataLayer = window.dataLayer || [];
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                this[CACHED_VALUE] = initialValue;
-                Object.defineProperty(this, propName, {
-                    get () {
-                        return this[CACHED_VALUE];
-                    },
-                    set (value) {
-                        const oldValue = this[CACHED_VALUE];
-                        this[CACHED_VALUE] = value;
-                        this.propertyChangedCallback(propName, oldValue, value);
-                    }
-                });
-                if (typeof initialValue !== 'undefined') {
-                    if (UPDATE_ON_CONNECTED in this && Array.isArray(this[UPDATE_ON_CONNECTED])) {
-                        this[UPDATE_ON_CONNECTED].push(propName);
-                    }
-                }
-            }
+                window.dataLayer.push(arguments) // eslint-disable-line prefer-rest-params
+                ;
+            };
         }
     }
 };
@@ -338,56 +388,6 @@ let GTM = class GTM {
         // this.sanitizeDataLayer = !!sanitizeDataLayer
         this.serverSideDomain = serverSideDomain ? serverSideDomain.trim() : null;
         this.defer = !!defer;
-        this.consentParams = consentParams;
-        if (!window.gtag) {
-            window.gtag = function() {
-                window.dataLayer = window.dataLayer || [];
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                window.dataLayer.push(arguments) // eslint-disable-line prefer-rest-params
-                ;
-            };
-        }
-    }
-};
-
-let GTag = class GTag {
-    initialize() {
-        gtag('consent', 'default', this.consentParams);
-        const scriptID = 'ga-gtag';
-        if (document.getElementById(scriptID) || this._initialized) {
-            return;
-        }
-        try {
-            if (!this.googleID) {
-                throw new Error('No Google Tag ID was assigned');
-            }
-            const script = document.createElement('script');
-            script.id = scriptID;
-            script.async = true;
-            script.src = `https://www.googletagmanager.com/gtag/js?id=${this.googleID}`;
-            document.head.appendChild(script);
-            script.insertAdjacentHTML('beforebegin', '<!-- Google Analytics -->');
-            script.insertAdjacentHTML('afterend', '<!-- End Google Analytics -->');
-            gtag('js', new Date());
-            gtag('config', this.googleID, this.config);
-            this._initialized = true;
-        } catch (err) {
-            console.error(err);
-        }
-    }
-    updateConsent({ consentParams }) {
-        try {
-            window.gtag('consent', 'update', consentParams);
-        } catch (err) {
-            console.error(err);
-        }
-    }
-    constructor({ config = {}, consentParams, googleID }){
-        this._initialized = false;
-        this.config = {};
-        this.googleID = googleID;
-        this.config = config;
         this.consentParams = consentParams;
         if (!window.gtag) {
             window.gtag = function() {

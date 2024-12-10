@@ -1,6 +1,6 @@
 import type AMCookies from '@/elements/AMCookies'
-import uiButton from '@/templates/uiButton'
 import icon from '@/templates/icon'
+import uiButton from '@/templates/uiButton'
 
 /**
  * Settings Pop-Up

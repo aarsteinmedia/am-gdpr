@@ -1,21 +1,3 @@
-declare function switchButton(this: AMCookies, { disabled, label, name, value, }: {
-    disabled?: boolean;
-    name: string;
-    label?: string;
-    value: boolean;
-}): string;
-
-declare enum Align {
-    BottomLeft = "bottom-left",
-    BottomRight = "bottom-right",
-    TopLeft = "top-left",
-    TopRight = "top-right"
-}
-declare enum Format {
-    Banner = "banner",
-    Box = "box"
-}
-
 var settings = "Cookie Settings";
 var customize = {
 	header: "Your data, your choice",
@@ -60,19 +42,19 @@ var text = {
 type Text = typeof text;
 interface DataLayerObject {
     event: DataLayerEventName;
-    userData?: UserData;
     eventData?: EventData;
     pageData?: PageData;
+    userData?: UserData;
 }
 interface UserData {
     userId?: string;
 }
 interface EventData {
-    category: string;
     action: string;
+    category: string;
     label?: string;
-    value?: number;
     nonInteraction?: boolean;
+    value?: number;
 }
 interface PageData {
     path: string;
@@ -81,8 +63,8 @@ type DataLayerEventName = 'customUser' | 'customEvent' | 'customPage' | 'customE
 declare global {
     interface Window {
         addGDPRConsent?: (func: () => void) => void;
-        google_tag_data?: unknown;
         dataLayer?: DataLayerObject[];
+        google_tag_data?: unknown;
     }
     interface HTMLElementTagNameMap {
         'dotlottie-player': AMCookies;
@@ -99,6 +81,24 @@ declare class EnhancedElement extends HTMLElement {
     constructor();
     connectedCallback(): void;
 }
+
+declare enum Align {
+    BottomLeft = "bottom-left",
+    BottomRight = "bottom-right",
+    TopLeft = "top-left",
+    TopRight = "top-right"
+}
+declare enum Format {
+    Banner = "banner",
+    Box = "box"
+}
+
+declare function switchButton(this: AMCookies, { disabled, label, name, value, }: {
+    disabled?: boolean;
+    name: string;
+    label?: string;
+    value: boolean;
+}): string;
 
 declare class AMCookies extends EnhancedElement {
     constructor();

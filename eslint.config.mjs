@@ -1,14 +1,14 @@
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import perfectionist from 'eslint-plugin-perfectionist'
+import { fixupPluginRules } from '@eslint/compat'
+import { FlatCompat } from '@eslint/eslintrc'
+import js from '@eslint/js'
 import typescriptEslint from '@typescript-eslint/eslint-plugin'
+import tsParser from '@typescript-eslint/parser'
 import _import from 'eslint-plugin-import'
 import jsdoc from 'eslint-plugin-jsdoc'
-import { fixupPluginRules } from '@eslint/compat'
+import perfectionist from 'eslint-plugin-perfectionist'
 import globals from 'globals'
-import tsParser from '@typescript-eslint/parser'
-import js from '@eslint/js'
-import { FlatCompat } from '@eslint/eslintrc'
 
 const __filename = fileURLToPath(import.meta.url),
   __dirname = path.dirname(__filename),
@@ -215,6 +215,8 @@ const __filename = fileURLToPath(import.meta.url),
         'no-with': 'error',
         'one-var-declaration-per-line': 'error',
         'operator-assignment': ['error', 'always'],
+        // 'perfectionist/sort-imports': 'warn',
+        'perfectionist/sort-interfaces': 'warn',
         'perfectionist/sort-objects': 'warn',
         'prefer-const': 'error',
 

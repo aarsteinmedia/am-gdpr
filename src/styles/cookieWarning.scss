@@ -21,6 +21,7 @@
   transform-origin: bottom;
   align-items: center;
   display: flex;
+
   // justify-content: flex-start;
   position: fixed;
   z-index: 999999;
@@ -28,6 +29,7 @@
 
   .content {
     display: flex;
+
     // align-items: baseline;
     // justify-content: center;
     margin: 0;
@@ -116,6 +118,7 @@
 .button-wrapper {
   display: flex;
   gap: 0.5em;
+
   // margin-top: 0.7em;
 }
 

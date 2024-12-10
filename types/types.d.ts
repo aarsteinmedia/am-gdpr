@@ -4,19 +4,19 @@ import text from '@/i18n/en.json';
 export type Text = typeof text;
 export interface DataLayerObject {
     event: DataLayerEventName;
-    userData?: UserData;
     eventData?: EventData;
     pageData?: PageData;
+    userData?: UserData;
 }
 interface UserData {
     userId?: string;
 }
 interface EventData {
-    category: string;
     action: string;
+    category: string;
     label?: string;
-    value?: number;
     nonInteraction?: boolean;
+    value?: number;
 }
 interface PageData {
     path: string;
@@ -30,21 +30,21 @@ export interface CEMConfig {
     globs: ['src/**/*.ts'];
     litelement: boolean;
     outdir: string;
-    packagejson: boolean;
-    stencil: boolean;
-    watch: boolean;
-    plugins: Array<() => Plugin>;
     overrideModuleCreation({ globs, ts, }: {
         ts: unknown;
         globs: string[];
     }): unknown[];
+    packagejson: boolean;
+    plugins: Array<() => Plugin>;
+    stencil: boolean;
+    watch: boolean;
 }
 export type DataLayerEventName = 'customUser' | 'customEvent' | 'customPage' | 'customEcommerce';
 declare global {
     interface Window {
         addGDPRConsent?: (func: () => void) => void;
-        google_tag_data?: unknown;
         dataLayer?: DataLayerObject[];
+        google_tag_data?: unknown;
     }
     interface HTMLElementTagNameMap {
         'dotlottie-player': AMCookies;

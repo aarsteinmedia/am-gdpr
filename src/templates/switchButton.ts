@@ -1,5 +1,5 @@
-import { useId } from '@/utils'
 import type AMCookies from '@/elements/AMCookies'
+import { useId } from '@/utils'
 
 /**
  * Switch button

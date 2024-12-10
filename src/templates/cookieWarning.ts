@@ -1,5 +1,5 @@
-import { icon } from '@/templates'
 import type AMCookies from '@/elements/AMCookies'
+import { icon } from '@/templates'
 
 /**
  * Cookie Warning
