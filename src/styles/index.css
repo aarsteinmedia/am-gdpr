@@ -1,4 +1,6 @@
-@layer GDPR {
+@layer defaults, CookieWarning, PopUp, Switch, UiButton;
+
+@layer defaults {
 
   :host {
     font-family: var(--font-family);

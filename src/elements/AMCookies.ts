@@ -3,11 +3,11 @@ import type { Text } from '@/types'
 import EnhancedElement from '@/elements/EnhancedElement'
 import { Align, Format } from '@/enums'
 import getTranslation from '@/i18n'
-import gdprStyles from '@/styles/index.css'
-import cookieWarningStyles from '@/styles/cookieWarning.css'
-import popUpStyles from '@/styles/popUp.css'
-import switchStyles from '@/styles/switch.css'
-import uiButtonStyles from '@/styles/uiButton.css'
+import defaultStyle from '@/styles/index.css'
+import cookieWarningStyle from '@/styles/cookieWarning.css'
+import popUpStyle from '@/styles/popUp.css'
+import switchStyle from '@/styles/switch.css'
+import uiButtonStyle from '@/styles/uiButton.css'
 import {
   cookieWarning,
   loading,
@@ -588,11 +588,11 @@ export default class AMCookies extends EnhancedElement {
   static get styles() {
     const styleSheet = new CSSStyleSheet(),
       styles = [
-        gdprStyles,
-        cookieWarningStyles,
-        popUpStyles,
-        switchStyles,
-        uiButtonStyles,
+        defaultStyle,
+        cookieWarningStyle,
+        popUpStyle,
+        switchStyle,
+        uiButtonStyle,
       ].join('')
 
     styleSheet.replace(styles)
