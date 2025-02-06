@@ -1,6 +1,5 @@
-@use "sass:meta";
-
 @layer GDPR {
+
   :host {
     font-family: var(--font-family);
     font-size: 16px;
@@ -16,18 +15,13 @@
       color: var(--background-color);
     }
 
-    @include meta.load-css('cookieWarning');
-    @include meta.load-css('popUp');
-    @include meta.load-css('switch');
-    @include meta.load-css('uiButton');
-
     * {
       box-sizing: border-box;
     }
 
-    input,
-    textarea,
-    button {
+    & input,
+    & textarea,
+    & button {
       color: inherit;
       font-size: inherit;
       font-family: inherit;
@@ -37,15 +31,15 @@
       background-color: transparent;
     }
 
-    button {
+    & button {
       background-color: var(--accent-color);
       transition: transform .2s ease-in-out;
     }
 
-    button,
-    input[type="submit"],
-    input[type="button"],
-    input[type="reset"] {
+    & button,
+    & input[type="submit"],
+    & input[type="button"],
+    & input[type="reset"] {
       appearance: none;
 
       * {
@@ -61,7 +55,7 @@
       }
     }
 
-    a {
+    & a {
       color: inherit;
       font-weight: bold;
       text-decoration: none;
@@ -82,26 +76,26 @@
       }
     }
 
-    svg {
+    & svg {
       width: auto;
       height: auto;
       display: inline-block;
 
-      path {
+      & path {
         fill: currentcolor;
       }
     }
 
-    p {
+    & p {
       margin: 0;
       padding: 0.5em 0 .7em;
     }
 
-    h1,
+    & h1,
     .h1,
-    h2,
+    & h2,
     .h2,
-    h3,
+    & h3,
     .h3 {
       font-weight: bold;
       font-size: 2.2em;
@@ -109,19 +103,19 @@
       margin: 0;
       margin-top: 0.5em;
 
-      // text-align: left;
+      /* text-align: left; */
     }
 
-    h2,
+    & h2,
     .h2 {
       font-size: 1.7em;
     }
 
-    h3,
+    & h3,
     .h3 {
       font-size: 1.5em;
 
-      svg {
+      & svg {
         height: 1.2em;
         display: inline-block;
         vertical-align: bottom;

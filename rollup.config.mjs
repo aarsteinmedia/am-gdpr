@@ -12,6 +12,7 @@ import template from 'rollup-plugin-html-literals'
 import injectProcessEnv from 'rollup-plugin-inject-process-env'
 import livereload from 'rollup-plugin-livereload'
 import postcss from 'rollup-plugin-postcss'
+import cssMinify from 'postcss-minify'
 import serve from 'rollup-plugin-serve'
 import { summary } from 'rollup-plugin-summary'
 import { swc, minify } from 'rollup-plugin-swc3'
@@ -79,6 +80,7 @@ const isProd = process.env.NODE_ENV !== 'development',
           autoprefixer({
             flexbox: 'no-2009',
           }),
+          cssMinify(),
         ],
       }),
       template({
@@ -142,6 +144,7 @@ const isProd = process.env.NODE_ENV !== 'development',
               autoprefixer({
                 flexbox: 'no-2009',
               }),
+              cssMinify(),
             ]
           : [],
       }),

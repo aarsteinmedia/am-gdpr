@@ -3,7 +3,11 @@ import type { Text } from '@/types'
 import EnhancedElement from '@/elements/EnhancedElement'
 import { Align, Format } from '@/enums'
 import getTranslation from '@/i18n'
-import styles from '@/styles/index.scss'
+import gdprStyles from '@/styles/index.css'
+import cookieWarningStyles from '@/styles/cookieWarning.css'
+import popUpStyles from '@/styles/popUp.css'
+import switchStyles from '@/styles/switch.css'
+import uiButtonStyles from '@/styles/uiButton.css'
 import {
   cookieWarning,
   loading,
@@ -582,7 +586,15 @@ export default class AMCookies extends EnhancedElement {
    * Return the styles for the component
    */
   static get styles() {
-    const styleSheet = new CSSStyleSheet()
+    const styleSheet = new CSSStyleSheet(),
+      styles = [
+        gdprStyles,
+        cookieWarningStyles,
+        popUpStyles,
+        switchStyles,
+        uiButtonStyles,
+      ].join('')
+
     styleSheet.replace(styles)
     return styleSheet
   }

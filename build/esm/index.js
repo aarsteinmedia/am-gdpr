@@ -57,21 +57,9 @@ if (isServer()) {
     global.HTMLElement = class EmptyHTMLElement {
     };
 }
-let EnhancedElement = class EnhancedElement extends HTMLElement {
-    connectedCallback() {
-        let arr = [];
-        if (UPDATE_ON_CONNECTED in this && Array.isArray(this[UPDATE_ON_CONNECTED])) {
-            arr = this[UPDATE_ON_CONNECTED];
-        }
-        for (const propName of arr){
-            if (!('propertyChangedCallback' in this) || typeof this.propertyChangedCallback !== 'function') {
-                continue;
-            }
-            if (propName in this) {
-                this.propertyChangedCallback(propName, undefined, this[propName]);
-            }
-        }
-    }
+/**
+ * HTMLElement enhanced to track property changes
+ */ class EnhancedElement extends HTMLElement {
     constructor(){
         super();
         // @ts-ignore
@@ -102,7 +90,21 @@ let EnhancedElement = class EnhancedElement extends HTMLElement {
             }
         }
     }
-};
+    connectedCallback() {
+        let arr = [];
+        if (UPDATE_ON_CONNECTED in this && Array.isArray(this[UPDATE_ON_CONNECTED])) {
+            arr = this[UPDATE_ON_CONNECTED];
+        }
+        for (const propName of arr){
+            if (!('propertyChangedCallback' in this) || typeof this.propertyChangedCallback !== 'function') {
+                continue;
+            }
+            if (propName in this) {
+                this.propertyChangedCallback(propName, undefined, this[propName]);
+            }
+        }
+    }
+}
 
 var Align = /*#__PURE__*/ function(Align) {
     Align["BottomLeft"] = "bottom-left";
@@ -168,7 +170,15 @@ const languages = [
     }
 }
 
-var css_248z = "\n  @keyframes fade-in-up {\n    0% {\n      transform: translateY(1em);\n      opacity: 0;\n    }\n    100% {\n      transform: translateY(0);\n      opacity: 1;\n    }\n  }\n  @keyframes fade-in-down {\n    0% {\n      transform: translateY(-1em);\n      opacity: 0;\n    }\n    100% {\n      transform: translateY(0);\n      opacity: 1;\n    }\n  }\n  @keyframes pop-in-bottom-left {\n    0% {\n      transform: translateY(100%) translateX(-100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-bottom-right {\n    0% {\n      transform: translateY(100%) translateX(100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-top-left {\n    0% {\n      transform: translateY(-100%) translateX(-100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes pop-in-top-right {\n    0% {\n      transform: translateY(-100%) translateX(100%);\n    }\n    100% {\n      transform: translate(0);\n    }\n  }\n  @keyframes fade-in {\n    0% {\n      opacity: 0;\n    }\n    100% {\n      opacity: 1;\n    }\n  }\n  @keyframes fade-up {\n    0% {\n      opacity: 0;\n      transform: translateY(0);\n    }\n    100% {\n      opacity: 1;\n      transform: translateY(-50%);\n    }\n  }:host {\n    font-family: var(--font-family);\n    font-size: 16px;\n    color: var(--color);\n    line-height: 1.3;\n    display: block;\n    width: 100%;\n    height: 100%;\n    cursor: default;\n  }:host *::selection {\n    background-color: var(--color);\n    color: var(--background-color);\n  }:host .cookie-overlay {\n    position: fixed;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%;\n    z-index: 99999;\n    background-color: rgba(0, 0, 0, 0.3);\n    backdrop-filter: blur(2px);\n  }:host #cookie-warning-text {\n    margin: 0;\n    display: inline-flex;\n    gap: 0.5rem;\n    align-items: baseline;\n  }:host .cookie-container {\n    padding: 20px 30px;\n    transform-origin: bottom;\n    align-items: center;\n    display: flex;\n    position: fixed;\n    z-index: 999999;\n    background-color: var(--background-color);\n  }:host .cookie-container .content {\n    display: flex;\n    margin: 0;\n    font-size: 0.9em;\n    gap: 1em;\n  }:host .cookie-container.bottom-left, :host .cookie-container.bottom-right {\n    animation: fade-in-up 0.3s ease-in-out;\n  }:host .cookie-container.top-left, :host .cookie-container.top-right {\n    animation: fade-in-down 0.3s ease-in-out;\n  }:host .cookie-container.box-format {\n    flex-direction: column;\n    border: solid var(--border-width) currentcolor;\n    border-radius: 0.25em;\n  }:host .cookie-container.box-format.bottom-left {\n    left: 30px;\n    bottom: 30px;\n  }:host .cookie-container.box-format.bottom-right {\n    right: 30px;\n    bottom: 30px;\n  }:host .cookie-container.box-format.top-left {\n    left: 30px;\n    top: 30px;\n  }:host .cookie-container.box-format.top-right {\n    right: 30px;\n    top: 30px;\n  }:host .cookie-container.box-format .content {\n    flex-direction: column;\n  }:host .cookie-container.banner-format {\n    flex-direction: row;\n    left: 0;\n    right: 0;\n  }:host .cookie-container.banner-format.bottom-left, :host .cookie-container.banner-format.bottom-right {\n    bottom: 0;\n    border-top: solid var(--border-width) currentcolor;\n  }:host .cookie-container.banner-format.top-left, :host .cookie-container.banner-format.top-right {\n    top: 0;\n    border-bottom: solid var(--border-width) currentcolor;\n  }:host .cookie-container.banner-format .content {\n    flex-direction: row;\n    justify-content: space-between;\n    width: 100%;\n  }:host .button {\n    border: solid var(--border-width) currentcolor;\n    font-size: 0.9em;\n    line-height: 0.9;\n    font-weight: bold;\n    padding: 0 15px;\n    height: calc(1em + 20px);\n    margin: 0;\n    border-radius: 1.5em;\n    display: inline-flex;\n    align-items: center;\n  }:host .button-wrapper {\n    display: flex;\n    gap: 0.5em;\n  }:host .mini-gdpr {\n    position: fixed;\n    width: 40px;\n    height: 40px;\n    z-index: 99999;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    transition: transform 0.2s ease-in-out;\n  }:host .mini-gdpr.bottom-left, :host .mini-gdpr.bottom-right {\n    bottom: 0;\n    border-top: solid var(--border-width);\n  }:host .mini-gdpr.top-left, :host .mini-gdpr.top-right {\n    top: 0;\n    border-bottom: solid var(--border-width);\n  }:host .mini-gdpr.bottom-left, :host .mini-gdpr.top-left {\n    left: 0;\n    border-right: solid var(--border-width);\n  }:host .mini-gdpr.bottom-right, :host .mini-gdpr.top-right {\n    right: 0;\n    border-left: solid var(--border-width);\n  }:host .mini-gdpr.bottom-left {\n    border-radius: 0 66% 0 0;\n    transform-origin: bottom left;\n    animation: pop-in-bottom-left 0.3s ease-in-out;\n  }:host .mini-gdpr.bottom-left[data-hide=true] {\n    transform: translateY(100%) translateX(-100%);\n  }:host .mini-gdpr.bottom-right {\n    border-radius: 66% 0 0;\n    transform-origin: bottom right;\n    animation: pop-in-bottom-right 0.3s ease-in-out;\n  }:host .mini-gdpr.bottom-right[data-hide=true] {\n    transform: translateY(100%) translateX(100%);\n  }:host .mini-gdpr.top-left {\n    border-radius: 0 0 66%;\n    transform-origin: top left;\n    animation: pop-in-top-left 0.3s ease-in-out;\n  }:host .mini-gdpr.top-left[data-hide=true] {\n    transform: translateY(-100%) translateX(-100%);\n  }:host .mini-gdpr.top-right {\n    border-radius: 0 0 0 66%;\n    transform-origin: top right;\n    animation: pop-in-top-right 0.3s ease-in-out;\n  }:host .mini-gdpr.top-right[data-hide=true] {\n    transform: translateY(-100%) translateX(100%);\n  }:host .mini-gdpr svg {\n    height: 1em;\n  }:host .mini-gdpr:hover, :host .mini-gdpr:active {\n    transform: scale(1.1);\n  }@media only screen and (width <= 760px) {\n    :host .cookie-container {\n      padding: 15px;\n    }\n    :host .cookie-container.box-format {\n      left: 20px;\n      right: 20px;\n    }\n    :host .cookie-container.banner-format .content {\n      flex-direction: column;\n    }\n    :host .cookie-container.banner-format.top-left, :host .cookie-container.banner-format.top-right {\n      padding-bottom: 10px;\n    }\n    :host .cookie-container.banner-format.bottom-left, :host .cookie-container.banner-format.bottom-right {\n      padding-top: 10px;\n    }\n  }:host .pop-up {\n    position: fixed;\n    width: 100vw;\n    height: 100vh;\n    top: 0;\n    left: 0;\n    overflow: hidden;\n    z-index: 999999;\n    animation-duration: 0.4s;\n    animation-name: fade-in;\n    background-color: rgba(0, 0, 0, 0.3);\n  }:host .pop-up dialog {\n    position: absolute;\n    height: 90%;\n    max-width: 90%;\n    min-height: 0;\n    max-height: 0;\n    border-radius: 0.25em;\n    border: solid var(--border-width) currentcolor;\n    left: 0;\n    right: 0;\n    margin: auto;\n    top: 50%;\n    transform: translateY(-50%);\n    padding: 40px;\n    overflow: hidden;\n    transition: max-height 0.2s ease-in-out, min-height 0.2s ease-in-out;\n    width: 600px;\n    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);\n    color: var(--color);\n    background-color: var(--background-color);\n  }:host .pop-up dialog .button-wrapper {\n    margin-top: 1em;\n  }:host .pop-up dialog .close-button {\n    top: 14px;\n    right: 14px;\n    width: 25px;\n  }:host .pop-up dialog[data-animate=up] {\n    animation: fade-up 0.3s ease-in-out;\n  }:host .pop-up[data-gallery=true] dialog {\n    padding: 0;\n  }:host .inner-wrapper {\n    width: 100%;\n    float: left;\n    position: relative;\n    display: flex;\n    align-items: center;\n    overflow: hidden;\n  }:host .row {\n    display: flex;\n    flex-direction: row;\n    gap: 1em;\n    align-items: flex-start;\n    margin: 0;\n  }:host .column {\n    display: flex;\n    flex: 1 1;\n    flex-direction: column;\n    align-items: flex-start;\n  }@media only screen and (width <= 760px) {\n    :host .pop-up .pop-up-element {\n      padding: 25px;\n    }\n    :host .pop-up .pop-up-element .close-button {\n      width: 20px;\n      top: 5px;\n      right: 5px;\n    }\n    :host .row {\n      overflow: auto hidden;\n      scroll-snap-points-x: repeat(100%);\n      scroll-snap-type: x mandatory;\n      flex: 1 1;\n      -webkit-overflow-scrolling: touch;\n      scrollbar-width: none;\n    }\n    :host .row::-webkit-scrollbar {\n      display: none;\n    }\n    :host .column {\n      width: 100%;\n      height: 100%;\n      position: relative;\n      flex: 0 0 100%;\n      scroll-snap-align: start;\n    }\n  }:host .container {\n    display: inline-flex;\n    flex-direction: column;\n    margin-right: 0.5em;\n    margin-top: 0.5em;\n    font-size: 0.9em;\n  }:host .text-label {\n    margin-bottom: 0.5em;\n  }:host .label {\n    position: relative;\n    display: inline-block;\n    width: 3em;\n    height: 1.5em;\n  }:host .label .input {\n    opacity: 0;\n    width: 0;\n    height: 0;\n    margin: 0;\n    padding: 0;\n  }:host .slider {\n    position: absolute;\n    cursor: pointer;\n    inset: 0;\n    border-radius: 1em;\n    border: solid var(--border-width) currentcolor;\n    appearance: none;\n    transition: background-color 0.2s;\n  }:host .slider::before {\n    position: absolute;\n    border-radius: 50%;\n    content: \"\";\n    height: 1em;\n    width: 1em;\n    left: 0.2em;\n    bottom: 0;\n    top: 0;\n    margin: auto;\n    background-color: currentcolor;\n    transition: 0.4s;\n  }:host .input:focus + .slider {\n    box-shadow: 0 0 1px;\n  }:host .input:checked + .slider {\n    background-color: var(--accent-color);\n  }:host .input:checked + .slider::before {\n    transform: translateX(1.4em);\n  }:host .input:disabled + .slider {\n    opacity: 0.5;\n  }:host .menu-button {\n    position: absolute;\n    width: 40px;\n    max-width: 100%;\n    padding: 0;\n    margin: 0;\n    line-height: 0;\n    z-index: 999;\n    cursor: pointer;\n    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;\n    background-color: transparent;\n    display: block;\n    border-color: unset;\n    outline-color: unset;\n  }:host .menu-button .hamburger {\n    width: 100%;\n    display: inline-block;\n    vertical-align: middle;\n  }:host .menu-button .hamburger::before,\n  :host .menu-button .hamburger > span,\n  :host .menu-button .hamburger::after {\n    background-color: currentcolor;\n    border-color: currentcolor;\n    outline-color: currentcolor;\n    display: block;\n    height: 2px;\n    margin: 10px 0;\n    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease-in-out;\n  }:host .menu-button .hamburger::before, :host .menu-button .hamburger::after {\n    content: \"\";\n  }:host .menu-button .hamburger::before {\n    margin-top: 0;\n  }:host .menu-button .hamburger::after {\n    margin-bottom: 0;\n  }:host .menu-button[data-open=true] .hamburger::before {\n    transform: translateY(12px) rotate(135deg);\n  }:host .menu-button[data-open=true] .hamburger > span {\n    transform: translateY(0) rotate(-135deg);\n    opacity: 0;\n  }:host .menu-button[data-open=true] .hamburger::after {\n    transform: translateY(-12px) rotate(-135deg);\n  }:host * {\n    box-sizing: border-box;\n  }:host input,\n  :host textarea,\n  :host button {\n    color: inherit;\n    font-size: inherit;\n    font-family: inherit;\n    font-weight: inherit;\n    border: 0;\n    outline: 0;\n    background-color: transparent;\n  }:host button {\n    background-color: var(--accent-color);\n    transition: transform 0.2s ease-in-out;\n  }:host button,\n  :host input[type=submit],\n  :host input[type=button],\n  :host input[type=reset] {\n    appearance: none;\n  }:host button *,\n  :host input[type=submit] *,\n  :host input[type=button] *,\n  :host input[type=reset] * {\n    pointer-events: none;\n  }:host button:not([disabled]),\n  :host input[type=submit]:not([disabled]),\n  :host input[type=button]:not([disabled]),\n  :host input[type=reset]:not([disabled]) {\n    cursor: pointer;\n  }:host button:hover,\n  :host input[type=submit]:hover,\n  :host input[type=button]:hover,\n  :host input[type=reset]:hover {\n    transform: scale(1.02);\n  }:host a {\n    color: inherit;\n    font-weight: bold;\n    text-decoration: none;\n    position: relative;\n  }:host a::after {\n    content: \"\";\n    border-bottom: solid var(--border-width) var(--accent-color);\n    position: absolute;\n    width: 100%;\n    bottom: 0;\n    left: 0;\n    z-index: -1;\n  }:host a:hover::after {\n    opacity: 0;\n  }:host svg {\n    width: auto;\n    height: auto;\n    display: inline-block;\n  }:host svg path {\n    fill: currentcolor;\n  }:host p {\n    margin: 0;\n    padding: 0.5em 0 0.7em;\n  }:host h1,\n  :host .h1,\n  :host h2,\n  :host .h2,\n  :host h3,\n  :host .h3 {\n    font-weight: bold;\n    font-size: 2.2em;\n    padding: 0;\n    margin: 0;\n    margin-top: 0.5em;\n  }:host h2,\n  :host .h2 {\n    font-size: 1.7em;\n  }:host h3,\n  :host .h3 {\n    font-size: 1.5em;\n  }:host h3 svg,\n  :host .h3 svg {\n    height: 1.2em;\n    display: inline-block;\n    vertical-align: bottom;\n  }:host .icon-cookies {\n    display: flex;\n    margin: 0;\n    padding: 0;\n  }";
+var css_248z$4 = ":host{font-family:var(--font-family);font-size:16px;color:var(--color);line-height:1.3;display:block;width:100%;height:100%;cursor:default;*::selection{background-color:var(--color);color:var(--background-color)}*{box-sizing:border-box}& input,& textarea,& button{color:inherit;font-size:inherit;font-family:inherit;font-weight:inherit;border:0;outline:0;background-color:transparent}& button{background-color:var(--accent-color);transition:transform .2s ease-in-out}& button,& input[type=\"submit\"],& input[type=\"button\"],& input[type=\"reset\"]{appearance:none;*{pointer-events:none}&:not([disabled]){cursor:pointer}&:hover{transform:scale(1.02)}}& a{color:inherit;font-weight:bold;text-decoration:none;position:relative;&::after{content:'';border-bottom:solid var(--border-width) var(--accent-color);position:absolute;width:100%;bottom:0;left:0;z-index:-1}&:hover::after{opacity:0}}& svg{width:auto;height:auto;display:inline-block;& path{fill:currentcolor}}& p{margin:0;padding:0.5em 0 .7em}& h1,.h1,& h2,.h2,& h3,.h3{font-weight:bold;font-size:2.2em;padding:0;margin:0;margin-top:0.5em}& h2,.h2{font-size:1.7em}& h3,.h3{font-size:1.5em;& svg{height:1.2em;display:inline-block;vertical-align:bottom}}.icon-cookies{display:flex;margin:0;padding:0}}\n";
+
+var css_248z$3 = "@keyframes fade-in-up{0%{transform:translateY(1em);opacity:0}100%{transform:translateY(0);opacity:1}}@keyframes fade-in-down{0%{transform:translateY(-1em);opacity:0}100%{transform:translateY(0);opacity:1}}@keyframes pop-in-bottom-left{0%{transform:translateY(100%) translateX(-100%)}100%{transform:translate(0)}}@keyframes pop-in-bottom-right{0%{transform:translateY(100%) translateX(100%)}100%{transform:translate(0)}}@keyframes pop-in-top-left{0%{transform:translateY(-100%) translateX(-100%)}100%{transform:translate(0)}}@keyframes pop-in-top-right{0%{transform:translateY(-100%) translateX(100%)}100%{transform:translate(0)}}.cookie-overlay{position:fixed;left:0;top:0;width:100%;height:100%;z-index:99999;background-color:rgb(0 0 0/30%);backdrop-filter:blur(2px)}#cookie-warning-text{margin:0;display:inline-flex;gap:0.5rem;align-items:baseline}.cookie-container{padding:20px 30px;transform-origin:bottom;align-items:center;display:flex;position:fixed;z-index:999999;background-color:var(--background-color);.content{display:flex;margin:0;font-size:0.9em;gap:1em}&.bottom-left,&.bottom-right{animation:fade-in-up .3s ease-in-out}&.top-left,&.top-right{animation:fade-in-down .3s ease-in-out}&.box-format{flex-direction:column;border:solid var(--border-width) currentcolor;border-radius:0.25em;&.bottom-left{left:30px;bottom:30px}&.bottom-right{right:30px;bottom:30px}&.top-left{left:30px;top:30px}&.top-right{right:30px;top:30px}.content{flex-direction:column}}&.banner-format{flex-direction:row;left:0;right:0;&.bottom-left,&.bottom-right{bottom:0;border-top:solid var(--border-width) currentcolor}&.top-left,&.top-right{top:0;border-bottom:solid var(--border-width) currentcolor}.content{flex-direction:row;justify-content:space-between;width:100%}}}.button{border:solid var(--border-width) currentcolor;font-size:0.9em;line-height:0.9;font-weight:bold;padding:0 15px;height:calc(1em + 20px);margin:0;border-radius:1.5em;display:inline-flex;align-items:center}.button-wrapper{display:flex;gap:0.5em}.mini-gdpr{position:fixed;width:40px;height:40px;z-index:99999;display:flex;justify-content:center;align-items:center;transition:transform .2s ease-in-out;&.bottom-left,&.bottom-right{bottom:0;border-top:solid var(--border-width)}&.top-left,&.top-right{top:0;border-bottom:solid var(--border-width)}&.bottom-left,&.top-left{left:0;border-right:solid var(--border-width)}&.bottom-right,&.top-right{right:0;border-left:solid var(--border-width)}&.bottom-left{border-radius:0 66% 0 0;transform-origin:bottom left;animation:pop-in-bottom-left 0.3s ease-in-out;&[data-hide=\"true\"]{transform:translateY(100%) translateX(-100%)}}&.bottom-right{border-radius:66% 0 0;transform-origin:bottom right;animation:pop-in-bottom-right .3s ease-in-out;&[data-hide=\"true\"]{transform:translateY(100%) translateX(100%)}}&.top-left{border-radius:0 0 66%;transform-origin:top left;animation:pop-in-top-left 0.3s ease-in-out;&[data-hide=\"true\"]{transform:translateY(-100%) translateX(-100%)}}&.top-right{border-radius:0 0 0 66%;transform-origin:top right;animation:pop-in-top-right .3s ease-in-out;&[data-hide=\"true\"]{transform:translateY(-100%) translateX(100%)}}& svg{height:1em}&:hover,&:active{transform:scale(1.1)}}@media only screen and (width <= 760px){.cookie-container{padding:15px;&.box-format{left:20px;right:20px}&.banner-format{.content{flex-direction:column}&.top-left,&.top-right{padding-bottom:10px}&.bottom-left,&.bottom-right{padding-top:10px}}}}";
+
+var css_248z$2 = "@keyframes fade-in{0%{opacity:0}100%{opacity:1}}@keyframes fade-up{0%{opacity:0;transform:translateY(0)}100%{opacity:1;transform:translateY(-50%)}}.pop-up{position:fixed;width:100vw;height:100vh;top:0;left:0;overflow:hidden;z-index:999999;animation-duration:0.4s;animation-name:fade-in;background-color:rgb(0 0 0/30%);& dialog{position:absolute;height:90%;max-width:90%;min-height:0;max-height:0;border-radius:0.25em;border:solid var(--border-width) currentcolor;left:0;right:0;margin:auto;top:50%;transform:translateY(-50%);padding:40px;overflow:hidden;transition:max-height .2s ease-in-out,min-height .2s ease-in-out;width:600px;box-shadow:0 10px 20px rgb(0 0 0/20%);color:var(--color);background-color:var(--background-color);.button-wrapper{margin-top:1em}.close-button{top:14px;right:14px;width:25px}&[data-animate=\"up\"]{animation:fade-up .3s ease-in-out}}&[data-gallery=\"true\"]{dialog{padding:0}}}.inner-wrapper{width:100%;float:left;position:relative;display:flex;align-items:center;overflow:hidden}.row{display:flex;flex-direction:row;gap:1em;align-items:flex-start;margin:0}.column{display:flex;flex:1 1;flex-direction:column;align-items:flex-start}@media only screen and (width <= 760px){.pop-up{.pop-up-element{padding:25px;.close-button{width:20px;top:5px;right:5px}}}.row{overflow:auto hidden;scroll-snap-points-x:repeat(100%);scroll-snap-type:x mandatory;flex:1 1;-webkit-overflow-scrolling:touch;scrollbar-width:none;&::-webkit-scrollbar{display:none}}.column{width:100%;height:100%;position:relative;flex:0 0 100%;scroll-snap-align:start}}";
+
+var css_248z$1 = ".container{display:inline-flex;flex-direction:column;margin-right:0.5em;margin-top:0.5em;font-size:0.9em}.text-label{margin-bottom:0.5em}.label{position:relative;display:inline-block;width:3em;height:1.5em;.input{opacity:0;width:0;height:0;margin:0;padding:0}}.slider{position:absolute;cursor:pointer;inset:0;border-radius:1em;border:solid var(--border-width) currentcolor;appearance:none;transition:background-color .2s;&::before{position:absolute;border-radius:50%;content:\"\";height:1em;width:1em;left:0.2em;bottom:0;top:0;margin:auto;background-color:currentcolor;transition:0.4s}}.input{&:focus+.slider{box-shadow:0 0 1px}&:checked+.slider{background-color:var(--accent-color);&::before{transform:translateX(1.4em)}}&:disabled+.slider{opacity:0.5}}\n";
+
+var css_248z = ".menu-button{position:absolute;width:40px;max-width:100%;padding:0;margin:0;line-height:0;z-index:999;cursor:pointer;transition:transform .2s ease-in-out,color .2s ease-in-out;background-color:transparent;display:block;border-color:unset;outline-color:unset;.hamburger{width:100%;display:inline-block;vertical-align:middle;&::before,>span,&::after{background-color:currentcolor;border-color:currentcolor;outline-color:currentcolor;display:block;height:2px;margin:10px 0;transition:transform .3s cubic-bezier(0.175,0.885,0.32,1.275),opacity .2s ease-in-out}&::before,&::after{content:''}&::before{margin-top:0}&::after{margin-bottom:0}}&[data-open=\"true\"]{.hamburger{&::before{transform:translateY(12px) rotate(135deg)}>span{transform:translateY(0) rotate(-135deg);opacity:0}&::after{transform:translateY(-12px) rotate(-135deg)}}}}\n";
 
 /**
  * Cookie Warning
@@ -291,7 +301,23 @@ const loading = /* HTML */ `<svg xmlns="http://www.w3.org/2000/svg" width="22" h
     return /* HTML */ `<div class="container">${label ? /* HTML */ `<label class="text-label" for="${id}">${label}</label>` : ''} <label class="label"><input ${value ? 'checked' : ''} class="input" ${disabled ? 'disabled' : ''} id="${id}" name="${name}" type="checkbox" value="${value}"> <span class="slider"></span></label></div>`;
 }
 
-let GTag = class GTag {
+class GTag {
+    constructor({ config = {}, consentParams, googleID }){
+        this._initialized = false;
+        this.config = {};
+        this.googleID = googleID;
+        this.config = config;
+        this.consentParams = consentParams;
+        if (!window.gtag) {
+            window.gtag = function() {
+                window.dataLayer = window.dataLayer || [];
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                window.dataLayer.push(arguments) // eslint-disable-line prefer-rest-params
+                ;
+            };
+        }
+    }
     initialize() {
         gtag('consent', 'default', this.consentParams);
         const scriptID = 'ga-gtag';
@@ -323,11 +349,71 @@ let GTag = class GTag {
             console.error(err);
         }
     }
-    constructor({ config = {}, consentParams, googleID }){
+}
+
+const gtmCode = (gtmId, defer, domain)=>`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.id='gtm-snippet';j.${defer ? 'defer' : 'async'}=true;j.src='https://${domain}/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`;
+// resetDataLayer = (obj: DataLayerObject) => {
+//   try {
+//     if (!(obj instanceof Object)) {
+//       return false
+//     }
+//     for (const key of Object.keys(obj)) {
+//       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//       // @ts-ignore
+//       if (obj[key] instanceof Object) {
+//         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//         // @ts-ignore
+//         resetDataLayer(obj[key] as DataLayerObject)
+//         continue
+//       }
+//       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//       // @ts-ignore
+//       obj[key] = null
+//     }
+//     return true
+//   } catch (_err) {
+//     console.warn('Could not reset dataLayer')
+//     return false
+//   }
+// },
+// sanitize = (str: string) =>
+//   str
+//     .normalize('NFD')
+//     .replace(/[\u0300-\u036f]/g, '') // Replace special characters
+//     .trim() // Remove whitespace around string
+//     .replace(/\s/g, '-') // Replace spaces inside string
+//     .replace(/\n/gm, '-') // Replace line-breaks
+//     .toLowerCase(),
+// sanitizeObject = (obj: object) => {
+//   try {
+//     for (const key of Object.keys(obj)) {
+//       if (hasKey(obj, key)) {
+//         if (typeof obj[key] === 'string') {
+//           ;(obj[key] as string) = sanitize(obj[key])
+//           continue
+//         }
+//         sanitizeObject(obj[key])
+//       }
+//     }
+//   } catch (_err) {
+//     console.error('Could not sanitize dataLayer properties')
+//   }
+// }
+class GTM {
+    constructor({ consentParams, defer = false, gtmId, // resetDataLayer = false,
+    // sanitizeDataLayer = false,
+    serverSideDomain = null }){
         this._initialized = false;
-        this.config = {};
-        this.googleID = googleID;
-        this.config = config;
+        this.gtmId = null;
+        // public resetDataLayer = false
+        // public sanitizeDataLayer = false
+        this.serverSideDomain = null;
+        this.defer = false;
+        this.gtmId = gtmId ? gtmId.trim() : null;
+        // this.resetDataLayer = !!resetDataLayer
+        // this.sanitizeDataLayer = !!sanitizeDataLayer
+        this.serverSideDomain = serverSideDomain ? serverSideDomain.trim() : null;
+        this.defer = !!defer;
         this.consentParams = consentParams;
         if (!window.gtag) {
             window.gtag = function() {
@@ -339,10 +425,6 @@ let GTag = class GTag {
             };
         }
     }
-};
-
-const gtmCode = (gtmId, defer, domain)=>`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.id='gtm-snippet';j.${defer ? 'defer' : 'async'}=true;j.src='https://${domain}/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`;
-let GTM = class GTM {
     initialize() {
         gtag('consent', 'default', this.consentParams);
         if (this._initialized) {
@@ -370,34 +452,14 @@ let GTM = class GTM {
             console.error(err);
         }
     }
-    constructor({ consentParams, defer = false, gtmId, // resetDataLayer = false,
-    // sanitizeDataLayer = false,
-    serverSideDomain = null }){
-        this._initialized = false;
-        this.gtmId = null;
-        // public resetDataLayer = false
-        // public sanitizeDataLayer = false
-        this.serverSideDomain = null;
-        this.defer = false;
-        this.gtmId = gtmId ? gtmId.trim() : null;
-        // this.resetDataLayer = !!resetDataLayer
-        // this.sanitizeDataLayer = !!sanitizeDataLayer
-        this.serverSideDomain = serverSideDomain ? serverSideDomain.trim() : null;
-        this.defer = !!defer;
-        this.consentParams = consentParams;
-        if (!window.gtag) {
-            window.gtag = function() {
-                window.dataLayer = window.dataLayer || [];
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                window.dataLayer.push(arguments) // eslint-disable-line prefer-rest-params
-                ;
-            };
-        }
-    }
-};
+}
 
-let MetaPixel = class MetaPixel {
+class MetaPixel {
+    constructor({ locale = 'en_US', metaPixelID }){
+        this._initialized = false;
+        this.metaPixelID = metaPixelID;
+        this.locale = locale.replaceAll('-', '_');
+    }
     initialize() {
         const scriptID = 'meta-pixel';
         if (document.getElementById(scriptID) || this._initialized) {
@@ -417,14 +479,13 @@ let MetaPixel = class MetaPixel {
             console.error(err);
         }
     }
-    constructor({ locale = 'en_US', metaPixelID }){
-        this._initialized = false;
-        this.metaPixelID = metaPixelID;
-        this.locale = locale.replaceAll('-', '_');
-    }
-};
+}
 
-let SnapChatPixel = class SnapChatPixel {
+class SnapChatPixel {
+    constructor({ snapChatPixelID }){
+        this._initialized = false;
+        this.snapChatPixelID = snapChatPixelID;
+    }
     initialize() {
         const scriptID = 'snap-pixel';
         if (document.getElementById(scriptID) || this._initialized) {
@@ -444,13 +505,13 @@ let SnapChatPixel = class SnapChatPixel {
             console.error(err);
         }
     }
-    constructor({ snapChatPixelID }){
-        this._initialized = false;
-        this.snapChatPixelID = snapChatPixelID;
-    }
-};
+}
 
-let TikTokPixel = class TikTokPixel {
+class TikTokPixel {
+    constructor({ tiktokPixelID }){
+        this._initialized = false;
+        this.tiktokPixelID = tiktokPixelID;
+    }
     initialize() {
         const scriptID = 'snap-pixel';
         if (document.getElementById(scriptID) || this._initialized) {
@@ -470,13 +531,44 @@ let TikTokPixel = class TikTokPixel {
             console.error(err);
         }
     }
-    constructor({ tiktokPixelID }){
-        this._initialized = false;
-        this.tiktokPixelID = tiktokPixelID;
-    }
-};
+}
 
-let AMCookies = class AMCookies extends EnhancedElement {
+/**
+ * AM GDPR Web Component
+ * @exports
+ * @class AMGDPR
+ * @extends { EnhancedElement }
+ * @description Simple and versatile GDPR compatible Cookie Compliance Web Component
+ */ class AMCookies extends EnhancedElement {
+    constructor(){
+        super(), /**
+   * @state
+   * Allow Statistical
+   */ this.allowStatistical = null, /**
+   * @state
+   * Allow Retargeting
+   */ this.allowRetargeting = null, /**
+   * @state
+   * Visibility
+   */ this.isVisible = false, /**
+   * @state
+   * Customize
+   */ this.isCustomize = null, /**
+   * @state
+   * Saving
+   */ this.isSaving = false, this._scrollPos = 0, this._consentListeners = [], this.hasRetargeting = false, this._popUp = popUp, this._cookieWarning = cookieWarning, this._miniGDPR = miniGDPR, this.switchButton = switchButton;
+        this.acceptAll = this.acceptAll.bind(this);
+        this.declineAll = this.declineAll.bind(this);
+        this.esc = this.esc.bind(this);
+        this.hideOnScroll = this.hideOnScroll.bind(this);
+        this.setVisible = this.setVisible.bind(this);
+        this._debug = this._debug.bind(this);
+        this._text = getTranslation();
+        this.template = document.createElement('template');
+        this.shadow = this.attachShadow({
+            mode: 'open'
+        });
+    }
     /**
    * Initialize everything on component first render
    */ connectedCallback() {
@@ -863,8 +955,14 @@ let AMCookies = class AMCookies extends EnhancedElement {
     /**
    * Return the styles for the component
    */ static get styles() {
-        const styleSheet = new CSSStyleSheet();
-        styleSheet.replace(css_248z);
+        const styleSheet = new CSSStyleSheet(), styles = [
+            css_248z$4,
+            css_248z$3,
+            css_248z$2,
+            css_248z$1,
+            css_248z
+        ].join('');
+        styleSheet.replace(styles);
         return styleSheet;
     }
     _debug() {
@@ -886,36 +984,7 @@ let AMCookies = class AMCookies extends EnhancedElement {
         ];
         this.shadow.appendChild(this.template.content.cloneNode(true));
     }
-    constructor(){
-        super(), /**
-   * @state
-   * Allow Statistical
-   */ this.allowStatistical = null, /**
-   * @state
-   * Allow Retargeting
-   */ this.allowRetargeting = null, /**
-   * @state
-   * Visibility
-   */ this.isVisible = false, /**
-   * @state
-   * Customize
-   */ this.isCustomize = null, /**
-   * @state
-   * Saving
-   */ this.isSaving = false, this._scrollPos = 0, this._consentListeners = [], this.hasRetargeting = false, this._popUp = popUp, this._cookieWarning = cookieWarning, this._miniGDPR = miniGDPR, this.switchButton = switchButton;
-        this.acceptAll = this.acceptAll.bind(this);
-        this.declineAll = this.declineAll.bind(this);
-        this.esc = this.esc.bind(this);
-        this.hideOnScroll = this.hideOnScroll.bind(this);
-        this.setVisible = this.setVisible.bind(this);
-        this._debug = this._debug.bind(this);
-        this._text = getTranslation();
-        this.template = document.createElement('template');
-        this.shadow = this.attachShadow({
-            mode: 'open'
-        });
-    }
-};
+}
 
 const tagName = 'am-cookies';
 if (!isServer() && !customElements.get('am-cookies')) {
