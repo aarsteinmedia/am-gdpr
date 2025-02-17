@@ -7,6 +7,7 @@ import perfectionist from 'eslint-plugin-perfectionist'
 import globals from 'globals'
 import ESLintConfigPrettier from 'eslint-config-prettier'
 import ESLintPluginPrettier from 'eslint-plugin-prettier'
+import ESLintPluginWC from 'eslint-plugin-wc'
 
 export default TSESLint.config(
   {
@@ -39,11 +40,14 @@ export default TSESLint.config(
       jsdoc,
       perfectionist,
       prettier: ESLintPluginPrettier,
+      wc: ESLintPluginWC,
     },
 
     rules: {
       ...ESLintPluginPrettier.configs?.recommended.rules,
       ...ESLintConfigPrettier.rules,
+      ...ESLintPluginWC.configs.recommended.rules,
+      ...ESLintPluginWC.configs['best-practice'].rules,
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {

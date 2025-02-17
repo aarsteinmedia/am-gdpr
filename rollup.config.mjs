@@ -19,8 +19,7 @@ import { swc, minify } from 'rollup-plugin-swc3'
 import { typescriptPaths } from 'rollup-plugin-typescript-paths'
 
 const isProd = process.env.NODE_ENV !== 'development',
-  __filename = fileURLToPath(import.meta.url),
-  __dirname = path.dirname(__filename),
+  __dirname = path.dirname(fileURLToPath(import.meta.url)),
   /**
    * @type {typeof import('./package.json')}
    * */
@@ -58,18 +57,11 @@ const isProd = process.env.NODE_ENV !== 'development',
       }
       warn(warning)
     },
-    output: [
-      {
-        exports: 'named',
-        file: pkg.module,
-        format: 'esm',
-      },
-      {
-        exports: 'named',
-        file: pkg.exports['.'].require,
-        format: 'cjs',
-      },
-    ],
+    output: {
+      exports: 'named',
+      file: pkg.module,
+      format: 'esm',
+    },
     plugins: [
       typescriptPaths(),
       postcss({
