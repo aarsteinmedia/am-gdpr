@@ -11,7 +11,7 @@ Reactive GDPR Web Component that prompts visitors for consent, stores their pref
 
 ## Installation
 
-Download `build/index.js` to you local server (and rename it?), or use GitHub as CDN: https://cdn.jsdelivr.net/gh/aarsteinmedia/am-gdpr/build/index.js.
+Download `build/index.js` to you local server (and rename it?), or use GitHub as CDN: https://cdn.jsdelivr.net/gh/aarsteinmedia/am-gdpr/build/unpkg.js.
 
 Add this script to all the pages of your website, either in `head` or right before the closing `body` tag. Then, add the web component itself, `am-cookies` to the bottom of each page, and plot in your TagManager ID.
 
@@ -19,7 +19,7 @@ Example:
 ```xml
 <head>
   <!-- All content of Head -->
-  <script src="https://cdn.jsdelivr.net/gh/aarsteinmedia/am-gdpr/build/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/aarsteinmedia/am-gdpr/build/unpkg.js"></script>
 </head>
 <body>
   <am-cookies googleID="<YOUR_GOOGLE_TRACKING_ID>"></am-cookies>
