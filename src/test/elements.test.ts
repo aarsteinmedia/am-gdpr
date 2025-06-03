@@ -1,19 +1,21 @@
-import { fixture } from '@open-wc/testing'
 import { expect } from '@esm-bundle/chai'
-import AMCookies from '@/elements/AMCookies'
+import { fixture } from '@open-wc/testing'
+
+import type AMCookies from '@/elements/AMCookies'
 
 describe('AMGDPR Component', () => {
   let el: AMCookies
 
   beforeEach(async () => {
     el = await fixture<AMCookies>(
-      /* HTML */ `<am-cookies
-      googleID="G-YBH0K0VB3T"
-      color="#2f6171"
-      accentColor="#9de5ad"
-      backgroundColor="#fff"
-    ></am-cookies>`
-    )
+      /* HTML */ `
+        <am-cookies
+              googleID="G-YBH0K0VB3T"
+              color="#2f6171"
+              accentColor="#9de5ad"
+              backgroundColor="#fff"
+            ></am-cookies>
+      `)
   })
 
   // it('is defined', () => {

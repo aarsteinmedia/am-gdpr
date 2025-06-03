@@ -1,10 +1,10 @@
 export default class MetaPixel {
+    locale: string;
+    metaPixelID: string;
+    private _initialized;
     constructor({ locale, metaPixelID, }: {
         metaPixelID: string;
         locale?: string;
     });
-    private _initialized;
     initialize(): void;
-    metaPixelID: string;
-    locale: string;
 }

@@ -1,45 +1,48 @@
-var settings = "Cookie Settings";
-var customize = {
-	header: "Your data, your choice",
-	label: "Customize",
-	text: "We use <strong>functional cookies</strong> for navigation, etc. In addition, we use <strong>statistical cookies</strong> to see how users interact with the website.",
-	retargeting: "We also use <strong>cookies for marketing.</strong>",
-	link: "See our <a href=\"/%URL%\">privacy policy</a>"
-};
-var header = "This website uses";
-var miniGDPR = "Cookie settings";
-var accept = "I understand";
-var acceptAll = "Accept all";
-var decline = "Only functional";
-var close = "Close";
-var save = "Save preferences";
-var functional = {
-	label: "Functional"
-};
-var statistical = {
-	label: "Statistical"
-};
-var marketing = {
-	label: "Marketing"
-};
-var policyUrl = "privacy";
-var text = {
-	settings: settings,
-	customize: customize,
-	header: header,
-	miniGDPR: miniGDPR,
-	accept: accept,
-	acceptAll: acceptAll,
-	decline: decline,
-	close: close,
-	save: save,
-	functional: functional,
-	statistical: statistical,
-	marketing: marketing,
-	policyUrl: policyUrl
+declare let settings: string;
+declare namespace customize {
+    let header: string;
+    let label: string;
+    let text: string;
+    let retargeting: string;
+    let link: string;
+}
+declare let miniGDPR: string;
+declare let accept: string;
+declare let acceptAll: string;
+declare let decline: string;
+declare let close: string;
+declare let save: string;
+declare namespace functional {
+    let label_1: string;
+    export { label_1 as label };
+}
+declare namespace statistical {
+    let label_2: string;
+    export { label_2 as label };
+}
+declare namespace marketing {
+    let label_3: string;
+    export { label_3 as label };
+}
+declare let policyUrl: string;
+
+
+declare const export_default: {
+  settings: typeof settings;
+  customize: typeof customize;
+  miniGDPR: typeof miniGDPR;
+  accept: typeof accept;
+  acceptAll: typeof acceptAll;
+  decline: typeof decline;
+  close: typeof close;
+  save: typeof save;
+  functional: typeof functional;
+  statistical: typeof statistical;
+  marketing: typeof marketing;
+  policyUrl: typeof policyUrl;
 };
 
-type Text = typeof text;
+type Text = typeof export_default;
 interface DataLayerObject {
     event: DataLayerEventName;
     eventData?: EventData;
@@ -77,9 +80,10 @@ declare global {
     }
 }
 
-declare class EnhancedElement extends HTMLElement {
+declare abstract class PropertyCallbackElement extends HTMLElement {
     constructor();
-    connectedCallback(): void;
+    connectedCallback(): Promise<void>;
+    propertyChangedCallback(_name: string, _oldValue: unknown, _value: unknown): void;
 }
 
 declare enum Align {
@@ -100,41 +104,62 @@ declare function switchButton(this: AMCookies, { disabled, label, name, value, }
     value: boolean;
 }): string;
 
-declare class AMCookies extends EnhancedElement {
-    constructor();
-    connectedCallback(): void;
-    disconnectedCallback(): void;
-    shadow: ShadowRoot;
-    template: HTMLTemplateElement;
+declare class AMCookies extends PropertyCallbackElement {
     static get observedProperties(): string[];
-    propertyChangedCallback(name: string, _oldValue: unknown, value: unknown): void;
+    static get styles(): () => Promise<CSSStyleSheet>;
+    allowRetargeting: boolean | null;
+    allowStatistical: boolean | null;
+    hasRetargeting: boolean;
+    isCustomize: boolean | null;
+    isSaving: boolean;
+    isVisible: boolean;
+    shadow: undefined | ShadowRoot;
+    switchButton: typeof switchButton;
+    template: HTMLTemplateElement;
+    set accentColor(value: string);
+    get accentColor(): string;
+    set alignMiniPrompt(value: Align);
+    get alignMiniPrompt(): Align;
+    set alignPrompt(value: Align);
+    get alignPrompt(): Align;
+    set backgroundColor(value: string);
+    get backgroundColor(): string;
+    set borderWidth(value: number);
+    get borderWidth(): number;
+    set color(value: string);
+    get color(): string;
+    set fontFamily(value: string);
+    get fontFamily(): string;
+    set format(value: Format);
+    get format(): Format;
     set googleID(value: string | null);
     get googleID(): string | null;
     set metaPixelID(value: string | null);
     get metaPixelID(): string | null;
+    set privacyPolicyURL(value: string | null);
+    get privacyPolicyURL(): string | null;
     set snapChatPixelID(value: string | null);
     get snapChatPixelID(): string | null;
     set tiktokPixelID(value: string | null);
     get tiktokPixelID(): string | null;
-    set color(value: string);
-    get color(): string;
-    set backgroundColor(value: string);
-    get backgroundColor(): string;
-    set accentColor(value: string);
-    get accentColor(): string;
-    set fontFamily(value: string);
-    get fontFamily(): string;
-    set borderWidth(value: number);
-    get borderWidth(): number;
-    set alignPrompt(value: Align);
-    get alignPrompt(): Align;
-    set alignMiniPrompt(value: Align);
-    get alignMiniPrompt(): Align;
-    set format(value: Format);
-    get format(): Format;
-    set privacyPolicyURL(value: string | null);
-    get privacyPolicyURL(): string | null;
+    protected gdprContainer: null | HTMLSlotElement;
+    private _consentListeners;
+    private _cookieWarning;
+    private _gTag?;
+    private _gtm?;
+    private _meta?;
+    private _miniGDPR;
+    private _popUp;
+    private _scrollPos;
+    private _snapChat?;
     private _text?;
+    private _tikTok?;
+    constructor();
+    acceptAll(): void;
+    connectedCallback(): Promise<void>;
+    declineAll(): void;
+    disconnectedCallback(): void;
+    esc({ key }: KeyboardEvent): void;
     getText(): {
         settings: string;
         customize: {
@@ -162,38 +187,17 @@ declare class AMCookies extends EnhancedElement {
         };
         policyUrl: string;
     };
-    setText(text: Text): void;
-    allowStatistical: boolean | null;
-    allowRetargeting: boolean | null;
-    isVisible: boolean;
-    isCustomize: boolean | null;
-    isSaving: boolean;
-    protected gdprContainer: null | HTMLSlotElement;
-    private _gtm?;
-    private _gTag?;
-    private _meta?;
-    private _snapChat?;
-    private _tikTok?;
-    private _scrollPos;
-    save(): void;
-    acceptAll(): void;
-    declineAll(): void;
-    esc({ key }: KeyboardEvent): void;
-    setCustomize(value: boolean): void;
     handleChange({ target }: Event, component: AMCookies): void;
-    setVisible(): void;
     hideOnScroll(): void;
-    private _consentListeners;
-    hasRetargeting: boolean;
-    private _popUp;
-    private _cookieWarning;
-    private _miniGDPR;
-    switchButton: typeof switchButton;
+    propertyChangedCallback(name: string, _oldValue: unknown, value: unknown): void;
+    save(): void;
+    setCustomize(value: boolean): void;
+    setText(text: Text): void;
+    setVisible(): void;
+    protected render(): Promise<void>;
     private _addEventListeners;
-    private _removeEventListeners;
-    static get styles(): CSSStyleSheet;
     private _debug;
-    protected render(): void;
+    private _removeEventListeners;
 }
 
 declare const tagName = "am-cookies";

@@ -1,21 +1,25 @@
 import Cookies from 'js-cookie'
+
 import type { Text } from '@/types'
-import EnhancedElement from '@/elements/EnhancedElement'
+
+import EnhancedElement from '@/elements/helpers/EnhancedElement'
 import { Align, Format } from '@/enums'
 import getTranslation from '@/i18n'
-import defaultStyle from '@/styles/index.css'
 import cookieWarningStyle from '@/styles/cookieWarning.css'
+import defaultStyle from '@/styles/index.css'
 import popUpStyle from '@/styles/popUp.css'
 import switchStyle from '@/styles/switch.css'
 import uiButtonStyle from '@/styles/uiButton.css'
-import {
-  cookieWarning,
-  loading,
-  miniGDPR,
-  popUp,
-  switchButton,
-} from '@/templates'
-import { GTM, GTag, MetaPixel, SnapChatPixel, TikTokPixel } from '@/trackers'
+import cookieWarning from '@/templates/cookieWarning'
+import loading from '@/templates/loading'
+import miniGDPR from '@/templates/miniGDPR'
+import popUp from '@/templates/popUp'
+import switchButton from '@/templates/switchButton'
+import GTag from '@/trackers/GTag'
+import GTM from '@/trackers/GTM'
+import MetaPixel from '@/trackers/MetaPixel'
+import SnapChatPixel from '@/trackers/SnapChatPixel'
+import TikTokPixel from '@/trackers/TikTokPixel'
 import {
   boolToConsentParams,
   consentParamsToBool,
@@ -24,13 +28,260 @@ import {
 } from '@/utils'
 
 /**
- * AM GDPR Web Component
- * @exports
- * @class AMGDPR
- * @extends { EnhancedElement }
- * @description Simple and versatile GDPR compatible Cookie Compliance Web Component
+ * AM GDPR Web Component.
  */
 export default class AMCookies extends EnhancedElement {
+  /**
+   * Properties to observe.
+   */
+  static get observedProperties() {
+    return [
+      'allowStatistical',
+      'allowRetargeting',
+      'isVisible',
+      'isCustomize',
+      'isSaving',
+      '_text',
+    ]
+  }
+
+  /**
+   * Return the styles for the component.
+   */
+  static get styles() {
+    return async () => {
+      const styleSheet = new CSSStyleSheet(),
+        styles = [
+          defaultStyle,
+          cookieWarningStyle,
+          popUpStyle,
+          switchStyle,
+          uiButtonStyle,
+        ].join('')
+
+      await styleSheet.replace(styles)
+
+      return styleSheet
+    }
+  }
+
+  /**
+   * Allow Retargeting.
+   */
+  public allowRetargeting: boolean | null = null
+
+  /**
+   * Allow Statistical.
+   */
+  public allowStatistical: boolean | null = null
+  public hasRetargeting = false
+
+  /**
+   * Customize.
+   */
+  public isCustomize: boolean | null = null
+
+  /**
+   * Saving.
+   */
+  public isSaving = false
+
+  /**
+   * Visibility.
+   */
+  public isVisible = false
+  public shadow: undefined | ShadowRoot
+
+  public switchButton = switchButton
+  public template: HTMLTemplateElement
+
+  /**
+   * Accent color.
+   */
+  set accentColor(value: string) {
+    this.setAttribute('accentColor', value)
+  }
+
+  get accentColor() {
+    return this.getAttribute('accentColor') || '#FFF'
+  }
+
+  /**
+   * Align mini GDPR prompt.
+   */
+  set alignMiniPrompt(value: Align) {
+    this.setAttribute('alignMiniPrompt', value)
+  }
+
+  get alignMiniPrompt() {
+    const value = this.getAttribute('alignMiniPrompt')
+
+    if (value && Object.values(Align).includes(value as Align)) {
+      return value as Align
+    }
+
+    return Align.BottomLeft
+  }
+
+  /**
+   * Align GDPR promt.
+   */
+  set alignPrompt(value: Align) {
+    this.setAttribute('alignPrompt', value)
+  }
+
+  get alignPrompt() {
+    const value = this.getAttribute('alignPrompt')
+
+    if (value && Object.values(Align).includes(value as Align)) {
+      return value as Align
+    }
+
+    return Align.BottomLeft
+  }
+
+  /**
+   * Background color.
+   */
+  set backgroundColor(value: string) {
+    this.setAttribute('backgroundColor', value)
+  }
+
+  get backgroundColor() {
+    return this.getAttribute('backgroundColor') || '#FFF'
+  }
+
+  /**
+   * Border width.
+   */
+  set borderWidth(value: number) {
+    this.setAttribute('borderWidth', value.toString())
+  }
+
+  get borderWidth() {
+    return Number(this.getAttribute('borderWidth') ?? 2)
+  }
+
+  /**
+   * Text color.
+   */
+  set color(value: string) {
+    this.setAttribute('color', value)
+  }
+
+  get color() {
+    return this.getAttribute('color') || '#000'
+  }
+
+  /**
+   * Font family.
+   */
+  set fontFamily(value: string) {
+    this.setAttribute('fontFamily', value)
+  }
+
+  get fontFamily() {
+    return (
+      this.getAttribute('fontFamily') ||
+      '"Helvetica Neue", Helvetica, sans-serif'
+    )
+  }
+
+  /**
+   * GDPR Prompt format.
+   */
+  set format(value: Format) {
+    this.setAttribute('format', value)
+  }
+
+  get format() {
+    const value = this.getAttribute('format')
+
+    if (value && Object.values(Format).includes(value as Format)) {
+      return value as Format
+    }
+
+    return Format.Box
+  }
+
+  /**
+   * Tracking ID for GTM / GTag.
+   */
+  set googleID(value: string | null) {
+    this.setAttribute('googleID', value || '')
+  }
+
+  get googleID() {
+    return this.getAttribute('googleID')
+  }
+
+  /**
+   * Meta Pixel.
+   */
+  set metaPixelID(value: string | null) {
+    this.setAttribute('metaPixelID', value || '')
+  }
+
+  get metaPixelID() {
+    return this.getAttribute('metaPixelID')
+  }
+
+  /**
+   * Privacy policy URL.
+   */
+  set privacyPolicyURL(value: string | null) {
+    this.setAttribute('privacyPolicyURL', value || 'privacy')
+  }
+
+  get privacyPolicyURL() {
+    return this.getAttribute('privacyPolicyURL')
+  }
+
+  /**
+   * Snap Pixel.
+   */
+  set snapChatPixelID(value: string | null) {
+    this.setAttribute('snapChatPixelID', value || '')
+  }
+
+  get snapChatPixelID() {
+    return this.getAttribute('snapChatPixelID')
+  }
+
+  /**
+   * TikTok Pixel.
+   */
+  set tiktokPixelID(value: string | null) {
+    this.setAttribute('tiktokPixelID', value || '')
+  }
+
+  get tiktokPixelID() {
+    return this.getAttribute('tiktokPixelID')
+  }
+
+  protected gdprContainer!: null | HTMLSlotElement
+
+  private _consentListeners: ((val?: unknown) => void)[] = []
+
+  private _cookieWarning = cookieWarning
+
+  private _gTag?: GTag
+
+  private _gtm?: GTM
+
+  private _meta?: MetaPixel
+  private _miniGDPR = miniGDPR
+  private _popUp = popUp
+  private _scrollPos = 0
+  private _snapChat?: SnapChatPixel
+
+  /**
+   * Text object.
+   */
+  private _text?: Text
+
+  private _tikTok?: TikTokPixel
+
   constructor() {
     super()
     this.acceptAll = this.acceptAll.bind(this)
@@ -47,25 +298,51 @@ export default class AMCookies extends EnhancedElement {
     this.shadow = this.attachShadow({ mode: 'open' })
   }
 
+  public acceptAll() {
+    const prev = {
+      retargeting: this.hasRetargeting ? this.allowRetargeting : false,
+      statistical: this.allowStatistical,
+    }
+
+    this.allowStatistical = true
+    this.allowRetargeting = this.hasRetargeting
+    this.isSaving = true
+    setTimeout(() => {
+      this.isCustomize = false
+      this.isVisible = false
+      this.isSaving = false
+    },
+    this.isCustomize && (!prev.statistical || !prev.retargeting) ? 800 : 0)
+
+    if (!window.dataLayer || !window.google_tag_data) {
+      this._gtm?.initialize()
+      this._gTag?.initialize()
+    }
+
+    this.save()
+
+    this._debug()
+  }
+
   /**
-   * Initialize everything on component first render
+   * Initialize everything on component first render.
    */
-  override connectedCallback() {
-    super.connectedCallback()
-    this.render()
+  override async connectedCallback() {
+    await super.connectedCallback()
+    await this.render()
 
     this._addEventListeners()
 
     this.allowStatistical = consentParamsToBool(getConsent().analytics_storage)
     this.allowRetargeting = consentParamsToBool(getConsent().ad_storage)
 
-    this.gdprContainer = this.shadow.querySelector('#gdpr-container')
+    this.gdprContainer = this.shadow?.querySelector('#gdpr-container') ?? null
 
     if (
-      (!this.isCustomize &&
-        !this.allowStatistical &&
-        this.allowStatistical !== false) ||
-      !!this.isVisible ||
+      !this.isCustomize &&
+      !this.allowStatistical &&
+      this.allowStatistical !== false ||
+      Boolean(this.isVisible) ||
       !Cookies.get('CookieConsent')
     ) {
       this._cookieWarning()
@@ -94,15 +371,11 @@ export default class AMCookies extends EnhancedElement {
         this.hasRetargeting = true
       }
       if (this.snapChatPixelID) {
-        this._snapChat = new SnapChatPixel({
-          snapChatPixelID: this.snapChatPixelID,
-        })
+        this._snapChat = new SnapChatPixel({ snapChatPixelID: this.snapChatPixelID })
         this.hasRetargeting = true
       }
       if (this.tiktokPixelID) {
-        this._tikTok = new TikTokPixel({
-          tiktokPixelID: this.tiktokPixelID,
-        })
+        this._tikTok = new TikTokPixel({ tiktokPixelID: this.tiktokPixelID })
         this.hasRetargeting = true
       }
     }
@@ -138,35 +411,71 @@ export default class AMCookies extends EnhancedElement {
 
     setTimeout(() => {
       sheet?.insertRule(
-        /* CSS */ `:host{--border-width: ${this.borderWidth}px;--font-family: ${this.fontFamily};--color: ${this.color};--background-color: ${this.backgroundColor};--accent-color: ${this.accentColor};}`
-      )
+        /* CSS */ `:host{--border-width: ${this.borderWidth}px;--font-family: ${this.fontFamily};--color: ${this.color};--background-color: ${this.backgroundColor};--accent-color: ${this.accentColor};}`)
     }, 0)
 
     this._debug()
+  }
+
+  public declineAll() {
+    this.isCustomize = false
+    this.isVisible = false
+    this.allowStatistical = false
+    this.allowRetargeting = false
+
+    this._debug()
+
+    this.save()
   }
 
   disconnectedCallback() {
     this._removeEventListeners()
   }
 
-  public shadow: ShadowRoot
-  public template: HTMLTemplateElement
-
-  /**
-   * Properties to observe
-   */
-  static get observedProperties() {
-    return [
-      'allowStatistical',
-      'allowRetargeting',
-      'isVisible',
-      'isCustomize',
-      'isSaving',
-      '_text',
-    ]
+  public esc({ key }: KeyboardEvent) {
+    if (this.isCustomize && key === 'Escape') {
+      this.setCustomize(false)
+    }
   }
 
-  propertyChangedCallback(name: string, _oldValue: unknown, value: unknown) {
+  /**
+   * Get text.
+   */
+  public getText() {
+    return this._text ?? getTranslation()
+  }
+
+  public handleChange({ target }: Event, component: AMCookies) {
+    if (target instanceof HTMLInputElement) {
+      const { checked: isChecked, name } = target
+
+      if (
+        name in component &&
+        typeof component[name as keyof AMCookies] === 'boolean'
+      ) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        component[name as keyof AMCookies] = isChecked
+      }
+    }
+    this._debug()
+  }
+
+  public hideOnScroll() {
+    const bcr = document.body.getBoundingClientRect(),
+      mini = this.gdprContainer?.querySelector('.mini-gdpr')
+
+    if (!(mini instanceof HTMLButtonElement)) {
+      return
+    }
+    mini.dataset.hide = (bcr.top < this._scrollPos && bcr.top < -20).toString()
+
+    this._scrollPos = bcr.top
+  }
+
+  override propertyChangedCallback(
+    name: string, _oldValue: unknown, value: unknown
+  ) {
     if (!this.shadow || !this.gdprContainer) {
       return
     }
@@ -180,26 +489,25 @@ export default class AMCookies extends EnhancedElement {
       }
       case 'isSaving': {
         const button = this.gdprContainer.querySelector('.accept-all')
+
         if (value && button instanceof HTMLButtonElement) {
           button.innerHTML = loading
         }
         break
       }
       case 'allowStatistical': {
-        const input = this.gdprContainer.querySelector(
-          '[name="allowStatistical"]'
-        )
+        const input = this.gdprContainer.querySelector('[name="allowStatistical"]')
+
         if (input instanceof HTMLInputElement) {
-          input.checked = !!value
+          input.checked = Boolean(value)
         }
         break
       }
       case 'allowRetargeting': {
-        const input = this.gdprContainer.querySelector(
-          '[name="allowRetargeting"]'
-        )
+        const input = this.gdprContainer.querySelector('[name="allowRetargeting"]')
+
         if (input instanceof HTMLInputElement) {
-          input.checked = !!value
+          input.checked = Boolean(value)
         }
         break
       }
@@ -225,214 +533,6 @@ export default class AMCookies extends EnhancedElement {
     }
   }
 
-  /**
-   * Tracking ID for GTM / GTag
-   */
-  set googleID(value: string | null) {
-    this.setAttribute('googleID', value || '')
-  }
-  get googleID() {
-    return this.getAttribute('googleID')
-  }
-
-  /**
-   * Meta Pixel
-   */
-  set metaPixelID(value: string | null) {
-    this.setAttribute('metaPixelID', value || '')
-  }
-  get metaPixelID() {
-    return this.getAttribute('metaPixelID')
-  }
-
-  /**
-   * Snap Pixel
-   */
-  set snapChatPixelID(value: string | null) {
-    this.setAttribute('snapChatPixelID', value || '')
-  }
-  get snapChatPixelID() {
-    return this.getAttribute('snapChatPixelID')
-  }
-
-  /**
-   * TikTok Pixel
-   */
-  set tiktokPixelID(value: string | null) {
-    this.setAttribute('tiktokPixelID', value || '')
-  }
-  get tiktokPixelID() {
-    return this.getAttribute('tiktokPixelID')
-  }
-
-  /**
-   * Text color
-   */
-  set color(value: string) {
-    this.setAttribute('color', value)
-  }
-  get color() {
-    return this.getAttribute('color') || '#000'
-  }
-
-  /**
-   * Background color
-   */
-  set backgroundColor(value: string) {
-    this.setAttribute('backgroundColor', value)
-  }
-  get backgroundColor() {
-    return this.getAttribute('backgroundColor') || '#FFF'
-  }
-
-  /**
-   * Accent color
-   */
-  set accentColor(value: string) {
-    this.setAttribute('accentColor', value)
-  }
-  get accentColor() {
-    return this.getAttribute('accentColor') || '#FFF'
-  }
-
-  /**
-   * Font family
-   */
-  set fontFamily(value: string) {
-    this.setAttribute('fontFamily', value)
-  }
-  get fontFamily() {
-    return (
-      this.getAttribute('fontFamily') ||
-      '"Helvetica Neue", Helvetica, sans-serif'
-    )
-  }
-
-  /**
-   * Border width
-   */
-  set borderWidth(value: number) {
-    this.setAttribute('borderWidth', value.toString())
-  }
-  get borderWidth() {
-    return Number(this.getAttribute('borderWidth') ?? 2)
-  }
-
-  /**
-   * Align GDPR promt
-   */
-  set alignPrompt(value: Align) {
-    this.setAttribute('alignPrompt', value)
-  }
-  get alignPrompt() {
-    const value = this.getAttribute('alignPrompt')
-    if (value && Object.values(Align).includes(value as Align)) {
-      return value as Align
-    }
-    return Align.BottomLeft
-  }
-
-  /**
-   * Align mini GDPR prompt
-   */
-  set alignMiniPrompt(value: Align) {
-    this.setAttribute('alignMiniPrompt', value)
-  }
-  get alignMiniPrompt() {
-    const value = this.getAttribute('alignMiniPrompt')
-    if (value && Object.values(Align).includes(value as Align)) {
-      return value as Align
-    }
-    return Align.BottomLeft
-  }
-
-  /**
-   * GDPR Prompt format
-   */
-  set format(value: Format) {
-    this.setAttribute('format', value)
-  }
-  get format() {
-    const value = this.getAttribute('format')
-    if (value && Object.values(Format).includes(value as Format)) {
-      return value as Format
-    }
-    return Format.Box
-  }
-
-  /**
-   * Privacy policy URL
-   */
-  set privacyPolicyURL(value: string | null) {
-    this.setAttribute('privacyPolicyURL', value || 'privacy')
-  }
-  get privacyPolicyURL() {
-    return this.getAttribute('privacyPolicyURL')
-  }
-
-  /**
-   * Text object
-   */
-  private _text?: Text
-
-  /**
-   * Get text
-   */
-  public getText() {
-    return this._text || getTranslation()
-  }
-
-  /**
-   * Set Text
-   */
-  public setText(text: Text) {
-    if (!isText(text)) {
-      console.warn('Invalid text object')
-      return
-    }
-    this._text = text
-  }
-
-  /**
-   * @state
-   * Allow Statistical
-   */
-  public allowStatistical: boolean | null = null
-
-  /**
-   * @state
-   * Allow Retargeting
-   */
-  public allowRetargeting: boolean | null = null
-
-  /**
-   * @state
-   * Visibility
-   */
-  public isVisible = false
-
-  /**
-   * @state
-   * Customize
-   */
-  public isCustomize: boolean | null = null
-
-  /**
-   * @state
-   * Saving
-   */
-  public isSaving = false
-
-  protected gdprContainer!: null | HTMLSlotElement
-
-  private _gtm?: GTM
-  private _gTag?: GTag
-  private _meta?: MetaPixel
-  private _snapChat?: SnapChatPixel
-  private _tikTok?: TikTokPixel
-
-  private _scrollPos = 0
-
   public save() {
     const consent: Gtag.ConsentParams = {
       ad_personalization: boolToConsentParams(this.allowRetargeting),
@@ -444,19 +544,17 @@ export default class AMCookies extends EnhancedElement {
       security_storage: 'granted',
     }
 
-    Cookies.set('CookieConsent', encodeURIComponent(JSON.stringify(consent)), {
-      expires: 365,
-      sameSite: 'Lax',
-      secure: process.env.NODE_ENV !== 'development',
-    })
+    Cookies.set(
+      'CookieConsent', encodeURIComponent(JSON.stringify(consent)), {
+        expires: 365,
+        sameSite: 'Lax',
+        secure: process.env.NODE_ENV !== 'development',
+      }
+    )
 
-    this._gtm?.updateConsent({
-      consentParams: getConsent(),
-    })
+    this._gtm?.updateConsent({ consentParams: getConsent() })
 
-    this._gTag?.updateConsent({
-      consentParams: getConsent(),
-    })
+    this._gTag?.updateConsent({ consentParams: getConsent() })
 
     if (this.allowRetargeting) {
       this._meta?.initialize()
@@ -469,72 +567,25 @@ export default class AMCookies extends EnhancedElement {
     }
   }
 
-  public acceptAll() {
-    const prev = {
-      retargeting: this.hasRetargeting ? this.allowRetargeting : false,
-      statistical: this.allowStatistical,
-    }
-    this.allowStatistical = true
-    this.allowRetargeting = this.hasRetargeting
-    this.isSaving = true
-    setTimeout(
-      () => {
-        this.isCustomize = false
-        this.isVisible = false
-        this.isSaving = false
-      },
-      this.isCustomize && (!prev.statistical || !prev.retargeting) ? 800 : 0
-    )
-
-    if (!window.dataLayer || !window.google_tag_data) {
-      this._gtm?.initialize()
-      this._gTag?.initialize()
-    }
-
-    this.save()
-
-    this._debug()
-  }
-
-  public declineAll() {
-    this.isCustomize = false
-    this.isVisible = false
-    this.allowStatistical = false
-    this.allowRetargeting = false
-
-    this._debug()
-
-    this.save()
-  }
-
-  public esc({ key }: KeyboardEvent) {
-    if (this.isCustomize && key === 'Escape') {
-      this.setCustomize(false)
-    }
-  }
-
   public setCustomize(value: boolean) {
-    this.isCustomize = !!value
+    this.isCustomize = Boolean(value)
     this.isVisible = !value
-    this.allowStatistical = !!this.allowStatistical
-    this.allowRetargeting = !!this.allowRetargeting
+    this.allowStatistical = Boolean(this.allowStatistical)
+    this.allowRetargeting = Boolean(this.allowRetargeting)
 
     this._debug()
   }
 
-  public handleChange({ target }: Event, component: AMCookies) {
-    if (target instanceof HTMLInputElement) {
-      const { checked, name } = target
-      if (
-        name in component &&
-        typeof component[name as keyof AMCookies] === 'boolean'
-      ) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        component[name as keyof AMCookies] = checked
-      }
+  /**
+   * Set Text.
+   */
+  public setText(text: Text) {
+    if (!isText(text)) {
+      console.warn('Invalid text object')
+
+      return
     }
-    this._debug()
+    this._text = text
   }
 
   public setVisible() {
@@ -546,57 +597,32 @@ export default class AMCookies extends EnhancedElement {
     this._debug()
   }
 
-  public hideOnScroll() {
-    const bcr = document.body.getBoundingClientRect(),
-      mini = this.gdprContainer?.querySelector('.mini-gdpr')
-    if (!(mini instanceof HTMLButtonElement)) {
-      return
+  protected async render() {
+    if (!this.shadow) {
+      throw new Error('No Shadow Element')
     }
-    mini.dataset.hide = (bcr.top < this._scrollPos && bcr.top < -20).toString()
 
-    this._scrollPos = bcr.top
+    this.template.innerHTML = '<slot id="gdpr-container"></slot>'
+
+    const styles = await AMCookies.styles()
+
+    this.shadow.adoptedStyleSheets = [styles]
+    this.shadow.appendChild(this.template.content.cloneNode(true))
   }
-
-  private _consentListeners: ((val?: unknown) => void)[] = []
-
-  public hasRetargeting = false
-
-  private _popUp = popUp
-  private _cookieWarning = cookieWarning
-  private _miniGDPR = miniGDPR
-  public switchButton = switchButton
 
   private _addEventListeners() {
-    document.addEventListener('keydown', this.esc, {
-      capture: true,
-      passive: true,
-    })
-    document.addEventListener('scroll', this.hideOnScroll, {
-      capture: true,
-      passive: true,
-    })
-  }
-
-  private _removeEventListeners() {
-    document.removeEventListener('keydown', this.esc)
-    document.removeEventListener('scroll', this.hideOnScroll)
-  }
-
-  /**
-   * Return the styles for the component
-   */
-  static get styles() {
-    const styleSheet = new CSSStyleSheet(),
-      styles = [
-        defaultStyle,
-        cookieWarningStyle,
-        popUpStyle,
-        switchStyle,
-        uiButtonStyle,
-      ].join('')
-
-    styleSheet.replace(styles)
-    return styleSheet
+    document.addEventListener(
+      'keydown', this.esc, {
+        capture: true,
+        passive: true,
+      }
+    )
+    document.addEventListener(
+      'scroll', this.hideOnScroll, {
+        capture: true,
+        passive: true,
+      }
+    )
   }
 
   private _debug() {
@@ -612,14 +638,12 @@ export default class AMCookies extends EnhancedElement {
         statistical: this.allowStatistical,
         visible: this.isVisible,
       },
-      this._gtm || this._gTag
+      this._gtm ?? this._gTag
     )
   }
 
-  protected render() {
-    this.template.innerHTML = '<slot id="gdpr-container"></slot>'
-
-    this.shadow.adoptedStyleSheets = [AMCookies.styles]
-    this.shadow.appendChild(this.template.content.cloneNode(true))
+  private _removeEventListeners() {
+    document.removeEventListener('keydown', this.esc)
+    document.removeEventListener('scroll', this.hideOnScroll)
   }
 }

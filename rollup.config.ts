@@ -1,51 +1,47 @@
-import { readFile } from 'fs/promises'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
+import type { RollupOptions } from 'rollup'
+
 import layers from '@csstools/postcss-cascade-layers'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import autoprefixer from 'autoprefixer'
+import { readFile } from 'node:fs/promises'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import flexbugs from 'postcss-flexbugs-fixes'
+import cssMinify from 'postcss-minify'
 import { dts } from 'rollup-plugin-dts'
 import template from 'rollup-plugin-html-literals'
 import injectProcessEnv from 'rollup-plugin-inject-process-env'
 import livereload from 'rollup-plugin-livereload'
+import serve from 'rollup-plugin-opener'
 import postcss from 'rollup-plugin-postcss'
-import cssMinify from 'postcss-minify'
-import serve from 'rollup-plugin-serve'
-import { summary } from 'rollup-plugin-summary'
+import pluginSummary from 'rollup-plugin-summary'
 import { swc, minify } from 'rollup-plugin-swc3'
 import { typescriptPaths } from 'rollup-plugin-typescript-paths'
 
 const isProd = process.env.NODE_ENV !== 'development',
-  __dirname = path.dirname(fileURLToPath(import.meta.url)),
-  /**
-   * @type {typeof import('./package.json')}
-   * */
-  pkg = JSON.parse(
-    (
-      await readFile(
-        new URL(path.resolve(__dirname, 'package.json'), import.meta.url)
-      )
-    ).toString()
+  { url } = import.meta,
+  __dirname = path.dirname(fileURLToPath(url)),
+  pkgBuffer = await readFile(new URL(path.resolve(__dirname, 'package.json'), url)),
+  pkg: typeof import('./package.json') = JSON.parse(pkgBuffer.toString()),
+  input = path.resolve(
+    __dirname, 'src', 'index.ts'
   ),
-  input = path.resolve(__dirname, 'src', 'index.ts'),
-  /**
-   * @type {import('rollup').RollupOptions}
-   * */
-  types = {
-    input: path.resolve(__dirname, 'types', 'index.d.ts'),
+
+  types: RollupOptions = {
+    input: path.resolve(
+      __dirname, 'types', 'index.d.ts'
+    ),
     output: {
       file: pkg.types,
       format: 'esm',
     },
-    plugins: [typescriptPaths(), json(), dts()],
+    plugins: [typescriptPaths(),
+      json(),
+      dts()],
   },
-  /**
-   * @type {import('rollup').RollupOptions}
-   * */
-  module = {
+  module: RollupOptions = {
     external: ['js-cookie'],
     input,
     onwarn(warning, warn) {
@@ -69,45 +65,36 @@ const isProd = process.env.NODE_ENV !== 'development',
         plugins: [
           flexbugs(),
           layers(),
-          autoprefixer({
-            flexbox: 'no-2009',
-          }),
+          autoprefixer({ flexbox: 'no-2009' }),
           cssMinify(),
         ],
       }),
       template({
-        include: [path.resolve(__dirname, 'src', 'templates', '*')],
+        include: [path.resolve(
+          __dirname, 'src', 'templates', '*'
+        )],
         options: {
           shouldMinify({ parts }) {
-            return parts.some(
-              ({ text }) =>
-                text.includes('<div') ||
-                text.includes('<button') ||
-                text.includes('<svg') ||
-                text.includes('<label')
-            )
+            return parts.some(({ text }) =>
+              text.includes('<div') ||
+              text.includes('<button') ||
+              text.includes('<svg') ||
+              text.includes('<label'))
           },
         },
       }),
-      json({
-        compact: true,
-      }),
+      json({ compact: true }),
       nodeResolve({
         extensions: ['ts'],
         preferBuiltins: true,
       }),
       commonjs(),
-      injectProcessEnv({
-        NODE_ENV: 'production',
-      }),
+      injectProcessEnv({ NODE_ENV: 'production' }),
       swc(),
-      summary(),
+      pluginSummary(),
     ],
   },
-  /**
-   * @type {import('rollup').RollupOptions}
-   * */
-  unpkg = {
+  unpkg: RollupOptions = {
     input,
     onwarn(warning, warn) {
       if (
@@ -131,52 +118,46 @@ const isProd = process.env.NODE_ENV !== 'development',
         inject: false,
         plugins: isProd
           ? [
-              flexbugs(),
-              layers(),
-              autoprefixer({
-                flexbox: 'no-2009',
-              }),
-              cssMinify(),
-            ]
+            flexbugs(),
+            layers(),
+            autoprefixer({ flexbox: 'no-2009' }),
+            cssMinify(),
+          ]
           : [],
       }),
       template({
         include: [
           // path.resolve(__dirname, 'src', 'elements', 'AMGDPR.ts'),
-          path.resolve(__dirname, 'src', 'templates', '*'),
+          path.resolve(
+            __dirname, 'src', 'templates', '*'
+          ),
         ],
         options: {
           shouldMinify({ parts }) {
-            return parts.some(
-              ({ text }) =>
-                text.includes('<div') ||
-                text.includes('<button') ||
-                text.includes('<svg') ||
-                text.includes('<label')
-            )
+            return parts.some(({ text }) =>
+              text.includes('<div') ||
+              text.includes('<button') ||
+              text.includes('<svg') ||
+              text.includes('<label'))
           },
         },
       }),
-      json({
-        compact: true,
-      }),
+      json({ compact: true }),
       nodeResolve({
         extensions: ['ts'],
         preferBuiltins: false,
       }),
       commonjs(),
-      injectProcessEnv({
-        NODE_ENV: isProd ? 'production' : 'development',
-      }),
+      injectProcessEnv({ NODE_ENV: isProd ? 'production' : 'development' }),
       swc(),
       !isProd &&
-        serve({
-          open: true,
-        }),
+      serve({ open: true }),
       !isProd && livereload(),
       isProd && minify(),
-      isProd && summary(),
+      isProd && pluginSummary(),
     ],
   }
 
-export default isProd ? [module, types, unpkg] : unpkg
+export default isProd ? [module,
+  types,
+  unpkg] : unpkg

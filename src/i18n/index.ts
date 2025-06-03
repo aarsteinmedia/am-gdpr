@@ -24,27 +24,32 @@ export const languages = [
   translation =
     languages.find((lang) => browserLanguage.includes(lang)) || fallbackLanguage
 
-/**
- *
- */
 export default function getTranslation() {
   switch (translation) {
-    case 'de':
+    case 'de': {
       return de
-    case 'dk':
+    }
+    case 'dk': {
       return dk
-    case 'es':
+    }
+    case 'es': {
       return es
-    case 'fin':
+    }
+    case 'fin': {
       return fin
-    case 'fr':
+    }
+    case 'fr': {
       return fr
+    }
     case 'no':
-    case 'nb':
+    case 'nb': {
       return no
-    case 'sv':
+    }
+    case 'sv': {
       return sv
-    default:
+    }
+    default: {
       return en
+    }
   }
 }

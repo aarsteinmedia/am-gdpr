@@ -1,5 +1,6 @@
 declare module '*.css' {
   const content: string
+
   export default content
 }
 
@@ -9,4 +10,7 @@ declare module '*.css' {
 //   }
 // }
 
-declare module 'rollup-plugin-serve'
+declare module 'postcss-minify' {
+  export default function cssMinify(): unknown
+}
+

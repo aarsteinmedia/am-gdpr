@@ -1,2 +1,2 @@
-import { Text } from './types';
-export declare const boolToConsentParams: (bool?: boolean | null) => "denied" | "granted" | undefined, consentParamsToBool: (param?: "granted" | "denied") => boolean | null, getConsent: () => Gtag.ConsentParams, hasKey: <T extends object>(obj: T, key: PropertyKey) => key is keyof T, isServer: () => boolean, isText: (text?: unknown) => text is Text, useId: (prefix?: string) => string;
+import type { Text } from './types';
+export declare const boolToConsentParams: (bool?: boolean | null) => "denied" | "granted" | undefined, consentParamsToBool: (param?: null | "granted" | "denied") => boolean | null, getConsent: () => Gtag.ConsentParams, hasKey: <T extends object>(obj: T, key: PropertyKey) => key is keyof T, isServer: () => boolean, isText: (text?: unknown) => text is Text, useId: (prefix?: string) => string;

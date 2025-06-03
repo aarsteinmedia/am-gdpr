@@ -1,6 +1,7 @@
 import type { Plugin } from '@custom-elements-manifest/analyzer'
+
 import type AMCookies from '@/elements/AMCookies'
-import text from '@/i18n/en.json'
+import type text from '@/i18n/en.json'
 
 export type Text = typeof text
 
@@ -11,9 +12,7 @@ export interface DataLayerObject {
   userData?: UserData
 }
 
-interface UserData {
-  userId?: string
-}
+interface UserData {userId?: string}
 
 interface EventData {
   action: string
@@ -23,42 +22,42 @@ interface EventData {
   value?: number
 }
 
-interface PageData {
-  path: string
-}
+interface PageData {path: string}
 
 export interface CEMConfig {
-  /** Enable special handling for catalyst */
+  /** Enable special handling for catalyst. */
   catalyst: boolean
-  /** Include third party custom elements manifests */
+  /** Include third party custom elements manifests. */
   dependencies: boolean
-  /** Run in dev mode, provides extra logging */
+  /** Run in dev mode, provides extra logging. */
   dev: boolean
-  /** Globs to exclude */
+  /** Globs to exclude. */
   exclude: string[]
-  /** Enable special handling for fast */
+  /** Enable special handling for fast. */
   fast: boolean
-  /** Globs to analyze */
+  /** Globs to analyze.*/
   globs: ['src/**/*.ts']
-  /** Enable special handling for litelement */
+  /** Enable special handling for litelement. */
   litelement: boolean
-  /** Directory to output CEM to */
+  /** Directory to output CEM to. */
   outdir: string
-  /** Overrides default module creation: */
-  overrideModuleCreation({
+  overrideModuleCreation: ({
     globs,
     ts,
   }: {
-    ts: unknown // TypeScrip
+    /**
+     * TypeScrip.
+     */
+    ts: unknown
     globs: string[]
-  }): unknown[] // SourceFile[]
-  /** Output CEM path to `package.json`, defaults to true */
+  }) => unknown[]
+  /** Output CEM path to `package.json`, defaults to true. */
   packagejson: boolean
-  /** Provide custom plugins */
-  plugins: Array<() => Plugin>
-  /** Enable special handling for stencil */
+  /** Provide custom plugins. */
+  plugins: (() => Plugin)[]
+  /** Enable special handling for stencil.*/
   stencil: boolean
-  /** Run in watch mode, runs on file changes */
+  /** Run in watch mode, runs on file changes. */
   watch: boolean
 }
 
@@ -74,14 +73,10 @@ declare global {
     dataLayer?: DataLayerObject[]
     google_tag_data?: unknown
   }
-  interface HTMLElementTagNameMap {
-    'dotlottie-player': AMCookies
-  }
+  interface HTMLElementTagNameMap {'dotlottie-player': AMCookies}
   function amCookies(): AMCookies
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
-    interface IntrinsicElements {
-      'am-cookies': AMCookies
-    }
+    interface IntrinsicElements {'am-cookies': AMCookies}
   }
 }

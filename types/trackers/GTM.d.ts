@@ -1,17 +1,17 @@
 export default class GTM {
+    consentParams: Gtag.ConsentParams;
+    defer: boolean;
+    gtmId: string | null;
+    serverSideDomain: string | null;
+    private _initialized;
     constructor({ consentParams, defer, gtmId, serverSideDomain, }: {
         gtmId: string;
         serverSideDomain?: string | null;
         consentParams: Gtag.ConsentParams;
         defer?: boolean;
     });
-    private _initialized;
-    gtmId: string | null;
-    serverSideDomain: string | null;
-    defer: boolean;
-    consentParams: Gtag.ConsentParams;
     initialize(): void;
-    updateConsent({ consentParams, }: {
+    updateConsent({ consentParams }: {
         consentParams: Gtag.ConsentParams;
     }): void;
 }

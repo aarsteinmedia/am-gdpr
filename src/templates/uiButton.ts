@@ -1,6 +1,3 @@
-/**
- *
- */
 export default function uiButton({
   ariaLabel,
   className,
@@ -10,13 +7,15 @@ export default function uiButton({
   className: string
   isOpen: boolean
 }) {
-  return /* HTML */ `<button
-    ariaLabel="${ariaLabel}"
-    class="menu-button ${className}"
-    data-open="${isOpen}"
-  >
-    <span class="hamburger">
-      <span></span>
-    </span>
-  </button> `
+  return /* HTML */ `
+    <button
+        ariaLabel="${ariaLabel}"
+        class="menu-button ${className}"
+        data-open="${isOpen}"
+      >
+        <span class="hamburger">
+          <span></span>
+        </span>
+      </button> 
+  `
 }

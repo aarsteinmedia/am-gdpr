@@ -1,4 +1,6 @@
-const gtmCode = (gtmId: string, defer: boolean, domain: string) =>
+const gtmCode = (
+  gtmId: string, defer: boolean, domain: string
+) =>
   `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.id='gtm-snippet';j.${defer ? 'defer' : 'async'}=true;j.src='https://${domain}/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`
 // resetDataLayer = (obj: DataLayerObject) => {
 //   try {
@@ -50,6 +52,17 @@ const gtmCode = (gtmId: string, defer: boolean, domain: string) =>
 // }
 
 export default class GTM {
+  public consentParams
+
+  public defer = false
+
+  public gtmId: string | null = null
+  // public resetDataLayer = false
+  /**
+   * Public sanitizeDataLayer = false.
+   */
+  public serverSideDomain: string | null = null
+  private _initialized = false
   constructor({
     consentParams,
     defer = false,
@@ -60,7 +73,9 @@ export default class GTM {
   }: {
     gtmId: string
     // resetDataLayer?: boolean
-    // sanitizeDataLayer?: boolean
+    /**
+     * SanitizeDataLayer?: boolean.
+     */
     serverSideDomain?: string | null
     consentParams: Gtag.ConsentParams
     defer?: boolean
@@ -69,13 +84,14 @@ export default class GTM {
     // this.resetDataLayer = !!resetDataLayer
     // this.sanitizeDataLayer = !!sanitizeDataLayer
     this.serverSideDomain = serverSideDomain ? serverSideDomain.trim() : null
-    this.defer = !!defer
+    this.defer = Boolean(defer)
 
     this.consentParams = consentParams
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!window.gtag) {
       window.gtag = function () {
-        window.dataLayer = window.dataLayer || []
+        window.dataLayer = window.dataLayer ?? []
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         window.dataLayer.push(arguments) // eslint-disable-line prefer-rest-params
@@ -83,23 +99,18 @@ export default class GTM {
     }
   }
 
-  private _initialized = false
-
-  public gtmId: string | null = null
-  // public resetDataLayer = false
-  // public sanitizeDataLayer = false
-  public serverSideDomain: string | null = null
-  public defer = false
-  public consentParams
-
   public initialize() {
-    gtag('consent', 'default', this.consentParams)
+    gtag(
+      'consent', 'default', this.consentParams
+    )
     if (this._initialized) {
       console.warn('Google Tag Manager is already loaded')
+
       return
     }
     if (!this.gtmId) {
       console.error('No Google Tag Manager ID was assigned')
+
       return
     }
 
@@ -118,7 +129,7 @@ export default class GTM {
           this.gtmId,
           this.defer,
           this.serverSideDomain
-            ? this.serverSideDomain.replace(/http(|s):\/\/|\/$/g, '')
+            ? this.serverSideDomain.replaceAll(/https?:\/\/|\/$/g, '')
             : 'www.googletagmanager.com'
         )
 
@@ -131,15 +142,13 @@ export default class GTM {
     }
   }
 
-  public updateConsent({
-    consentParams,
-  }: {
-    consentParams: Gtag.ConsentParams
-  }) {
+  public updateConsent({ consentParams }: { consentParams: Gtag.ConsentParams }) {
     try {
-      window.gtag('consent', 'update', consentParams)
-    } catch (err) {
-      console.error(err)
+      window.gtag(
+        'consent', 'update', consentParams
+      )
+    } catch (error) {
+      console.error(error)
     }
   }
 
