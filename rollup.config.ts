@@ -108,7 +108,7 @@ const isProd = process.env.NODE_ENV !== 'development',
     output: {
       exports: 'named',
       extend: true,
-      file: pkg.main,
+      file: pkg.unpkg,
       format: 'iife',
       name: pkg.name,
     },
