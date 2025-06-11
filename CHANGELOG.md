@@ -5,27 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.3] - 17-02-2015
+## [2.0.6] - 11-06-2025
+
+### Changed
+
+- Minor optimizations
+
+## [2.0.3] - 17-02-2025
 
 ### Changed
 
 - Updated ESLint and devDependencies
 - Dropped CJS export
 
-## [2.0.2] - 06-02-2015
+## [2.0.2] - 06-02-2025
 
 ### Changed
 
 - Fixed bug with layered stylesheets
 
-## [2.0.1] - 06-02-2015
+## [2.0.1] - 06-02-2025
 
 ### Changed
 
 - ES2021 -> ES2022
 - Migrated from SASS to modern CSS with nesting
 
-## [2.0.0] - 24-10-2014
+## [2.0.0] - 24-10-2024
 
 ### Changed
 
@@ -56,13 +62,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   + </script>
   ```
 
-## [1.1.0] - 24-10-2014
+## [1.1.0] - 24-10-2024
 
 ### Added
 
 - Added test
 
-## [1.0.3] - 20-10-2014
+## [1.0.3] - 20-10-2024
 
 ### Changed
 
@@ -70,7 +76,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Minor bugfixes
 - Minor stylistic changes
 
-## [1.0.2] - 18-10-2014
+## [1.0.2] - 18-10-2024
 
 ### Added
 

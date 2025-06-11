@@ -69,7 +69,7 @@
     "build": "rollup -c --configPlugin typescript",
     "prebuild:types": "rimraf ./types",
     "build:types": "tsc -p ./tsconfig.build.json && tsc-alias",
-    "build:cem": "npx cem analyze --config 'cem.config.mjs'",
+    "build:cem": "npx cem analyze --config 'cem.config.js'",
     "prod": "pnpm build:types && pnpm build && pnpm build:cem",
     "dev": "rollup -cw --configPlugin typescript --environment NODE_ENV:development",
     "lint:js": "eslint",
