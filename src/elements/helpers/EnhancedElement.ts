@@ -8,7 +8,7 @@ import { isServer } from '@/utils'
 
 const updateOnConnected = Symbol('UPDATE_ON_CONNECTED')
 
-if (isServer()) {
+if (isServer) {
   // Mock HTMLElement for server-side rendering
   global.HTMLElement =
     // eslint-disable-next-line @typescript-eslint/no-extraneous-class

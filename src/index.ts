@@ -5,6 +5,6 @@ export default AMCookies
 
 export const tagName = 'am-cookies'
 
-if (!isServer() && !customElements.get(tagName)) {
+if (!isServer && !customElements.get(tagName)) {
   customElements.define(tagName, AMCookies)
 }

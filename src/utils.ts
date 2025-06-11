@@ -2,8 +2,9 @@ import Cookies from 'js-cookie'
 
 import type { Text } from '@/types'
 
-const s4 = () =>
-  ((1 + Math.random()) * 0x10000 | 0).toString(16).slice(1)
+const _isServer = () => !(typeof window !== 'undefined' && window.document),
+  s4 = () =>
+    ((1 + Math.random()) * 0x10000 | 0).toString(16).slice(1)
 
 export const boolToConsentParams = (bool?: boolean | null) => {
     if (bool === undefined || bool === null) {
@@ -39,7 +40,7 @@ export const boolToConsentParams = (bool?: boolean | null) => {
   },
   hasKey = <T extends object>(obj: T, key: PropertyKey): key is keyof T =>
     key in obj,
-  isServer = () => !(typeof window !== 'undefined' && window.document),
+  isServer = _isServer(),
   isText = (text?: unknown): text is Text => {
     return !(!text ||
       typeof text !== 'object' ||

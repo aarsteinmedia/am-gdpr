@@ -12,7 +12,7 @@ import Cookies from 'js-cookie';
     globalThis.process = { env:env };
 })();
 
-const s4 = ()=>((1 + Math.random()) * 0x10000 | 0).toString(16).slice(1);
+const _isServer = ()=>!(typeof window !== 'undefined' && window.document), s4 = ()=>((1 + Math.random()) * 0x10000 | 0).toString(16).slice(1);
 const boolToConsentParams = (bool)=>{
     if (bool === undefined || bool === null) {
         return undefined;
@@ -38,7 +38,7 @@ const boolToConsentParams = (bool)=>{
         security_storage: 'granted',
         wait_for_update: 500
     };
-}, isServer = ()=>!(typeof window !== 'undefined' && window.document), isText = (text)=>{
+}, isServer = _isServer(), isText = (text)=>{
     return !(!text || typeof text !== 'object' || !('settings' in text) || !('customize' in text) || !('header' in text));
 }, useId = (prefix)=>{
     return `:${s4()}-${s4()}`;
@@ -47,7 +47,7 @@ const boolToConsentParams = (bool)=>{
 /**
  * Credit to: Leonardo Favre https://github.com/leofavre/observed-properties.
  */ const updateOnConnected = Symbol('UPDATE_ON_CONNECTED');
-if (isServer()) {
+if (isServer) {
     // Mock HTMLElement for server-side rendering
     global.HTMLElement = // eslint-disable-next-line @typescript-eslint/no-extraneous-class
     class EmptyHTMLElement {
@@ -327,8 +327,7 @@ class GTag {
                 window.dataLayer = window.dataLayer ?? [];
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                window.dataLayer.push(arguments) // eslint-disable-line prefer-rest-params
-                ;
+                window.dataLayer.push(arguments); // eslint-disable-line prefer-rest-params
             };
         }
     }
@@ -436,8 +435,7 @@ class GTM {
                 window.dataLayer = window.dataLayer ?? [];
                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-ignore
-                window.dataLayer.push(arguments) // eslint-disable-line prefer-rest-params
-                ;
+                window.dataLayer.push(arguments); // eslint-disable-line prefer-rest-params
             };
         }
     }
@@ -1000,7 +998,7 @@ class TikTokPixel {
 }
 
 const tagName = 'am-cookies';
-if (!isServer() && !customElements.get(tagName)) {
+if (!isServer && !customElements.get(tagName)) {
     customElements.define(tagName, AMCookies);
 }
 
