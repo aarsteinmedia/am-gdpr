@@ -84,7 +84,7 @@ export default class GTM {
     // this.resetDataLayer = !!resetDataLayer
     // this.sanitizeDataLayer = !!sanitizeDataLayer
     this.serverSideDomain = serverSideDomain ? serverSideDomain.trim() : null
-    this.defer = Boolean(defer)
+    this.defer = defer
 
     this.consentParams = consentParams
 

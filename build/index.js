@@ -185,7 +185,7 @@ var css_248z$4 = ":host{.cookie-overlay{position:fixed;left:0;top:0;width:100%;h
 
 var css_248z$3 = ":host{font-family:var(--font-family);font-size:16px;color:var(--color);line-height:1.3;display:block;width:100%;height:100%;cursor:default;*::selection{background-color:var(--color);color:var(--background-color)}*{box-sizing:border-box}& input,& textarea,& button{color:inherit;font-size:inherit;font-family:inherit;font-weight:inherit;border:0;outline:0;background-color:transparent}& button{background-color:var(--accent-color);transition:transform .2s ease-in-out}& button,& input[type=\"submit\"],& input[type=\"button\"],& input[type=\"reset\"]{appearance:none;*{pointer-events:none}&:not([disabled]){cursor:pointer}&:hover{transform:scale(1.02)}}& a{color:inherit;font-weight:bold;text-decoration:none;position:relative;&::after{content:'';border-bottom:solid var(--border-width) var(--accent-color);position:absolute;width:100%;bottom:0;left:0;z-index:-1}&:hover::after{opacity:0}}& svg{width:auto;height:auto;display:inline-block;& path{fill:currentcolor}}& p{margin:0;padding:0.5em 0 .7em}& h1,.h1,& h2,.h2,& h3,.h3{font-weight:bold;font-size:2.2em;padding:0;margin:0;margin-top:0.5em}& h2,.h2{font-size:1.7em}& h3,.h3{font-size:1.5em;& svg{height:1.2em;display:inline-block;vertical-align:bottom}}.icon-cookies{display:flex;margin:0;padding:0}}\n";
 
-var css_248z$2 = ":host{.pop-up{position:fixed;width:100vw;height:100vh;top:0;left:0;overflow:hidden;z-index:999999;animation-duration:0.4s;animation-name:fade-in;background-color:rgb(0 0 0/30%);& dialog{position:absolute;height:90%;max-width:90%;min-height:0;max-height:0;border-radius:0.25em;border:solid var(--border-width) currentcolor;left:0;right:0;margin:auto;top:50%;transform:translateY(-50%);padding:40px;overflow:hidden;transition:max-height .2s ease-in-out,min-height .2s ease-in-out;width:600px;box-shadow:0 10px 20px rgb(0 0 0/20%);color:var(--color);background-color:var(--background-color);.button-wrapper{margin-top:1em}.close-button{top:14px;right:14px;width:25px}&[data-animate=\"up\"]{animation:fade-up .3s ease-in-out}}&[data-gallery=\"true\"]{dialog{padding:0}}}.inner-wrapper{width:100%;float:left;position:relative;display:flex;align-items:center;overflow:hidden}.row{display:flex;flex-direction:row;gap:1em;align-items:flex-start;margin:0}.column{display:flex;flex:1 1;flex-direction:column;align-items:flex-start}@media only screen and (width <= 760px){.pop-up{.pop-up-element{padding:25px;.close-button{width:20px;top:5px;right:5px}}}.row{overflow:auto hidden;scroll-snap-points-x:repeat(100%);scroll-snap-type:x mandatory;flex:1 1;-webkit-overflow-scrolling:touch;scrollbar-width:none;&::-webkit-scrollbar{display:none}}.column{width:100%;height:100%;position:relative;flex:0 0 100%;scroll-snap-align:start}}}";
+var css_248z$2 = ":host{.pop-up{position:fixed;width:100vw;height:100vh;top:0;left:0;overflow:hidden;z-index:999999;animation-duration:0.4s;animation-name:fade-in;background-color:rgb(0 0 0/30%);& dialog{position:absolute;height:90%;max-width:90%;min-height:0;max-height:0;border-radius:0.25em;border:solid var(--border-width) currentcolor;left:0;right:0;margin:auto;top:50%;transform:translateY(-50%);padding:40px;overflow:hidden;transition:max-height 0.2s ease-in-out,min-height 0.2s ease-in-out;width:600px;box-shadow:0 10px 20px rgb(0 0 0/20%);color:var(--color);background-color:var(--background-color);.button-wrapper{margin-top:1em}.close-button{top:14px;right:14px;width:25px}&[data-animate='up']{animation:fade-up 0.3s ease-in-out}}&[data-gallery='true']{dialog{padding:0}}}.inner-wrapper{width:100%;float:left;position:relative;display:flex;align-items:center;overflow:hidden}.row{display:flex;flex-direction:row;gap:1em;align-items:flex-start;margin:0}.column{display:flex;flex:1 1;flex-direction:column;align-items:flex-start}@media only screen and (width <= 760px){.pop-up{.pop-up-element{padding:25px;.close-button{width:20px;top:5px;right:5px}}}.row{overflow:auto hidden;scroll-snap-type:x mandatory;flex:1 1;-webkit-overflow-scrolling:touch;scrollbar-width:none;&::-webkit-scrollbar{display:none}}.column{width:100%;height:100%;position:relative;flex:0 0 100%;scroll-snap-align:start}}}\n";
 
 var css_248z$1 = ":host{.container{display:inline-flex;flex-direction:column;margin-right:0.5em;margin-top:0.5em;font-size:0.9em}.text-label{margin-bottom:0.5em}.label{position:relative;display:inline-block;width:3em;height:1.5em;.input{opacity:0;width:0;height:0;margin:0;padding:0}}.slider{position:absolute;cursor:pointer;inset:0;border-radius:1em;border:solid var(--border-width) currentcolor;appearance:none;transition:background-color .2s;&::before{position:absolute;border-radius:50%;content:\"\";height:1em;width:1em;left:0.2em;bottom:0;top:0;margin:auto;background-color:currentcolor;transition:0.4s}}.input{&:focus+.slider{box-shadow:0 0 1px}&:checked+.slider{background-color:var(--accent-color);&::before{transform:translateX(1.4em)}}&:disabled+.slider{opacity:0.5}}}\n";
 
@@ -427,7 +427,7 @@ class GTM {
         // this.resetDataLayer = !!resetDataLayer
         // this.sanitizeDataLayer = !!sanitizeDataLayer
         this.serverSideDomain = serverSideDomain ? serverSideDomain.trim() : null;
-        this.defer = Boolean(defer);
+        this.defer = defer;
         this.consentParams = consentParams;
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!window.gtag) {
@@ -746,7 +746,7 @@ class TikTokPixel {
         this.allowStatistical = consentParamsToBool(getConsent().analytics_storage);
         this.allowRetargeting = consentParamsToBool(getConsent().ad_storage);
         this.gdprContainer = this.shadow?.querySelector('#gdpr-container') ?? null;
-        if (!this.isCustomize && !this.allowStatistical && this.allowStatistical !== false || Boolean(this.isVisible) || !Cookies.get('CookieConsent')) {
+        if (!this.isCustomize && !this.allowStatistical && this.allowStatistical !== false || this.isVisible || !Cookies.get('CookieConsent')) {
             this._cookieWarning();
         } else if (this.isCustomize) {
             this._popUp();
@@ -936,7 +936,7 @@ class TikTokPixel {
         }
     }
     setCustomize(value) {
-        this.isCustomize = Boolean(value);
+        this.isCustomize = value;
         this.isVisible = !value;
         this.allowStatistical = Boolean(this.allowStatistical);
         this.allowRetargeting = Boolean(this.allowRetargeting);

@@ -27,7 +27,9 @@
         transform: translateY(-50%);
         padding: 40px;
         overflow: hidden;
-        transition: max-height .2s ease-in-out, min-height .2s ease-in-out;
+        transition:
+          max-height 0.2s ease-in-out,
+          min-height 0.2s ease-in-out;
         width: 600px;
         box-shadow: 0 10px 20px rgb(0 0 0 / 20%);
         color: var(--color);
@@ -43,13 +45,12 @@
           width: 25px;
         }
 
-        &[data-animate="up"] {
-          animation: fade-up .3s ease-in-out;
+        &[data-animate='up'] {
+          animation: fade-up 0.3s ease-in-out;
         }
-
       }
 
-      &[data-gallery="true"] {
+      &[data-gallery='true'] {
         dialog {
           padding: 0;
         }
@@ -117,7 +118,7 @@
 
       .row {
         overflow: auto hidden;
-        scroll-snap-points-x: repeat(100%);
+        /* scroll-snap-points-x: repeat(100%); */
         scroll-snap-type: x mandatory;
         flex: 1 1;
         -webkit-overflow-scrolling: touch;

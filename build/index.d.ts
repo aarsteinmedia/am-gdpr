@@ -97,12 +97,13 @@ declare enum Format {
     Box = "box"
 }
 
-declare function switchButton(this: AMCookies, { disabled, label, name, value, }: {
+interface Props {
     disabled?: boolean;
-    name: string;
     label?: string;
+    name: string;
     value: boolean;
-}): string;
+}
+declare function switchButton(this: AMCookies, { disabled, label, name, value, }: Props): string;
 
 declare class AMCookies extends PropertyCallbackElement {
     static get observedProperties(): string[];

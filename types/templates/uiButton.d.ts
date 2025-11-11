@@ -1,5 +1,7 @@
-export default function uiButton({ ariaLabel, className, isOpen, }: {
+interface Props {
     ariaLabel: string;
     className: string;
     isOpen: boolean;
-}): string;
+}
+export default function uiButton({ ariaLabel, className, isOpen, }: Props): string;
+export {};

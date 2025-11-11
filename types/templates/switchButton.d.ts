@@ -1,7 +1,9 @@
 import type AMCookies from '../elements/AMCookies';
-export default function switchButton(this: AMCookies, { disabled, label, name, value, }: {
+interface Props {
     disabled?: boolean;
-    name: string;
     label?: string;
+    name: string;
     value: boolean;
-}): string;
+}
+export default function switchButton(this: AMCookies, { disabled, label, name, value, }: Props): string;
+export {};

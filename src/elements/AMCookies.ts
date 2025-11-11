@@ -342,7 +342,7 @@ export default class AMCookies extends EnhancedElement {
       !this.isCustomize &&
       !this.allowStatistical &&
       this.allowStatistical !== false ||
-      Boolean(this.isVisible) ||
+      this.isVisible ||
       !Cookies.get('CookieConsent')
     ) {
       this._cookieWarning()
@@ -568,7 +568,7 @@ export default class AMCookies extends EnhancedElement {
   }
 
   public setCustomize(value: boolean) {
-    this.isCustomize = Boolean(value)
+    this.isCustomize = value
     this.isVisible = !value
     this.allowStatistical = Boolean(this.allowStatistical)
     this.allowRetargeting = Boolean(this.allowRetargeting)

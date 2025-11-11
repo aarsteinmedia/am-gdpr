@@ -2,6 +2,13 @@ import type AMCookies from '@/elements/AMCookies'
 
 import { useId } from '@/utils'
 
+interface Props {
+  disabled?: boolean
+  label?: string
+  name: string
+  value: boolean
+}
+
 /**
  * Switch button.
  */
@@ -11,12 +18,7 @@ export default function switchButton(this: AMCookies,
     label,
     name,
     value,
-  }: {
-    disabled?: boolean
-    name: string
-    label?: string
-    value: boolean
-  }) {
+  }: Props) {
   const id = useId()
 
   return /* HTML */ `
