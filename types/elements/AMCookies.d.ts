@@ -1,7 +1,7 @@
-import type { Text } from '@/types';
-import EnhancedElement from '@/elements/helpers/EnhancedElement';
-import { Align, Format } from '@/enums';
-import switchButton from '@/templates/switchButton';
+import type { Text } from '../types';
+import EnhancedElement from '../elements/helpers/EnhancedElement';
+import { Align, Format } from '../enums';
+import switchButton from '../templates/switchButton';
 declare function getStyles(): Promise<CSSStyleSheet>;
 export default class AMCookies extends EnhancedElement {
     static get observedProperties(): string[];

@@ -105,9 +105,10 @@ interface Props {
 }
 declare function switchButton(this: AMCookies, { disabled, label, name, value, }: Props): string;
 
+declare function getStyles(): Promise<CSSStyleSheet>;
 declare class AMCookies extends PropertyCallbackElement {
     static get observedProperties(): string[];
-    static get styles(): () => Promise<CSSStyleSheet>;
+    static get styles(): typeof getStyles;
     allowRetargeting: boolean | null;
     allowStatistical: boolean | null;
     hasRetargeting: boolean;

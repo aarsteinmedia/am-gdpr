@@ -1,5 +1,5 @@
 import type { Plugin } from '@custom-elements-manifest/analyzer';
-import type AMCookies from '@/elements/AMCookies';
+import type AMCookies from './elements/AMCookies';
 import type text from '@/i18n/en.json';
 export type Text = typeof text;
 export interface DataLayerObject {

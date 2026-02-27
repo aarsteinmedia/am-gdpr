@@ -61,7 +61,7 @@ if (isServer) {
         if (updateOnConnected in this) {
             this[updateOnConnected] = [];
         }
-        const { observedProperties = [] } = this.constructor;
+        const { observedProperties } = this.constructor;
         const { length } = observedProperties;
         for(let i = 0; i < length; i++){
             const initialValue = this[observedProperties[i]], cachedValue = Symbol(observedProperties[i]);
@@ -547,6 +547,17 @@ class TikTokPixel {
     }
 }
 
+async function getStyles() {
+    const styleSheet = new CSSStyleSheet(), styles = [
+        css_248z$3,
+        css_248z$4,
+        css_248z$2,
+        css_248z$1,
+        css_248z
+    ].join('');
+    await styleSheet.replace(styles);
+    return styleSheet;
+}
 /**
  * AM GDPR Web Component.
  */ class AMCookies extends PropertyCallbackElement {
@@ -565,17 +576,7 @@ class TikTokPixel {
     /**
    * Return the styles for the component.
    */ static get styles() {
-        return async ()=>{
-            const styleSheet = new CSSStyleSheet(), styles = [
-                css_248z$3,
-                css_248z$4,
-                css_248z$2,
-                css_248z$1,
-                css_248z
-            ].join('');
-            await styleSheet.replace(styles);
-            return styleSheet;
-        };
+        return getStyles;
     }
     /**
    * Accent color.
