@@ -3,6 +3,10 @@
   "compilerOptions": {
     "rootDir": "src"
   },
+  "include": [
+    "src/**/*.ts",
+    "global.d.ts"
+  ],
   "exclude": [
     "**/test",
     "**/node_modules",

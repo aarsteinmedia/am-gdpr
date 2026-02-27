@@ -36,12 +36,12 @@ export interface CEMConfig {
   /** Enable special handling for fast. */
   fast: boolean
   /** Globs to analyze.*/
-  globs: ['src/**/*.ts']
+  globs: string[]
   /** Enable special handling for litelement. */
   litelement: boolean
   /** Directory to output CEM to. */
   outdir: string
-  overrideModuleCreation: ({
+  overrideModuleCreation?: ({
     globs,
     ts,
   }: {
@@ -54,7 +54,7 @@ export interface CEMConfig {
   /** Output CEM path to `package.json`, defaults to true. */
   packagejson: boolean
   /** Provide custom plugins. */
-  plugins: (() => Plugin)[]
+  plugins?: (() => Plugin)[]
   /** Enable special handling for stencil.*/
   stencil: boolean
   /** Run in watch mode, runs on file changes. */

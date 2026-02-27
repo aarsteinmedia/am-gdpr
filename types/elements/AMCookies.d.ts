@@ -1,10 +1,11 @@
-import type { Text } from '../types';
-import EnhancedElement from '../elements/helpers/EnhancedElement';
-import { Align, Format } from '../enums';
-import switchButton from '../templates/switchButton';
+import type { Text } from '@/types';
+import EnhancedElement from '@/elements/helpers/EnhancedElement';
+import { Align, Format } from '@/enums';
+import switchButton from '@/templates/switchButton';
+declare function getStyles(): Promise<CSSStyleSheet>;
 export default class AMCookies extends EnhancedElement {
     static get observedProperties(): string[];
-    static get styles(): () => Promise<CSSStyleSheet>;
+    static get styles(): typeof getStyles;
     allowRetargeting: boolean | null;
     allowStatistical: boolean | null;
     hasRetargeting: boolean;
@@ -97,3 +98,4 @@ export default class AMCookies extends EnhancedElement {
     private _debug;
     private _removeEventListeners;
 }
+export {};

@@ -1,5 +1,5 @@
 import type { Plugin } from '@custom-elements-manifest/analyzer';
-import type AMCookies from './elements/AMCookies';
+import type AMCookies from '@/elements/AMCookies';
 import type text from '@/i18n/en.json';
 export type Text = typeof text;
 export interface DataLayerObject {
@@ -27,15 +27,15 @@ export interface CEMConfig {
     dev: boolean;
     exclude: string[];
     fast: boolean;
-    globs: ['src/**/*.ts'];
+    globs: string[];
     litelement: boolean;
     outdir: string;
-    overrideModuleCreation: ({ globs, ts, }: {
+    overrideModuleCreation?: ({ globs, ts, }: {
         ts: unknown;
         globs: string[];
     }) => unknown[];
     packagejson: boolean;
-    plugins: (() => Plugin)[];
+    plugins?: (() => Plugin)[];
     stencil: boolean;
     watch: boolean;
 }

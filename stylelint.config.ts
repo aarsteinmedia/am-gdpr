@@ -1,9 +1,8 @@
+import type { Config } from 'stylelint'
+
 import recommended from 'stylelint-config-recommended'
 
-/**
- * @type {import('stylelint').Config}
-  */
-const stylelintConfig = {
+const stylelintConfig: Config = {
   ...recommended,
   rules: {
     ...recommended.rules,

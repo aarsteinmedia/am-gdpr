@@ -1,4 +1,4 @@
-import type AMCookies from '../elements/AMCookies';
+import type AMCookies from '@/elements/AMCookies';
 interface Props {
     disabled?: boolean;
     label?: string;

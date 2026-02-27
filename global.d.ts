@@ -14,3 +14,11 @@ declare module 'postcss-minify' {
   export default function cssMinify(): unknown
 }
 
+declare module 'stylelint-config-recommended' {
+  import type { Config } from 'stylelint'
+
+  const config: Config
+
+  export default config
+}
+

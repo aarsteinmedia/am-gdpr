@@ -27,6 +27,21 @@ import {
   isText,
 } from '@/utils'
 
+async function getStyles() {
+  const styleSheet = new CSSStyleSheet(),
+    styles = [
+      defaultStyle,
+      cookieWarningStyle,
+      popUpStyle,
+      switchStyle,
+      uiButtonStyle,
+    ].join('')
+
+  await styleSheet.replace(styles)
+
+  return styleSheet
+}
+
 /**
  * AM GDPR Web Component.
  */
@@ -49,20 +64,7 @@ export default class AMCookies extends EnhancedElement {
    * Return the styles for the component.
    */
   static get styles() {
-    return async () => {
-      const styleSheet = new CSSStyleSheet(),
-        styles = [
-          defaultStyle,
-          cookieWarningStyle,
-          popUpStyle,
-          switchStyle,
-          uiButtonStyle,
-        ].join('')
-
-      await styleSheet.replace(styles)
-
-      return styleSheet
-    }
+    return getStyles
   }
 
   /**
