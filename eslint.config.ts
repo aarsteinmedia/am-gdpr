@@ -16,10 +16,7 @@ const sheriffOptions: SheriffSettings = {
   'vitest': false
 }
 
-const ignores = ['**/node_modules/*',
-    './types',
-    './player.js',
-    './player-light.js'],
+const ignores = ['**/node_modules/*', './types'],
   config = defineConfig(
     sheriff(sheriffOptions),
     {

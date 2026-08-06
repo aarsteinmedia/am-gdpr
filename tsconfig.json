@@ -1,31 +1,42 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "ts-node": {
     "swc": true
   },
   "compilerOptions": {
-    "baseUrl": ".",
+    "rootDir": ".",
     "declaration": true,
     "declarationDir": "types",
     "emitDeclarationOnly": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "composite": false,
     "isolatedModules": true,
-    "experimentalDecorators": false,
     "lib": [
       "DOM",
       "DOM.Iterable",
-      "ES2023",
+      "ES2023"
     ],
-    "module": "ESNext",
+    "types": [
+      "css-tree",
+      "gtag.js",
+      "js-cookie",
+      "node",
+      "postcss-flexbugs-fixes"
+    ],
+    "module": "preserve",
     "moduleResolution": "Bundler",
-    "noFallthroughCasesInSwitch": true,
+    "noEmit": false,
+    "allowImportingTsExtensions": false,
     "noImplicitAny": true,
     "noImplicitOverride": true,
-    "noImplicitReturns": true,
     "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "outDir": "dist",
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "allowJs": false,
+    "checkJs": false,
+    "experimentalDecorators": false,
+    "tsBuildInfoFile": "node_modules/.cache/tsbuildinfo.json",
+    "outDir": "build",
     "plugins": [
       {
         "strict": true
@@ -35,9 +46,15 @@
     "resolveJsonModule": true,
     "strict": true,
     "target": "ES2023",
-    "useDefineForClassFields": false,
+    "useDefineForClassFields": true,
     "verbatimModuleSyntax": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true,
     "exactOptionalPropertyTypes": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "paths": {
       "@/*": [
         "./src/*"
@@ -45,11 +62,11 @@
     }
   },
   "include": [
-    "**/*.ts",
+    "**/*.ts"
   ],
   "exclude": [
     "**/node_modules",
     "**/build",
-    "./types"
+    "**/types"
   ]
 }

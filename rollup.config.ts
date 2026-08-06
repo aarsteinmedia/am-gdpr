@@ -37,9 +37,11 @@ const isProd = process.env.NODE_ENV !== 'development',
       file: pkg.types,
       format: 'esm',
     },
-    plugins: [typescriptPaths(),
+    plugins: [
+      typescriptPaths(),
       json(),
-      dts()],
+      dts()
+    ],
   },
   module: RollupOptions = {
     external: ['js-cookie'],

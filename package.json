@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/package",
   "name": "am-cookies",
   "description": "Simple and versatile GDPR compatible Cookie Compliance Web Component",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "type": "module",
   "main": "./build/index.js",
   "module": "./build/index.js",
@@ -10,9 +10,10 @@
   "unpkg": "./build/unpkg.js",
   "exports": {
     ".": {
+      "types": "./build/index.d.ts",
       "import": "./build/index.js",
       "node": "./build/index.js",
-      "types": "./build/index.d.ts"
+      "unpkg": "./build/unpkg.js"
     }
   },
   "repository": {
@@ -21,54 +22,53 @@
   },
   "bugs": "https://github.com/aarsteinmedia/am-gdpr/issues",
   "dependencies": {
-    "js-cookie": "^3.0.5"
+    "js-cookie": "^3.0.8"
   },
   "devDependencies": {
     "@csstools/postcss-cascade-layers": "^6.0.0",
     "@custom-elements-manifest/analyzer": "^0.11.0",
-    "@rollup/plugin-commonjs": "^29.0.2",
+    "@rollup/plugin-commonjs": "^29.0.3",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-typescript": "^12.3.0",
-    "@swc/core": "^1.15.18",
-    "@types/css-tree": "^2.3.11",
+    "@swc/core": "^1.15.47",
+    "@types/css-tree": "^3.2.0",
     "@types/gtag.js": "^0.0.20",
     "@types/js-cookie": "^3.0.6",
-    "@types/node": "^25.5.0",
+    "@types/node": "^25.9.5",
     "@types/postcss-flexbugs-fixes": "^5.0.3",
-    "autoprefixer": "^10.4.27",
-    "esbuild": "^0.27.4",
-    "eslint": "^9.39.4",
-    "eslint-config-sheriff": "^31.3.0",
-    "eslint-plugin-perfectionist": "^5.7.0",
-    "globals": "^17.4.0",
-    "jiti": "^2.6.1",
+    "autoprefixer": "^10.5.4",
+    "eslint": "^9.39.5",
+    "eslint-config-sheriff": "^31.4.0",
+    "eslint-plugin-perfectionist": "^5.10.1",
+    "globals": "^17.9.0",
+    "jiti": "^2.7.0",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-minify": "^1.2.0",
-    "prettier": "^3.8.1",
+    "prettier": "^3.9.6",
     "rimraf": "^6.1.3",
-    "rollup": "^4.59.0",
-    "rollup-plugin-dts": "^6.4.0",
+    "rollup": "^4.62.4",
+    "rollup-plugin-dts": "^6.5.1",
     "rollup-plugin-html-literals": "^2.0.1",
     "rollup-plugin-inject-process-env": "^1.3.1",
     "rollup-plugin-livereload": "^2.0.5",
-    "rollup-plugin-opener": "^0.2.0",
+    "rollup-plugin-opener": "^0.2.2",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-summary": "^3.0.1",
     "rollup-plugin-swc3": "^0.12.1",
     "rollup-plugin-typescript-paths": "^1.5.0",
-    "stylelint": "^17.5.0",
+    "stylelint": "^17.14.1",
     "stylelint-config-recommended": "^18.0.0",
-    "tsc-alias": "^1.8.16",
+    "tsc-alias": "^1.9.1",
     "tslib": "^2.8.1",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   },
   "scripts": {
     "test": "wtr",
     "prebuild": "rimraf ./build",
     "build": "rollup -c --configPlugin typescript",
     "prebuild:types": "rimraf ./types",
-    "build:types": "tsc -p ./tsconfig.build.json && tsc-alias",
+    "build:types": "tsc -p ./tsconfig.build.json && cp src/i18n/en.json types/i18n/ && tsc-alias",
     "build:cem": "npx cem analyze --config 'cem.config.ts'",
     "prod": "pnpm build:types && pnpm build && pnpm build:cem",
     "dev": "rollup -cw --configPlugin typescript --environment NODE_ENV:development",
@@ -99,13 +99,5 @@
       "last 1 safari version"
     ]
   },
-  "customElements": "custom-elements.json",
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@swc/core",
-      "esbuild",
-      "rs-module-lexer",
-      "unrs-resolver"
-    ]
-  }
+  "customElements": "custom-elements.json"
 }

@@ -1,17 +1,15 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "rootDir": "src"
+    "rootDir": "./src"
   },
-  "include": [
-    "src/**/*.ts",
-    "global.d.ts"
-  ],
   "exclude": [
     "**/test",
     "**/node_modules",
     "**/*.dev.ts",
     "**/*.config.ts",
     "**/dist",
+    "**/preview"
   ]
 }

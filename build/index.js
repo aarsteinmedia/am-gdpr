@@ -66,7 +66,7 @@ if (isServer) {
         for(let i = 0; i < length; i++){
             const initialValue = this[observedProperties[i]], cachedValue = Symbol(observedProperties[i]);
             this[cachedValue] = initialValue;
-            Object.defineProperty(this, observedProperties[i], {
+            Object.defineProperty(this, observedProperties[i] ?? '', {
                 get () {
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
                     return this[cachedValue];
@@ -93,8 +93,8 @@ if (isServer) {
             if (!('propertyChangedCallback' in this) || typeof this.propertyChangedCallback !== 'function') {
                 continue;
             }
-            if (arr[i] in this) {
-                this.propertyChangedCallback(arr[i], undefined, this[arr[i]]);
+            if (arr[i] ?? '' in this) {
+                this.propertyChangedCallback(arr[i] ?? '', undefined, this[arr[i]]);
             }
         }
     }
