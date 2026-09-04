@@ -3,3 +3,7 @@ allowBuilds:
   esbuild: set this to true or false
   rs-module-lexer: true
   unrs-resolver: true
+onlyBuiltDependencies:
+  - '@swc/core'
+  - rs-module-lexer
+  - unrs-resolver

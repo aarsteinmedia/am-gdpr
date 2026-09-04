@@ -94,8 +94,8 @@ importers:
         specifier: ^2.0.5
         version: 2.0.5
       rollup-plugin-opener:
-        specifier: ^0.2.3
-        version: 0.2.3
+        specifier: ^0.2.4
+        version: 0.2.4
       rollup-plugin-postcss:
         specifier: ^4.0.2
         version: 4.0.2(postcss@8.5.28)
@@ -3250,8 +3250,8 @@ packages:
     resolution: {integrity: sha512-vqQZ/UQowTW7VoiKEM5ouNW90wE5/GZLfdWuR0ELxyKOJUIaj+uismPZZaICU4DnWPVjnpCDDxEqwU7pcKY/PA==}
     engines: {node: '>=8.3'}
 
-  rollup-plugin-opener@0.2.3:
-    resolution: {integrity: sha512-xPkdo7x+et8z38BJaufg5waJGC+AnvOrxVi6z49jnw9XYZKSRQ4MvH7FyPZeZ/MzLh6byDNH+EIm/4cP8OQquA==}
+  rollup-plugin-opener@0.2.4:
+    resolution: {integrity: sha512-Xn8RIjZlFmcM5OWzNbEKRmzILvXLm6nPScXn+ofIEvbX8TNn0sU0kvQmlzSvPRew1QbD6o0crbJdhXuK/LmGAg==}
 
   rollup-plugin-postcss@4.0.2:
     resolution: {integrity: sha512-05EaY6zvZdmvPUDi3uCcAQoESDcYnv8ogJJQRp6V5kZ6J6P7uAVJlrTZcaaA20wTH527YTnKfkAoPxWI/jPp4w==}
@@ -7161,7 +7161,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  rollup-plugin-opener@0.2.3:
+  rollup-plugin-opener@0.2.4:
     dependencies:
       mime: 4.1.0
       open: 11.0.2
