@@ -68,11 +68,6 @@ export type DataLayerEventName =
   | 'customEcommerce'
 
 declare global {
-  interface Window {
-    addGDPRConsent?: (func: () => void) => void
-    dataLayer?: DataLayerObject[]
-    google_tag_data?: unknown
-  }
   interface HTMLElementTagNameMap {'dotlottie-player': AMCookies}
   function amCookies(): AMCookies
   // eslint-disable-next-line @typescript-eslint/no-namespace

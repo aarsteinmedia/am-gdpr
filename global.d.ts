@@ -16,3 +16,8 @@ declare module 'stylelint-config-recommended' {
   export default config
 }
 
+interface Window {
+  addGDPRConsent?: (func: () => void) => void
+  dataLayer?: import('@/types').DataLayerObject[]
+  google_tag_data?: unknown
+}

@@ -43,32 +43,7 @@ declare const export_default: {
 };
 
 type Text = typeof export_default;
-interface DataLayerObject {
-    event: DataLayerEventName;
-    eventData?: EventData;
-    pageData?: PageData;
-    userData?: UserData;
-}
-interface UserData {
-    userId?: string;
-}
-interface EventData {
-    action: string;
-    category: string;
-    label?: string;
-    nonInteraction?: boolean;
-    value?: number;
-}
-interface PageData {
-    path: string;
-}
-type DataLayerEventName = 'customUser' | 'customEvent' | 'customPage' | 'customEcommerce';
 declare global {
-    interface Window {
-        addGDPRConsent?: (func: () => void) => void;
-        dataLayer?: DataLayerObject[];
-        google_tag_data?: unknown;
-    }
     interface HTMLElementTagNameMap {
         'dotlottie-player': AMCookies;
     }
