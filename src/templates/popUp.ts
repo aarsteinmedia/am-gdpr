@@ -1,12 +1,12 @@
-import type AMCookies from '@/elements/AMCookies'
+import type { AMCookies } from '@/elements/AMCookies'
 
-import icon from '@/templates/icon'
-import uiButton from '@/templates/uiButton'
+import { icon } from '@/templates/icon'
+import { uiButton } from '@/templates/uiButton'
 
 /**
  * Settings Pop-Up.
  */
-export default function popUp(this: AMCookies) {
+export function popUp(this: AMCookies) {
   if (!this.gdprContainer) {
     return
   }

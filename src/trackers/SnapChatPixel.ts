@@ -1,4 +1,4 @@
-export default class SnapChatPixel {
+export class SnapChatPixel {
   public snapChatPixelID: string
 
   private _initialized = false

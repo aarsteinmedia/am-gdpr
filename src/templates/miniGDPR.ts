@@ -1,11 +1,11 @@
-import type AMCookies from '@/elements/AMCookies'
+import type { AMCookies } from '@/elements/AMCookies'
 
-import icon from '@/templates/icon'
+import { icon } from '@/templates/icon'
 
 /**
  * Mini GDPR.
  */
-export default function miniGDPR(this: AMCookies) {
+export function miniGDPR(this: AMCookies) {
   if (!this.gdprContainer) {
     return
   }

@@ -4,7 +4,7 @@ interface Props {
   isOpen: boolean
 }
 
-export default function uiButton({
+export function uiButton({
   ariaLabel,
   className,
   isOpen,

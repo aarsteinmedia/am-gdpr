@@ -38,7 +38,7 @@
             {
               "kind": "field",
               "name": "alignPrompt",
-              "description": "Align GDPR promt."
+              "description": "Align GDPR prompt."
             },
             {
               "kind": "field",

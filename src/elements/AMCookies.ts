@@ -2,24 +2,24 @@ import Cookies from 'js-cookie'
 
 import type { Text } from '@/types'
 
-import EnhancedElement from '@/elements/helpers/EnhancedElement'
+import { PropertyCallbackElement } from '@/elements/helpers/EnhancedElement'
 import { Align, Format } from '@/enums'
-import getTranslation from '@/i18n'
+import { getTranslation } from '@/i18n'
 import cookieWarningStyle from '@/styles/cookieWarning.css'
 import defaultStyle from '@/styles/index.css'
 import popUpStyle from '@/styles/popUp.css'
 import switchStyle from '@/styles/switch.css'
 import uiButtonStyle from '@/styles/uiButton.css'
-import cookieWarning from '@/templates/cookieWarning'
-import loading from '@/templates/loading'
-import miniGDPR from '@/templates/miniGDPR'
-import popUp from '@/templates/popUp'
-import switchButton from '@/templates/switchButton'
-import GTag from '@/trackers/GTag'
-import GTM from '@/trackers/GTM'
-import MetaPixel from '@/trackers/MetaPixel'
-import SnapChatPixel from '@/trackers/SnapChatPixel'
-import TikTokPixel from '@/trackers/TikTokPixel'
+import { cookieWarning } from '@/templates/cookieWarning'
+import { loading } from '@/templates/loading'
+import { miniGDPR } from '@/templates/miniGDPR'
+import { popUp } from '@/templates/popUp'
+import { switchButton } from '@/templates/switchButton'
+import { GTag } from '@/trackers/GTag'
+import { GTM } from '@/trackers/GTM'
+import { MetaPixel } from '@/trackers/MetaPixel'
+import { SnapChatPixel } from '@/trackers/SnapChatPixel'
+import { TikTokPixel } from '@/trackers/TikTokPixel'
 import {
   boolToConsentParams,
   consentParamsToBool,
@@ -45,7 +45,7 @@ async function getStyles() {
 /**
  * AM GDPR Web Component.
  */
-export default class AMCookies extends EnhancedElement {
+export class AMCookies extends PropertyCallbackElement {
   /**
    * Properties to observe.
    */
@@ -126,7 +126,7 @@ export default class AMCookies extends EnhancedElement {
   }
 
   /**
-   * Align GDPR promt.
+   * Align GDPR prompt.
    */
   set alignPrompt(value: Align) {
     this.setAttribute('alignPrompt', value)
@@ -301,8 +301,14 @@ export default class AMCookies extends EnhancedElement {
   }
 
   public acceptAll() {
+    let hasRetargeting = false
+
+    if (this.hasRetargeting) {
+      hasRetargeting = Boolean(this.allowRetargeting)
+    }
+
     const prev = {
-      retargeting: this.hasRetargeting ? this.allowRetargeting : false,
+      retargeting: hasRetargeting,
       statistical: this.allowStatistical,
     }
 

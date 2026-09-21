@@ -1,4 +1,4 @@
-export default class GTag {
+export class GTag {
   public config = {}
 
   public consentParams

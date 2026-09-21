@@ -12,7 +12,8 @@ import Cookies from 'js-cookie';
     globalThis.process = { env:env };
 })();
 
-const _isServer = ()=>!(typeof window !== 'undefined' && window.document), s4 = ()=>((1 + Math.random()) * 0x10000 | 0).toString(16).slice(1);
+const _isServer = ()=>!(typeof window !== 'undefined' && window.document), s4 = ()=>// eslint-disable-next-line sonarjs/pseudo-random
+    ((1 + Math.random()) * 0x10000 | 0).toString(16).slice(1);
 const boolToConsentParams = (bool)=>{
     if (bool === undefined || bool === null) {
         return undefined;
@@ -451,7 +452,7 @@ class GTM {
         }
         const isAlreadyLoaded = document.getElementById('gtm-snippet');
         if (!(isAlreadyLoaded && 'src' in isAlreadyLoaded && typeof isAlreadyLoaded.src === 'string' && isAlreadyLoaded.src.includes(`id=${this.gtmId}`))) {
-            const script = document.createElement('script'), innerHTML = gtmCode(this.gtmId, this.defer, this.serverSideDomain ? this.serverSideDomain.replaceAll(/https?:\/\/|\/$/g, '') : 'www.googletagmanager.com');
+            const script = document.createElement('script'), innerHTML = gtmCode(this.gtmId, this.defer, this.serverSideDomain ? this.serverSideDomain.replaceAll(/(?:https?:\/\/)|(?:\/$)/g, '') : 'www.googletagmanager.com');
             script.innerHTML = innerHTML;
             document.head.appendChild(script);
             script.insertAdjacentHTML('beforebegin', '<!-- Google Tag Manager -->');
@@ -599,7 +600,7 @@ async function getStyles() {
         return Align.BottomLeft;
     }
     /**
-   * Align GDPR promt.
+   * Align GDPR prompt.
    */ set alignPrompt(value) {
         this.setAttribute('alignPrompt', value);
     }
@@ -719,8 +720,12 @@ async function getStyles() {
         });
     }
     acceptAll() {
+        let hasRetargeting = false;
+        if (this.hasRetargeting) {
+            hasRetargeting = Boolean(this.allowRetargeting);
+        }
         const prev = {
-            retargeting: this.hasRetargeting ? this.allowRetargeting : false,
+            retargeting: hasRetargeting,
             statistical: this.allowStatistical
         };
         this.allowStatistical = true;

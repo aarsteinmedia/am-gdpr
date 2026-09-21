@@ -1,4 +1,4 @@
-export default class TikTokPixel {
+export class TikTokPixel {
   public tiktokPixelID: string
 
   private _initialized = false

@@ -51,7 +51,7 @@ const gtmCode = (
 //   }
 // }
 
-export default class GTM {
+export class GTM {
   public consentParams
 
   public defer = false
@@ -129,7 +129,7 @@ export default class GTM {
           this.gtmId,
           this.defer,
           this.serverSideDomain
-            ? this.serverSideDomain.replaceAll(/https?:\/\/|\/$/g, '')
+            ? this.serverSideDomain.replaceAll(/(?:https?:\/\/)|(?:\/$)/g, '')
             : 'www.googletagmanager.com'
         )
 

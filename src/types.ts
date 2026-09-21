@@ -1,6 +1,6 @@
 import type { Plugin } from '@custom-elements-manifest/analyzer'
 
-import type AMCookies from '@/elements/AMCookies'
+import type { AMCookies } from '@/elements/AMCookies'
 import type text from '@/i18n/en.json'
 
 export type Text = typeof text
@@ -12,7 +12,7 @@ export interface DataLayerObject {
   userData?: UserData
 }
 
-interface UserData {userId?: string}
+interface UserData { userId?: string }
 
 interface EventData {
   action: string
@@ -22,7 +22,7 @@ interface EventData {
   value?: number
 }
 
-interface PageData {path: string}
+interface PageData { path: string }
 
 export interface CEMConfig {
   /** Enable special handling for catalyst. */
@@ -68,10 +68,10 @@ export type DataLayerEventName =
   | 'customEcommerce'
 
 declare global {
-  interface HTMLElementTagNameMap {'dotlottie-player': AMCookies}
+  interface HTMLElementTagNameMap { 'dotlottie-player': AMCookies }
   function amCookies(): AMCookies
-  // eslint-disable-next-line @typescript-eslint/no-namespace
+
   namespace JSX {
-    interface IntrinsicElements {'am-cookies': AMCookies}
+    interface IntrinsicElements { 'am-cookies': AMCookies }
   }
 }

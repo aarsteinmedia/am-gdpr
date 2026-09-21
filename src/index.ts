@@ -1,4 +1,4 @@
-import AMCookies from '@/elements/AMCookies'
+import { AMCookies } from '@/elements/AMCookies'
 import { isServer } from '@/utils'
 
 export default AMCookies

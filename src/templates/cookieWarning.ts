@@ -1,11 +1,11 @@
-import type AMCookies from '@/elements/AMCookies'
+import type { AMCookies } from '@/elements/AMCookies'
 
-import icon from '@/templates/icon'
+import { icon } from '@/templates/icon'
 
 /**
  * Cookie Warning.
  */
-export default function cookieWarning(this: AMCookies) {
+export function cookieWarning(this: AMCookies) {
   if (!this.gdprContainer) {
     return
   }

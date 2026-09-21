@@ -4,6 +4,7 @@ import type { Text } from '@/types'
 
 const _isServer = () => !(typeof window !== 'undefined' && window.document),
   s4 = () =>
+    // eslint-disable-next-line sonarjs/pseudo-random
     ((1 + Math.random()) * 0x10000 | 0).toString(16).slice(1)
 
 export const boolToConsentParams = (bool?: boolean | null) => {

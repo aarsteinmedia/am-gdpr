@@ -21,3 +21,11 @@ interface Window {
   dataLayer?: import('@/types').DataLayerObject[]
   google_tag_data?: unknown
 }
+
+declare module '@regru/eslint-plugin-prefer-early-return' {
+  import type { RuleDefinition } from '@eslint/core'
+
+  const rules: Record<string, RuleDefinition>
+
+  export { rules }
+}

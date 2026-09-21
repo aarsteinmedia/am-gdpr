@@ -1,4 +1,4 @@
-export default class MetaPixel {
+export class MetaPixel {
   public locale: string
 
   public metaPixelID: string

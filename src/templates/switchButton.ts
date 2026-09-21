@@ -1,4 +1,4 @@
-import type AMCookies from '@/elements/AMCookies'
+import type { AMCookies } from '@/elements/AMCookies'
 
 import { useId } from '@/utils'
 
@@ -12,7 +12,7 @@ interface Props {
 /**
  * Switch button.
  */
-export default function switchButton(this: AMCookies,
+export function switchButton(this: AMCookies,
   {
     disabled = false,
     label,
