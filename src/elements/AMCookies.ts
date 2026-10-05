@@ -118,8 +118,8 @@ export class AMCookies extends PropertyCallbackElement {
   get alignMiniPrompt() {
     const value = this.getAttribute('alignMiniPrompt')
 
-    if (value && Object.values(Align).includes(value as Align)) {
-      return value as Align
+    if (value && Object.values(Align).includes(value as unknown as Align)) {
+      return value as unknown as Align
     }
 
     return Align.BottomLeft
@@ -135,8 +135,8 @@ export class AMCookies extends PropertyCallbackElement {
   get alignPrompt() {
     const value = this.getAttribute('alignPrompt')
 
-    if (value && Object.values(Align).includes(value as Align)) {
-      return value as Align
+    if (value && Object.values(Align).includes(value as unknown as Align)) {
+      return value as unknown as Align
     }
 
     return Align.BottomLeft
@@ -199,8 +199,8 @@ export class AMCookies extends PropertyCallbackElement {
   get format() {
     const value = this.getAttribute('format')
 
-    if (value && Object.values(Format).includes(value as Format)) {
-      return value as Format
+    if (value && Object.values(Format).includes(value as unknown as Format)) {
+      return value as unknown as Format
     }
 
     return Format.Box
